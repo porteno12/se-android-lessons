@@ -1,0 +1,2263 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>LA-PARTY – מדריך שלב אחר שלב</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Heebo:wght@400;500;700;900&family=Assistant:wght@400;600;800&family=Roboto+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    /* ==== NEON PALETTE ==== */
+    --neon-yellow:#F5FF00;      /* electric yellow - header */
+    --neon-pink:#FF2D95;        /* hot magenta */
+    --neon-cyan:#00F0FF;        /* electric cyan */
+    --neon-green:#39FF14;       /* laser green */
+    --neon-purple:#B026FF;      /* ultraviolet */
+    --neon-orange:#FF6B00;
+
+    --yellow:var(--neon-yellow);
+    --black:#000000;
+    --dark:#0A0A12;
+    --sidebar-bg:#12001F;       /* deep violet-black */
+    --row-bg:#241436;
+    --row-hover:#3A1F57;
+    --white:#FFFFFF;
+    --card-bg:#FFFFFF;
+
+    --green-bg:#E4FFE0;
+    --green-border:var(--neon-green);
+    --pink-bg:#FFE6F4;
+    --red-dark:#D6006E;
+    --blue:#00A3FF;
+    --blue-chip:#CFFAFF;
+    --gray-chip:#F0E6FF;
+    --code-bg:#F4F0FF;
+    --code-red:#D6006E;
+    --glow-y:0 0 8px rgba(245,255,0,.85);
+    --glow-p:0 0 10px rgba(255,45,149,.75);
+    --glow-c:0 0 10px rgba(0,240,255,.7);
+  }
+  *{box-sizing:border-box;}
+  html,body{margin:0;padding:0;}
+  body{
+    background:var(--dark);
+    background-image:
+      radial-gradient(circle at 12% 8%, rgba(176,38,255,.30), transparent 42%),
+      radial-gradient(circle at 88% 12%, rgba(0,240,255,.22), transparent 45%),
+      radial-gradient(circle at 50% 100%, rgba(255,45,149,.22), transparent 55%);
+    background-attachment:fixed;
+    font-family:'Heebo','Assistant',Arial,sans-serif;
+    color:#111;
+    line-height:1.75;
+  }
+
+  /* ===== HEADER ===== */
+  header.topbar{
+    background:linear-gradient(90deg,var(--neon-yellow) 0%,#FFE800 45%,var(--neon-orange) 100%);
+    border-bottom:6px solid var(--neon-pink);
+    box-shadow:0 0 26px rgba(255,45,149,.65);
+    padding:14px 26px;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    flex-wrap:wrap;
+    gap:14px;
+  }
+  .brand{display:flex;align-items:center;gap:14px;flex-wrap:wrap;}
+  .brand h1{
+    margin:0;
+    font-size:30px;
+    font-weight:900;
+    color:var(--black);
+    letter-spacing:-0.5px;
+    text-shadow:0 0 1px #fff,2px 2px 0 rgba(255,255,255,.55);
+  }
+  .badge-dummies{
+    background:var(--black);
+    color:var(--neon-cyan);
+    box-shadow:var(--glow-c);
+    font-weight:900;
+    font-size:14px;
+    padding:6px 16px;
+    border-radius:999px;
+    letter-spacing:1px;
+    font-family:'Assistant',sans-serif;
+    white-space:nowrap;
+  }
+  .credit{
+    background:var(--white);
+    border:2px solid var(--neon-pink);
+    box-shadow:0 0 8px rgba(255,45,149,.5);
+    border-radius:6px;
+    padding:4px 12px;
+    font-size:13px;
+    font-weight:700;
+    color:var(--black);
+    white-space:nowrap;
+  }
+  .subtitle{
+    font-size:19px;
+    font-weight:700;
+    color:var(--black);
+    background:rgba(255,255,255,0.55);
+    border:2px dashed var(--neon-purple);
+    padding:6px 14px;
+    border-radius:6px;
+  }
+
+  /* ===== LAYOUT ===== */
+  .layout{
+    display:flex;
+    align-items:flex-start;
+    gap:24px;
+    padding:24px;
+    max-width:1500px;
+    margin:0 auto;
+  }
+  nav.sidebar{
+    position:sticky;
+    top:24px;
+    flex:0 0 310px;
+    background:var(--sidebar-bg);
+    border:3px solid var(--neon-cyan);
+    box-shadow:0 0 22px rgba(0,240,255,.45), inset 0 0 30px rgba(176,38,255,.25);
+    border-radius:10px;
+    padding:16px 14px;
+    max-height:calc(100vh - 60px);
+    overflow-y:auto;
+  }
+  nav.sidebar h2{
+    margin:0 0 14px;
+    color:var(--neon-yellow);
+    font-size:22px;
+    font-weight:900;
+    text-align:center;
+    border-bottom:3px solid var(--neon-pink);
+    padding-bottom:8px;
+    text-shadow:var(--glow-y);
+  }
+  .part-header{
+    color:var(--neon-cyan);
+    text-shadow:var(--glow-c);
+    font-size:14px;
+    font-weight:800;
+    letter-spacing:0.5px;
+    margin:16px 4px 8px;
+    padding-bottom:4px;
+    border-bottom:1px dashed #777;
+  }
+  .toc-link{
+    display:block;
+    background:var(--row-bg);
+    color:#EADFFF;
+    text-decoration:none;
+    font-size:15px;
+    font-weight:500;
+    padding:9px 12px;
+    margin-bottom:6px;
+    border-radius:6px;
+    border-right:4px solid transparent;
+    transition:background .15s, color .15s;
+    cursor:pointer;
+  }
+  .toc-link:hover{background:var(--row-hover);}
+  .toc-link.active{
+    background:linear-gradient(90deg,var(--neon-yellow),var(--neon-green));
+    color:var(--black);
+    font-weight:800;
+    border-right:4px solid var(--neon-pink);
+    box-shadow:0 0 14px rgba(245,255,0,.8);
+  }
+
+  main.content{
+    flex:1 1 auto;
+    background:var(--card-bg);
+    border-radius:10px;
+    padding:44px 48px 60px;
+    min-width:0;
+    border:3px solid var(--neon-pink);
+    box-shadow:0 0 30px rgba(255,45,149,.45);
+  }
+  section{display:none;}
+  section.visible{display:block;}
+
+  /* ===== TYPO ===== */
+  main h1{
+    font-size:34px;
+    font-weight:900;
+    margin:0 0 22px;
+    padding-bottom:12px;
+    border-bottom:8px solid var(--black);
+    line-height:1.35;
+    background:linear-gradient(90deg,var(--neon-pink),var(--neon-purple));
+    -webkit-background-clip:text;
+    background-clip:text;
+    color:transparent;
+  }
+  main h2{
+    font-size:24px;
+    font-weight:800;
+    margin:34px 0 12px;
+    padding-right:12px;
+    border-right:7px solid var(--neon-cyan);
+    color:#14003A;
+  }
+  main h3{font-size:19px;font-weight:800;margin:24px 0 8px;}
+  main p{margin:12px 0;font-size:17px;}
+  main ul,main ol{font-size:17px;padding-inline-start:26px;}
+  main li{margin-bottom:9px;}
+  code{
+    background:var(--code-bg);
+    color:var(--code-red);
+    border:1px solid #E3D4FF;
+    font-family:'Roboto Mono',Consolas,monospace;
+    font-size:0.9em;
+    padding:2px 6px;
+    border-radius:4px;
+    direction:ltr;
+    display:inline-block;
+    unicode-bidi:embed;
+  }
+
+  /* ===== BOXES ===== */
+  .goal{
+    background:var(--green-bg);
+    border-right:9px solid var(--green-border);
+    box-shadow:0 0 12px rgba(57,255,20,.45);
+    border-radius:8px;
+    padding:14px 18px;
+    margin:18px 0;
+    font-size:18px;
+    font-weight:700;
+    color:#0F4023;
+  }
+  .warnbox{
+    background:#FFFDE0;
+    border:5px solid var(--black);
+    border-radius:10px;
+    padding:20px 24px;
+    margin:28px 0;
+    box-shadow:9px 9px 0 var(--neon-pink);
+  }
+  .warnbox h3{margin:0 0 10px;font-size:23px;font-weight:900;}
+  .infobox{
+    background:#F6F6F6;
+    border:2px solid #CCC;
+    border-right:8px solid #555;
+    border-radius:8px;
+    padding:16px 20px;
+    margin:20px 0;
+  }
+  .infobox h3{margin-top:0;}
+  .chips{display:flex;gap:12px;flex-wrap:wrap;margin:18px 0;}
+  .chip{
+    border-radius:999px;
+    padding:8px 20px;
+    font-weight:700;
+    font-size:16px;
+    border:2px solid #999;
+  }
+  .chip.blue{background:var(--blue-chip);border-color:var(--neon-cyan);color:#00414A;box-shadow:var(--glow-c);}
+  .chip.gray{background:var(--gray-chip);border-color:var(--neon-purple);color:#2E0B4A;box-shadow:0 0 9px rgba(176,38,255,.5);}
+
+  /* checkpoint */
+  .checkpoint{
+    position:relative;
+    background:var(--pink-bg);
+    border:3px dashed var(--red-dark);
+    border-radius:12px;
+    padding:30px 22px 20px;
+    margin:36px 0 10px;
+  }
+  .checkpoint .cp-label{
+    position:absolute;
+    top:-16px;
+    right:22px;
+    background:var(--red-dark);
+    box-shadow:var(--glow-p);
+    color:var(--white);
+    font-weight:800;
+    font-size:14px;
+    padding:5px 18px;
+    border-radius:999px;
+  }
+  .checkpoint p.cp-title{margin:0 0 8px;font-weight:800;font-size:18px;color:#5E1020;}
+  .question-box{
+    background:var(--white);
+    border:2px solid var(--red-dark);
+    border-radius:8px;
+    padding:12px 16px;
+    margin-top:14px;
+    font-size:16px;
+  }
+  .question-box b{color:var(--red-dark);}
+
+  .finishbox{
+    background:linear-gradient(135deg,var(--neon-yellow),var(--neon-green));
+    border:6px solid var(--black);
+    border-radius:16px;
+    padding:30px;
+    text-align:center;
+    margin:34px 0;
+    box-shadow:10px 10px 0 #222;
+  }
+  .finishbox h2{border:none;padding:0;font-size:44px;font-weight:900;margin:0 0 10px;}
+  .finishbox p{font-size:20px;font-weight:700;margin:0;}
+
+  /* ===== CODE CARD ===== */
+  .codecard{
+    border:4px solid var(--neon-purple);
+    box-shadow:0 0 16px rgba(176,38,255,.45);
+    border-radius:10px;
+    margin:22px 0;
+    overflow:hidden;
+    background:#FBFBFB;
+  }
+  .codecard-head{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:10px;
+    background:linear-gradient(90deg,#1B0033,#2E0B4A);
+    border-bottom:3px solid var(--neon-purple);
+    padding:9px 14px;
+    flex-wrap:wrap;
+  }
+  .codecard-file{
+    font-family:'Roboto Mono',monospace;
+    font-weight:600;
+    font-size:15px;
+    color:var(--neon-yellow);
+    text-shadow:var(--glow-y);
+    direction:ltr;
+  }
+  .codecard-btns{display:flex;gap:8px;}
+  .btn{
+    border:2px solid var(--black);
+    border-radius:6px;
+    font-family:'Heebo',sans-serif;
+    font-weight:700;
+    font-size:14px;
+    padding:6px 14px;
+    cursor:pointer;
+  }
+  .btn-toggle{background:var(--blue);color:#00232B;box-shadow:var(--glow-c);}
+  .btn-toggle:hover{background:var(--neon-cyan);}
+  .btn-copy{background:var(--black);color:var(--neon-green);box-shadow:0 0 8px rgba(57,255,20,.6);}
+  .btn-copy:hover{background:#1A1A1A;}
+  .codecard pre{
+    margin:0;
+    padding:16px 18px;
+    background:#FAFAFA;
+    overflow-x:auto;
+    direction:ltr;
+    text-align:left;
+    display:none;
+    border-top:1px solid #DDD;
+  }
+  .codecard pre.open{display:block;}
+  .codecard pre code{
+    background:none;
+    color:#1A1A1A;
+    padding:0;
+    display:block;
+    font-size:14px;
+    line-height:1.6;
+    white-space:pre;
+    font-family:'Roboto Mono',Consolas,monospace;
+  }
+
+  table.schema{border-collapse:collapse;width:100%;margin:18px 0;font-size:16px;}
+  table.schema th,table.schema td{border:2px solid #333;padding:8px 12px;text-align:right;}
+  table.schema th{background:linear-gradient(90deg,var(--neon-yellow),var(--neon-cyan));font-weight:800;}
+  .ascii{
+    background:#0D0018;color:var(--neon-green);
+    border:2px solid var(--neon-purple);
+    box-shadow:inset 0 0 24px rgba(176,38,255,.35);border-radius:8px;padding:16px;
+    font-family:'Roboto Mono',monospace;font-size:13.5px;line-height:1.55;
+    overflow-x:auto;direction:ltr;text-align:left;white-space:pre;margin:18px 0;
+  }
+  .timechip{
+    display:inline-block;
+    background:#14003A;
+    color:var(--neon-cyan);
+    border:2px solid var(--neon-cyan);
+    box-shadow:0 0 9px rgba(0,240,255,.55);
+    border-radius:999px;
+    font-size:13px;
+    font-weight:700;
+    padding:2px 12px;
+    margin-inline-start:10px;
+    vertical-align:middle;
+    white-space:nowrap;
+    font-family:'Assistant',sans-serif;
+  }
+  .timechip.total{
+    background:var(--neon-pink);
+    color:#fff;
+    border-color:#fff;
+    box-shadow:var(--glow-p);
+    font-size:15px;
+    padding:4px 16px;
+  }
+  h3 .timechip,h4 .timechip{font-size:12px;padding:1px 10px;}
+  .note-small{font-size:14px;color:#555;}
+  @media (max-width:1000px){
+    .layout{flex-direction:column;}
+    nav.sidebar{position:static;flex:1 1 auto;width:100%;max-height:none;}
+    main.content{padding:26px 20px 40px;}
+  }
+</style>
+</head>
+<body>
+
+<header class="topbar">
+  <div class="brand">
+    <h1>מסיבת אוזניות: LA-PARTY!</h1>
+    <span class="badge-dummies">FOR DUMMIES</span>
+    <span class="credit">קרדיט: רוני רובן, ויצו נהלל, שנה&quot;ל 2026-7</span>
+  </div>
+  <div class="subtitle">מדריך שלב-אחר-שלב (Java)</div>
+</header>
+
+<div class="layout">
+  <nav class="sidebar">
+    <h2>תוכן עניינים</h2>
+    <a class="toc-link active" data-target="sec-intro">🏠 מבוא</a>
+
+    <div class="part-header">חלק א – יסודות</div>
+    <a class="toc-link" data-target="sec-1">👉 שלב 1: תכנון וארכיטקטורה</a>
+    <a class="toc-link" data-target="sec-2">👉 שלב 2: שלד הפרויקט ומחלקות המודל</a>
+    <a class="toc-link" data-target="sec-3">👉 שלב 3: Splash ו-Thread</a>
+
+    <div class="part-header">חלק ב – זהות וחדרים</div>
+    <a class="toc-link" data-target="sec-4">👉 שלב 4: מסך ראשי ובחירת תפקיד</a>
+    <a class="toc-link" data-target="sec-5">👉 שלב 5: SharedPreferences ומזהה מכשיר</a>
+    <a class="toc-link" data-target="sec-6">👉 שלב 6: RoomRepository – יצירה והצטרפות</a>
+    <a class="toc-link" data-target="sec-7">👉 שלב 7: מי מחובר עכשיו</a>
+
+    <div class="part-header">חלק ג – מנוע האודיו</div>
+    <a class="toc-link" data-target="sec-8">👉 שלב 8: MediaPlayer ומצבי הנגן</a>
+    <a class="toc-link" data-target="sec-9">👉 שלב 9: שירות קדמי (Foreground Service)</a>
+    <a class="toc-link" data-target="sec-10">👉 שלב 10: סנכרון שעון ונגינה</a>
+    <a class="toc-link" data-target="sec-11">👉 שלב 11: בקרת הדי-ג'יי</a>
+
+    <div class="part-header">חלק ד – החוויה המשותפת</div>
+    <a class="toc-link" data-target="sec-12">👉 שלב 12: Fragments, Navigation ו-ViewModel</a>
+    <a class="toc-link" data-target="sec-13">👉 שלב 13: פיד חי – תגובות</a>
+    <a class="toc-link" data-target="sec-14">👉 שלב 14: שיתוף תמונות</a>
+    <a class="toc-link" data-target="sec-15">👉 שלב 15: הודעות מהדי-ג'יי (התראות)</a>
+
+    <div class="part-header">חלק ה – מיקום ו-AI</div>
+    <a class="toc-link" data-target="sec-16">👉 שלב 16: Google Maps</a>
+    <a class="toc-link" data-target="sec-17">👉 שלב 17: API – בוט עזרה (AI)</a>
+
+    <div class="part-header">חלק ו – הקשחה</div>
+    <a class="toc-link" data-target="sec-18">👉 שלב 18: כללי אבטחה (Security Rules)</a>
+    <a class="toc-link" data-target="sec-19">👉 שלב 19: מקרי קצה ומחזור חיים</a>
+    <a class="toc-link" data-target="sec-20">👉 שלב 20: סיום ובדיקות</a>
+  </nav>
+
+  <main class="content" id="content">
+<!-- ================= INTRO ================= -->
+<section id="sec-intro" class="visible">
+  <h1>ברוכים הבאים לפרויקט LA-PARTY!</h1>
+  <p style="margin-top:-8px;"><span class="timechip total">⏱️ קריאת המבוא והדגמת מעגל החיים: כ-60 דק'</span></p>
+
+  <p>
+    <b>מסיבת אוזניות</b> (Silent Disco) היא מסיבה בלי רמקולים: כולם שומעים את אותה מוזיקה,
+    אבל כל אחד באוזניות של עצמו. באפליקציה שתבנו, משתמש אחד הוא ה<b>די-ג'יי</b> והשאר הם
+    <b>משתתפים</b>. הדי-ג'יי בוחר שיר, לוחץ Play – והשיר מתחיל להתנגן <b>באותו רגע ובאותה נקודה</b>
+    בכל הטלפונים המחוברים לחדר, גם כשהמסך כבוי והטלפון בכיס. בנוסף הדי-ג'יי יכול לשלוח
+    הודעות שמופיעות כהתראה אצל כולם, ולכל המשתתפים יש מסך משותף עם תגובות חיות, שיתוף תמונות,
+    מפה של מתחם המסיבה ובוט עזרה חכם.
+  </p>
+
+  <div class="warnbox" style="box-shadow:6px 6px 0 #999;background:#F2F7FF;border-color:#1565C0;">
+    <h3>שלוש הבעיות הקשות</h3>
+    <ol>
+      <li><b>לגרום להרבה טלפונים לנגן יחד.</b> ההודעה מהשרת לא מגיעה לכל הטלפונים באותו רגע, וגם השעון הפנימי של כל טלפון קצת שונה. לכן אם נשדר את הפקודה "כולם תנגנו עכשיו" – נשמע הד, כי כל אחד יתחיל בזמן מעט אחר. הפתרון הוא לא לשלוח פקודה, אלא <b>לתאר את המצב</b>: "השיר הזה, התחיל ברגע הזה לפי שעון השרת". כל טלפון מחשב לבד לאיזו נקודה בשיר עליו לקפוץ, וכך כולם מגיעים לאותו מקום.</li>
+      <li><b>לא מספיק להסתיר כפתור.</b> קל להסתיר מהמשתתף את כפתור "החלף שיר", אבל הסתרה איננה אבטחה. מי שמבין קצת בתכנות יכול לשלוח פקודה לבסיס הנתונים בלי לעבור דרך המסך שלנו בכלל, ולהשתלט על המסיבה. לכן ההגבלה חייבת לשבת <b>אצל השרת</b> ולא באפליקציה – בקובץ כללים שנכתוב בשלב 18.</li>
+      <li><b>מוזיקה שממשיכה כשהמסך כבוי.</b> אנדרואיד סוגר מסכים שאינם גלויים כדי לחסוך בסוללה. נגן שחי בתוך מסך יושתק תוך שניות מרגע שהטלפון נכנס לכיס. הפתרון הוא להעביר את הנגן ל<b>שירות רקע</b> – רכיב שרץ בנפרד מהמסך ומציג התראה קבועה שמסמנת למערכת "אני עסוק, אל תסגור אותי".</li>
+    </ol>
+  </div>
+
+  <h2>שאלה ראשונה: למה בכלל צריך "מסד נתונים"? <span class="timechip">⏱️ 15 דק'</span></h2>
+  <p>
+    בואו נחשוב רגע בלי מילים מקצועיות. הדי-ג'יי לחץ על שיר. עכשיו <b>שלושים טלפונים אחרים</b>
+    צריכים לדעת על זה. איך הם ידעו?
+  </p>
+  <p>
+    התשובה הכי טבעית היא "שהטלפון של הדי-ג'יי יספר להם". אבל נסו לחשוב מה זה דורש: הטלפון של
+    הדי-ג'יי צריך להכיר את שלושים הטלפונים, לדעת את הכתובת של כל אחד, ולשלוח לכל אחד מהם הודעה
+    בנפרד. ואם אחד מהם היה בדיוק במעלית בלי קליטה? ואם מישהו חדש הצטרף אחרי שהשיר התחיל, למי
+    הוא יפנה כדי לגלות מה מתנגן?
+  </p>
+  <p>
+    לכן עושים את זה אחרת. במקום שכולם ידברו עם כולם, <b>שמים לוח מודעות אחד באמצע</b>.
+    הדי-ג'יי לא מדבר עם אף אחד: הוא רק כותב על הלוח "עכשיו מתנגן השיר הזה". כל טלפון אחר
+    מסתכל על הלוח וקורא מה כתוב שם. הלוח הזה, שמחזיק את המידע במקום אחד מרכזי,
+    הוא <b>מסד נתונים</b> (database).
+  </p>
+  <div class="ascii">   WITHOUT a database                    WITH a database
+   everyone talks to everyone            everyone reads one board
+
+      [P1]---[P2]                              [P1]   [P2]
+        | \ / |                                   \   /
+        |  X  |                              +-----------+
+        | / \ |                     [DJ] --> |   BOARD   |
+      [P3]---[DJ]                            +-----------+
+                                                  /   \
+   30 phones = 435 connections               [P3]     [P4]
+   ...and nobody knows the truth            one truth, everybody reads it</div>
+
+  <h2>שאלה שנייה: למה הלוח צריך להיות מקוון? <span class="timechip">⏱️ 10 דק'</span></h2>
+  <p>
+    אפשר לשמור מידע גם <b>בתוך הטלפון עצמו</b>, וזה מה שנעשה בשלב 5 כשנשמור את השם של המשתמש.
+    אבל מידע שנשמר בטלפון שלי הוא <b>שלי בלבד</b> ואף אחד אחר לא רואה אותו. הוא כמו פתק
+    שכתבתי לעצמי במגירה.
+  </p>
+  <p>
+    במסיבה שלנו כל המידע הוא מידע <b>משותף</b>: מה מתנגן, מי נמצא בחדר, מה כתבו בפיד.
+    לכן הלוח לא יכול לשכון בתוך אחד הטלפונים אלא צריך לשבת <b>במקום שכולם מגיעים אליו</b> –
+    כלומר במחשב באינטרנט, שנקרא <b>שרת</b>. זה מה שהמילה "מקוון" אומרת: המידע לא נמצא אצלי,
+    הוא נמצא במקום מרכזי וכולנו פונים אליו דרך הרשת.
+  </p>
+  <p>
+    יש לזה עוד יתרון חשוב: <b>המידע שורד</b>. אם הטלפון של הדי-ג'יי נפל, נכבה או נגמרה לו הסוללה,
+    הלוח באינטרנט ממשיך להתקיים עם כל מה שכתוב עליו. אם הלוח היה בתוך הטלפון שלו,
+    המסיבה כולה הייתה נעלמת יחד איתו.
+  </p>
+  <div class="infobox">
+    <p style="margin:0;">
+      <b>השירות שנשתמש בו נקרא Firebase</b>, והוא של גוגל. הוא נותן לנו בחינם גם את הלוח המשותף
+      וגם מקום לשמור בו תמונות. איך הוא עובד בפועל, ומה בדיוק כותבים לתוכו – נלמד בשלב 1
+      ובשלבים שאחריו. בשלב הזה מספיק שתבינו <b>למה</b> אנחנו צריכים אותו.
+    </p>
+  </div>
+
+  <div class="chips">
+    <span class="chip blue">שפת תכנות: Java</span>
+    <span class="chip gray">חבילה: com.example.laparty</span>
+  </div>
+
+  <h2>מושג מקדים: מה זה "מסך" באנדרואיד, ומהו מעגל החיים שלו <span class="timechip">⏱️ 25 דק'</span></h2>
+  <p>
+    כל מסך באפליקציית אנדרואיד הוא מחלקה בג'אווה שנקראת <b>Activity</b>. באפליקציה שלנו יהיו
+    שלושה מסכים כאלה: מסך הפתיחה, המסך הראשי ומסך המסיבה.
+  </p>
+  <p>
+    והנה ההבדל הגדול מתוכנית ג'אווה רגילה שכתבתם עד היום. בתוכנית רגילה <b>אתם</b> קוראים
+    לפונקציות: יש <code>main</code>, הוא רץ מלמעלה למטה, ונגמר. באנדרואיד זה הפוך:
+    <b>המערכת קוראת לכם</b>. אתם כותבים פונקציות מוכנות, והמערכת מפעילה אותן ברגעים שהיא מחליטה
+    – כשהמסך נפתח, כשהמשתמש עבר לוואטסאפ, כשהוא חזר. הפונקציות האלה נקראות
+    <b>מתודות מעגל החיים</b> (lifecycle methods).
+  </p>
+  <p>
+    למה זה קיים בכלל? כי בטלפון, בשונה ממחשב, יש סוללה אחת ומעט זיכרון. המערכת חייבת להיות
+    חופשית לעצור מסך שהמשתמש לא מסתכל עליו. כדי שהיא תוכל לעשות זאת בלי להרוס לנו את האפליקציה,
+    היא <b>מודיעה לנו מראש</b> בכל שינוי, ואנחנו מגיבים.
+  </p>
+
+  <h3>חמש המתודות שחייבים להכיר</h3>
+  <table class="schema">
+    <tr><th>המתודה</th><th>מתי המערכת קוראת לה</th><th>מה שמים בה</th></tr>
+    <tr><td><code>onCreate()</code></td><td>פעם אחת, כשהמסך נוצר</td><td>בניית המסך: <code>setContentView</code>, חיבור כפתורים</td></tr>
+    <tr><td><code>onStart()</code></td><td>כשהמסך הופך גלוי למשתמש</td><td>התחלת הקשבה לעדכונים מהשרת</td></tr>
+    <tr><td><code>onResume()</code></td><td>כשהמסך בחזית ומגיב ללחיצות</td><td>הפעלת אנימציות, מצלמה</td></tr>
+    <tr><td><code>onPause()</code></td><td>כשהמשתמש עובר לאפליקציה אחרת</td><td>עצירת דברים כבדים</td></tr>
+    <tr><td><code>onDestroy()</code></td><td>כשהמסך נסגר סופית</td><td>שחרור זיכרון, ניקוי אחריך</td></tr>
+  </table>
+
+  <div class="ascii">   user taps the app icon
+            |
+            v
+      +-----------+     +----------+     +-----------+
+      | onCreate  | --> | onStart  | --> | onResume  |  <-- the screen is now alive
+      +-----------+     +----------+     +-----------+       and reacting to touches
+                                               |
+                        user switches to WhatsApp
+                                               v
+      +-----------+     +----------+     +-----------+
+      | onDestroy | <-- | onStop   | <-- |  onPause  |
+      +-----------+     +----------+     +-----------+
+            |                 |
+            |                 +--- user comes back --> onStart --> onResume
+            v
+      the screen is gone</div>
+
+  <h3>הדגמה: תריצו את זה ותראו במו עיניכם</h3>
+  <p>
+    זו לא תיאוריה. הדביקו את הקוד הבא ב-<code>MainActivity</code> של הפרויקט הריק שיצרתם,
+    הריצו, ופתחו למטה ב-Android Studio את חלון <b>Logcat</b> עם סינון למילה <code>LIFECYCLE</code>.
+    עכשיו שחקו עם הטלפון: לחצו על כפתור הבית, חזרו לאפליקציה, סובבו את המסך –
+    ותראו את ההודעות מופיעות בזמן אמת. <b>כך תרגישו את מעגל החיים במקום לשנן אותו.</b>
+  </p>
+
+  <div class="codecard">
+    <div class="codecard-head">
+      <span class="codecard-file">MainActivity.java (הדגמה זמנית)</span>
+      <span class="codecard-btns">
+        <button class="btn btn-toggle">הצג קוד ˅</button>
+        <button class="btn btn-copy">העתק קוד 📋</button>
+      </span>
+    </div>
+<pre><code>package com.example.laparty;
+
+import android.os.Bundle;
+import android.util.Log;
+
+import androidx.appcompat.app.AppCompatActivity;
+
+/**
+ * A temporary demo, only to SEE the lifecycle in Logcat.
+ * Filter Logcat by the word LIFECYCLE and play with the phone.
+ */
+public class MainActivity extends AppCompatActivity {
+
+    private static final String TAG = "LIFECYCLE";
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);          // always call super FIRST
+        setContentView(R.layout.activity_main);
+        Log.d(TAG, "onCreate  - the screen is being built");
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        Log.d(TAG, "onStart   - the screen became visible");
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        Log.d(TAG, "onResume  - the screen is in front, reacting to touches");
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        Log.d(TAG, "onPause   - something covered me, I am losing focus");
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        Log.d(TAG, "onStop    - I am no longer visible at all");
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        Log.d(TAG, "onDestroy - goodbye, this screen is being destroyed");
+    }
+}</code></pre>
+  </div>
+
+  <div class="infobox">
+    <h3>שני דברים שכדאי לשים לב אליהם בקוד</h3>
+    <ul style="margin:0;">
+      <li><code>@Override</code> – מודיע למהדר "אני דורס מתודה שכבר קיימת במחלקת האב".
+          אם תכתבו בטעות <code>onCreat</code>, המהדר יצעק במקום שהאפליקציה תתנהג מוזר.</li>
+      <li><code>super.onCreate(...)</code> – קריאה למתודה של מחלקת האב. בלעדיה אנדרואיד
+          לא יבצע את ההכנות הפנימיות שלו והאפליקציה תקרוס. <b>תמיד קוראים ל-super ראשון</b>
+          (ובמתודות הסיום נהוג לקרוא לו ראשון גם כן).</li>
+      <li><code>Log.d(TAG, "...")</code> – הדפסה לחלון Logcat. זו שיטת האיתור המרכזית
+          שלכם בכל הפרויקט: היא מראה מה קרה בפועל, במקום לנחש.</li>
+    </ul>
+  </div>
+  <p class="note-small">
+    את הקוד הזה נמחק בשלב 4 כשנבנה את המסך הראשי האמיתי. כרגע הוא קיים רק כדי להדגים.
+    בשלב 3 נשתמש ב-<code>onCreate</code> וב-<code>onDestroy</code> באמת – ואז זה יהיה מוכר לכם.
+  </p>
+
+  <h2>מה צריך להתקין לפני שמתחילים <span class="timechip">⏱️ 10 דק'</span></h2>
+  <ol>
+    <li>התקינו את <b>Android Studio</b> (הגרסה החינמית מהאתר הרשמי של גוגל).</li>
+    <li>פתחו פרויקט חדש: <b>New Project</b> – <b>Empty Views Activity</b>.</li>
+    <li>מלאו: Name = <code>LaParty</code>, Package name = <code>com.example.laparty</code>,
+        Language = <b>Java</b>, Minimum SDK = <b>API 24</b>.</li>
+    <li>הריצו את האפליקציה הריקה על טלפון או על מדמה (emulator) וודאו שנפתח מסך לבן ריק.
+        אם זה עובד – סביבת העבודה שלכם תקינה ואפשר להתחיל.</li>
+  </ol>
+  <p class="note-small">
+    את החיבור לשירות המקוון (Firebase) ואת הוספת הספריות נעשה בשלב 2, כשיהיה לנו מה לשמור בו.
+    אין טעם לחבר מסד נתונים לפני שיש נתונים.
+  </p>
+
+  <div class="warnbox">
+    <h3>⚠️ כלל עבודה חשוב!</h3>
+    <p style="font-size:20px;font-weight:900;margin:6px 0;">אין להעתיק קוד שאינכם מסוגלים להסביר.</p>
+    <p>בסיום כל שלב תתבקשו להציג למורה את התוצר, להסביר חלק מהקוד ולקבל אישור לפני המעבר לשלב הבא.</p>
+    <p class="note-small">הערה: כל שמות המשתנים, המחלקות והקבצים בקוד נכתבים ב<b>אנגלית</b> בלבד, כמקובל בתכנות. ההסברים בעברית.</p>
+  </div>
+</section>
+
+<!-- ================= STEP 1 ================= -->
+<section id="sec-1">
+  <h1>שלב 1: תכנון וארכיטקטורה <span class="timechip total">⏱️ סה"כ כ-90 דק'</span></h1>
+
+  <div class="goal">🎯 מטרה: להחליט על הנייר איך האפליקציה תיראה ואיך המידע יסודר – לפני שכותבים שורת קוד אחת.</div>
+
+  <div class="infobox">
+    <h3>רגע, מה זה בכלל "ארכיטקטורה"?</h3>
+    <p style="margin-bottom:6px;">
+      בדיוק כמו בבניין. לפני שיוצקים בטון, האדריכל מחליט כמה חדרים יהיו, מי מחובר למי ואיפה עוברים הצינורות.
+      <b>ארכיטקטורה של תוכנה זה בדיוק אותו דבר:</b> החלטה מראש מאילו חלקים האפליקציה מורכבת, מה כל חלק אחראי עליו,
+      ואיך החלקים מדברים ביניהם.
+    </p>
+    <p style="margin:0;">
+      בשלב הזה <b>לא כותבים קוד</b>. מציירים על דף. זה נשמע מיותר, אבל זה השלב שחוסך את מרבית הסבל בהמשך.
+    </p>
+  </div>
+
+  <h2>למה ככה? למה לא פשוט להתחיל לתכנת?</h2>
+  <p>
+    כי יש הבדל עצום בין שני סוגי טעויות. אם קראתם למשתנה בשם לא מוצלח – משנים אותו בשנייה.
+    אבל אם <b>סידרתם את המידע בצורה לא נכונה</b>, וגיליתם את זה אחרי שכתבתם עשרה מסכים שכולם קוראים
+    את המידע הזה – אתם מוחקים ימי עבודה.
+  </p>
+  <p>
+    יש עוד סיבה, וזאת חשובה במיוחד לפרויקט שלנו. בשלב 18 נכתוב <b>כללי אבטחה</b> – חוקים שאומרים
+    "המשתתף הרגיל לא רשאי להחליף שיר, רק הדי-ג'יי". החוקים האלה נכתבים לפי <b>המקום שבו המידע יושב</b>.
+    אם נערבב במקום אחד מידע שרק הדי-ג'יי רשאי לשנות עם מידע שכולם רשאים לשנות – לא נוכל להגן על כלום.
+    לכן מהרגע הראשון נפריד את המידע לפי <b>מי מורשה לשנות אותו</b>.
+  </p>
+
+  <h2>מה עושים בשלב הזה</h2>
+  <ol>
+    <li>מציירים על דף את <b>המסכים</b> של האפליקציה ואת המעבר ביניהם.</li>
+    <li>ממלאים טבלה: <b>מה מותר לדי-ג'יי</b> לעשות, ו<b>מה מותר למשתתף רגיל</b>.</li>
+    <li>כותבים <b>ארבע השורות שיכולות להיות "מה קורה במסיבה עכשיו"</b>, ומי רשאי לשנות את השורה הזאת.</li>
+    <li>כותבים איך <b>המידע יסודר</b> על הלוח המשותף, ומוסיפים ליד כל חלק <b>הערת מתכנת</b> שאומרת מי מורשה לשנות אותו.</li>
+    <li>מציירים את <b>חלוקת הקוד לשלוש קבוצות</b> של מחלקות.</li>
+  </ol>
+
+  <h3>א. המסכים <span class="timechip">⏱️ 15 דק'</span></h3>
+  <p>שלושה מסכים בלבד. המסך השלישי מחליף בתוכו ארבעה תכנים לפי הלשונית שנבחרה למטה.</p>
+  <div class="ascii">+---------------------+   +----------------------------+   +-------------------------------+
+|   SplashActivity    |   |        MainActivity        |   |         RoomActivity          |
+|                     |   |                            |   |  +-------------------------+  |
+|   LA-PARTY   |-->|  [ Your name ..........]   |-->|  |  the tab content        |  |
+|      (logo)         |   |                            |   |  |  Player / Feed /        |  |
+|   ...loading...     |   |  [  I am the DJ      ]     |   |  |  Map / Help             |  |
+|                     |   |  [  Join a party     ]     |   |  +-------------------------+  |
++---------------------+   |  [ Room code: 4 digits ]   |   |  [Player][Feed][Map][Help]    |
+   opening screen          |                            |   +-------------------------------+
+                          +----------------------------+
+                              choose who you are              the party itself</div>
+
+  <h3>ב. מה מותר לדי-ג'יי ומה מותר למשתתף <span class="timechip">⏱️ 15 דק'</span></h3>
+  <p>
+    שימו לב לנקודה שמבלבלת הרבה תלמידים: <b>זו אותה אפליקציה בדיוק</b> אצל כולם.
+    לא בונים שתי אפליקציות. מתקינים אחת, וברגע הכניסה כל אחד בוחר מי הוא –
+    ולפי הבחירה הזאת האפליקציה מציגה לו כפתורים אחרים.
+  </p>
+  <p>הטבלה הבאה היא בעצם רשימת הדרישות של הפרויקט. שווה לשמור אותה בהישג יד:</p>
+  <table class="schema">
+    <tr><th>מתי</th><th>הדי-ג'יי</th><th>המשתתף</th></tr>
+    <tr><td>בכניסה</td><td>מקליד שם, לוחץ "אני הדי-ג'יי", והאפליקציה מגרילה לו קוד בן 4 ספרות</td><td>מקליד שם + את הקוד שקיבל מהדי-ג'יי, ומצטרף</td></tr>
+    <tr><td>נגן</td><td>בוחר שיר, מפעיל, עוצר, מדלג</td><td>רק רואה מה מתנגן. אין לו כפתורים</td></tr>
+    <tr><td>הודעות</td><td>שולח הודעה לכל המסיבה</td><td>מקבל התראה בטלפון</td></tr>
+    <tr><td>פיד</td><td>כותב תגובות ומעלה תמונות</td><td>כותב תגובות ומעלה תמונות</td></tr>
+    <tr><td>מפה</td><td>לחיצה ארוכה על המפה קובעת איפה המסיבה</td><td>רואה את הנקודה וכמה הוא רחוק ממנה</td></tr>
+    <tr><td>ביציאה</td><td>אם הוא יוצא – <b>המסיבה נגמרת לכולם</b></td><td>אם הוא יוצא – רק הוא נעלם מהרשימה</td></tr>
+  </table>
+
+  <h3>ג. "מה קורה במסיבה עכשיו?" – ארבע תשובות אפשריות <span class="timechip">⏱️ 20 דק'</span></h3>
+  <p>
+    דמיינו שאתם נכנסים למסיבה באיחור ושואלים חבר שאלה אחת: <b>"מה קורה כאן עכשיו?"</b>
+    לשאלה הזאת יש בדיוק ארבע תשובות הגיוניות, ולא יותר:
+  </p>
+  <ul>
+    <li>"<b>עוד לא התחלנו</b>, אנשים מגיעים" – בקוד נסמן את זה <code>LOBBY</code>.</li>
+    <li>"<b>יש שיר והוא מתנגן</b> ברגע זה" – <code>PLAYING</code>.</li>
+    <li>"<b>הדי-ג'יי עצר את השיר</b> באמצע, כולנו מחכים" – <code>PAUSED</code>.</li>
+    <li>"<b>נגמר, הדי-ג'יי הלך הביתה</b>" – <code>ENDED</code>.</li>
+  </ul>
+  <p>
+    את התשובה הזאת נשמור על לוח המודעות כמילה אחת. למה זה כל כך חשוב? כי <b>מי שמצטרף
+    באיחור לא צריך לשאול אף אחד</b> – הוא קורא את המילה מהלוח ויודע מיד מה לעשות:
+    להראות "ממתינים", להתחיל לנגן, או לצאת מהחדר.
+  </p>
+  <p>
+    ולמה מילה אחת מרשימה סגורה, ולא סתם משתנה "מנגן: כן/לא"? כי "לא מנגן" לא מבדיל בין
+    מסיבה שעוד לא התחילה, מסיבה בהשהיה ומסיבה שנגמרה – ובכל אחד מהמקרים האפליקציה צריכה
+    להתנהג אחרת לגמרי. רשימה סגורה של ארבע אפשרויות מונעת מאיתנו מצבים חסרי היגיון,
+    כמו מסיבה שהסתיימה וממשיכה לנגן.
+  </p>
+  <div class="ascii">        DJ creates the room
+              |
+              v
+    +---------------------+
+    |        LOBBY        |   people are joining, no song yet
+    +---------------------+
+              |  DJ presses PLAY
+              v
+    +---------------------+   DJ presses PAUSE    +---------------------+
+    |       PLAYING       | --------------------> |       PAUSED        |
+    |   a song is running | <-------------------- |   frozen at 01:12   |
+    +---------------------+   DJ presses PLAY     +---------------------+
+              |                                             |
+              |            DJ leaves the party              |
+              +---------------------+-----------------------+
+                                    v
+                          +---------------------+
+                          |        ENDED        |   everyone goes back
+                          +---------------------+</div>
+  <p>
+    שימו לב לדבר אחד חשוב בציור: <b>כל החצים יוצאים מהדי-ג'יי</b>. רק הוא משנה את התשובה
+    לשאלה "מה קורה עכשיו". המשתתפים לא משנים אותה אף פעם, הם רק קוראים אותה ומגיבים.
+    בדיוק בגלל זה התשובה חייבת להיות כתובה <b>על לוח המודעות המשותף</b> ולא במשתנה בתוך
+    הטלפון של הדי-ג'יי – אחרת אף אחד אחר לא היה יכול לראות אותה.
+  </p>
+
+  <h3>ד. איך נסדר את המידע על הלוח <span class="timechip">⏱️ 30 דק'</span></h3>
+
+  <div class="infobox" style="border-right-color:var(--neon-pink);">
+    <p style="margin:0;">
+      <b>שימו לב: בשלב הזה לא מתחברים לשום שירות ולא מתקינים כלום.</b>
+      אנחנו רק מחליטים על דף <b>איזה מידע צריך להישמר ואיך לסדר אותו</b>.
+      את החיבור בפועל נעשה בשלב 2. הסיבה פשוטה: אי אפשר לבחור ארון לפני שיודעים
+      מה שמים בו.
+    </p>
+  </div>
+
+  <p><b>נתקדם בארבעה צעדים קטנים.</b></p>
+
+  <h4 style="font-size:18px;font-weight:800;margin:22px 0 8px;">צעד 1: איזה מידע בכלל צריך לשרוד?</h4>
+  <p>
+    קחו דף ורשמו כל פרט שהמסיבה לא יכולה להתקיים בלעדיו. אל תחשבו על תכנות, חשבו על המסיבה:
+  </p>
+  <ul>
+    <li>מה <b>קוד החדר</b>, כדי שאנשים יוכלו להצטרף.</li>
+    <li>מי ה<b>די-ג'יי</b> (אחרת לא נדע למי מותר להחליף שיר).</li>
+    <li>מה <b>קורה עכשיו</b> – אחת מארבע התשובות מהפרק הקודם.</li>
+    <li>איזה <b>שיר</b> מתנגן, ומאיזו נקודה בו.</li>
+    <li><b>מי נמצא</b> בחדר ברגע זה.</li>
+    <li>אילו <b>תגובות ותמונות</b> נכתבו בפיד.</li>
+    <li>אילו <b>הודעות</b> הדי-ג'יי שלח.</li>
+    <li><b>איפה</b> המסיבה מתקיימת על המפה.</li>
+  </ul>
+
+  <h4 style="font-size:18px;font-weight:800;margin:22px 0 8px;">צעד 2: לכל פרט – מי כותב ומי רק קורא?</h4>
+  <p>
+    עכשיו עברו על הרשימה ושאלו על כל שורה שאלה אחת: <b>מי רשאי לשנות את זה?</b>
+    זה נראה כמו פרט טכני, אבל זו ההחלטה החשובה בשלב כולו.
+  </p>
+  <table class="schema">
+    <tr><th>המידע</th><th>מי רשאי לשנות</th><th>מי קורא</th></tr>
+    <tr><td>קוד החדר, מי הדי-ג'יי, מה קורה עכשיו</td><td>הדי-ג'יי בלבד</td><td>כולם</td></tr>
+    <tr><td>איזה שיר מתנגן ומאיזו נקודה</td><td>הדי-ג'יי בלבד</td><td>כולם</td></tr>
+    <tr><td>הודעות הדי-ג'יי</td><td>הדי-ג'יי בלבד</td><td>כולם</td></tr>
+    <tr><td>הפרטים של משתתף מסוים</td><td><b>אותו משתתף בלבד</b></td><td>כולם</td></tr>
+    <tr><td>תגובות ותמונות בפיד</td><td>כל אחד, אבל בשמו שלו</td><td>כולם</td></tr>
+  </table>
+  <p>
+    <b>ולכן נסדר את המידע לפי העמודה האמצעית.</b> כל מה שרק הדי-ג'יי משנה ילך לתיקיות
+    נפרדות משלו, ולכל משתתף תהיה תיקייה משלו שנקראת <b>בשם המזהה שלו</b>.
+    בזכות הסידור הזה נוכל בשלב 18 לכתוב חוק קצר במשפט אחד:
+    "מותר לך לכתוב רק לתיקייה ששמה המזהה שלך".
+  </p>
+  <p class="note-small">
+    אילו היינו זורקים את הכול לערימה אחת, לא היה שום דרך להבדיל בין מה שמותר לדי-ג'יי
+    למה שמותר למשתתף – וכל אחד היה יכול להשתלט על המסיבה.
+  </p>
+
+  <h4 style="font-size:18px;font-weight:800;margin:22px 0 8px;">צעד 3: תזכורת – מפתח וערך (HashMap)</h4>
+  <p>
+    אתם מכירים מערך: <code>names[0]</code>, <code>names[1]</code>. הגישה היא לפי <b>מספר</b>.
+    אבל מה אם אני רוצה לשמור גיל לפי <b>שם</b>? למשל "מאיה = 17". בג'אווה יש לזה מבנה שנקרא
+    <b>HashMap</b>, ובו כל פריט הוא זוג: <b>מפתח</b> (key) ו<b>ערך</b> (value).
+  </p>
+  <div class="codecard">
+    <div class="codecard-head">
+      <span class="codecard-file">HashMap – תזכורת מג'אווה</span>
+      <span class="codecard-btns">
+        <button class="btn btn-toggle">הצג קוד ˅</button>
+        <button class="btn btn-copy">העתק קוד 📋</button>
+      </span>
+    </div>
+<pre><code>// An array is accessed by a NUMBER:
+String[] names = {"Roni", "Maya"};
+String first = names[0];              // "Roni"
+
+// A HashMap is accessed by a KEY of our choosing:
+HashMap&lt;String, Integer&gt; ages = new HashMap&lt;&gt;();
+ages.put("Maya", 17);                 // key = "Maya",  value = 17
+ages.put("Roni", 18);
+
+int mayaAge = ages.get("Maya");       // 17  -- no need to know any index
+
+// The big advantage: instant access by name, no searching.
+// This is EXACTLY how the party database is built:
+//    key = the room code "4821"  ->  value = everything about that room</code></pre>
+  </div>
+  <p>
+    למה זה קריטי לנו? כי במסיבה שלנו נרצה לשאול "תן לי את חדר <b>4821</b>" ולא
+    "תן לי את החדר החמישי ברשימה". <b>המפתח הוא קוד החדר</b>, בדיוק כמו מפתח ב-HashMap.
+  </p>
+
+  <h4 style="font-size:18px;font-weight:800;margin:22px 0 8px;">צעד 4: איך כותבים את זה על דף – JSON</h4>
+  <p>
+    <b>JSON</b> היא צורה לכתוב HashMap בתוך קובץ טקסט, כדי שאפשר יהיה לשלוח אותו ברשת.
+    זה כל הסיפור. הכללים בו קצרים: סוגריים מסולסלים <code>{ }</code> פותחים אוסף של זוגות,
+    כל זוג נכתב <code>"מפתח": ערך</code>, ופסיק מפריד בין זוגות.
+    היתרון: <b>אדם יכול לקרוא את זה בעיניים</b>, וגם המחשב מבין את זה.
+  </p>
+  <div class="codecard">
+    <div class="codecard-head">
+      <span class="codecard-file">אותו מידע בדיוק – בג'אווה מול JSON</span>
+      <span class="codecard-btns">
+        <button class="btn btn-toggle">הצג קוד ˅</button>
+        <button class="btn btn-copy">העתק קוד 📋</button>
+      </span>
+    </div>
+<pre><code>// ---- In Java (in memory) ----
+HashMap&lt;String, Object&gt; maya = new HashMap&lt;&gt;();
+maya.put("name", "Maya");
+maya.put("age", 17);
+maya.put("online", true);
+
+
+// ---- The same thing written as JSON (as text, sendable over the network) ----
+{
+  "name": "Maya",
+  "age": 17,
+  "online": true
+}
+
+
+// ---- And a value can itself be another collection. That is how a TREE is built ----
+{
+  "participants": {
+    "77b0e4aa": { "name": "Maya", "age": 17 },
+    "a3f9c1d2": { "name": "Roni", "age": 18 }
+  }
+}
+// Reading it out loud: inside "participants" there are two keys.
+// Each key is a person's id, and its value is that person's details.</code></pre>
+  </div>
+
+  <div class="infobox">
+    <p style="margin:0 0 6px;"><b>ולכן: איך ייראה הלוח המשותף שלנו?</b></p>
+    <p style="margin:0 0 8px;">
+      הלוח כולו יהיה <b>קובץ JSON אחד גדול</b> שיישב בשרת. הוא בנוי כמו <b>עץ תיקיות במחשב</b>:
+      אוסף בתוך אוסף, ובקצה תמיד יושב ערך פשוט – טקסט, מספר או כן/לא.
+      כל "תיקייה" כזאת נקראת <b>צומת</b> (node), ולכל צומת יש כתובת מלאה בדיוק כמו נתיב של קובץ:
+      <code>rooms/4821/meta/djName</code>.
+    </p>
+    <p style="margin:0;">
+      הכתובת הזאת היא מה שנכתוב בקוד כשנרצה לקרוא או לשנות פרט מסוים,
+      וגם מה שנגן עליו בכללי האבטחה בשלב 18.
+    </p>
+  </div>
+
+  <div class="warnbox" style="box-shadow:5px 5px 0 var(--neon-cyan);">
+    <h3>🧠 מה צריך לצאת מהשלב הזה בראש</h3>
+    <p style="margin:6px 0;">
+      בסוף השלב אתם עוד לא מחוברים לשום שירות, ואין לכם קוד שרץ. אבל אתם יודעים
+      <b>שלושה דברים ודאיים</b>:
+    </p>
+    <ol style="margin:6px 0 0;">
+      <li>למסיבה שלנו <b>יידרש מסד נתונים מקוון</b>, כי המידע משותף לכל המכשירים
+          וחייב לשרוד גם אם טלפון אחד נכבה.</li>
+      <li>המידע יסודר בו <b>כעץ של צמתים בפורמט JSON</b>, שכל צומת בו נגיש לפי כתובת.</li>
+      <li>הסידור נקבע לפי <b>מי מורשה לשנות מה</b>, ולא לפי מה שנוח לנו למסך מסוים.</li>
+    </ol>
+    <p style="margin:8px 0 0;">
+      <b>את השירות עצמו נבחר ונחבר בשלב 2</b>, ושמו Firebase. בשלב הזה הוא לא מעניין אותנו
+      בכלל – התכנון שעשינו נכון לכל מסד נתונים מקוון שהוא.
+    </p>
+  </div>
+
+  <p>
+    <b>ועכשיו התוצר של השלב.</b> הנה סידור המידע המלא שתכננו, כתוב ב-JSON.
+    שימו לב ל<b>הערות המתכנת</b> (השורות שמתחילות ב-<code>//</code>) – בדיוק שם רשמנו לעצמנו
+    מי מורשה לשנות כל צומת. זו הרשימה שממנה ייגזרו כללי האבטחה בשלב 18.
+  </p>
+
+  <div class="codecard">
+    <div class="codecard-head">
+      <span class="codecard-file">database-schema.json (דף תכנון – לא קובץ בפרויקט)</span>
+      <span class="codecard-btns">
+        <button class="btn btn-toggle">הצג קוד ˅</button>
+        <button class="btn btn-copy">העתק קוד 📋</button>
+      </span>
+    </div>
+<pre><code>{
+  "rooms": {
+    "4821": {                                  // the room code = 4 digits
+
+      "meta": {                                // general info. WRITE: DJ only
+        "code": "4821",
+        "djId": "a3f9c1d2-...",                // the DJ's device id
+        "djName": "Roni",
+        "state": "LOBBY",                      // LOBBY | PLAYING | PAUSED | ENDED
+        "createdAt": 1757000000000,
+        "venueLat": 32.6912,                   // where the party is (step 16)
+        "venueLng": 35.2154
+      },
+
+      "track": {                               // what should be playing. WRITE: DJ only
+        "url": "https://.../song.mp3",
+        "title": "Blinding Lights",
+        "state": "PLAYING",                    // PLAYING | PAUSED
+        "positionMs": 0,                       // the second inside the song
+        "startedAtServer": 1757000012345       // the moment it started, by the SERVER clock
+      },
+
+      "participants": {                        // WRITE: everyone, but only their own node
+        "a3f9c1d2-...": {
+          "id": "a3f9c1d2-...",
+          "name": "Roni",
+          "role": "DJ",                        // DJ | PARTICIPANT
+          "joinedAt": 1757000000500,
+          "online": true
+        },
+        "77b0e4aa-...": {
+          "id": "77b0e4aa-...",
+          "name": "Maya",
+          "role": "PARTICIPANT",
+          "joinedAt": 1757000031000,
+          "online": true
+        }
+      },
+
+      "comments": {                            // the live feed. WRITE: everyone
+        "-NxAbc123": {                         // a key the database generates by itself
+          "id": "-NxAbc123",
+          "senderId": "77b0e4aa-...",
+          "senderName": "Maya",
+          "type": "text",                      // text | image
+          "text": "This song is fire",
+          "imageUrl": null,
+          "createdAt": 1757000040000
+        }
+      },
+
+      "messages": {                            // DJ announcements. WRITE: DJ only
+        "-NxDef456": {
+          "id": "-NxDef456",
+          "text": "Next song in 2 minutes!",
+          "createdAt": 1757000050000
+        }
+      }
+    }
+  }
+}</code></pre>
+  </div>
+
+  <h3>ה. חלוקת הקוד לשלוש קבוצות <span class="timechip">⏱️ 10 דק'</span></h3>
+  <p>
+    את מחלקות הקוד נחלק לשלוש קבוצות, כשלכל קבוצה יש תפקיד אחד ברור.
+    זה נקרא <b>שכבות</b>, והרעיון פשוט: כל קבוצה מדברת רק עם זו שמתחתיה.
+  </p>
+  <div class="ascii">  What the user sees      Activities + Fragments
+                          (MainActivity, RoomActivity, PlayerFragment, FeedFragment...)
+                                  |  asks for data / gets told about changes
+                                  v
+  Who talks to the DB     RoomRepository       <-- the ONLY class that talks to the database
+                          (createRoom, joinRoom, sendComment, updateTrack...)
+                                  |  builds and returns
+                                  v
+  What the data looks     Room, Participant, Track, Comment
+  like in memory          (the simple classes from step 2)</div>
+  <p>
+    <b>למה לא לתת לכל מסך לפנות למסד הנתונים לבד?</b> נניח שנחליט מחר לשנות את שם הצומת
+    <code>comments</code>. אם חמישה מסכים פונים לבסיס הנתונים ישירות – צריך לתקן בחמישה מקומות,
+    ומספיק שנשכח אחד. כשהכול עובר דרך <code>RoomRepository</code>, יש <b>מקום אחד לתקן</b>.
+    בנוסף, המסכים כבר לא צריכים להכיר את מסד הנתונים בכלל – הם רק מבקשים "תן לי את החדר".
+  </p>
+
+  <h2>מה חשוב להבין לפני ההרצה?</h2>
+  <ul>
+    <li><b>צומת (node)</b> – "תיקייה" בעץ המידע שעל הלוח המשותף. הכתובת המלאה שלה נראית כמו נתיב קובץ: <code>rooms/4821/track</code>.</li>
+    <li><code>startedAtServer</code> – הרגע שבו השיר התחיל, <b>לפי שעון השרת</b> ולא לפי השעון של הטלפון. לכל טלפון יש שעון קצת אחר, ולכן צריך שעון אחד משותף שכולם מודדים לפיו. זה הבסיס לכל הסנכרון בשלב 10.</li>
+    <li><code>participants/&lt;id&gt;</code> – שם הצומת הוא המזהה של המכשיר, ולא מספר רץ. רק ככה אפשר יהיה לכתוב את החוק "כל אחד נוגע רק בעצמו".</li>
+    <li><b>ארבע התשובות</b> – <code>LOBBY</code>, <code>PLAYING</code>, <code>PAUSED</code>, <code>ENDED</code>. אלה כל האפשרויות, וכל אחת דורשת מהאפליקציה התנהגות אחרת. לכן זו מילה מרשימה סגורה ולא "כן/לא".</li>
+    <li><b>עץ שטוח עדיף על עץ עמוק</b> – ב-Realtime Database, כשקוראים צומת מקבלים גם את כל מה שמתחתיו. אם נקנן הכול עמוק, כל קריאה קטנה תוריד המון מידע מיותר ותבזבז סוללה וחבילת גלישה.</li>
+  </ul>
+
+  <div class="checkpoint">
+    <span class="cp-label">תחנת אישור מורה</span>
+    <p class="cp-title">✅ ודאו לפני שאתם ניגשים למורה:</p>
+    <ol>
+      <li>יש בידיכם דף מצויר עם שלושת המסכים, טבלת די-ג'יי מול משתתף, וציור ארבעת המצבים והחצים ביניהם.</li>
+      <li>כתבתם את מבנה ה-JSON, וליד כל צומת יש <b>הערת מתכנת</b> (<code>//</code>) שאומרת מי מורשה לשנות אותו.</li>
+      <li>אתם יכולים להראות את ציור שלוש הקבוצות ולהסביר מה כל קבוצה עושה ומה היא <b>לא</b> עושה.</li>
+    </ol>
+    <div class="question-box">
+      <b>שאלת הבנה (המורה ישאל):</b><br>
+      מאיה מגיעה למסיבה באיחור של עשר דקות ומצטרפת לחדר. השיר כבר מתנגן אצל כולם כבר שתי דקות.<br>
+      <b>א.</b> לפי סדר המידע שתכננתם, אילו פרטים הטלפון של מאיה צריך לקרוא מהלוח המשותף כדי
+      להצטרף נכון למסיבה? מנו אותם והסבירו למה כל אחד נחוץ.<br>
+      <b>ב.</b> אם היינו שומרים את המידע הזה בתוך הטלפון של הדי-ג'יי בלבד –
+      מה בדיוק היה קורה למאיה?
+    </div>
+  </div>
+</section>
+
+<!-- ================= STEP 2 ================= -->
+<section id="sec-2">
+  <h1>שלב 2: שלד הפרויקט ומחלקות המודל <span class="timechip total">⏱️ סה"כ כ-100 דק'</span></h1>
+
+  <div class="goal">🎯 מטרה: לבנות את שלד הפרויקט ולכתוב את ארבע מחלקות המודל – <code>Room</code>, <code>Participant</code>, <code>Track</code>, <code>Comment</code> – בצורה שהספרייה של Firebase תוכל להמיר אליהן נתונים אוטומטית.</div>
+
+  <h2>למה ככה?</h2>
+  <p>
+    Firebase מחזיר JSON. אפשר לקרוא אותו כ-<code>HashMap</code> ולגשת לשדות במפתחות טקסט, אבל אז
+    כל שגיאת כתיב מתגלה רק בזמן ריצה. במקום זה נשתמש ב-<b>POJO</b> (Plain Old Java Object) –
+    מחלקה פשוטה עם שדות ו-getters/setters. הספרייה יודעת לקרוא <code>getName()</code> ולכתוב
+    <code>"name"</code>, ובכיוון ההפוך לקרוא <code>snapshot.getValue(Participant.class)</code>.
+    כך <b>המהדר בודק בשבילנו את שמות השדות</b>.
+  </p>
+  <p>
+    הדרישה הקריטית: <b>constructor ריק</b>. Firebase יוצר את האובייקט באמצעות reflection – היא
+    קוראת ל-constructor בלי פרמטרים ואחר כך מזריקה את השדות דרך ה-setters. בלי constructor ריק
+    תקבלו קריסה עם ההודעה <code>does not define a no-argument constructor</code>. ברגע שאתם
+    מוסיפים constructor עם פרמטרים, Java מפסיקה לספק את הריק אוטומטית – ולכן <b>תמיד כותבים את שניהם</b>.
+  </p>
+
+  <h2>א. מחברים את הפרויקט לשירות המקוון <span class="timechip">⏱️ 30 דק'</span></h2>
+  <p>
+    זכרו את "לוח המודעות" שתכננו בשלב 1. עכשיו אנחנו פותחים אותו בפועל.
+    בשלב 1 החלטנו <b>מה</b> צריך להישמר; כאן נבחר <b>איפה</b>.
+  </p>
+
+  <div class="infobox">
+    <h3>🤔 למה Firebase ולא שרת שנכתוב בעצמנו?</h3>
+    <p style="margin:0;">
+      כדי להחזיק לוח מודעות מקוון צריך מחשב שדולק תמיד, כתובת באינטרנט, תוכנה שמנהלת את המידע
+      וטיפול באבטחה. זו עבודה של פרויקט שלם בפני עצמו. <b>Firebase</b> הוא שירות של גוגל
+      שנותן לנו את כל זה מוכן ובחינם בהיקפים קטנים, כך שנוכל להתרכז באפליקציה עצמה.
+      השירות שמחזיק את הלוח נקרא <b>Realtime Database</b>, והשירות שמחזיק תמונות נקרא
+      <b>Storage</b>.
+    </p>
+  </div>
+
+  <h3>🔥 שלב א1: יוצרים פרויקט ב-Firebase <span class="timechip">⏱️ 10 דק'</span></h3>
+  <ol>
+    <li>🌐 פתחו דפדפן בכתובת <code>console.firebase.google.com</code> והתחברו עם חשבון גוגל
+        (אותו חשבון שתשתמשו בו כל השנה, כדי שלא תאבדו את הפרויקט).</li>
+    <li>➕ לחצו על <b>Create a project</b> (או <b>Add project</b> אם יש לכם פרויקטים קיימים).</li>
+    <li>✏️ בשדה השם הקלידו <code>LA-PARTY</code>. גוגל תוסיף לשם סיומת אקראית כדי שיהיה
+        ייחודי בעולם, למשל <code>la-party-7f3a2</code> – זה תקין ומצפוי.</li>
+    <li>📊 במסך הבא גוגל מציעה להוסיף <b>Google Analytics</b>. <b>כבו את המתג</b> –
+        אנחנו לא צריכים אותו והוא רק מסבך את ההרשאות.</li>
+    <li>⏳ לחצו <b>Create project</b> והמתינו כחצי דקה עד שיופיע <b>Continue</b>.</li>
+  </ol>
+
+  <h3>🤖 שלב א2: מוסיפים את אפליקציית האנדרואיד <span class="timechip">⏱️ 10 דק'</span></h3>
+  <p>
+    הפרויקט ב-Firebase הוא "המטרייה". עכשיו צריך לרשום תחתיו את האפליקציה הספציפית שלנו,
+    כדי ש-Firebase תדע לזהות אותה כשהיא תפנה אליו.
+  </p>
+  <ol>
+    <li>📱 במסך הראשי של הפרויקט לחצו על <b>הסמל של אנדרואיד</b> (הרובוט) תחת
+        <b>"Get started by adding Firebase to your app"</b>.</li>
+    <li>⌨️ בשדה <b>Android package name</b> הקלידו בדיוק:
+        <code>com.example.laparty</code><br>
+        <b>⚠️ זה השדה הקריטי בכל השלב.</b> הוא חייב להיות זהה <b>אות באות</b> לשם החבילה
+        בפרויקט שלכם. איפה בודקים? פתחו את <code>app/build.gradle</code> וחפשו את השורה
+        <code>applicationId</code>. אם יש שם משהו אחר – העתיקו משם ולא מכאן.
+        טעות של אות אחת גורמת לאפליקציה להתחבר "לשום מקום", בלי שום הודעת שגיאה מובנת.</li>
+    <li>🏷️ בשדה <b>App nickname</b> (אופציונלי) כתבו <code>LA-PARTY Android</code>.</li>
+    <li>🔑 את השדה <b>Debug signing certificate SHA-1</b> אפשר להשאיר <b>ריק</b> כרגע.
+        הוא נדרש רק להתחברות עם חשבון גוגל, ואנחנו לא משתמשים בזה.</li>
+    <li>✅ לחצו <b>Register app</b>.</li>
+  </ol>
+
+  <h3>📥 שלב א3: מורידים את קובץ ההגדרות <span class="timechip">⏱️ 5 דק'</span></h3>
+  <ol>
+    <li>⬇️ לחצו <b>Download google-services.json</b>. זהו <b>כרטיס הביקור</b> של הפרויקט:
+        קובץ טקסט שמכיל את הכתובת של מסד הנתונים שלכם ואת המזהים שלו.
+        בלעדיו האפליקציה לא יודעת לאן לפנות.</li>
+    <li>📂 ב-Android Studio החליפו את התצוגה מ-<b>Android</b> ל-<b>Project</b>
+        (התפריט הנפתח בפינה הימנית-עליונה של סרגל הקבצים). זה חשוב, כי בתצוגת Android
+        התיקייה הנכונה פשוט לא מוצגת.</li>
+    <li>🖱️ גררו את הקובץ אל תוך התיקייה <code>LaParty/app/</code> –
+        <b>לא</b> אל <code>app/src</code> ו<b>לא</b> אל תיקיית השורש.
+        הנתיב הסופי חייב להיות <code>app/google-services.json</code>.</li>
+    <li>🔍 ודאו שהקובץ נראה בסרגל הקבצים ליד <code>build.gradle</code> של <code>app</code>.</li>
+  </ol>
+  <div class="ascii">LaParty/
+├── app/
+│   ├── google-services.json     &lt;== HERE. exactly here.
+│   ├── build.gradle
+│   └── src/
+│       └── main/
+│           ├── java/com/example/laparty/
+│           └── res/
+├── build.gradle
+└── settings.gradle</div>
+
+  <h3>🗄️ שלב א4: מפעילים את שני השירותים <span class="timechip">⏱️ 5 דק'</span></h3>
+  <ol>
+    <li>📋 בתפריט הימני של הקונסולה לחצו <b>Build</b> ואז <b>Realtime Database</b>,
+        ואז <b>Create Database</b>.</li>
+    <li>🌍 בבחירת המיקום (location) בחרו <code>europe-west1</code> –
+        קרוב אלינו גיאוגרפית ולכן מהיר יותר. <b>אי אפשר לשנות זאת אחר כך.</b></li>
+    <li>🔓 כשנשאלים על אבטחה בחרו <b>Start in test mode</b>.
+        המשמעות: בשלושים הימים הראשונים כל אחד יכול לקרוא ולכתוב.
+        זה <b>לא</b> מצב שמשאירים בפרויקט אמיתי, ובשלב 18 נכתוב כללי אבטחה אמיתיים.</li>
+    <li>🖼️ חזרו ל-<b>Build</b> ולחצו <b>Storage</b> ואז <b>Get started</b>,
+        גם כאן במצב <b>test mode</b>. כאן יישמרו התמונות בשלב 14.</li>
+    <li>📎 העתיקו לעצמכם את <b>כתובת מסד הנתונים</b> שמופיעה בראש המסך
+        (משהו כמו <code>https://la-party-7f3a2-default-rtdb.europe-west1.firebasedatabase.app</code>).
+        נשתמש בה בשלב 6 לאיתור תקלות.</li>
+  </ol>
+
+  <div class="warnbox" style="box-shadow:5px 5px 0 var(--neon-cyan);">
+    <h3>🛠️ שלוש התקלות הנפוצות בשלב הזה</h3>
+    <ul style="margin:6px 0 0;">
+      <li><b>שם חבילה שגוי</b> – האפליקציה מתקמפלת אבל שום דבר לא נשמר בשרת.
+          הפתרון: השוו את <code>applicationId</code> לשם שרשמתם בקונסולה.</li>
+      <li><b>הקובץ במקום הלא נכון</b> – שגיאת קומפילציה שאומרת
+          <code>File google-services.json is missing</code>. הפתרון: העבירו אותו ל-<code>app/</code>.</li>
+      <li><b>שכחתם ללחוץ Sync</b> – Android Studio לא מזהה את הספריות החדשות.
+          הפתרון: <b>File → Sync Project with Gradle Files</b>.</li>
+    </ul>
+  </div>
+
+  <div class="infobox">
+    <h3>מה זה "ספרייה" ומה זה Gradle?</h3>
+    <p style="margin:0;">
+      <b>ספרייה</b> (library) היא קוד שמישהו אחר כבר כתב ואנחנו מקבלים מוכן, כדי לא להמציא
+      את הגלגל. אנחנו לא נכתוב לבד קוד שמדבר עם השרת של גוגל או שמוריד תמונות מהאינטרנט.
+      <b>Gradle</b> הוא הכלי שמוריד את הספריות האלה בשבילנו. אנחנו רק רושמים בקובץ
+      <code>build.gradle</code> את השמות והגרסאות של מה שאנחנו רוצים, לוחצים
+      <b>Sync Now</b>, והוא מביא הכול.
+    </p>
+  </div>
+
+  <div class="codecard">
+    <div class="codecard-head">
+      <span class="codecard-file">build.gradle (Project) / settings.gradle</span>
+      <span class="codecard-btns">
+        <button class="btn btn-toggle">הצג קוד ˅</button>
+        <button class="btn btn-copy">העתק קוד 📋</button>
+      </span>
+    </div>
+<pre><code>// build.gradle  (Project level)
+plugins {
+    id 'com.android.application' version '8.5.0' apply false
+    id 'com.google.gms.google-services' version '4.4.2' apply false
+}
+
+// settings.gradle  -- ודאו שהמאגרים האלה קיימים
+dependencyResolutionManagement {
+    repositoriesMode.set(RepositoriesMode.FAIL_ON_PROJECT_REPOS)
+    repositories {
+        google()
+        mavenCentral()
+    }
+}</code></pre>
+  </div>
+
+  <div class="codecard">
+    <div class="codecard-head">
+      <span class="codecard-file">app/build.gradle</span>
+      <span class="codecard-btns">
+        <button class="btn btn-toggle">הצג קוד ˅</button>
+        <button class="btn btn-copy">העתק קוד 📋</button>
+      </span>
+    </div>
+<pre><code>plugins {
+    id 'com.android.application'
+    id 'com.google.gms.google-services'
+}
+
+android {
+    namespace 'com.example.laparty'
+    compileSdk 34
+
+    defaultConfig {
+        applicationId "com.example.laparty"
+        minSdk 24
+        targetSdk 34
+        versionCode 1
+        versionName "1.0"
+    }
+
+    buildFeatures {
+        viewBinding true
+        buildConfig true      // נדרש בשלב 17 עבור מפתח ה-API
+    }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_11
+        targetCompatibility JavaVersion.VERSION_11
+    }
+}
+
+dependencies {
+    implementation 'androidx.appcompat:appcompat:1.7.0'
+    implementation 'com.google.android.material:material:1.12.0'
+    implementation 'androidx.constraintlayout:constraintlayout:2.1.4'
+    implementation 'androidx.recyclerview:recyclerview:1.3.2'
+
+    // Firebase - שימוש ב-BoM כדי שכל הגרסאות יהיו תואמות
+    implementation platform('com.google.firebase:firebase-bom:33.1.2')
+    implementation 'com.google.firebase:firebase-database'
+    implementation 'com.google.firebase:firebase-storage'
+
+    // תמונות
+    implementation 'com.github.bumptech.glide:glide:4.16.0'
+    annotationProcessor 'com.github.bumptech.glide:compiler:4.16.0'
+
+    // מפות ומיקום
+    implementation 'com.google.android.gms:play-services-maps:19.0.0'
+    implementation 'com.google.android.gms:play-services-location:21.3.0'
+
+    // Lifecycle / ViewModel / LiveData
+    implementation 'androidx.lifecycle:lifecycle-viewmodel:2.8.4'
+    implementation 'androidx.lifecycle:lifecycle-livedata:2.8.4'
+    implementation 'androidx.fragment:fragment:1.8.2'
+}</code></pre>
+  </div>
+
+  <h2>ב. שני מושגים חדשים שנצטרך <span class="timechip">⏱️ 25 דק'</span></h2>
+  <p>
+    לפני שנכתוב את המחלקות, שני כלים בג'אווה שכנראה לא פגשתם בשיעורים.
+    בכל אחד נראה קודם <b>מה הבעיה</b>, ואחר כך את הפתרון.
+  </p>
+
+  <h3>1️⃣ enum – רשימה סגורה של אפשרויות <span class="timechip">⏱️ 12 דק'</span></h3>
+  <p>
+    <b>הבעיה.</b> לכל משתתף יש תפקיד: די-ג'יי או משתתף רגיל. איך נשמור אותו?
+    האפשרות המתבקשת היא מחרוזת. אבל מחרוזת יכולה להכיל <b>כל דבר</b>:
+  </p>
+  <div class="codecard">
+    <div class="codecard-head">
+      <span class="codecard-file">הבעיה עם מחרוזת</span>
+      <span class="codecard-btns">
+        <button class="btn btn-toggle">הצג קוד ˅</button>
+        <button class="btn btn-copy">העתק קוד 📋</button>
+      </span>
+    </div>
+<pre><code>String role = "DJ";
+String role2 = "dj";          // lowercase - is this the same role? the compiler has no idea
+String role3 = "DJ ";         // a trailing space - a bug you will hunt for an hour
+String role4 = "banana";      // completely invalid, and Java compiles it happily
+
+if (role.equals("DJ")) { ... }        // and if I typo "JD" here, nothing warns me</code></pre>
+  </div>
+  <p>
+    ארבע השורות האלה מתקמפלות בלי בעיה, והבאג יתגלה רק אצל המשתמש.
+    אנחנו רוצים לומר למהדר: <b>"יש בדיוק שתי אפשרויות בעולם, ואל תיתן לי לכתוב שלישית"</b>.
+  </p>
+  <p>
+    <b>הפתרון: enum</b> (קיצור של enumeration, "מניה"). זה <b>טיפוס חדש שאנחנו מגדירים</b>,
+    שהערכים החוקיים שלו הם רשימה סגורה שאנחנו כותבים במפורש.
+    זה בדיוק כמו <code>boolean</code>, שיש לו רק <code>true</code> ו-<code>false</code> –
+    רק שכאן אנחנו בוחרים את השמות ואת הכמות.
+  </p>
+  <div class="codecard">
+    <div class="codecard-head">
+      <span class="codecard-file">enum – הדגמה עצמאית</span>
+      <span class="codecard-btns">
+        <button class="btn btn-toggle">הצג קוד ˅</button>
+        <button class="btn btn-copy">העתק קוד 📋</button>
+      </span>
+    </div>
+<pre><code>// Defining the type: exactly two legal values, nothing else exists.
+public enum Role {
+    DJ,
+    PARTICIPANT
+}
+
+// Using it:
+Role myRole = Role.DJ;
+Role other  = Role.PARTICIPANT;
+
+// Role bad = Role.BANANA;      &lt;-- THE COMPILER REFUSES. red line, no app.
+// Role bad2 = "DJ";            &lt;-- also refused: a String is not a Role.
+
+// Comparing is done with == and cannot have typos:
+if (myRole == Role.DJ) {
+    System.out.println("Show the player controls");
+}
+
+// A switch over an enum is readable and the IDE can complete it for you:
+switch (myRole) {
+    case DJ:
+        System.out.println("I choose the music");
+        break;
+    case PARTICIPANT:
+        System.out.println("I just listen");
+        break;
+}
+
+// Useful built-ins that come for free:
+System.out.println(Role.DJ.name());       // "DJ"        enum  -> text
+Role back = Role.valueOf("DJ");           // Role.DJ     text  -> enum
+for (Role r : Role.values()) {            // loop over ALL options
+    System.out.println(r);
+}</code></pre>
+  </div>
+  <table class="schema">
+    <tr><th>אם נשמור מחרוזת</th><th>אם נשמור enum</th></tr>
+    <tr><td>שגיאת כתיב מתגלה אצל המשתמש</td><td>שגיאת כתיב מתגלה <b>בזמן כתיבת הקוד</b></td></tr>
+    <tr><td>אפשר לכתוב כל ערך שהוא</td><td>אפשר רק ערך מהרשימה</td></tr>
+    <tr><td>אין השלמה אוטומטית</td><td>ה-IDE מציע את האפשרויות</td></tr>
+  </table>
+  <p class="note-small">
+    ⚠️ שימו לב לנקודה שתחזור בקוד שלנו: <b>המידע על הלוח נשמר כמחרוזת</b> ("DJ"), כי JSON
+    לא מכיר enum. לכן נמיר בין השניים – <code>name()</code> בכתיבה,
+    ו-<code>valueOf()</code> בקריאה. את ההמרה הזאת נעטוף במתודה שמגנה עלינו מנתון פגום.
+  </p>
+
+  <h3>2️⃣ ArrayList – רשימה שגדלה לבד <span class="timechip">⏱️ 13 דק'</span></h3>
+  <p>
+    <b>הבעיה.</b> אתם מכירים מערך. אבל למערך יש תכונה אחת שהופכת אותו לבלתי שמיש אצלנו:
+    <b>הגודל שלו נקבע ביצירה ולא ניתן לשינוי</b>. כמה משתתפים יהיו במסיבה? אין לנו מושג.
+    שלושה? ארבעים? אנשים מצטרפים ויוצאים כל הזמן.
+  </p>
+  <div class="codecard">
+    <div class="codecard-head">
+      <span class="codecard-file">הבעיה עם מערך</span>
+      <span class="codecard-btns">
+        <button class="btn btn-toggle">הצג קוד ˅</button>
+        <button class="btn btn-copy">העתק קוד 📋</button>
+      </span>
+    </div>
+<pre><code>String[] participants = new String[10];      // I guessed 10. Why 10?
+
+participants[0] = "Roni";
+participants[1] = "Maya";
+// How many are there right now? The array cannot tell me. Length is always 10.
+
+// An 11th person joins:
+participants[10] = "Dana";     // CRASH: ArrayIndexOutOfBoundsException
+
+// And if only 2 joined, I am holding 8 empty slots and every loop
+// has to keep asking "is this one null?"</code></pre>
+  </div>
+  <p>
+    <b>הפתרון: ArrayList.</b> זו מחלקה מוכנה בג'אווה שמנהלת בפנים מערך,
+    ו<b>מגדילה אותו לבד</b> כשנגמר המקום. מבחינתנו זו רשימה שאין לה גודל מקסימלי,
+    ושתמיד יודעת כמה פריטים יש בה עכשיו.
+  </p>
+  <div class="codecard">
+    <div class="codecard-head">
+      <span class="codecard-file">ArrayList – הדגמה עצמאית</span>
+      <span class="codecard-btns">
+        <button class="btn btn-toggle">הצג קוד ˅</button>
+        <button class="btn btn-copy">העתק קוד 📋</button>
+      </span>
+    </div>
+<pre><code>import java.util.ArrayList;
+
+// The type inside &lt;&gt; says what the list holds. Only that type is allowed in.
+ArrayList&lt;String&gt; names = new ArrayList&lt;&gt;();     // starts EMPTY, size 0
+
+names.add("Roni");                 // size 1
+names.add("Maya");                 // size 2
+names.add("Dana");                 // size 3   -- no limit, no crash
+
+System.out.println(names.size());  // 3   -- the real count, always accurate
+System.out.println(names.get(0));  // "Roni"   (get instead of [0])
+
+names.remove("Maya");              // size 2, and the gap closes by itself
+System.out.println(names.contains("Dana"));   // true
+
+// Looping - exactly like a for-each over an array:
+for (String name : names) {
+    System.out.println(name);
+}
+
+names.clear();                     // back to empty
+
+
+// ---- And of course it can hold OUR objects, not just Strings ----
+ArrayList&lt;Participant&gt; people = new ArrayList&lt;&gt;();
+people.add(new Participant("77b0", "Maya", Role.PARTICIPANT, 1757000031000L));
+Participant first = people.get(0);
+System.out.println(first.getName());          // "Maya"</code></pre>
+  </div>
+  <table class="schema">
+    <tr><th>פעולה</th><th>מערך</th><th>ArrayList</th></tr>
+    <tr><td>יצירה</td><td><code>new String[10]</code> – גודל קבוע</td><td><code>new ArrayList&lt;&gt;()</code> – ריק וגמיש</td></tr>
+    <tr><td>הוספה</td><td><code>arr[i] = x</code> וצריך לנהל את <code>i</code></td><td><code>list.add(x)</code></td></tr>
+    <tr><td>גישה</td><td><code>arr[0]</code></td><td><code>list.get(0)</code></td></tr>
+    <tr><td>כמה יש</td><td><code>arr.length</code> – הגודל, לא הכמות</td><td><code>list.size()</code> – הכמות האמיתית</td></tr>
+    <tr><td>מחיקה</td><td>ידנית, נשאר חור</td><td><code>list.remove(x)</code></td></tr>
+  </table>
+  <p class="note-small">
+    💡 בפרויקט נשתמש ב-<code>ArrayList</code> בכל מקום שבו הכמות אינה ידועה מראש:
+    רשימת המשתתפים, רשימת התגובות ותור השירים. בשלב 13 נחבר רשימה כזאת
+    למסך גולל (<code>RecyclerView</code>) שמציג אותה.
+  </p>
+
+  <h2>ג. כותבים את מחלקות המודל <span class="timechip">⏱️ 45 דק'</span></h2>
+  <ol>
+    <li>אחרי עדכון קובצי ה-Gradle לחצו <b>Sync Now</b> וודאו שאין שגיאות.</li>
+    <li>צרו חבילה (package) בשם <code>model</code> תחת <code>com.example.laparty</code>.</li>
+    <li>צרו בתוכה את <code>Role</code> (enum), <code>Track</code>, <code>Participant</code>, <code>Comment</code> ו-<code>Room</code>.</li>
+    <li>בכל מחלקה: <b>שדות private</b>, <b>constructor ריק</b>, constructor נוח, ו-getters/setters ציבוריים.</li>
+    <li>ב-<code>Room</code> השתמשו ב-<code>ArrayList</code> כשדה, כדי להחזיק את רשימת המשתתפים והתגובות בזיכרון.</li>
+    <li>הוסיפו למניפסט הרשאת <code>INTERNET</code>.</li>
+  </ol>
+
+  <div class="codecard">
+    <div class="codecard-head">
+      <span class="codecard-file">model/Role.java</span>
+      <span class="codecard-btns">
+        <button class="btn btn-toggle">הצג קוד ˅</button>
+        <button class="btn btn-copy">העתק קוד 📋</button>
+      </span>
+    </div>
+<pre><code>package com.example.laparty.model;
+
+/**
+ * The two roles in a party.
+ * Stored in the database as a String ("DJ" / "PARTICIPANT"),
+ * because Firebase cannot serialize a Java enum by itself.
+ */
+public enum Role {
+    DJ,
+    PARTICIPANT;
+
+    /** Safe conversion from the database value back to an enum. */
+    public static Role fromString(String value) {
+        if (value == null) {
+            return PARTICIPANT;
+        }
+        try {
+            return Role.valueOf(value);
+        } catch (IllegalArgumentException e) {
+            // Unknown value in the database - never crash the app for it
+            return PARTICIPANT;
+        }
+    }
+}</code></pre>
+  </div>
+
+  <div class="codecard">
+    <div class="codecard-head">
+      <span class="codecard-file">model/Track.java</span>
+      <span class="codecard-btns">
+        <button class="btn btn-toggle">הצג קוד ˅</button>
+        <button class="btn btn-copy">העתק קוד 📋</button>
+      </span>
+    </div>
+<pre><code>package com.example.laparty.model;
+
+/**
+ * The single source of truth for "what should be playing right now".
+ * Only the DJ writes this node; every participant only reads it.
+ */
+public class Track {
+
+    public static final String STATE_PLAYING = "PLAYING";
+    public static final String STATE_PAUSED  = "PAUSED";
+
+    private String url;
+    private String title;
+    private String state;            // PLAYING | PAUSED
+    private long   positionMs;       // position inside the song at startedAtServer
+    private long   startedAtServer;  // SERVER time, not device time
+
+    /** Required by Firebase - do not delete. */
+    public Track() {
+    }
+
+    public Track(String url, String title, String state, long positionMs, long startedAtServer) {
+        this.url = url;
+        this.title = title;
+        this.state = state;
+        this.positionMs = positionMs;
+        this.startedAtServer = startedAtServer;
+    }
+
+    public String getUrl() { return url; }
+    public void setUrl(String url) { this.url = url; }
+
+    public String getTitle() { return title; }
+    public void setTitle(String title) { this.title = title; }
+
+    public String getState() { return state; }
+    public void setState(String state) { this.state = state; }
+
+    public long getPositionMs() { return positionMs; }
+    public void setPositionMs(long positionMs) { this.positionMs = positionMs; }
+
+    public long getStartedAtServer() { return startedAtServer; }
+    public void setStartedAtServer(long startedAtServer) { this.startedAtServer = startedAtServer; }
+
+    public boolean isPlaying() {
+        return STATE_PLAYING.equals(state);
+    }
+}</code></pre>
+  </div>
+
+  <div class="codecard">
+    <div class="codecard-head">
+      <span class="codecard-file">model/Participant.java</span>
+      <span class="codecard-btns">
+        <button class="btn btn-toggle">הצג קוד ˅</button>
+        <button class="btn btn-copy">העתק קוד 📋</button>
+      </span>
+    </div>
+<pre><code>package com.example.laparty.model;
+
+import com.google.firebase.database.Exclude;
+
+/**
+ * One person inside a room.
+ * The key of this object in the database is the device UUID (see step 5),
+ * which is what lets a security rule say "you may only write your own node".
+ */
+public class Participant {
+
+    private String id;
+    private String name;
+    private String role;       // stored as text: "DJ" / "PARTICIPANT"
+    private long   joinedAt;
+    private boolean online;
+
+    /** Required by Firebase - do not delete. */
+    public Participant() {
+    }
+
+    public Participant(String id, String name, Role role, long joinedAt) {
+        this.id = id;
+        this.name = name;
+        this.role = role.name();
+        this.joinedAt = joinedAt;
+        this.online = true;
+    }
+
+    public String getId() { return id; }
+    public void setId(String id) { this.id = id; }
+
+    public String getName() { return name; }
+    public void setName(String name) { this.name = name; }
+
+    public String getRole() { return role; }
+    public void setRole(String role) { this.role = role; }
+
+    public long getJoinedAt() { return joinedAt; }
+    public void setJoinedAt(long joinedAt) { this.joinedAt = joinedAt; }
+
+    public boolean isOnline() { return online; }
+    public void setOnline(boolean online) { this.online = online; }
+
+    /**
+     * @Exclude tells Firebase NOT to save this as a field,
+     * because it is computed from "role" and would be a duplicate.
+     */
+    @Exclude
+    public Role getRoleEnum() {
+        return Role.fromString(role);
+    }
+
+    @Exclude
+    public boolean isDj() {
+        return getRoleEnum() == Role.DJ;
+    }
+}</code></pre>
+  </div>
+
+  <div class="codecard">
+    <div class="codecard-head">
+      <span class="codecard-file">model/Comment.java</span>
+      <span class="codecard-btns">
+        <button class="btn btn-toggle">הצג קוד ˅</button>
+        <button class="btn btn-copy">העתק קוד 📋</button>
+      </span>
+    </div>
+<pre><code>package com.example.laparty.model;
+
+import com.google.firebase.database.Exclude;
+
+/**
+ * One entry in the live feed. The same class serves both a text comment
+ * and a shared image (step 14) - the "type" field separates them.
+ */
+public class Comment {
+
+    public static final String TYPE_TEXT  = "text";
+    public static final String TYPE_IMAGE = "image";
+
+    private String id;
+    private String senderId;
+    private String senderName;
+    private String type;        // text | image
+    private String text;
+    private String imageUrl;
+    private long   createdAt;
+
+    /** Required by Firebase - do not delete. */
+    public Comment() {
+    }
+
+    /** Text comment. */
+    public Comment(String senderId, String senderName, String text, long createdAt) {
+        this.senderId = senderId;
+        this.senderName = senderName;
+        this.type = TYPE_TEXT;
+        this.text = text;
+        this.createdAt = createdAt;
+    }
+
+    /** Image comment (step 14). */
+    public Comment(String senderId, String senderName, String imageUrl, long createdAt, boolean isImage) {
+        this.senderId = senderId;
+        this.senderName = senderName;
+        this.type = TYPE_IMAGE;
+        this.imageUrl = imageUrl;
+        this.createdAt = createdAt;
+    }
+
+    public String getId() { return id; }
+    public void setId(String id) { this.id = id; }
+
+    public String getSenderId() { return senderId; }
+    public void setSenderId(String senderId) { this.senderId = senderId; }
+
+    public String getSenderName() { return senderName; }
+    public void setSenderName(String senderName) { this.senderName = senderName; }
+
+    public String getType() { return type; }
+    public void setType(String type) { this.type = type; }
+
+    public String getText() { return text; }
+    public void setText(String text) { this.text = text; }
+
+    public String getImageUrl() { return imageUrl; }
+    public void setImageUrl(String imageUrl) { this.imageUrl = imageUrl; }
+
+    public long getCreatedAt() { return createdAt; }
+    public void setCreatedAt(long createdAt) { this.createdAt = createdAt; }
+
+    @Exclude
+    public boolean isImage() {
+        return TYPE_IMAGE.equals(type);
+    }
+}</code></pre>
+  </div>
+
+  <div class="codecard">
+    <div class="codecard-head">
+      <span class="codecard-file">model/Room.java</span>
+      <span class="codecard-btns">
+        <button class="btn btn-toggle">הצג קוד ˅</button>
+        <button class="btn btn-copy">העתק קוד 📋</button>
+      </span>
+    </div>
+<pre><code>package com.example.laparty.model;
+
+import com.google.firebase.database.Exclude;
+
+import java.util.ArrayList;
+
+/**
+ * The in-memory picture of one party.
+ *
+ * Note: the ArrayList fields are marked @Exclude because in the database
+ * participants and comments are separate child nodes (a map), NOT arrays.
+ * The lists exist only so the UI has something ordered to show.
+ */
+public class Room {
+
+    public static final String STATE_LOBBY   = "LOBBY";
+    public static final String STATE_PLAYING = "PLAYING";
+    public static final String STATE_PAUSED  = "PAUSED";
+    public static final String STATE_ENDED   = "ENDED";
+
+    private String code;        // 4 digits
+    private String djId;
+    private String djName;
+    private String state;       // LOBBY | PLAYING | PAUSED | ENDED
+    private long   createdAt;
+    private double venueLat;
+    private double venueLng;
+
+    @Exclude
+    private ArrayList&lt;Participant&gt; participants = new ArrayList&lt;&gt;();
+    @Exclude
+    private ArrayList&lt;Comment&gt; comments = new ArrayList&lt;&gt;();
+
+    /** Required by Firebase - do not delete. */
+    public Room() {
+    }
+
+    public Room(String code, String djId, String djName, long createdAt) {
+        this.code = code;
+        this.djId = djId;
+        this.djName = djName;
+        this.state = STATE_LOBBY;
+        this.createdAt = createdAt;
+    }
+
+    public String getCode() { return code; }
+    public void setCode(String code) { this.code = code; }
+
+    public String getDjId() { return djId; }
+    public void setDjId(String djId) { this.djId = djId; }
+
+    public String getDjName() { return djName; }
+    public void setDjName(String djName) { this.djName = djName; }
+
+    public String getState() { return state; }
+    public void setState(String state) { this.state = state; }
+
+    public long getCreatedAt() { return createdAt; }
+    public void setCreatedAt(long createdAt) { this.createdAt = createdAt; }
+
+    public double getVenueLat() { return venueLat; }
+    public void setVenueLat(double venueLat) { this.venueLat = venueLat; }
+
+    public double getVenueLng() { return venueLng; }
+    public void setVenueLng(double venueLng) { this.venueLng = venueLng; }
+
+    @Exclude
+    public ArrayList&lt;Participant&gt; getParticipants() { return participants; }
+
+    @Exclude
+    public ArrayList&lt;Comment&gt; getComments() { return comments; }
+
+    @Exclude
+    public boolean isEnded() {
+        return STATE_ENDED.equals(state);
+    }
+
+    /** Is this device the DJ of this room? Used all over the UI. */
+    @Exclude
+    public boolean isDj(String deviceId) {
+        return djId != null &amp;&amp; djId.equals(deviceId);
+    }
+}</code></pre>
+  </div>
+
+  <div class="codecard">
+    <div class="codecard-head">
+      <span class="codecard-file">AndroidManifest.xml (הרשאה ראשונה)</span>
+      <span class="codecard-btns">
+        <button class="btn btn-toggle">הצג קוד ˅</button>
+        <button class="btn btn-copy">העתק קוד 📋</button>
+      </span>
+    </div>
+<pre><code>&lt;?xml version="1.0" encoding="utf-8"?&gt;
+&lt;manifest xmlns:android="http://schemas.android.com/apk/res/android"&gt;
+
+    &lt;uses-permission android:name="android.permission.INTERNET" /&gt;
+    &lt;uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" /&gt;
+
+    &lt;application
+        android:allowBackup="true"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:theme="@style/Theme.LaParty"&gt;
+
+        &lt;activity
+            android:name=".MainActivity"
+            android:exported="true"&gt;
+            &lt;intent-filter&gt;
+                &lt;action android:name="android.intent.action.MAIN" /&gt;
+                &lt;category android:name="android.intent.category.LAUNCHER" /&gt;
+            &lt;/intent-filter&gt;
+        &lt;/activity&gt;
+
+    &lt;/application&gt;
+&lt;/manifest&gt;</code></pre>
+  </div>
+
+  <h2>מה חשוב להבין לפני ההרצה?</h2>
+  <ul>
+    <li><code>public Track() {}</code> – ה-constructor הריק אינו "קוד מיותר". Firebase יוצרת אובייקטים ב-reflection ומחפשת בדיוק אותו. זו הדרישה שגורמת ליותר קריסות מכל דרישה אחרת בפרויקט.</li>
+    <li><code>@Exclude</code> – מונע מ-Firebase לשמור שדה או להסתמך על getter מחושב. בלי זה, <code>getRoleEnum()</code> היה נשמר כשדה <code>roleEnum</code> מיותר בבסיס הנתונים.</li>
+    <li><b>enum</b> – <code>Role</code> נותן לנו רשימה סגורה של תפקידים שהמהדר בודק. בבסיס הנתונים הוא נשמר כמחרוזת, כי JSON לא מכיר enum. <code>Role.fromString()</code> מגן עלינו מנתון פגום.</li>
+    <li><code>ArrayList&lt;Participant&gt;</code> – רשימה דינמית שגדלה לבד, בניגוד למערך בגודל קבוע. היא מוחזקת בזיכרון בלבד; בבסיס הנתונים המשתתפים הם <b>מפה</b> לפי מזהה, כדי שנוכל לגשת לאחד מהם ישירות ולאכוף עליו חוק.</li>
+    <li><b>getters/setters</b> – השדות <code>private</code> וכל הגישה דרך מתודות. זו לא בירוקרטיה: היא מאפשרת לנו להוסיף בדיקה בתוך ה-setter בעתיד בלי לשנות אף קורא.</li>
+  </ul>
+
+  <div class="checkpoint">
+    <span class="cp-label">תחנת אישור מורה</span>
+    <p class="cp-title">✅ ודאו לפני שאתם ניגשים למורה:</p>
+    <ol>
+      <li>הפרויקט מתקמפל בהצלחה, הקובץ <code>google-services.json</code> יושב בתוך <code>app/</code>, ובקונסולת Firebase שני השירותים מופעלים.</li>
+      <li>חמש המחלקות קיימות בחבילה <code>model</code>, ולכל אחת יש constructor ריק ו-getters/setters מלאים.</li>
+      <li>הרצתם בעצמכם את שתי ההדגמות (enum ו-ArrayList) וראיתם את הפלט, כולל את השורה שהמהדר מסרב לקמפל.</li>
+    </ol>
+    <div class="question-box">
+      <b>שאלת הבנה (המורה ישאל):</b><br>
+      תלמיד טוען: "כל העניין של <code>enum Role</code> מיותר. אני אשמור את התפקיד כמחרוזת
+      <code>String</code>, זה בדיוק אותו דבר ובלי מחלקה נוספת."<br>
+      <b>א.</b> תנו לו שתי דוגמאות קונקרטיות לבאג שהמחרוזת מאפשרת וה-enum מונע.<br>
+      <b>ב.</b> ובכל זאת, בקוד שלנו התפקיד <b>נשמר על הלוח כמחרוזת</b>. הסבירו למה זה לא סותר
+      את התשובה שלכם בסעיף א, ואיפה בדיוק בקוד מתבצעת ההמרה בין השניים.
+    </div>
+  </div>
+</section>
+
+<!-- ================= STEP 3 ================= -->
+<section id="sec-3">
+  <h1>שלב 3: Splash ו-Thread <span class="timechip total">⏱️ סה"כ כ-70 דק'</span></h1>
+
+  <div class="goal">🎯 מטרה: לבנות מסך פתיחה שמחכה שנייה וחצי ואז עובר למסך הראשי, ובדרך להבין מה זה thread, למה חייבים <code>try-catch</code> ולמה אסור לגעת בממשק מחוץ ל-thread הראשי.</div>
+
+  <h2>מושג מקדים: מה זה thread? <span class="timechip">⏱️ 20 דק'</span></h2>
+  <p>
+    <b>thread</b> (נקרא "תהליכון" או "חוט ביצוע") הוא <b>פס ייצור אחד</b> שמבצע פקודות
+    אחת אחרי השנייה. עד היום כתבתם תוכניות עם פס ייצור אחד: הפקודות רצו לפי הסדר,
+    כל פקודה חיכתה שקודמתה תסתיים.
+  </p>
+  <p>
+    באנדרואיד יש פס ייצור מיוחד אחד שנקרא <b>ה-thread הראשי</b>. הוא זה שמצייר את המסך
+    וקורא ללחיצות שלכם. עכשיו חשבו רגע: אם ניתן לפס הייצור הזה מטלה שלוקחת שנייה וחצי,
+    <b>מי יצייר את המסך בזמן הזה?</b> אף אחד. המסך יקפא.
+  </p>
+  <div class="ascii">   ONE thread (what you know)          TWO threads (what we need here)
+
+   main: [draw][draw][SLEEP 1.5s][draw]   main:  [draw][draw][draw][draw][draw]
+                     ^^^^^^^^^^^                       (never blocked, stays smooth)
+                     screen frozen!
+                                          worker:      [SLEEP 1.5s] --> "done!"
+   the user sees a stuck app                            (blocking is fine here)</div>
+
+  <div class="warnbox" style="box-shadow:5px 5px 0 var(--neon-cyan);">
+    <h3>ומה זה ANR?</h3>
+    <p style="margin:6px 0;">
+      <b>ANR = Application Not Responding</b>, כלומר "האפליקציה לא מגיבה".
+      זו הודעה שאנדרואיד עצמו מציג למשתמש כשה-thread הראשי תקוע יותר מכ-5 שניות,
+      עם הצעה לסגור את האפליקציה בכוח. זו החוויה הגרועה ביותר שאפשר לתת למשתמש.
+    </p>
+    <p style="margin:6px 0 0;">
+      <b>רוצים לראות ANR במו עיניכם?</b> הוסיפו זמנית לתוך <code>onCreate</code> את השורה
+      <code>Thread.sleep(10000);</code> (בתוך try-catch), הריצו, ונסו ללחוץ על המסך.
+      תקבלו אפליקציה קפואה ואחריה הודעת מערכת. <b>מחקו את השורה מיד אחר כך</b> –
+      עשינו את זה רק כדי להרגיש למה שאר השלב הזה קיים.
+    </p>
+  </div>
+
+  <h2>למה ככה?</h2>
+  <p>
+    מהמושגים למעלה נובעות שתי מסקנות, ושתיהן ביחד מסבירות את הקוד של השלב:
+  </p>
+  <ol>
+    <li><b>ההמתנה חייבת לקרות ב-thread אחר</b>, אחרת המסך קופא ובמקרה גרוע נקבל ANR.</li>
+    <li><b>אבל אסור לגעת במסך מ-thread אחר.</b> זה חוק ברזל באנדרואיד: כל שינוי של
+        <code>View</code> חייב לקרות ב-thread הראשי, אחרת נקבל קריסה בשם
+        <code>CalledFromWrongThreadException</code>. הסיבה: אם שני פסי ייצור יציירו את אותו
+        מסך בו-זמנית, התוצאה בלתי צפויה.</li>
+  </ol>
+  <p>
+    שני החוקים האלה נראים סותרים, ולכן קיימת <code>runOnUiThread()</code>:
+    <b>מחכים ברקע, וכשמסיימים מבקשים מה-thread הראשי לבצע את השינוי במסך.</b>
+    זו התבנית שתחזור בכל הפרויקט, ובגדול היא כל מה שצריך לזכור מהשלב הזה.
+  </p>
+  <p>
+    <b>גילוי נאות חשוב:</b> למשימה הזאת דווקא, <code>Handler.postDelayed()</code> היא הדרך
+    <b>הנכונה</b> באנדרואיד – שורה אחת, בלי ליצור thread, והשעון מנוהל על ידי המערכת.
+    אנחנו כותבים כאן גם את גרסת ה-<code>Thread</code> הגלמית <b>כתרגיל למידה</b>, כדי שתפגשו
+    <code>InterruptedException</code> ותבינו את המודל. thread גלמי באמת נחוץ כשיש עבודה
+    <b>ארוכה וחוסמת</b> – למשל קריאת רשת לבוט ה-AI ב<b>שלב 17</b>, ושם נחליף אותו ב-<code>Executor</code>
+    שמנהל בריכת threads במקומנו.
+  </p>
+
+  <h2>מה עושים <span class="timechip">⏱️ 40 דק'</span></h2>
+  <ol>
+    <li>צרו <code>SplashActivity</code> חדש (<b>New → Activity → Empty Views Activity</b>) והפכו אותו למסך המשגר במניפסט.</li>
+    <li>בנו את הפריסה <code>activity_splash.xml</code> עם שם האפליקציה על רקע צהוב ו-<code>ProgressBar</code>.</li>
+    <li>הפעילו <b>Thread</b> חדש שקורא ל-<code>Thread.sleep(1500)</code> בתוך <code>try-catch</code> על <code>InterruptedException</code>.</li>
+    <li>בסוף ההמתנה קראו ל-<code>runOnUiThread()</code> ומשם שגרו <b>Intent</b> ל-<code>MainActivity</code>.</li>
+    <li>קראו ל-<code>finish()</code> אחרי ה-<code>startActivity()</code> כדי שכפתור "חזור" לא יחזיר את המשתמש ל-Splash.</li>
+    <li>הוסיפו למחלקה קבוע <code>SPLASH_DELAY_MS</code> במקום מספר קסם בקוד.</li>
+  </ol>
+
+  <div class="codecard">
+    <div class="codecard-head">
+      <span class="codecard-file">res/layout/activity_splash.xml</span>
+      <span class="codecard-btns">
+        <button class="btn btn-toggle">הצג קוד ˅</button>
+        <button class="btn btn-copy">העתק קוד 📋</button>
+      </span>
+    </div>
+<pre><code>&lt;?xml version="1.0" encoding="utf-8"?&gt;
+&lt;LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#F7C948"
+    android:gravity="center"
+    android:orientation="vertical"
+    android:padding="24dp"&gt;
+
+    &lt;TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="🎧"
+        android:textSize="72sp" /&gt;
+
+    &lt;TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="12dp"
+        android:text="LA-PARTY"
+        android:textColor="#000000"
+        android:textSize="30sp"
+        android:textStyle="bold" /&gt;
+
+    &lt;TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
+        android:text="Silent disco, one DJ, everyone in sync"
+        android:textColor="#333333"
+        android:textSize="14sp" /&gt;
+
+    &lt;ProgressBar
+        android:id="@+id/splashProgress"
+        style="?android:attr/progressBarStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="32dp" /&gt;
+
+&lt;/LinearLayout&gt;</code></pre>
+  </div>
+
+  <div class="codecard">
+    <div class="codecard-head">
+      <span class="codecard-file">SplashActivity.java</span>
+      <span class="codecard-btns">
+        <button class="btn btn-toggle">הצג קוד ˅</button>
+        <button class="btn btn-copy">העתק קוד 📋</button>
+      </span>
+    </div>
+<pre><code>package com.example.laparty;
+
+import android.content.Intent;
+import android.os.Bundle;
+import android.util.Log;
+
+import androidx.appcompat.app.AppCompatActivity;
+
+/**
+ * Splash screen.
+ *
+ * NOTE: we use a raw Thread here on purpose, as a learning exercise.
+ * The idiomatic Android way for a simple delay is:
+ *
+ *     new Handler(Looper.getMainLooper()).postDelayed(this::goToMain, SPLASH_DELAY_MS);
+ *
+ * A raw Thread is really needed only for long blocking work,
+ * such as the network call to the AI bot in step 17.
+ */
+public class SplashActivity extends AppCompatActivity {
+
+    private static final String TAG = "SplashActivity";
+    private static final long SPLASH_DELAY_MS = 1500;
+
+    /** Kept so we can interrupt the waiting thread if the user leaves early. */
+    private Thread splashThread;
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_splash);
+
+        splashThread = new Thread(new Runnable() {
+            @Override
+            public void run() {
+                // We are NOT on the UI thread here - blocking is allowed.
+                try {
+                    Thread.sleep(SPLASH_DELAY_MS);
+                } catch (InterruptedException e) {
+                    // Someone called interrupt() on us, most likely because
+                    // the activity is being destroyed. Stop quietly.
+                    Log.d(TAG, "Splash wait interrupted, aborting navigation");
+                    return;
+                }
+
+                // Touching the UI or starting an activity must happen on the UI thread.
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        goToMain();
+                    }
+                });
+            }
+        });
+
+        splashThread.start();
+    }
+
+    private void goToMain() {
+        // isFinishing() protects us from navigating out of a dead activity.
+        if (isFinishing() || isDestroyed()) {
+            return;
+        }
+        Intent intent = new Intent(SplashActivity.this, MainActivity.class);
+        startActivity(intent);
+        finish();   // remove Splash from the back stack
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        if (splashThread != null &amp;&amp; splashThread.isAlive()) {
+            // This is what throws InterruptedException inside sleep()
+            splashThread.interrupt();
+        }
+    }
+}</code></pre>
+  </div>
+
+  <div class="codecard">
+    <div class="codecard-head">
+      <span class="codecard-file">AndroidManifest.xml (עדכון מסך המשגר)</span>
+      <span class="codecard-btns">
+        <button class="btn btn-toggle">הצג קוד ˅</button>
+        <button class="btn btn-copy">העתק קוד 📋</button>
+      </span>
+    </div>
+<pre><code>&lt;application
+    android:allowBackup="true"
+    android:icon="@mipmap/ic_launcher"
+    android:label="@string/app_name"
+    android:theme="@style/Theme.LaParty"&gt;
+
+    &lt;!-- Splash is now the entry point of the app --&gt;
+    &lt;activity
+        android:name=".SplashActivity"
+        android:exported="true"
+        android:theme="@style/Theme.LaParty"&gt;
+        &lt;intent-filter&gt;
+            &lt;action android:name="android.intent.action.MAIN" /&gt;
+            &lt;category android:name="android.intent.category.LAUNCHER" /&gt;
+        &lt;/intent-filter&gt;
+    &lt;/activity&gt;
+
+    &lt;!-- MainActivity is no longer the launcher, just a normal activity --&gt;
+    &lt;activity
+        android:name=".MainActivity"
+        android:exported="false" /&gt;
+
+&lt;/application&gt;</code></pre>
+  </div>
+
+  <div class="codecard">
+    <div class="codecard-head">
+      <span class="codecard-file">SplashActivity.java – הגרסה האידיומטית (להשוואה)</span>
+      <span class="codecard-btns">
+        <button class="btn btn-toggle">הצג קוד ˅</button>
+        <button class="btn btn-copy">העתק קוד 📋</button>
+      </span>
+    </div>
+<pre><code>// The same behaviour in 3 lines, with no thread at all.
+// postDelayed() puts a message on the main thread's queue with a timestamp;
+// the system delivers it when the time comes. Nothing is blocked.
+
+private final Handler handler = new Handler(Looper.getMainLooper());
+
+@Override
+protected void onCreate(Bundle savedInstanceState) {
+    super.onCreate(savedInstanceState);
+    setContentView(R.layout.activity_splash);
+    handler.postDelayed(this::goToMain, SPLASH_DELAY_MS);
+}
+
+@Override
+protected void onDestroy() {
+    super.onDestroy();
+    handler.removeCallbacksAndMessages(null);   // cancel a pending navigation
+}</code></pre>
+  </div>
+
+  <h2>מה חשוב להבין לפני ההרצה?</h2>
+  <ul>
+    <li><code>Thread.sleep()</code> – עוצר <b>רק את ה-thread שקרא לו</b>. זו בדיוק הסיבה שיצרנו thread נפרד: הוא זה שיישן, בזמן שה-thread הראשי ממשיך לצייר.</li>
+    <li><code>InterruptedException</code> – זו <b>חריגה מסומנת</b> (checked): המהדר מסרב לקמפל בלי <code>try-catch</code> או <code>throws</code>. Java מכריחה אותנו לחשוב "מה קורה אם מישהו יקטע את ההמתנה".</li>
+    <li><code>runOnUiThread()</code> – מתודה של <code>Activity</code> שמעבירה <code>Runnable</code> לתור של ה-thread הראשי. כל נגיעה ב-<code>View</code> או ניווט צריכה לעבור דרכה.</li>
+    <li><b>Intent</b> – "מכתב כוונה" למערכת. <code>new Intent(this, MainActivity.class)</code> הוא Intent מפורש: אנחנו נוקבים בשם היעד.</li>
+    <li><code>finish()</code> – מסיר את ה-Activity מה-back stack. בלעדיו, לחיצה על "חזור" מהמסך הראשי תחזיר את המשתמש למסך פתיחה שאין לו שום תפקיד.</li>
+    <li><code>interrupt()</code> ב-<code>onDestroy</code> – מונע "thread זומבי" שמנסה לנווט אחרי שהמסך כבר מת. זה הרגל שיציל אותנו שוב בשלב 19.</li>
+  </ul>
+
+  <div class="checkpoint">
+    <span class="cp-label">תחנת אישור מורה</span>
+    <p class="cp-title">✅ ודאו לפני שאתם ניגשים למורה:</p>
+    <ol>
+      <li>האפליקציה נפתחת במסך צהוב עם הלוגו, ואחרי כשנייה וחצי עוברת לבד ל-<code>MainActivity</code>.</li>
+      <li>לחיצה על "חזור" במסך הראשי יוצאת מהאפליקציה ולא חוזרת למסך הפתיחה.</li>
+      <li>אתם מסוגלים להצביע בקוד על שלוש השורות שמעבירות אותנו בין ה-threads ולהסביר כל אחת.</li>
+    </ol>
+    <div class="question-box">
+      <b>שאלת הבנה (המורה ישאל):</b><br>
+      בשלב הזה ראינו שני חוקים שנראים סותרים: <b>אסור לחסום את ה-thread הראשי</b>,
+      אבל <b>אסור לגעת במסך מ-thread אחר</b>.<br>
+      <b>א.</b> הסבירו מה הסיבה ההגיונית לכל אחד משני החוקים בנפרד.<br>
+      <b>ב.</b> הצביעו על השורה בקוד שלכם שמיישבת ביניהם, והסבירו מה היא עושה.<br>
+      <b>ג.</b> תלמיד מחק את <code>splashThread.interrupt()</code> מ-<code>onDestroy</code>
+      וטוען שהאפליקציה עובדת בדיוק אותו דבר. תארו תרחיש שבו הוא צודק, ותרחיש שבו הוא טועה.
+    </div>
+  </div>
+</section>
+
+<!-- ##SECTIONS## -->
+  </main>
+</div>
+
+<script>
+(function(){
+  var links = document.querySelectorAll('.toc-link');
+  function show(id){
+    var secs = document.querySelectorAll('main.content section');
+    for(var i=0;i<secs.length;i++){
+      secs[i].classList.toggle('visible', secs[i].id === id);
+    }
+    for(var j=0;j<links.length;j++){
+      links[j].classList.toggle('active', links[j].getAttribute('data-target') === id);
+    }
+    window.scrollTo({top:0,behavior:'smooth'});
+  }
+  for(var k=0;k<links.length;k++){
+    links[k].addEventListener('click', function(e){
+      e.preventDefault();
+      show(this.getAttribute('data-target'));
+    });
+  }
+
+  /* code toggle */
+  document.addEventListener('click', function(e){
+    var t = e.target;
+    if(t.classList && t.classList.contains('btn-toggle')){
+      var card = t.closest('.codecard');
+      var pre = card.querySelector('pre');
+      var open = pre.classList.toggle('open');
+      t.textContent = open ? 'הסתר קוד ˄' : 'הצג קוד ˅';
+    }
+    if(t.classList && t.classList.contains('btn-copy')){
+      var card2 = t.closest('.codecard');
+      var codeEl = card2.querySelector('pre code');
+      var txt = codeEl.innerText;
+      var done = function(){
+        var old = t.textContent;
+        t.textContent = 'הועתק!';
+        setTimeout(function(){ t.textContent = old; }, 1400);
+      };
+      if(navigator.clipboard && navigator.clipboard.writeText){
+        navigator.clipboard.writeText(txt).then(done, function(){ fallback(txt, done); });
+      } else {
+        fallback(txt, done);
+      }
+    }
+  });
+  function fallback(txt, done){
+    var ta = document.createElement('textarea');
+    ta.value = txt;
+    ta.style.position='fixed'; ta.style.left='-9999px';
+    document.body.appendChild(ta); ta.select();
+    try{ document.execCommand('copy'); done(); }catch(err){}
+    document.body.removeChild(ta);
+  }
+})();
+</script>
+</body>
+</html>
