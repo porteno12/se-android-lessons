@@ -415,11 +415,10 @@
 
 <header class="topbar">
   <div class="brand">
-    <h1>מסיבת אוזניות: LA-PARTY!</h1>
-    <span class="badge-dummies">FOR DUMMIES</span>
+    <div class="subtitle">מדריך שלב-אחר-שלב (Java)</div>
+    <span class="badge-dummies">LA-PARTY!</span>
     <span class="credit">קרדיט: רוני רובן, ויצו נהלל, שנה&quot;ל 2026-7</span>
   </div>
-  <div class="subtitle">מדריך שלב-אחר-שלב (Java)</div>
 </header>
 
 <div class="layout">
@@ -434,7 +433,7 @@
 
     <div class="part-header">חלק ב – זהות וחדרים</div>
     <a class="toc-link" data-target="sec-4">👉 שלב 4: מסך ראשי ובחירת תפקיד</a>
-    <a class="toc-link" data-target="sec-5">👉 שלב 5: SharedPreferences ומזהה מכשיר</a>
+    <a class="toc-link" data-target="sec-5">👉 שלב 5: SharedPreferences, מזהה מכשיר ו-Anonymous Auth</a>
     <a class="toc-link" data-target="sec-6">👉 שלב 6: RoomRepository – יצירה והצטרפות</a>
     <a class="toc-link" data-target="sec-7">👉 שלב 7: מי מחובר עכשיו</a>
 
@@ -995,7 +994,7 @@ maya.put("online", true);
 
       "meta": {                                // general info. WRITE: DJ only
         "code": "4821",
-        "djId": "a3f9c1d2-...",                // the DJ's device id
+        "djId": "a3f9c1d2-...",                // the DJ's user id (auth uid)
         "djName": "Roni",
         "state": "LOBBY",                      // LOBBY | PLAYING | PAUSED | ENDED
         "createdAt": 1757000000000,
@@ -1011,7 +1010,7 @@ maya.put("online", true);
         "startedAtServer": 1757000012345       // the moment it started, by the SERVER clock
       },
 
-      "participants": {                        // WRITE: everyone, but only their own node
+      "participants": {                        // key = auth uid. WRITE: only your own node
         "a3f9c1d2-...": {
           "id": "a3f9c1d2-...",
           "name": "Roni",
@@ -1078,7 +1077,7 @@ maya.put("online", true);
   <ul>
     <li><b>צומת (node)</b> – "תיקייה" בעץ המידע שעל הלוח המשותף. הכתובת המלאה שלה נראית כמו נתיב קובץ: <code>rooms/4821/track</code>.</li>
     <li><code>startedAtServer</code> – הרגע שבו השיר התחיל, <b>לפי שעון השרת</b> ולא לפי השעון של הטלפון. לכל טלפון יש שעון קצת אחר, ולכן צריך שעון אחד משותף שכולם מודדים לפיו. זה הבסיס לכל הסנכרון בשלב 10.</li>
-    <li><code>participants/&lt;id&gt;</code> – שם הצומת הוא המזהה של המכשיר, ולא מספר רץ. רק ככה אפשר יהיה לכתוב את החוק "כל אחד נוגע רק בעצמו".</li>
+    <li><code>participants/&lt;id&gt;</code> – שם הצומת הוא המזהה (uid) שהמשתמש קיבל מ-Firebase Auth בשלב 5, ולא מספר רץ. רק ככה אפשר יהיה לכתוב את החוק "כל אחד נוגע רק בעצמו", כי רק מזהה שהשרת עצמו חילק הוא מזהה שהשרת יכול לאמת.</li>
     <li><b>ארבע התשובות</b> – <code>LOBBY</code>, <code>PLAYING</code>, <code>PAUSED</code>, <code>ENDED</code>. אלה כל האפשרויות, וכל אחת דורשת מהאפליקציה התנהגות אחרת. לכן זו מילה מרשימה סגורה ולא "כן/לא".</li>
     <li><b>עץ שטוח עדיף על עץ עמוק</b> – ב-Realtime Database, כשקוראים צומת מקבלים גם את כל מה שמתחתיו. אם נקנן הכול עמוק, כל קריאה קטנה תוריד המון מידע מיותר ותבזבז סוללה וחבילת גלישה.</li>
   </ul>
@@ -1176,7 +1175,10 @@ maya.put("online", true);
   <ol>
     <li>⬇️ לחצו <b>Download google-services.json</b>. זהו <b>כרטיס הביקור</b> של הפרויקט:
         קובץ טקסט שמכיל את הכתובת של מסד הנתונים שלכם ואת המזהים שלו.
-        בלעדיו האפליקציה לא יודעת לאן לפנות.</li>
+        בלעדיו האפליקציה לא יודעת לאן לפנות.<br>
+        <b>⚠️ שימו לב לסדר:</b> הקובץ מכיל את כתובת מסד הנתונים רק אם הוא הורד <b>אחרי</b>
+        שיצרתם את ה-Realtime Database (שלב א4 שבהמשך). אם הורדתם קודם - פשוט הורידו שוב
+        אחרי א4. אחרת תקבלו בשלב 6 קריסה עם ההודעה <code>Specify DatabaseURL</code>.</li>
     <li>📂 ב-Android Studio החליפו את התצוגה מ-<b>Android</b> ל-<b>Project</b>
         (התפריט הנפתח בפינה הימנית-עליונה של סרגל הקבצים). זה חשוב, כי בתצוגת Android
         התיקייה הנכונה פשוט לא מוצגת.</li>
@@ -1207,6 +1209,11 @@ maya.put("online", true);
         זה <b>לא</b> מצב שמשאירים בפרויקט אמיתי, ובשלב 18 נכתוב כללי אבטחה אמיתיים.</li>
     <li>🖼️ חזרו ל-<b>Build</b> ולחצו <b>Storage</b> ואז <b>Get started</b>,
         גם כאן במצב <b>test mode</b>. כאן יישמרו התמונות בשלב 14.</li>
+    <li>🪪 חזרו ל-<b>Build</b>, לחצו <b>Authentication</b> ואז <b>Get started</b>,
+        עברו ללשונית <b>Sign-in method</b>, בחרו <b>Anonymous</b> והפעילו (<b>Enable</b>).<br>
+        <b>למה?</b> כדי שהשרת יוכל לאכוף "מותר לך לשנות רק את עצמך" (שלב 18), הוא חייב
+        <b>לדעת מי אתה</b>. Anonymous נותן לכל מכשיר זהות סודית משלו בלי שום מסך התחברות,
+        והמזהה הזה הוא מה שנשמור בשלב 5.</li>
     <li>📎 העתיקו לעצמכם את <b>כתובת מסד הנתונים</b> שמופיעה בראש המסך
         (משהו כמו <code>https://la-party-7f3a2-default-rtdb.europe-west1.firebasedatabase.app</code>).
         נשתמש בה בשלב 6 לאיתור תקלות.</li>
@@ -1305,6 +1312,7 @@ dependencies {
     implementation platform('com.google.firebase:firebase-bom:33.1.2')
     implementation 'com.google.firebase:firebase-database'
     implementation 'com.google.firebase:firebase-storage'
+    implementation 'com.google.firebase:firebase-auth'    // זהות אנונימית - שלבים 5 ו-18
 
     // תמונות
     implementation 'com.github.bumptech.glide:glide:4.16.0'
@@ -1318,6 +1326,9 @@ dependencies {
     implementation 'androidx.lifecycle:lifecycle-viewmodel:2.8.4'
     implementation 'androidx.lifecycle:lifecycle-livedata:2.8.4'
     implementation 'androidx.fragment:fragment:1.8.2'
+
+    // בדיקות יחידה - שלב 20
+    testImplementation 'junit:junit:4.13.2'
 }</code></pre>
   </div>
 
@@ -1610,7 +1621,7 @@ import com.google.firebase.database.Exclude;
 
 /**
  * One person inside a room.
- * The key of this object in the database is the device UUID (see step 5),
+ * The key of this object in the database is the anonymous auth uid (see step 5),
  * which is what lets a security rule say "you may only write your own node".
  */
 public class Participant {
