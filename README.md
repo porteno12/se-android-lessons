@@ -1,12 +1,17 @@
-# LA-PARTY – מדריך שלב אחר שלב
+# הנדסת תוכנה (אנדרואיד/Java) דרך משחקים
 
-מדריך לימודי שלב-אחר-שלב לבניית אפליקציית אנדרואיד "מסיבת אוזניות" (LA-PARTY).
+מדריכים לימודיים שלב-אחר-שלב, לפי תוכנית הלימודים: כל יחידה נלמדת דרך משחק אחד שנבנה שלב אחר שלב.
+לכל יחידה יש מדריך HTML (GitHub Pages) ופרויקט Android Studio מלא.
 
-**המדריך המקוון:** https://porteno12.github.io/la-party-guide
+**האתר:** https://porteno12.github.io/se-android-lessons/
 
-קוד המקור של האפליקציה: [HeadphoneParty_App25](https://github.com/porteno12/HeadphoneParty_App25)
+- [syllabus.md](syllabus.md) – תוכנית הלימודים וטבלת היחידות
+- [progress.json](progress.json) – מצב ההתקדמות (איזו יחידה נבנתה)
+- `unit-NN-<slug>/index.html` – המדריך של היחידה
+- `unit-NN-<slug>/app/` – פרויקט Android Studio של היחידה
 
 ---
 
-Step-by-step Android tutorial for building the LA-PARTY headphone-party app.
-Published with GitHub Pages from `index.html`.
+Software engineering (Android/Java) taught through games. One game per syllabus unit,
+each with a Hebrew step-by-step guide published with GitHub Pages and a buildable Android Studio project.
+Built with the `se-lessons-apps` skill.

@@ -1,0 +1,10 @@
+.DS_Store
+# Android Studio / Gradle (inside unit-*/app)
+*.iml
+.gradle/
+build/
+local.properties
+.idea/
+/captures
+.externalNativeBuild
+.cxx

@@ -1,0 +1,149 @@
+{
+  "site": "https://porteno12.github.io/se-android-lessons",
+  "github": "https://github.com/porteno12/se-android-lessons",
+  "units": [
+    {
+      "unit": 1,
+      "slug": "character-battle",
+      "name": "קרב דמויות",
+      "kind": "app",
+      "status": "planned",
+      "folder": "unit-01-character-battle",
+      "guide": null,
+      "app": null,
+      "date": null
+    },
+    {
+      "unit": 2,
+      "slug": "hebrew-wordle",
+      "name": "ווֹרדל בעברית",
+      "kind": "app",
+      "status": "planned",
+      "folder": "unit-02-hebrew-wordle",
+      "guide": null,
+      "app": null,
+      "date": null
+    },
+    {
+      "unit": 3,
+      "slug": "millionaire",
+      "name": "מי רוצה להיות מיליונר",
+      "kind": "app",
+      "status": "planned",
+      "folder": "unit-03-millionaire",
+      "guide": null,
+      "app": null,
+      "date": null
+    },
+    {
+      "unit": 4,
+      "slug": "connect-four",
+      "name": "ארבע בשורה נגד המחשב",
+      "kind": "app",
+      "status": "planned",
+      "folder": "unit-04-connect-four",
+      "guide": null,
+      "app": null,
+      "date": null
+    },
+    {
+      "unit": 5,
+      "slug": "high-scores",
+      "name": "שולחן שיאים",
+      "kind": "module",
+      "status": "planned",
+      "folder": "unit-05-high-scores",
+      "guide": null,
+      "app": null,
+      "date": null
+    },
+    {
+      "unit": 6,
+      "slug": null,
+      "name": "תכנון וניתוח אפליקציות",
+      "kind": "embedded",
+      "status": "embedded",
+      "folder": null,
+      "guide": null,
+      "app": null,
+      "date": null
+    },
+    {
+      "unit": 7,
+      "slug": "who-is-in-the-picture",
+      "name": "מי בתמונה",
+      "kind": "app",
+      "status": "planned",
+      "folder": "unit-07-who-is-in-the-picture",
+      "guide": null,
+      "app": null,
+      "date": null
+    },
+    {
+      "unit": 8,
+      "slug": "snake",
+      "name": "סנייק",
+      "kind": "app",
+      "status": "planned",
+      "folder": "unit-08-snake",
+      "guide": null,
+      "app": null,
+      "date": null
+    },
+    {
+      "unit": 9,
+      "slug": "debate-clock",
+      "name": "שעון ויכוחים",
+      "kind": "app",
+      "status": "planned",
+      "folder": "unit-09-debate-clock",
+      "guide": null,
+      "app": null,
+      "date": null
+    },
+    {
+      "unit": 10,
+      "slug": "focus-mode",
+      "name": "מצב ריכוז",
+      "kind": "app",
+      "status": "planned",
+      "folder": "unit-10-focus-mode",
+      "guide": null,
+      "app": null,
+      "date": null
+    },
+    {
+      "unit": 11,
+      "slug": "treasure-hunt",
+      "name": "ציד אוצרות",
+      "kind": "app",
+      "status": "planned",
+      "folder": "unit-11-treasure-hunt",
+      "guide": null,
+      "app": null,
+      "date": null
+    },
+    {
+      "unit": 12,
+      "slug": "flappy-bird",
+      "name": "פלאפי בירד",
+      "kind": "app",
+      "status": "planned",
+      "folder": "unit-12-flappy-bird",
+      "guide": null,
+      "app": null,
+      "date": null
+    },
+    {
+      "unit": 13,
+      "slug": "final-project",
+      "name": "עבודת גמר",
+      "kind": "page",
+      "status": "planned",
+      "folder": "final-project",
+      "guide": null,
+      "app": null,
+      "date": null
+    }
+  ]
+}
