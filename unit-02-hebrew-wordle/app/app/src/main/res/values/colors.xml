@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="primary">#538D4E</color>
+    <color name="on_primary">#FFFFFF</color>
+    <color name="secondary">#B59F3B</color>
+    <color name="on_secondary">#FFFFFF</color>
+    <color name="white">#FFFFFF</color>
+    <color name="ink">#1A1A2E</color>
+
+    <!-- ארבעת מצבי האות -->
+    <color name="tile_empty">#FFFFFF</color>
+    <color name="tile_border">#9AA0A6</color>
+    <color name="tile_absent">#787C7E</color>
+    <color name="tile_present">#C9B458</color>
+    <color name="tile_correct">#6AAA64</color>
+    <color name="tile_text">#1A1A2E</color>
+    <color name="tile_text_light">#FFFFFF</color>
+
+    <color name="key_bg">#D3D6DA</color>
+    <color name="screen_bg">#F7F7F7</color>
+</resources>

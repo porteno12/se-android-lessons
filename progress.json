@@ -7,22 +7,24 @@
       "slug": "character-battle",
       "name": "קרב דמויות",
       "kind": "app",
-      "status": "planned",
+      "status": "done",
       "folder": "unit-01-character-battle",
       "guide": null,
       "app": null,
-      "date": null
+      "date": "11.10.2026",
+      "external": true,
+      "note": "המדריך נבנה על ידי המורה מחוץ לפרויקט; קישור יתווסף בהמשך"
     },
     {
       "unit": 2,
       "slug": "hebrew-wordle",
       "name": "ווֹרדל בעברית",
       "kind": "app",
-      "status": "planned",
+      "status": "done",
       "folder": "unit-02-hebrew-wordle",
-      "guide": null,
-      "app": null,
-      "date": null
+      "guide": "unit-02-hebrew-wordle/index.html",
+      "app": "unit-02-hebrew-wordle/app",
+      "date": "11.10.2026"
     },
     {
       "unit": 3,

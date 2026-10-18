@@ -1,0 +1,2462 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ווֹרדל בעברית – מדריך שלב אחר שלב</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Heebo:wght@400;500;700;900&family=Assistant:wght@400;600;800&family=Roboto+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    /* ==== NEON PALETTE ==== */
+    --accent-1:#FFD43B;      /* electric yellow */
+    --accent-2:#7DE07D;        /* hot magenta */
+    --accent-3:#5BC8FF;        /* electric cyan */
+    --accent-4:#A5F3A5;       /* laser green */
+    --accent-5:#9D8CFF;      /* ultraviolet */
+    --accent-6:#FFA94D;
+
+    --yellow:var(--accent-1);
+    --black:#000000;
+    --white:#FFFFFF;
+
+    /* ==== DARK SURFACES ==== */
+    --bg-deep:#07110A;          /* page base */
+    --surface:#0C1A10;          /* main content card */
+    --surface-2:#122418;        /* raised boxes */
+    --surface-3:#1A3322;        /* hovers / heads */
+    --sidebar-bg:#0A160D;
+    --row-bg:#14281A;
+    --row-hover:#1F3D28;
+    --card-bg:var(--surface);
+
+    /* ==== TEXT ==== */
+    --text:#E6F2E8;             /* body text on dark */
+    --text-dim:#9DB8A4;
+    --text-bright:#FFFFFF;
+
+    --line:rgba(125,224,125,.32); /* hairline borders */
+
+    --code-bg:#0E1F13;
+    --code-red:#FFD43B;
+    --blue:#00A3FF;
+
+    --glow-y:0 0 8px rgba(255,232,31,.8);
+    --glow-p:0 0 10px rgba(255,45,149,.75);
+    --glow-c:0 0 10px rgba(0,240,255,.7);
+    --glow-g:0 0 10px rgba(57,255,20,.6);
+    --glow-v:0 0 12px rgba(176,38,255,.6);
+  }
+  *{box-sizing:border-box;}
+  html,body{margin:0;padding:0;}
+  body{
+    background:var(--bg-deep);
+    background-image:
+      radial-gradient(circle at 12% 6%, rgba(176,38,255,.26), transparent 44%),
+      radial-gradient(circle at 88% 10%, rgba(0,240,255,.18), transparent 46%),
+      radial-gradient(circle at 50% 100%, rgba(255,45,149,.18), transparent 55%);
+    background-attachment:fixed;
+    font-family:'Heebo','Assistant',Arial,sans-serif;
+    color:var(--text);
+    line-height:1.75;
+  }
+
+  /* ===== HEADER ===== */
+  header.topbar{
+    background:linear-gradient(90deg,#12002B 0%,#1E0640 50%,#2A0A4E 100%);
+    border-bottom:3px solid var(--accent-2);
+    box-shadow:0 0 34px rgba(255,45,149,.45);
+    padding:16px 26px;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    flex-wrap:wrap;
+    gap:14px;
+  }
+  .brand{display:flex;align-items:center;gap:14px;flex-wrap:wrap;}
+  .brand h1{
+    margin:0;
+    font-size:30px;
+    font-weight:900;
+    color:var(--accent-1);
+    letter-spacing:-0.5px;
+    text-shadow:0 0 6px rgba(255,232,31,.55), 0 0 22px rgba(255,107,0,.45);
+  }
+  .badge-dummies{
+    background:transparent;
+    color:var(--accent-3);
+    border:2px solid var(--accent-3);
+    box-shadow:var(--glow-c), inset 0 0 12px rgba(0,240,255,.18);
+    text-shadow:var(--glow-c);
+    font-weight:900;
+    font-size:14px;
+    padding:5px 16px;
+    border-radius:999px;
+    letter-spacing:1px;
+    font-family:'Assistant',sans-serif;
+    white-space:nowrap;
+  }
+  .credit{
+    background:rgba(255,45,149,.10);
+    border:2px solid var(--accent-2);
+    box-shadow:0 0 12px rgba(255,45,149,.45);
+    border-radius:6px;
+    padding:4px 12px;
+    font-size:13px;
+    font-weight:700;
+    color:#FFD6EC;
+    white-space:nowrap;
+  }
+  .subtitle{
+    font-size:19px;
+    font-weight:700;
+    color:#E4D2FF;
+    background:rgba(176,38,255,.12);
+    border:2px dashed var(--accent-5);
+    box-shadow:0 0 14px rgba(176,38,255,.3);
+    padding:6px 14px;
+    border-radius:6px;
+  }
+
+  /* ===== LAYOUT ===== */
+  .layout{
+    display:flex;
+    align-items:flex-start;
+    gap:24px;
+    padding:24px;
+    max-width:1500px;
+    margin:0 auto;
+  }
+  nav.sidebar{
+    position:sticky;
+    top:24px;
+    flex:0 0 310px;
+    background:var(--sidebar-bg);
+    border:2px solid rgba(0,240,255,.55);
+    box-shadow:0 0 26px rgba(0,240,255,.28), inset 0 0 40px rgba(176,38,255,.18);
+    border-radius:12px;
+    padding:16px 14px;
+    max-height:calc(100vh - 60px);
+    overflow-y:auto;
+    scrollbar-color:var(--accent-5) transparent;
+  }
+  nav.sidebar::-webkit-scrollbar{width:8px;}
+  nav.sidebar::-webkit-scrollbar-thumb{background:var(--accent-5);border-radius:999px;}
+  nav.sidebar::-webkit-scrollbar-track{background:transparent;}
+  nav.sidebar h2{
+    margin:0 0 14px;
+    color:var(--accent-1);
+    font-size:22px;
+    font-weight:900;
+    text-align:center;
+    border-bottom:2px solid var(--accent-2);
+    padding-bottom:8px;
+    text-shadow:var(--glow-y);
+  }
+  .part-header{
+    color:var(--accent-3);
+    text-shadow:var(--glow-c);
+    font-size:14px;
+    font-weight:800;
+    letter-spacing:0.5px;
+    margin:16px 4px 8px;
+    padding-bottom:4px;
+    border-bottom:1px dashed rgba(0,240,255,.35);
+  }
+  .toc-link{
+    display:block;
+    background:var(--row-bg);
+    color:#CFC2F0;
+    text-decoration:none;
+    font-size:15px;
+    font-weight:500;
+    padding:9px 12px;
+    margin-bottom:6px;
+    border-radius:6px;
+    border-right:4px solid transparent;
+    transition:background .15s, color .15s, box-shadow .15s;
+    cursor:pointer;
+  }
+  .toc-link:hover{
+    background:var(--row-hover);
+    color:var(--text-bright);
+    box-shadow:0 0 12px rgba(176,38,255,.4);
+  }
+  .toc-link.active{
+    background:linear-gradient(90deg,rgba(255,45,149,.22),rgba(0,240,255,.16));
+    color:var(--accent-1);
+    font-weight:800;
+    border-right:4px solid var(--accent-2);
+    box-shadow:0 0 16px rgba(255,45,149,.45), inset 0 0 18px rgba(255,45,149,.12);
+    text-shadow:0 0 8px rgba(255,232,31,.6);
+  }
+
+  main.content{
+    flex:1 1 auto;
+    background:var(--surface);
+    background-image:
+      radial-gradient(circle at 100% 0%, rgba(176,38,255,.14), transparent 40%),
+      radial-gradient(circle at 0% 100%, rgba(0,240,255,.08), transparent 45%);
+    border-radius:12px;
+    padding:44px 48px 60px;
+    min-width:0;
+    border:2px solid rgba(255,45,149,.5);
+    box-shadow:0 0 34px rgba(255,45,149,.28), inset 0 0 60px rgba(10,0,25,.6);
+  }
+  section{display:none;}
+  section.visible{display:block;}
+
+  /* ===== TYPO ===== */
+  main h1{
+    font-size:34px;
+    font-weight:900;
+    margin:0 0 22px;
+    padding-bottom:12px;
+    border-bottom:3px solid var(--accent-2);
+    line-height:1.35;
+    color:var(--accent-2);
+    text-shadow:0 0 10px rgba(255,45,149,.6), 0 0 28px rgba(176,38,255,.45);
+  }
+  main h2{
+    font-size:24px;
+    font-weight:800;
+    margin:34px 0 12px;
+    padding-right:12px;
+    border-right:5px solid var(--accent-3);
+    color:var(--accent-3);
+    text-shadow:0 0 9px rgba(0,240,255,.5);
+  }
+  main h3{
+    font-size:19px;font-weight:800;margin:24px 0 8px;
+    color:var(--accent-1);
+    text-shadow:0 0 7px rgba(255,232,31,.4);
+  }
+  main h4{color:#E3CCFF;}
+  main p{margin:12px 0;font-size:17px;}
+  main ul,main ol{font-size:17px;padding-inline-start:26px;}
+  main li{margin-bottom:9px;}
+  main li::marker{color:var(--accent-2);}
+  main b,main strong{color:var(--text-bright);}
+  main a{color:var(--accent-3);}
+  code{
+    background:var(--code-bg);
+    color:var(--code-red);
+    border:1px solid rgba(176,38,255,.4);
+    font-family:'Roboto Mono',Consolas,monospace;
+    font-size:0.9em;
+    padding:2px 6px;
+    border-radius:4px;
+    direction:ltr;
+    display:inline-block;
+    unicode-bidi:embed;
+  }
+
+  /* ===== BOXES ===== */
+  .goal{
+    background:linear-gradient(90deg,rgba(57,255,20,.12),rgba(57,255,20,.03));
+    border-right:6px solid var(--accent-4);
+    box-shadow:0 0 16px rgba(57,255,20,.28), inset 0 0 22px rgba(57,255,20,.06);
+    border-radius:8px;
+    padding:14px 18px;
+    margin:18px 0;
+    font-size:18px;
+    font-weight:700;
+    color:#C8FFC0;
+  }
+  .goal b,.goal strong{color:var(--accent-4);}
+  .warnbox{
+    background:var(--surface-2);
+    border:2px solid var(--accent-1);
+    border-radius:10px;
+    padding:20px 24px;
+    margin:28px 0;
+    box-shadow:0 0 22px rgba(255,232,31,.28), inset 0 0 28px rgba(255,107,0,.07);
+    color:#F6ECC8;
+  }
+  .warnbox h3{margin:0 0 10px;font-size:23px;font-weight:900;color:var(--accent-1);}
+  .warnbox b,.warnbox strong{color:#FFF3B0;}
+  .infobox{
+    background:var(--surface-2);
+    border:1px solid var(--line);
+    border-right:6px solid var(--accent-5);
+    border-radius:8px;
+    padding:16px 20px;
+    margin:20px 0;
+    box-shadow:0 0 18px rgba(176,38,255,.2);
+    color:#DCD0F5;
+  }
+  .infobox h3{margin-top:0;color:var(--accent-5);text-shadow:var(--glow-v);}
+  .chips{display:flex;gap:12px;flex-wrap:wrap;margin:18px 0;}
+  .chip{
+    border-radius:999px;
+    padding:8px 20px;
+    font-weight:700;
+    font-size:16px;
+    border:2px solid var(--line);
+    background:var(--surface-2);
+  }
+  .chip.blue{background:rgba(0,240,255,.10);border-color:var(--accent-3);color:var(--accent-3);box-shadow:var(--glow-c);}
+  .chip.gray{background:rgba(176,38,255,.12);border-color:var(--accent-5);color:#E0BBFF;box-shadow:var(--glow-v);}
+
+  /* checkpoint */
+  .checkpoint{
+    position:relative;
+    background:linear-gradient(160deg,rgba(255,45,149,.10),rgba(176,38,255,.05));
+    border:2px dashed var(--accent-2);
+    border-radius:12px;
+    padding:30px 22px 20px;
+    margin:36px 0 10px;
+    box-shadow:0 0 22px rgba(255,45,149,.25);
+  }
+  .checkpoint .cp-label{
+    position:absolute;
+    top:-16px;
+    right:22px;
+    background:var(--accent-2);
+    box-shadow:var(--glow-p);
+    color:#1A0010;
+    font-weight:800;
+    font-size:14px;
+    padding:5px 18px;
+    border-radius:999px;
+  }
+  .checkpoint p.cp-title{margin:0 0 8px;font-weight:800;font-size:18px;color:#FFB8DC;}
+  .question-box{
+    background:var(--surface-2);
+    border:1px solid rgba(255,45,149,.45);
+    border-radius:8px;
+    padding:12px 16px;
+    margin-top:14px;
+    font-size:16px;
+    color:#E6DAF7;
+  }
+  .question-box b{color:var(--accent-2);}
+
+  .finishbox{
+    background:linear-gradient(135deg,rgba(57,255,20,.14),rgba(0,240,255,.12),rgba(176,38,255,.16));
+    border:2px solid var(--accent-4);
+    border-radius:16px;
+    padding:30px;
+    text-align:center;
+    margin:34px 0;
+    box-shadow:0 0 40px rgba(57,255,20,.35), inset 0 0 40px rgba(0,240,255,.08);
+  }
+  .finishbox h2{
+    border:none;padding:0;font-size:44px;font-weight:900;margin:0 0 10px;
+    color:var(--accent-4);
+    text-shadow:0 0 14px rgba(57,255,20,.7), 0 0 34px rgba(57,255,20,.4);
+  }
+  .finishbox p{font-size:20px;font-weight:700;margin:0;color:#DFFFE8;}
+
+  /* ===== CODE CARD ===== */
+  .codecard{
+    border:1px solid rgba(176,38,255,.55);
+    box-shadow:0 0 20px rgba(176,38,255,.3);
+    border-radius:10px;
+    margin:22px 0;
+    overflow:hidden;
+    background:#0B0418;
+  }
+  .codecard-head{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:10px;
+    background:linear-gradient(90deg,#1B0033,#2E0B4A);
+    border-bottom:1px solid rgba(176,38,255,.55);
+    padding:9px 14px;
+    flex-wrap:wrap;
+  }
+  .codecard-file{
+    font-family:'Roboto Mono',monospace;
+    font-weight:600;
+    font-size:15px;
+    color:var(--accent-1);
+    text-shadow:var(--glow-y);
+    direction:ltr;
+  }
+  .codecard-btns{display:flex;gap:8px;}
+  .btn{
+    border:1px solid transparent;
+    border-radius:6px;
+    font-family:'Heebo',sans-serif;
+    font-weight:700;
+    font-size:14px;
+    padding:6px 14px;
+    cursor:pointer;
+    transition:box-shadow .15s, background .15s, color .15s;
+  }
+  .btn-toggle{background:rgba(0,240,255,.12);color:var(--accent-3);border-color:var(--accent-3);box-shadow:var(--glow-c);}
+  .btn-toggle:hover{background:var(--accent-3);color:#00232B;box-shadow:0 0 18px rgba(0,240,255,.9);}
+  .btn-copy{background:rgba(57,255,20,.10);color:var(--accent-4);border-color:var(--accent-4);box-shadow:var(--glow-g);}
+  .btn-copy:hover{background:var(--accent-4);color:#062B00;box-shadow:0 0 18px rgba(57,255,20,.9);}
+  .codecard pre{
+    margin:0;
+    padding:16px 18px;
+    background:#08030F;
+    overflow-x:auto;
+    direction:ltr;
+    text-align:left;
+    display:none;
+    border-top:1px solid rgba(176,38,255,.3);
+  }
+  .codecard pre.open{display:block;}
+  .codecard pre code{
+    background:none;
+    border:none;
+    color:#D8F5FF;
+    padding:0;
+    display:block;
+    font-size:14px;
+    line-height:1.6;
+    white-space:pre;
+    font-family:'Roboto Mono',Consolas,monospace;
+  }
+
+  table.schema{border-collapse:collapse;width:100%;margin:18px 0;font-size:16px;}
+  table.schema th,table.schema td{border:1px solid rgba(176,38,255,.4);padding:8px 12px;text-align:right;}
+  table.schema td{background:var(--surface-2);color:var(--text);}
+  table.schema th{
+    background:linear-gradient(90deg,rgba(255,45,149,.30),rgba(0,240,255,.22));
+    color:var(--text-bright);font-weight:800;
+    text-shadow:0 0 8px rgba(0,240,255,.5);
+  }
+  .ascii{
+    background:#08030F;color:var(--accent-4);
+    border:1px solid rgba(176,38,255,.5);
+    box-shadow:inset 0 0 28px rgba(176,38,255,.22), 0 0 16px rgba(57,255,20,.15);
+    border-radius:8px;padding:16px;
+    font-family:'Roboto Mono',monospace;font-size:13.5px;line-height:1.55;
+    overflow-x:auto;direction:ltr;text-align:left;white-space:pre;margin:18px 0;
+  }
+  .ascii.rtl{direction:rtl;text-align:right;unicode-bidi:plaintext;}
+  .flow{display:flex;flex-direction:column;align-items:center;gap:0;margin:18px 0;}
+  .flow .box{background:var(--surface-2);border:2px solid var(--accent-3);border-radius:10px;padding:10px 22px;min-width:260px;text-align:center;box-shadow:var(--glow-c);font-size:16px;}
+  .flow .box b{color:var(--accent-1);font-family:'Roboto Mono',monospace;direction:ltr;unicode-bidi:embed;}
+  .flow .box.q{border-color:var(--accent-1);border-style:dashed;}
+  .flow .box.end{border-color:var(--accent-4);}
+  .flow .arrow{color:var(--accent-2);font-size:22px;line-height:1.1;padding:2px 0;}
+  .flow .arrow small{display:block;color:var(--text-dim);font-size:13px;}
+  .flow .side{display:flex;gap:14px;align-items:center;flex-wrap:wrap;justify-content:center;}
+  .flow .side .box{min-width:0;}
+  figure.shot{margin:18px 0;display:flex;gap:18px;flex-wrap:wrap;justify-content:center;align-items:flex-start;}
+  figure.shot img{max-width:300px;width:100%;border-radius:18px;border:2px solid var(--line);box-shadow:0 0 24px rgba(0,0,0,.5);}
+  figure.shot img.wide{max-width:640px;}
+  figure.shot figcaption{width:100%;text-align:center;color:var(--text-dim);font-size:14px;}
+  .timechip{
+    display:inline-block;
+    background:rgba(0,240,255,.10);
+    color:var(--accent-3);
+    border:1px solid var(--accent-3);
+    box-shadow:0 0 10px rgba(0,240,255,.4);
+    border-radius:999px;
+    font-size:13px;
+    font-weight:700;
+    padding:2px 12px;
+    margin-inline-start:10px;
+    vertical-align:middle;
+    white-space:nowrap;
+    font-family:'Assistant',sans-serif;
+  }
+  .timechip.total{
+    background:rgba(255,45,149,.14);
+    color:var(--accent-2);
+    border-color:var(--accent-2);
+    box-shadow:var(--glow-p);
+    font-size:15px;
+    padding:4px 16px;
+  }
+  h3 .timechip,h4 .timechip{font-size:12px;padding:1px 10px;}
+  .note-small{font-size:14px;color:var(--text-dim);}
+  @media (max-width:1000px){
+    .layout{flex-direction:column;}
+    nav.sidebar{position:static;flex:1 1 auto;width:100%;max-height:none;}
+    main.content{padding:26px 20px 40px;}
+  }
+  .source-link{color:var(--accent-3);border:1px solid var(--accent-3);border-radius:999px;padding:6px 16px;font-weight:700;text-decoration:none;box-shadow:var(--glow-c);white-space:nowrap;}
+  .source-link:hover{background:var(--accent-3);color:#00232B;}
+</style>
+</head>
+<body>
+
+<header class="topbar">
+  <div class="brand">
+    <div class="subtitle">יחידה 2 · מדריך שלב-אחר-שלב (Java)</div>
+    <span class="badge-dummies">ווֹרדל בעברית</span>
+    <span class="credit">קרדיט: רוני רובן, ויצו נהלל, שנה&quot;ל 2026-7</span>
+  </div>
+  <a class="source-link" href="https://github.com/porteno12/se-android-lessons/tree/main/unit-02-hebrew-wordle/app" target="_blank" rel="noopener">📂 קוד המקור של האפליקציה</a>
+</header>
+
+<div class="layout">
+  <nav class="sidebar">
+    <h2>תוכן עניינים</h2>
+    <a class="toc-link active" data-target="sec-intro">🏠 מבוא</a>
+    <div class="part-header">חלק א – תכנון</div>
+    <a class="toc-link" data-target="sec-1">👉 שלב 1: תכנון וניתוח</a>
+
+    <div class="part-header">חלק ב – הפעילות</div>
+    <a class="toc-link" data-target="sec-2">👉 שלב 2: הפרויקט הראשון</a>
+    <a class="toc-link" data-target="sec-3">👉 שלב 3: מעגל חיי הפעילות</a>
+
+    <div class="part-header">חלק ג – ממשק משתמש</div>
+    <a class="toc-link" data-target="sec-4">👉 שלב 4: שלד המסך ב-ConstraintLayout</a>
+    <a class="toc-link" data-target="sec-5">👉 שלב 5: הלוח נבנה בקוד</a>
+    <a class="toc-link" data-target="sec-6">👉 שלב 6: משאבי האפליקציה</a>
+
+    <div class="part-header">חלק ד – טיפול באירועים</div>
+    <a class="toc-link" data-target="sec-7">👉 שלב 7: המקלדת העברית (דרך 1)</a>
+    <a class="toc-link" data-target="sec-8">👉 שלב 8: מחיקה ובדיקה (דרכים 2 ו-3)</a>
+    <a class="toc-link" data-target="sec-9">👉 שלב 9: לוגיקת המשחק וצביעה (דרך 4)</a>
+
+    <div class="part-header">חלק ה – מצב</div>
+    <a class="toc-link" data-target="sec-10">👉 שלב 10: שמירת מצב בסיבוב מסך</a>
+
+  </nav>
+
+  <main class="content" id="content">
+<!-- ================= INTRO ================= -->
+<section id="sec-intro" class="visible">
+  <h1>ברוכים הבאים ליחידה 2: ווֹרדל בעברית!</h1>
+
+  <div class="goal">🎯 מטרה: לבנות את האפליקציה האמיתית הראשונה שלכם באנדרואיד – משחק ניחוש מילים שלם – וללמוד דרכה מה זה Activity, איך בונים מסך, איך מגיבים ללחיצות ואיך לא מאבדים את המשחק כשהטלפון מסתובב.</div>
+
+  <p>
+    ווֹרדל הוא משחק פשוט להסבר וקשה להפסקה: צריך לנחש מילה בת 5 אותיות ב-6 ניסיונות. אחרי כל ניחוש
+    האותיות נצבעות – <b>ירוק</b> לאות שנמצאת במקום הנכון, <b>צהוב</b> לאות שקיימת במילה אבל במקום אחר,
+    ו<b>אפור</b> לאות שלא במילה בכלל. בסוף היחידה יהיה לכם משחק עובד, בעברית, עם מקלדת על המסך,
+    שממשיך בדיוק מאותה נקודה גם אחרי סיבוב של הטלפון.
+  </p>
+
+  <figure class="shot">
+    <img src="img/screen-start.png" alt="מסך הפתיחה של המשחק">
+    <img src="img/screen-win.png" alt="המשחק אחרי ניצחון בשני ניחושים">
+    <figcaption>המשחק הגמור באמולטור: בהתחלה, ואחרי ניחוש שגוי אחד וניחוש נכון. שימו לב שהמקשים נצבעים גם הם.</figcaption>
+  </figure>
+
+  <h2>מה לומדים ביחידה הזאת (לפי תוכנית הלימודים)</h2>
+  <table class="schema">
+    <tr><th>נושא בתכ"ל</th><th>איפה זה מופיע במשחק</th><th>שלבים</th></tr>
+    <tr><td>מבוא לאפליקציה: Activity, מבנה הפרויקט, קובץ ההגדרות, מעגל חיי הפעילות</td><td>המסך היחיד של המשחק הוא Activity. נראה אותו נולד, נעצר, נהרס ונולד מחדש</td><td>2, 3</td></tr>
+    <tr><td>ממשק משתמש: רכיבים ותבניות XML מקוד, סידור בתבניות, שמירת מצב בשינוי תצורה</td><td>שלד המסך ב-ConstraintLayout, לוח של 30 אריחים שנבנה בלולאה, והלוח שורד סיבוב</td><td>4, 5, 10</td></tr>
+    <tr><td>טיפול באירועים: מאזינים ב-XML, פעילות מממשת, מחלקה פנימית, מאזין בשורה</td><td>ארבע דרכים לטפל בלחיצה – כל אחת על כפתור אחר, בכוונה</td><td>7, 8, 9</td></tr>
+    <tr><td>משאבי האפליקציה: מבנה תיקיית המשאבים, יצירה וארגון</td><td>strings, colors, dimens, drawables, ורשימת המילים כמשאב</td><td>6</td></tr>
+    <tr><td>תכנון וניתוח אפליקציות (יחידה 6)</td><td>פותח כל יחידה: UML, שרטוט מסך, תרשים זרימה</td><td>1</td></tr>
+  </table>
+
+  <h2>איך עובדים עם המדריך</h2>
+  <ul>
+    <li>כל שלב מתחיל ב-<b>"למה ככה?"</b> – ההחלטה שמאחורי הקוד – ורק אחר כך מגיע הקוד. קראו את ההסבר לפני שאתם מעתיקים.</li>
+    <li>בכל כרטיס קוד יש כפתור <b>הצג קוד</b> ו<b>העתק קוד</b>. הקוד במדריך נלקח ישירות מהפרויקט הבנוי, אז הוא תמיד מתקמפל.</li>
+    <li>כל שלב נגמר ב-<b>תחנת אישור מורה</b>: רשימת בדיקה ושאלת הבנה. לא ממשיכים לשלב הבא בלי לעבור אותה.</li>
+    <li>את הפרויקט המלא אפשר להוריד מהקישור <b>"קוד המקור של האפליקציה"</b> למעלה – אבל המטרה היא לכתוב בעצמכם ולהשוות, לא להוריד ולהריץ.</li>
+  </ul>
+
+  <div class="infobox">
+    <h3>⏱️ כמה זמן זה לוקח?</h3>
+    <p style="margin:0;">כ-9.5 שעות עבודה בכיתה ובמעבדה, מחולקות ל-10 שלבים. ליד כל שלב וכל תת-שלב יש הערכת זמן. אם אתם מהירים – הרחבות מופיעות בסוף כל שלב.</p>
+  </div>
+</section>
+
+<!-- ================= STEP 1 ================= -->
+<section id="sec-1">
+  <h1>שלב 1: תכנון וניתוח <span class="timechip total">⏱️ סה"כ כ-60 דק'</span></h1>
+
+  <div class="goal">🎯 מטרה: לסיים את השלב עם דף שבו מצוירים המסך, המחלקות ותרשים הזרימה של "בדיקה" – לפני שפותחים את אנדרואיד סטודיו.</div>
+
+  <h2>למה ככה? למה לא פשוט להתחיל?</h2>
+  <p>
+    כי בווֹרדל יש שאלה אחת מסובכת באמת, ואם לא פותרים אותה על הנייר היא תחזור כבאג: <b>מה קורה עם אות כפולה?</b>
+    אם המילה הסודית היא <b>תלמיד</b> ואתם מנחשים <b>תתתתת</b> – האם כל ה-ת' צהובות? רק אחת? הראשונה ירוקה והשאר?
+    מי שמתחיל לקודד בלי לענות על זה, כותב קוד שעובד ב-90% מהמקרים ומבלבל ב-10% הנותרים. לכן קודם מתכננים.
+  </p>
+
+  <h2>מה עושים בשלב הזה</h2>
+  <ol>
+    <li>מציירים את <b>המסך</b> ומסמנים אילו חלקים משתנים תוך כדי משחק.</li>
+    <li>מציירים <b>UML</b> של שלוש מחלקות המודל: המשחק, ניחוש, ומצב-אות.</li>
+    <li>כותבים <b>תרשים זרימה</b> של מה שקורה כשלוחצים "בדיקה".</li>
+    <li>ממלאים <b>טבלת ישויות</b>: מה המידע שהמשחק צריך לזכור, ומה אפשר לחשב מחדש.</li>
+  </ol>
+
+  <h3>א. המסך <span class="timechip">⏱️ 10 דק'</span></h3>
+  <p>
+    מסך אחד בלבד (מסכים מרובים ומעבר ביניהם – זו יחידה 3). ארבעה אזורים מלמעלה למטה:
+    כותרת, שורת הודעה, הלוח, והמקלדת. שימו לב מה <b>קבוע</b> ומה <b>משתנה</b>:
+  </p>
+  <table class="schema">
+    <tr><th>אזור</th><th>מה יש בו</th><th>משתנה תוך כדי משחק?</th></tr>
+    <tr><td>כותרת</td><td>"ווֹרדל בעברית"</td><td>לא</td></tr>
+    <tr><td>שורת הודעה</td><td>"נשארו 4 ניסיונות", "כל הכבוד!", "המילה הייתה..."</td><td>כן – אחרי כל בדיקה</td></tr>
+    <tr><td>הלוח</td><td>6 שורות × 5 אריחים</td><td>כן – אותיות וצבעים</td></tr>
+    <tr><td>המקלדת</td><td>27 אותיות + מחק + בדיקה</td><td>כן – צבעי המקשים</td></tr>
+  </table>
+
+  <h3>ב. UML של המודל <span class="timechip">⏱️ 20 דק'</span></h3>
+  <p>
+    הכלל שילווה אתכם כל השנה: <b>חוקי המשחק לא יודעים שקיים אנדרואיד.</b> מחלקה שמחשבת מה ירוק ומה צהוב
+    לא מכירה TextView ולא Button. למה? כי כך אפשר לבדוק אותה על המחשב בשנייה, בלי אמולטור,
+    וכי ביחידה 5 נרצה להשתמש באותם חוקים עם מסך אחר לגמרי.
+  </p>
+  <div class="ascii">+------------------------+        +-----------------------------+
+|      <<enum>>          |        |         WordleGame          |
+|      LetterState       |        +-----------------------------+
++------------------------+        | - secret : String           |
+| EMPTY                  |        | - guesses : List&lt;Guess&gt;     |
+| ABSENT   (אפור)        |        +-----------------------------+
+| PRESENT  (צהוב)        |        | + submit(word) : Guess      |
+| CORRECT  (ירוק)        |        | + evaluate(secret, word)    |
++------------------------+        |     : LetterState[]  {static}|
+                                  | + isWon() / isLost()        |
++------------------------+        | + isOver()                  |
+|         Guess          |  1..6  | + getGuesses()              |
++------------------------+&lt;-------+-----------------------------+
+| - word : String        |
+| - states : LetterState[]|                 +------------------+
++------------------------+                 |   MainActivity   |
+| + getState(i)          |                 +------------------+
+| + isAllCorrect()       |   משתמשת ב-    | - game : WordleGame|
++------------------------+&lt;----------------| - tiles[6][5]    |
+                                           +------------------+</div>
+  <p class="note-small">
+    הפעילות (MainActivity) מצביעה על המשחק, אבל המשחק לא מצביע על הפעילות. החץ הולך בכיוון אחד בלבד.
+  </p>
+
+  <h3>ג. תרשים זרימה: מה קורה כשלוחצים "בדיקה" <span class="timechip">⏱️ 15 דק'</span></h3>
+  <div class="flow">
+    <div class="box">לחיצה על "בדיקה"</div>
+    <div class="arrow">↓</div>
+    <div class="side"><div class="box q">המשחק כבר נגמר?</div><div class="arrow">← כן →</div><div class="box end">לא עושים כלום</div></div>
+    <div class="arrow">↓<small>לא</small></div>
+    <div class="side"><div class="box q">יש 5 אותיות בשורה?</div><div class="arrow">← לא →</div><div class="box end">הודעה: "צריך 5 אותיות"</div></div>
+    <div class="arrow">↓<small>כן</small></div>
+    <div class="box"><b>game.submit(word)</b><br>מעבר 1 מסמן ירוקים, מעבר 2 מסמן צהובים ואפורים</div>
+    <div class="arrow">↓</div>
+    <div class="box">צובעים את השורה ואת המקשים</div>
+    <div class="arrow">↓</div>
+    <div class="side">
+      <div class="box end">ניצחון → "כל הכבוד"</div>
+      <div class="box end">ניסיון שישי → "המילה הייתה…"</div>
+      <div class="box end">אחרת → "נשארו N ניסיונות"</div>
+    </div>
+  </div>
+
+  <div class="infobox">
+    <h3>🤔 ואיך פותרים את האות הכפולה?</h3>
+    <p style="margin:0;">
+      בשני מעברים. במעבר הראשון מסמנים רק <b>ירוקים</b> ו"מנצלים" את האות המתאימה במילה הסודית.
+      במעבר השני, לכל אות שעוד לא נצבעה, מחפשים אות <b>שעוד לא נוצלה</b> במילה הסודית: מצאנו – צהוב ומנצלים אותה; לא מצאנו – אפור.
+      כך בדוגמה של <b>תלמיד</b> מול <b>תתתתת</b>: ה-ת' הראשונה ירוקה (ומנצלת את ה-ת' היחידה), וארבע האחרות אפורות.
+      תבדקו את עצמכם: מה יקרה עם <b>ספינה</b> מול <b>ימיים</b>?
+    </p>
+  </div>
+
+  <h3>ד. טבלת ישויות: מה שומרים ומה מחשבים <span class="timechip">⏱️ 15 דק'</span></h3>
+  <p>
+    השאלה הזאת תהפוך לקוד בשלב 10. כשהטלפון מסתובב, הפעילות נהרסת ונבנית מחדש. מה <b>חייבים</b> לשמור כדי לשחזר את המשחק?
+  </p>
+  <table class="schema">
+    <tr><th>מידע</th><th>שומרים?</th><th>למה</th></tr>
+    <tr><td>המילה הסודית</td><td>כן</td><td>בלעדיה אי אפשר לבדוק כלום</td></tr>
+    <tr><td>רשימת המילים שנוחשו</td><td>כן</td><td>זו ההיסטוריה של המשחק</td></tr>
+    <tr><td>האותיות שהוקלדו בשורה הנוכחית</td><td>כן</td><td>אחרת הסיבוב מוחק מה שהקלדתם</td></tr>
+    <tr><td>הצבע של כל אריח</td><td><b>לא</b></td><td>מחשבים מחדש מהמילה הסודית ומהניחושים</td></tr>
+    <tr><td>הצבע של כל מקש</td><td><b>לא</b></td><td>גם זה נובע מהניחושים</td></tr>
+  </table>
+  <p>העיקרון: שומרים את <b>המקור</b>, לא את <b>התוצאה</b>. כל מה שאפשר לחשב – לא שומרים.</p>
+
+  <div class="checkpoint">
+    <span class="cp-label">תחנת אישור מורה</span>
+    <p class="cp-title">✅ ודאו לפני שאתם ניגשים למורה:</p>
+    <ol>
+      <li>יש בידיכם דף עם שרטוט המסך וארבעת האזורים, ולצד כל אזור כתוב אם הוא משתנה.</li>
+      <li>ציירתם את ה-UML של שלוש מחלקות המודל, והחץ בין MainActivity ל-WordleGame הולך בכיוון אחד.</li>
+      <li>כתבתם על הנייר מה יחזיר <code>evaluate</code> עבור <b>ספינה</b> מול <b>ימיים</b>, אות אחרי אות.</li>
+    </ol>
+    <div class="question-box">
+      <b>שאלת הבנה (המורה ישאל):</b><br>
+      תלמיד הציע לשמור בסיבוב מסך את צבע כל אריח (30 ערכים) במקום את רשימת המילים שנוחשו (עד 6 מחרוזות).<br>
+      <b>א.</b> תארו מצב שבו שתי השיטות נותנות אותה תוצאה על המסך.<br>
+      <b>ב.</b> תארו מה יקרה בשיטה שלו כשהמשתמש ילחץ "בדיקה" מיד אחרי הסיבוב. מה חסר?
+    </div>
+  </div>
+</section>
+
+<!-- ================= STEP 2 ================= -->
+<section id="sec-2">
+  <h1>שלב 2: הפרויקט הראשון <span class="timechip total">⏱️ סה"כ כ-60 דק'</span></h1>
+
+  <div class="goal">🎯 מטרה: ליצור פרויקט חדש באנדרואיד סטודיו, להבין מה כל תיקייה וכל קובץ עושים, ולראות את המסך הראשון רץ באמולטור.</div>
+
+  <h2>למה ככה?</h2>
+  <p>
+    אנדרואיד סטודיו יוצר בשבילכם עשרות קבצים. רובם לא מעניינים אתכם השנה, אבל חמישה מהם תפתחו כל שיעור.
+    השלב הזה הוא סיור מודרך: לדעת <b>איפה</b> כל דבר יושב ו<b>מי</b> קורא אותו. בלי זה, כל שגיאת קומפילציה נראית כמו קסם שחור.
+  </p>
+
+  <h2>א. יוצרים את הפרויקט <span class="timechip">⏱️ 15 דק'</span></h2>
+  <ol>
+    <li>🆕 <b>File → New → New Project</b>, בוחרים <b>Empty Views Activity</b> (לא "Empty Activity" – זו Compose, שלא נלמד השנה).</li>
+    <li>✏️ <b>Name:</b> <code>HebrewWordle</code>. <b>Package name:</b> <code>com.example.hebrewwordle</code>. <b>Language:</b> Java. <b>Minimum SDK:</b> API 24.</li>
+    <li>⏳ <b>Finish</b>, וממתינים ל-Gradle Sync (הסרגל התחתון). בפעם הראשונה זה יכול לקחת כמה דקות.</li>
+    <li>▶️ לוחצים על החץ הירוק (Run). אם אין אמולטור: <b>Device Manager → Create Device → Pixel 9a</b>, מערכת API 34.</li>
+  </ol>
+
+  <h2>ב. סיור במבנה הפרויקט <span class="timechip">⏱️ 25 דק'</span></h2>
+  <p>עברו לתצוגת <b>Project</b> (התפריט הנפתח מעל עץ הקבצים, לא "Android") כדי לראות את התיקיות האמיתיות:</p>
+  <div class="ascii">HebrewWordle/
+├── settings.gradle          <- אילו מודולים יש בפרויקט (אצלנו: app בלבד)
+├── build.gradle             <- אילו תוספים (plugins) ובאילו גרסאות
+├── gradle.properties        <- הגדרות כלליות ל-Gradle
+├── local.properties         <- איפה ה-SDK על המחשב שלכם. לא נכנס ל-git!
+└── app/
+    ├── build.gradle         <- ה-build של האפליקציה: גרסאות SDK, ספריות
+    └── src/
+        ├── main/
+        │   ├── AndroidManifest.xml      <- "תעודת הזהות": אילו מסכים, אילו הרשאות
+        │   ├── java/com/example/hebrewwordle/
+        │   │   └── MainActivity.java    <- הקוד
+        │   └── res/                     <- משאבים (שלב 6)
+        │       ├── layout/activity_main.xml
+        │       ├── values/strings.xml, colors.xml, themes.xml
+        │       ├── drawable/
+        │       └── mipmap-*/ic_launcher  <- האייקון
+        └── test/java/...                <- בדיקות JUnit שרצות על המחשב</div>
+
+  <h3>קובץ ההגדרות: AndroidManifest.xml</h3>
+  <p>
+    המניפסט הוא המקום היחיד שבו מערכת ההפעלה "קוראת עליכם" לפני שהאפליקציה רצה. כאן היא לומדת
+    איזה מסך לפתוח כשלוחצים על האייקון, ואילו הרשאות אתם מבקשים. לנו יש מסך אחד:
+  </p>
+<div class="codecard">
+  <div class="codecard-head">
+    <span class="codecard-file">AndroidManifest.xml</span>
+    <span class="codecard-btns"><button class="btn btn-toggle">הצג קוד ˅</button><button class="btn btn-copy">העתק קוד 📋</button></span>
+  </div>
+<pre><code>&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;
+&lt;manifest xmlns:android=&quot;http://schemas.android.com/apk/res/android&quot;&gt;
+
+    &lt;application
+        android:allowBackup=&quot;true&quot;
+        android:icon=&quot;@mipmap/ic_launcher&quot;
+        android:label=&quot;@string/app_name&quot;
+        android:roundIcon=&quot;@mipmap/ic_launcher_round&quot;
+        android:supportsRtl=&quot;true&quot;
+        android:theme=&quot;@style/Theme.App&quot;&gt;
+
+        &lt;!-- המסך היחיד של המשחק. exported + intent-filter: זו נקודת הכניסה מהלאנצ&#x27;ר --&gt;
+        &lt;activity
+            android:name=&quot;.MainActivity&quot;
+            android:exported=&quot;true&quot;
+            android:screenOrientation=&quot;unspecified&quot;&gt;
+            &lt;intent-filter&gt;
+                &lt;action android:name=&quot;android.intent.action.MAIN&quot; /&gt;
+                &lt;category android:name=&quot;android.intent.category.LAUNCHER&quot; /&gt;
+            &lt;/intent-filter&gt;
+        &lt;/activity&gt;
+
+    &lt;/application&gt;
+&lt;/manifest&gt;
+</code></pre>
+</div>
+  <ul>
+    <li><code>android:label</code> – השם שמופיע מתחת לאייקון. שימו לב שהוא <b>לא</b> כתוב כאן אלא מפנה ל-<code>@string/app_name</code>. למה? שלב 6.</li>
+    <li><code>android:supportsRtl="true"</code> – בלי זה, המקלדת העברית תסודר משמאל לימין.</li>
+    <li><code>&lt;intent-filter&gt;</code> עם <code>MAIN</code> ו-<code>LAUNCHER</code> – "אני המסך שפותחים מהאייקון". על Intents נדבר הרבה ביחידה 3.</li>
+    <li><code>android:exported="true"</code> – חובה על מסך שהלאנצ'ר (אפליקציה אחרת!) פותח. בלי זה הבנייה נכשלת.</li>
+  </ul>
+
+  <h3>קובץ ה-build: app/build.gradle</h3>
+<div class="codecard">
+  <div class="codecard-head">
+    <span class="codecard-file">app/build.gradle</span>
+    <span class="codecard-btns"><button class="btn btn-toggle">הצג קוד ˅</button><button class="btn btn-copy">העתק קוד 📋</button></span>
+  </div>
+<pre><code>plugins {
+    id &#x27;com.android.application&#x27;
+}
+
+android {
+    namespace &#x27;com.example.hebrewwordle&#x27;
+    compileSdk 34
+
+    defaultConfig {
+        applicationId &quot;com.example.hebrewwordle&quot;
+        minSdk 24
+        targetSdk 34
+        versionCode 1
+        versionName &quot;1.0&quot;
+        testInstrumentationRunner &quot;androidx.test.runner.AndroidJUnitRunner&quot;
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile(&#x27;proguard-android-optimize.txt&#x27;), &#x27;proguard-rules.pro&#x27;
+        }
+    }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_11
+        targetCompatibility JavaVersion.VERSION_11
+    }
+}
+
+dependencies {
+    implementation &#x27;androidx.appcompat:appcompat:1.7.0&#x27;
+    implementation &#x27;com.google.android.material:material:1.12.0&#x27;
+    implementation &#x27;androidx.constraintlayout:constraintlayout:2.1.4&#x27;
+
+    testImplementation &#x27;junit:junit:4.13.2&#x27;
+}
+</code></pre>
+</div>
+  <table class="schema">
+    <tr><th>שורה</th><th>פירוש</th></tr>
+    <tr><td><code>compileSdk 34</code></td><td>מול איזו גרסת אנדרואיד הקוד מתקמפל. קובע אילו מתודות קיימות</td></tr>
+    <tr><td><code>minSdk 24</code></td><td>הגרסה הישנה ביותר שהאפליקציה מסכימה לרוץ עליה (אנדרואיד 7)</td></tr>
+    <tr><td><code>targetSdk 34</code></td><td>"בדקתי את עצמי מול 34" – משפיע על התנהגויות של המערכת</td></tr>
+    <tr><td><code>applicationId</code></td><td>המזהה הייחודי בעולם. שתי אפליקציות עם אותו מזהה דורסות זו את זו</td></tr>
+    <tr><td><code>dependencies</code></td><td>ספריות: appcompat (תאימות לאחור), material (הכפתורים), constraintlayout (שלב 4)</td></tr>
+  </table>
+
+  <h2>ג. מריצים ומסתכלים על Logcat <span class="timechip">⏱️ 20 דק'</span></h2>
+  <p>
+    הריצו את הפרויקט הריק. פתחו את החלון <b>Logcat</b> (למטה) והקלידו בשורת הסינון
+    <code>package:mine</code>. זה החלון שבו תבלו את השלב הבא. אם אתם רואים "Hello World!" באמולטור וזרם של שורות ב-Logcat – סיימתם.
+  </p>
+
+  <div class="warnbox">
+    <h3>⚠️ שלוש התקלות הנפוצות בשלב הזה</h3>
+    <ul style="margin:0;">
+      <li><b>Gradle sync failed</b> – כמעט תמיד אין אינטרנט או שה-SDK לא נמצא. בדקו את <code>local.properties</code>.</li>
+      <li><b>האמולטור לא עולה</b> – ב-Device Manager מחקו את המכשיר ויצרו חדש; ודאו ש-Virtualization מופעל ב-BIOS.</li>
+      <li><b>"Installed on … but not launched"</b> – פשוט לחצו על האייקון באמולטור. זו לא שגיאה.</li>
+    </ul>
+  </div>
+
+  <div class="checkpoint">
+    <span class="cp-label">תחנת אישור מורה</span>
+    <p class="cp-title">✅ ודאו לפני שאתם ניגשים למורה:</p>
+    <ol>
+      <li>הפרויקט רץ באמולטור ומציג את מסך הפתיחה הריק.</li>
+      <li>אתם יכולים להצביע בעץ הקבצים על: המניפסט, ה-build של app, התבנית של המסך, ו-strings.xml – ולומר במשפט מה כל אחד עושה.</li>
+      <li>Logcat פתוח ומסונן ל-<code>package:mine</code>.</li>
+    </ol>
+    <div class="question-box">
+      <b>שאלת הבנה (המורה ישאל):</b><br>
+      שינינו את <code>minSdk</code> מ-24 ל-21.<br>
+      <b>א.</b> יותר טלפונים או פחות טלפונים יוכלו להתקין את האפליקציה?<br>
+      <b>ב.</b> מה המחיר? רמז: מה קורה אם נקרא למתודה שנוספה באנדרואיד 7?
+    </div>
+  </div>
+</section>
+
+<!-- ================= STEP 3 ================= -->
+<section id="sec-3">
+  <h1>שלב 3: מעגל חיי הפעילות <span class="timechip total">⏱️ סה"כ כ-50 דק'</span></h1>
+
+  <div class="goal">🎯 מטרה: לראות במו עיניכם ב-Logcat מתי הפעילות נולדת, נעצרת, נהרסת ונולדת מחדש – ולגלות שסיבוב מסך הורג אותה.</div>
+
+  <h2>למה ככה?</h2>
+  <p>
+    Activity היא לא תוכנית רגילה עם <code>main</code> שרצה מההתחלה לסוף. היא <b>אובייקט שמערכת ההפעלה מנהלת</b>:
+    המערכת יוצרת אותה, מודיעה לה כשהיא עולה למסך, כשמשהו מכסה אותה, וכשהגיע זמנה למות.
+    כל הודעה כזאת היא מתודה (callback) שאתם יכולים לדרוס. אם לא מבינים את הסדר – כותבים קוד שמתחיל
+    מוזיקה ב-<code>onCreate</code> ולא מכבה אותה אף פעם, או מאבדים את הלוח בכל סיבוב.
+  </p>
+
+  <div class="flow">
+    <div class="box"><b>onCreate</b><br>המערכת יוצרת את הפעילות. פעם אחת לכל "חיים" שלה</div>
+    <div class="arrow">↓</div>
+    <div class="box"><b>onStart</b><br>המסך נהיה גלוי</div>
+    <div class="arrow">↓</div>
+    <div class="box"><b>onResume</b><br>המסך בחזית ומגיב ללחיצות</div>
+    <div class="arrow">↓<small>המשתמש לחץ Home / הגיעה שיחה / סיבוב מסך</small></div>
+    <div class="box"><b>onPause</b><br>מאבד פוקוס (אולי עדיין גלוי)</div>
+    <div class="arrow">↓</div>
+    <div class="box"><b>onStop</b><br>לא גלוי בכלל. חזרה לאפליקציה: <b>onRestart</b> → <b>onStart</b> → <b>onResume</b></div>
+    <div class="arrow">↓</div>
+    <div class="box end"><b>onDestroy</b><br>סוף. בסיבוב מסך: מיד אחר כך <b>onCreate</b> חדש!</div>
+  </div>
+
+  <h2>א. מוסיפים Log לכל שלב <span class="timechip">⏱️ 20 דק'</span></h2>
+  <p>
+    ב-<code>MainActivity</code> דורסים את חמש המתודות. בכל אחת קוראים קודם ל-<code>super</code> (חובה – אחרת המערכת זורקת חריגה), ואז כותבים ל-Log עם תגית קבועה:
+  </p>
+<div class="codecard">
+  <div class="codecard-head">
+    <span class="codecard-file">MainActivity.java – התגית</span>
+    <span class="codecard-btns"><button class="btn btn-toggle">הצג קוד ˅</button><button class="btn btn-copy">העתק קוד 📋</button></span>
+  </div>
+<pre><code>private static final String TAG = &quot;LIFECYCLE&quot;;</code></pre>
+</div>
+<div class="codecard">
+  <div class="codecard-head">
+    <span class="codecard-file">MainActivity.java – חמשת ה-callbacks</span>
+    <span class="codecard-btns"><button class="btn btn-toggle">הצג קוד ˅</button><button class="btn btn-copy">העתק קוד 📋</button></span>
+  </div>
+<pre><code>@Override
+protected void onStart() {
+    super.onStart();
+    Log.d(TAG, &quot;onStart - המסך נהיה גלוי&quot;);
+}
+
+@Override
+protected void onResume() {
+    super.onResume();
+    Log.d(TAG, &quot;onResume - המסך בחזית ומגיב ללחיצות&quot;);
+}
+
+@Override
+protected void onPause() {
+    super.onPause();
+    Log.d(TAG, &quot;onPause - משהו כיסה אותי, אני מאבד פוקוס&quot;);
+}
+
+@Override
+protected void onStop() {
+    super.onStop();
+    Log.d(TAG, &quot;onStop - אני כבר לא גלוי בכלל&quot;);
+}
+
+@Override
+protected void onDestroy() {
+    super.onDestroy();
+    Log.d(TAG, &quot;onDestroy - הפעילות נהרסת (סיבוב מסך או סגירה)&quot;);
+}</code></pre>
+</div>
+  <p class="note-small">
+    הגרסה המלאה של <code>onCreate</code> מופיעה בשלב 9, כי היא קוראת למתודות שעוד לא כתבנו. בינתיים השאירו בה רק את <code>setContentView</code> ואת שורת ה-Log.
+  </p>
+
+  <h2>ב. משחקים עם הטלפון <span class="timechip">⏱️ 20 דק'</span></h2>
+  <p>סננו את Logcat לפי <code>LIFECYCLE</code> ובצעו את הרצף הבא. רשמו ליד כל פעולה אילו שורות הופיעו:</p>
+  <table class="schema">
+    <tr><th>פעולה</th><th>מה תראו ב-Logcat</th><th>למה</th></tr>
+    <tr><td>הרצה ראשונה</td><td>onCreate → onStart → onResume</td><td>לידה מלאה</td></tr>
+    <tr><td>כפתור הבית</td><td>onPause → onStop</td><td>האפליקציה חיה ברקע, לא נהרסה</td></tr>
+    <tr><td>חזרה לאפליקציה</td><td>onStart → onResume (בלי onCreate!)</td><td>אותו אובייקט חוזר לחזית</td></tr>
+    <tr><td><b>סיבוב מסך</b></td><td>onPause → onStop → <b>onDestroy → onCreate</b> → onStart → onResume</td><td>הפעילות נהרגת ונולדת מחדש – כל השדות מתאפסים!</td></tr>
+    <tr><td>כפתור "אחורה"</td><td>onPause → onStop → onDestroy</td><td>סוף אמיתי</td></tr>
+  </table>
+  <p>זה הפלט האמיתי מהאמולטור של המשחק הגמור, אחרי ניחוש אחד וסיבוב מסך:</p>
+  <div class="ascii">D LIFECYCLE: onCreate - המסך נבנה. savedInstanceState=null
+D LIFECYCLE: onStart - המסך נהיה גלוי
+D LIFECYCLE: onResume - המסך בחזית ומגיב ללחיצות
+D LIFECYCLE: onPause - משהו כיסה אותי, אני מאבד פוקוס
+D LIFECYCLE: onStop - אני כבר לא גלוי בכלל
+D LIFECYCLE: onSaveInstanceState - נשמרו 1 ניחושים
+D LIFECYCLE: onDestroy - הפעילות נהרסת (סיבוב מסך או סגירה)
+D LIFECYCLE: onCreate - המסך נבנה. savedInstanceState=יש מצב שמור
+D LIFECYCLE: restoreGame - שוחזרו 1 ניחושים
+D LIFECYCLE: onStart - המסך נהיה גלוי
+D LIFECYCLE: onResume - המסך בחזית ומגיב ללחיצות</div>
+
+  <div class="infobox">
+    <h3>🤔 אז למה בכלל להרוג את הפעילות בסיבוב?</h3>
+    <p style="margin:0;">
+      כי בסיבוב ייתכן שצריך <b>תבנית אחרת לגמרי</b> (למשל <code>layout-land/</code>), צבעים אחרים, מחרוזות בשפה אחרת.
+      הדרך הפשוטה ביותר להבטיח שהכול נטען מחדש נכון היא להתחיל מאפס. המחיר: אנחנו אחראים לשמור את מה שחשוב.
+      זה בדיוק שלב 10, ואת השורות <code>onSaveInstanceState</code> ו-<code>restoreGame</code> בפלט למעלה נכתוב שם.
+    </p>
+  </div>
+
+  <div class="checkpoint">
+    <span class="cp-label">תחנת אישור מורה</span>
+    <p class="cp-title">✅ ודאו לפני שאתם ניגשים למורה:</p>
+    <ol>
+      <li>חמש המתודות דרוסות, כל אחת קוראת ל-<code>super</code> בשורה הראשונה.</li>
+      <li>מילאתם את הטבלה מהניסוי שלכם, והיא תואמת לטבלה במדריך.</li>
+      <li>אתם יכולים להסביר למה "חזרה לאפליקציה" לא מפעילה <code>onCreate</code> אבל "סיבוב" כן.</li>
+    </ol>
+    <div class="question-box">
+      <b>שאלת הבנה (המורה ישאל):</b><br>
+      תלמידה שמה את ההגרלה של המילה הסודית בתוך <code>onCreate</code>.<br>
+      <b>א.</b> מה יקרה למילה הסודית כשהמשתמש יסובב את המסך באמצע משחק?<br>
+      <b>ב.</b> האם להעביר את ההגרלה ל-<code>onStart</code> פותר את זה? הסבירו.
+    </div>
+  </div>
+</section>
+
+<!-- ================= STEP 4 ================= -->
+<section id="sec-4">
+  <h1>שלב 4: שלד המסך ב-ConstraintLayout <span class="timechip total">⏱️ סה"כ כ-60 דק'</span></h1>
+
+  <div class="goal">🎯 מטרה: לבנות ב-XML את ארבעת האזורים מהתכנון – כותרת, הודעה, לוח ומקלדת – כך שיתאימו לכל גודל מסך.</div>
+
+  <h2>למה ככה? למה ConstraintLayout?</h2>
+  <p>
+    באנדרואיד אין "מסך בגודל קבוע". אותה אפליקציה רצה על טלפון צר ועל טאבלט רחב. לכן לא כותבים "הכפתור במרחק 300 פיקסלים מלמעלה",
+    אלא <b>יחסים</b>: "הלוח מתחת להודעה ומעל הכפתור, ממורכז". <code>ConstraintLayout</code> הוא תבנית שבה כל רכיב
+    מוגדר על ידי <b>אילוצים</b> (constraints) לרכיבים אחרים או להורה. רכיב בלי אילוצים "קופץ" לפינה השמאלית-עליונה – זו הטעות מספר אחת.
+  </p>
+
+  <h2>א. התבנית <span class="timechip">⏱️ 30 דק'</span></h2>
+  <p>פתחו את <code>res/layout/activity_main.xml</code> בתצוגת <b>Code</b> (לא Design – נלמד לקרוא XML) והחליפו את התוכן:</p>
+<div class="codecard">
+  <div class="codecard-head">
+    <span class="codecard-file">res/layout/activity_main.xml</span>
+    <span class="codecard-btns"><button class="btn btn-toggle">הצג קוד ˅</button><button class="btn btn-copy">העתק קוד 📋</button></span>
+  </div>
+<pre><code>&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;
+&lt;!--
+    שלד המסך: ConstraintLayout אחד שמחזיק ארבעה אזורים מלמעלה למטה.
+    הלוח עצמו (boardContainer) ריק ב-XML: שלושים האריחים נבנים בקוד ב-MainActivity.
+--&gt;
+&lt;androidx.constraintlayout.widget.ConstraintLayout xmlns:android=&quot;http://schemas.android.com/apk/res/android&quot;
+    xmlns:app=&quot;http://schemas.android.com/apk/res-auto&quot;
+    android:layout_width=&quot;match_parent&quot;
+    android:layout_height=&quot;match_parent&quot;
+    android:padding=&quot;@dimen/screen_padding&quot;&gt;
+
+    &lt;TextView
+        android:id=&quot;@+id/txtTitle&quot;
+        android:layout_width=&quot;0dp&quot;
+        android:layout_height=&quot;wrap_content&quot;
+        android:gravity=&quot;center&quot;
+        android:text=&quot;@string/title&quot;
+        android:textColor=&quot;@color/primary&quot;
+        android:textSize=&quot;28sp&quot;
+        android:textStyle=&quot;bold&quot;
+        app:layout_constraintEnd_toEndOf=&quot;parent&quot;
+        app:layout_constraintStart_toStartOf=&quot;parent&quot;
+        app:layout_constraintTop_toTopOf=&quot;parent&quot; /&gt;
+
+    &lt;TextView
+        android:id=&quot;@+id/txtMessage&quot;
+        android:layout_width=&quot;0dp&quot;
+        android:layout_height=&quot;wrap_content&quot;
+        android:gravity=&quot;center&quot;
+        android:text=&quot;@string/msg_start&quot;
+        android:textColor=&quot;@color/ink&quot;
+        android:textSize=&quot;16sp&quot;
+        app:layout_constraintEnd_toEndOf=&quot;parent&quot;
+        app:layout_constraintStart_toStartOf=&quot;parent&quot;
+        app:layout_constraintTop_toBottomOf=&quot;@id/txtTitle&quot; /&gt;
+
+    &lt;LinearLayout
+        android:id=&quot;@+id/boardContainer&quot;
+        android:layout_width=&quot;wrap_content&quot;
+        android:layout_height=&quot;0dp&quot;
+        android:gravity=&quot;center&quot;
+        android:orientation=&quot;vertical&quot;
+        app:layout_constraintBottom_toTopOf=&quot;@id/btnNewGame&quot;
+        app:layout_constraintEnd_toEndOf=&quot;parent&quot;
+        app:layout_constraintStart_toStartOf=&quot;parent&quot;
+        app:layout_constraintTop_toBottomOf=&quot;@id/txtMessage&quot; /&gt;
+
+    &lt;Button
+        android:id=&quot;@+id/btnNewGame&quot;
+        style=&quot;@style/Widget.Material3.Button.OutlinedButton&quot;
+        android:layout_width=&quot;wrap_content&quot;
+        android:layout_height=&quot;wrap_content&quot;
+        android:text=&quot;@string/new_game&quot;
+        app:layout_constraintBottom_toTopOf=&quot;@id/keyboard&quot;
+        app:layout_constraintEnd_toEndOf=&quot;parent&quot;
+        app:layout_constraintStart_toStartOf=&quot;parent&quot; /&gt;
+
+    &lt;!-- שימו לב: ה-id שניתן ל-include דורס את ה-id של שורש התבנית המוכללת.
+         לכן בקוד מחפשים R.id.keyboard - ה-id שכתוב כאן, לא זה שבתוך keyboard.xml --&gt;
+    &lt;include
+        android:id=&quot;@+id/keyboard&quot;
+        layout=&quot;@layout/keyboard&quot;
+        android:layout_width=&quot;0dp&quot;
+        android:layout_height=&quot;wrap_content&quot;
+        app:layout_constraintBottom_toBottomOf=&quot;parent&quot;
+        app:layout_constraintEnd_toEndOf=&quot;parent&quot;
+        app:layout_constraintStart_toStartOf=&quot;parent&quot; /&gt;
+
+&lt;/androidx.constraintlayout.widget.ConstraintLayout&gt;
+</code></pre>
+</div>
+
+  <h3>איך קוראים אילוץ</h3>
+  <table class="schema">
+    <tr><th>מאפיין</th><th>פירוש</th></tr>
+    <tr><td><code>layout_constraintTop_toBottomOf="@id/txtTitle"</code></td><td>"הצד העליון שלי צמוד לצד התחתון של הכותרת"</td></tr>
+    <tr><td><code>layout_constraintStart_toStartOf="parent"</code> + <code>End_toEndOf="parent"</code></td><td>אילוץ משני הצדדים = מרכוז אופקי</td></tr>
+    <tr><td><code>layout_width="0dp"</code></td><td>"match constraints": תמלא את כל המרחב שהאילוצים מרשים</td></tr>
+    <tr><td><code>layout_height="0dp"</code> על הלוח</td><td>הלוח תופס את כל הגובה שנשאר בין ההודעה לכפתור</td></tr>
+    <tr><td><code>Start</code> / <code>End</code> ולא <code>Left</code> / <code>Right</code></td><td>ב-RTL "התחלה" היא ימין. תמיד Start/End</td></tr>
+  </table>
+
+  <div class="warnbox">
+    <h3>⚠️ include דורס את ה-id</h3>
+    <p style="margin:0;">
+      המקלדת יושבת בקובץ נפרד (<code>keyboard.xml</code>, שלב 7) ומוכללת עם <code>&lt;include&gt;</code>.
+      כש-include מקבל <code>android:id</code>, ה-id הזה <b>מחליף</b> את ה-id של שורש הקובץ המוכלל. אם בקוד תחפשו את ה-id הפנימי
+      תקבלו <code>null</code> וקריסה ב-<code>onCreate</code>. כך בדיוק קרס המשחק הזה בהרצה הראשונה שלו – אל תחזרו על זה.
+    </p>
+  </div>
+
+  <h2>ב. בודקים בשני גדלים <span class="timechip">⏱️ 15 דק'</span></h2>
+  <p>
+    הלוח עדיין ריק (הוא נבנה בקוד בשלב הבא), אבל כבר אפשר לבדוק את השלד. בתצוגת <b>Design</b> לחצו על אייקון המכשיר ובחרו
+    פעם Pixel 9a ופעם טאבלט. הכותרת וההודעה צריכות להישאר ממורכזות, והמקלדת צמודה לתחתית בשניהם.
+  </p>
+  <p>הריצו גם על האמולטור. המסך צריך להיראות כך (עוד בלי אריחים):</p>
+  <figure class="shot">
+    <img src="img/screen-start.png" alt="המסך אחרי שלב 5: כותרת, הודעה, לוח ריק, כפתור ומקלדת">
+    <figcaption>כך ייראה המסך אחרי שלב 5 (בשלב הזה הלוח עדיין ריק). ארבעת האזורים: כותרת, הודעה, לוח, מקלדת.</figcaption>
+  </figure>
+
+  <h2>ג. הרחבה: מסך לרוחב <span class="timechip">⏱️ 15 דק'</span></h2>
+  <p>
+    סובבו את האמולטור. הלוח יחתך, כי בגובה של מסך רוחבי אין מקום ל-6 שורות של 52dp ועוד מקלדת.
+    פתרון: תיקיית <code>res/layout-land/</code> עם גרסה שנייה של התבנית, שבה הלוח והמקלדת זה לצד זה. המערכת בוחרת לבד לפי הכיוון – זה בדיוק אחד
+    ממנגנוני המשאבים של שלב 6. נסו, זה תרגיל טוב, אבל לא חובה.
+  </p>
+
+  <div class="checkpoint">
+    <span class="cp-label">תחנת אישור מורה</span>
+    <p class="cp-title">✅ ודאו לפני שאתם ניגשים למורה:</p>
+    <ol>
+      <li>אין אף רכיב עם אזהרת "not constrained" בעורך.</li>
+      <li>הכותרת וההודעה נשארות ממורכזות גם על טאבלט.</li>
+      <li>אתם יכולים להסביר מה ההבדל בין <code>wrap_content</code>, <code>match_parent</code> ו-<code>0dp</code>.</li>
+    </ol>
+    <div class="question-box">
+      <b>שאלת הבנה (המורה ישאל):</b><br>
+      מחקנו מ-<code>txtMessage</code> את האילוץ <code>layout_constraintEnd_toEndOf</code> והשארנו רק Start ו-Top.<br>
+      <b>א.</b> איפה הטקסט יופיע עכשיו?<br>
+      <b>ב.</b> מה יקרה ל-<code>layout_width="0dp"</code> שלו? למה זו שגיאה?
+    </div>
+  </div>
+</section>
+
+<!-- ================= STEP 5 ================= -->
+<section id="sec-5">
+  <h1>שלב 5: הלוח נבנה בקוד <span class="timechip total">⏱️ סה"כ כ-60 דק'</span></h1>
+
+  <div class="goal">🎯 מטרה: ליצור 30 אריחים (6 שורות × 5) בלולאה כפולה, לשמור אותם במערך דו-ממדי ולצבוע אותם לפי מצב.</div>
+
+  <h2>למה ככה? למה לא 30 TextViews ב-XML?</h2>
+  <p>
+    אפשר. זה יעבוד. אבל זה 30 בלוקים זהים של 8 שורות כל אחד, ועוד 30 <code>findViewById</code> בקוד.
+    וכשתרצו לשנות את גודל האריח – 30 מקומות לערוך. בקוד זו לולאה אחת, והמערך <code>tiles[row][col]</code>
+    נותן לנו בדיוק את מה שהמשחק צריך: "האריח בשורה 2, עמודה 3". כלל אצבע: <b>רכיבים ייחודיים ב-XML, רכיבים חוזרים בקוד</b>.
+  </p>
+
+  <h2>א. השדות <span class="timechip">⏱️ 5 דק'</span></h2>
+<div class="codecard">
+  <div class="codecard-head">
+    <span class="codecard-file">MainActivity.java – שדות הלוח</span>
+    <span class="codecard-btns"><button class="btn btn-toggle">הצג קוד ˅</button><button class="btn btn-copy">העתק קוד 📋</button></span>
+  </div>
+<pre><code>private TextView[][] tiles;                 // [שורה][עמודה] - 6×5
+private LinearLayout boardContainer;
+private TextView txtMessage;</code></pre>
+</div>
+
+  <h2>ב. בונים את הלוח <span class="timechip">⏱️ 30 דק'</span></h2>
+<div class="codecard">
+  <div class="codecard-head">
+    <span class="codecard-file">MainActivity.java – buildBoard ו-paintTile</span>
+    <span class="codecard-btns"><button class="btn btn-toggle">הצג קוד ˅</button><button class="btn btn-copy">העתק קוד 📋</button></span>
+  </div>
+<pre><code>/**
+ * בונה 6 שורות של 5 אריחים בקוד. כל אריח הוא TextView רגיל עם רקע מ-drawable.
+ * למה בקוד ולא ב-XML? כי 30 רכיבים זהים ב-XML הם 30 הזדמנויות לטעות העתקה,
+ * ואילו לולאה כפולה היא 8 שורות.
+ */
+private void buildBoard() {
+    Resources res = getResources();
+    int size = res.getDimensionPixelSize(R.dimen.tile_size);
+    int margin = res.getDimensionPixelSize(R.dimen.tile_margin);
+
+    tiles = new TextView[WordleGame.MAX_GUESSES][WordleGame.WORD_LENGTH];
+    boardContainer.removeAllViews();
+
+    for (int row = 0; row &lt; WordleGame.MAX_GUESSES; row++) {
+        LinearLayout rowLayout = new LinearLayout(this);
+        rowLayout.setOrientation(LinearLayout.HORIZONTAL);
+        rowLayout.setGravity(Gravity.CENTER);
+
+        for (int col = 0; col &lt; WordleGame.WORD_LENGTH; col++) {
+            TextView tile = new TextView(this);
+            LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(size, size);
+            lp.setMargins(margin, margin, margin, margin);
+            tile.setLayoutParams(lp);
+            tile.setGravity(Gravity.CENTER);
+            tile.setTextSize(android.util.TypedValue.COMPLEX_UNIT_PX, res.getDimension(R.dimen.tile_text));
+            tile.setTypeface(null, android.graphics.Typeface.BOLD);
+            paintTile(tile, LetterState.EMPTY);
+
+            tiles[row][col] = tile;
+            rowLayout.addView(tile);
+        }
+        boardContainer.addView(rowLayout);
+    }
+}
+
+/** צובע אריח אחד לפי מצב. הצבעים עצמם יושבים ב-colors.xml וב-drawable. */
+private void paintTile(TextView tile, LetterState state) {
+    int bg;
+    int textColor = R.color.tile_text_light;
+    switch (state) {
+        case CORRECT: bg = R.drawable.tile_correct; break;
+        case PRESENT: bg = R.drawable.tile_present; break;
+        case ABSENT:  bg = R.drawable.tile_absent;  break;
+        default:      bg = R.drawable.tile_empty;   textColor = R.color.tile_text; break;
+    }
+    tile.setBackground(ContextCompat.getDrawable(this, bg));
+    tile.setTextColor(ContextCompat.getColor(this, textColor));
+}</code></pre>
+</div>
+  <ul>
+    <li><b>LayoutParams</b> – כשיוצרים רכיב בקוד, הגודל והשוליים לא נכתבים עליו אלא על אובייקט "פרמטרים של תבנית" שמתאים להורה שלו. ההורה כאן הוא <code>LinearLayout</code>, ולכן <code>LinearLayout.LayoutParams</code>.</li>
+    <li><b>dp לעומת px</b> – ב-<code>dimens.xml</code> כתוב 52dp. המסך עובד בפיקסלים, וצפיפות הפיקסלים שונה בכל טלפון. <code>getDimensionPixelSize</code> עושה את ההמרה בשבילנו.</li>
+    <li><b>paintTile</b> – מתודה אחת שמקבלת מצב ומחליפה רקע וצבע טקסט. היא תשרת אותנו גם בשלב 9 (צביעה אחרי ניחוש) וגם בשלב 10 (שחזור). כתבו אותה פעם אחת.</li>
+    <li>ב-<code>onCreate</code> קוראים <code>buildBoard()</code> מיד אחרי <code>findViewById</code> של המיכל.</li>
+  </ul>
+
+  <h2>ג. בדיקה <span class="timechip">⏱️ 10 דק'</span></h2>
+  <p>
+    הריצו. אמורים לראות 30 ריבועים לבנים עם מסגרת אפורה. כדי לוודא שהמערך נכון, הוסיפו זמנית ב-<code>onCreate</code>
+    את השורה <code>tiles[2][4].setText("א");</code> – האות צריכה להופיע בשורה השלישית, באריח <b>הימני</b> (עמודה 0 היא ימין, כי RTL). מחקו אחר כך.
+  </p>
+
+  <h2>ד. הרחבה <span class="timechip">⏱️ 15 דק'</span></h2>
+  <p>החליפו את <code>LinearLayout</code> המקונן ב-<code>GridLayout</code> אחד עם <code>columnCount=5</code>. מה יותר קצר? מה קורה לשוליים?</p>
+
+  <div class="checkpoint">
+    <span class="cp-label">תחנת אישור מורה</span>
+    <p class="cp-title">✅ ודאו לפני שאתם ניגשים למורה:</p>
+    <ol>
+      <li>30 אריחים על המסך, ממורכזים, בגודל אחיד.</li>
+      <li>הניסוי עם <code>tiles[2][4]</code> הציג את האות במקום הנכון.</li>
+      <li>אתם יכולים להסביר למה האריח צריך <code>LayoutParams</code> ולמה לא כותבים <code>setWidth(52)</code>.</li>
+    </ol>
+    <div class="question-box">
+      <b>שאלת הבנה (המורה ישאל):</b><br>
+      תלמיד שינה את <code>tile_size</code> ב-<code>dimens.xml</code> ל-80dp, ועל הטלפון שלו שתי השורות התחתונות נעלמו.<br>
+      <b>א.</b> למה הן נעלמו ולא "נדחסו"?<br>
+      <b>ב.</b> הציעו שני פתרונות: אחד ב-XML ואחד בקוד.
+    </div>
+  </div>
+</section>
+
+<!-- ================= STEP 6 ================= -->
+<section id="sec-6">
+  <h1>שלב 6: משאבי האפליקציה <span class="timechip total">⏱️ סה"כ כ-50 דק'</span></h1>
+
+  <div class="goal">🎯 מטרה: להוציא מהקוד כל טקסט, צבע, מידה וצורה אל תיקיית <code>res/</code>, ולהבין איך אנדרואיד בוחר משאב לפי המכשיר.</div>
+
+  <h2>למה ככה?</h2>
+  <p>
+    "כל הכבוד! ניחשתם ב-2 ניסיונות" יכול להיכתב ישירות בקוד. אבל אז: תרגום לערבית = לחפש בכל הקוד; שינוי הירוק = לחפש בכל הקוד;
+    אריח גדול יותר לטאבלט = לכתוב תנאים. ב-<code>res/</code> כל דבר כזה יושב במקום אחד, עם <b>שם</b>, והקוד מתייחס לשם.
+    ויש בונוס: אנדרואיד יודע לבחור <b>לבד</b> בין <code>values/</code> ל-<code>values-ar/</code> לפי שפת המכשיר, ובין <code>layout/</code> ל-<code>layout-land/</code> לפי הכיוון.
+  </p>
+
+  <div class="ascii">res/
+├── values/
+│   ├── strings.xml     <- כל טקסט שהמשתמש רואה
+│   ├── colors.xml      <- כל צבע, בשם שאומר מה הוא (tile_correct, לא green)
+│   ├── dimens.xml      <- מידות: tile_size, key_height
+│   ├── themes.xml      <- ערכת הנושא + הסגנון KeyButton
+│   └── words.xml       <- רשימת המילים כ-string-array
+├── drawable/
+│   └── tile_*.xml      <- ארבע צורות אריח (shape)
+└── layout/
+    ├── activity_main.xml
+    └── keyboard.xml</div>
+
+  <h2>א. מחרוזות <span class="timechip">⏱️ 10 דק'</span></h2>
+<div class="codecard">
+  <div class="codecard-head">
+    <span class="codecard-file">res/values/strings.xml</span>
+    <span class="codecard-btns"><button class="btn btn-toggle">הצג קוד ˅</button><button class="btn btn-copy">העתק קוד 📋</button></span>
+  </div>
+<pre><code>&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;
+&lt;resources&gt;
+    &lt;string name=&quot;app_name&quot;&gt;ווֹרדל בעברית&lt;/string&gt;
+    &lt;string name=&quot;title&quot;&gt;ווֹרדל בעברית&lt;/string&gt;
+    &lt;string name=&quot;msg_start&quot;&gt;נחשו מילה בת 5 אותיות. יש לכם 6 ניסיונות.&lt;/string&gt;
+    &lt;string name=&quot;msg_too_short&quot;&gt;צריך 5 אותיות לפני הבדיקה&lt;/string&gt;
+    &lt;string name=&quot;msg_win&quot;&gt;כל הכבוד! ניחשתם ב-%1$d ניסיונות&lt;/string&gt;
+    &lt;string name=&quot;msg_lose&quot;&gt;נגמרו הניסיונות. המילה הייתה: %1$s&lt;/string&gt;
+    &lt;string name=&quot;msg_guesses_left&quot;&gt;נשארו %1$d ניסיונות&lt;/string&gt;
+    &lt;string name=&quot;key_delete&quot;&gt;מחק&lt;/string&gt;
+    &lt;string name=&quot;key_check&quot;&gt;בדיקה&lt;/string&gt;
+    &lt;string name=&quot;new_game&quot;&gt;משחק חדש&lt;/string&gt;
+&lt;/resources&gt;
+</code></pre>
+</div>
+  <p>
+    שימו לב ל-<code>%1$d</code> ו-<code>%1$s</code>: מחרוזת עם "חור" למספר או לטקסט. בקוד: <code>getString(R.string.msg_win, 2)</code>.
+    לעולם לא <code>"ניחשתם ב-" + n + " ניסיונות"</code> בקוד – בשפות אחרות סדר המילים שונה.
+  </p>
+
+  <h2>ב. צבעים ומידות <span class="timechip">⏱️ 10 דק'</span></h2>
+<div class="codecard">
+  <div class="codecard-head">
+    <span class="codecard-file">res/values/colors.xml</span>
+    <span class="codecard-btns"><button class="btn btn-toggle">הצג קוד ˅</button><button class="btn btn-copy">העתק קוד 📋</button></span>
+  </div>
+<pre><code>&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;
+&lt;resources&gt;
+    &lt;color name=&quot;primary&quot;&gt;#538D4E&lt;/color&gt;
+    &lt;color name=&quot;on_primary&quot;&gt;#FFFFFF&lt;/color&gt;
+    &lt;color name=&quot;secondary&quot;&gt;#B59F3B&lt;/color&gt;
+    &lt;color name=&quot;on_secondary&quot;&gt;#FFFFFF&lt;/color&gt;
+    &lt;color name=&quot;white&quot;&gt;#FFFFFF&lt;/color&gt;
+    &lt;color name=&quot;ink&quot;&gt;#1A1A2E&lt;/color&gt;
+
+    &lt;!-- ארבעת מצבי האות --&gt;
+    &lt;color name=&quot;tile_empty&quot;&gt;#FFFFFF&lt;/color&gt;
+    &lt;color name=&quot;tile_border&quot;&gt;#9AA0A6&lt;/color&gt;
+    &lt;color name=&quot;tile_absent&quot;&gt;#787C7E&lt;/color&gt;
+    &lt;color name=&quot;tile_present&quot;&gt;#C9B458&lt;/color&gt;
+    &lt;color name=&quot;tile_correct&quot;&gt;#6AAA64&lt;/color&gt;
+    &lt;color name=&quot;tile_text&quot;&gt;#1A1A2E&lt;/color&gt;
+    &lt;color name=&quot;tile_text_light&quot;&gt;#FFFFFF&lt;/color&gt;
+
+    &lt;color name=&quot;key_bg&quot;&gt;#D3D6DA&lt;/color&gt;
+    &lt;color name=&quot;screen_bg&quot;&gt;#F7F7F7&lt;/color&gt;
+&lt;/resources&gt;
+</code></pre>
+</div>
+<div class="codecard">
+  <div class="codecard-head">
+    <span class="codecard-file">res/values/dimens.xml</span>
+    <span class="codecard-btns"><button class="btn btn-toggle">הצג קוד ˅</button><button class="btn btn-copy">העתק קוד 📋</button></span>
+  </div>
+<pre><code>&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;
+&lt;resources&gt;
+    &lt;dimen name=&quot;tile_size&quot;&gt;52dp&lt;/dimen&gt;
+    &lt;dimen name=&quot;tile_margin&quot;&gt;3dp&lt;/dimen&gt;
+    &lt;dimen name=&quot;tile_text&quot;&gt;26sp&lt;/dimen&gt;
+    &lt;dimen name=&quot;key_height&quot;&gt;46dp&lt;/dimen&gt;
+    &lt;dimen name=&quot;key_margin&quot;&gt;2dp&lt;/dimen&gt;
+    &lt;dimen name=&quot;key_text&quot;&gt;16sp&lt;/dimen&gt;
+    &lt;dimen name=&quot;screen_padding&quot;&gt;12dp&lt;/dimen&gt;
+&lt;/resources&gt;
+</code></pre>
+</div>
+
+  <h2>ג. צורות: drawable <span class="timechip">⏱️ 10 דק'</span></h2>
+  <p>
+    רקע של אריח הוא לא תמונה אלא <b>צורה</b> שמתוארת ב-XML: מלבן, צבע מילוי, מסגרת, פינות מעוגלות. ארבעה קבצים, אחד לכל מצב. הנה הירוק:
+  </p>
+<div class="codecard">
+  <div class="codecard-head">
+    <span class="codecard-file">res/drawable/tile_correct.xml</span>
+    <span class="codecard-btns"><button class="btn btn-toggle">הצג קוד ˅</button><button class="btn btn-copy">העתק קוד 📋</button></span>
+  </div>
+<pre><code>&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;
+&lt;!-- רקע אריח במצב correct --&gt;
+&lt;shape xmlns:android=&quot;http://schemas.android.com/apk/res/android&quot; android:shape=&quot;rectangle&quot;&gt;
+    &lt;solid android:color=&quot;@color/tile_correct&quot; /&gt;
+    &lt;stroke android:width=&quot;2dp&quot; android:color=&quot;@color/tile_correct&quot; /&gt;
+    &lt;corners android:radius=&quot;4dp&quot; /&gt;
+&lt;/shape&gt;
+</code></pre>
+</div>
+  <p>צרו באותו אופן את <code>tile_present</code>, <code>tile_absent</code> ו-<code>tile_empty</code> (ללבן: מילוי לבן ומסגרת <code>tile_border</code>).</p>
+
+  <h2>ד. ערכת נושא וסגנון <span class="timechip">⏱️ 10 דק'</span></h2>
+<div class="codecard">
+  <div class="codecard-head">
+    <span class="codecard-file">res/values/themes.xml</span>
+    <span class="codecard-btns"><button class="btn btn-toggle">הצג קוד ˅</button><button class="btn btn-copy">העתק קוד 📋</button></span>
+  </div>
+<pre><code>&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;
+&lt;resources&gt;
+    &lt;style name=&quot;Theme.App&quot; parent=&quot;Theme.Material3.DayNight.NoActionBar&quot;&gt;
+        &lt;item name=&quot;colorPrimary&quot;&gt;@color/primary&lt;/item&gt;
+        &lt;item name=&quot;colorOnPrimary&quot;&gt;@color/on_primary&lt;/item&gt;
+        &lt;item name=&quot;colorSecondary&quot;&gt;@color/secondary&lt;/item&gt;
+        &lt;item name=&quot;colorOnSecondary&quot;&gt;@color/on_secondary&lt;/item&gt;
+        &lt;item name=&quot;android:statusBarColor&quot;&gt;@color/primary&lt;/item&gt;
+        &lt;item name=&quot;android:windowBackground&quot;&gt;@color/screen_bg&lt;/item&gt;
+    &lt;/style&gt;
+
+    &lt;!-- מקש אות במקלדת: כל 27 המקשים חולקים את הסגנון הזה --&gt;
+    &lt;style name=&quot;KeyButton&quot; parent=&quot;Widget.Material3.Button.TextButton&quot;&gt;
+        &lt;item name=&quot;android:layout_width&quot;&gt;0dp&lt;/item&gt;
+        &lt;item name=&quot;android:layout_height&quot;&gt;@dimen/key_height&lt;/item&gt;
+        &lt;item name=&quot;android:layout_weight&quot;&gt;1&lt;/item&gt;
+        &lt;item name=&quot;android:layout_margin&quot;&gt;@dimen/key_margin&lt;/item&gt;
+        &lt;item name=&quot;android:minWidth&quot;&gt;0dp&lt;/item&gt;
+        &lt;item name=&quot;android:insetTop&quot;&gt;0dp&lt;/item&gt;
+        &lt;item name=&quot;android:insetBottom&quot;&gt;0dp&lt;/item&gt;
+        &lt;item name=&quot;android:padding&quot;&gt;0dp&lt;/item&gt;
+        &lt;item name=&quot;android:textSize&quot;&gt;@dimen/key_text&lt;/item&gt;
+        &lt;item name=&quot;android:textColor&quot;&gt;@color/ink&lt;/item&gt;
+        &lt;item name=&quot;backgroundTint&quot;&gt;@color/key_bg&lt;/item&gt;
+        &lt;item name=&quot;cornerRadius&quot;&gt;6dp&lt;/item&gt;
+        &lt;item name=&quot;android:onClick&quot;&gt;onLetterKey&lt;/item&gt;
+    &lt;/style&gt;
+&lt;/resources&gt;
+</code></pre>
+</div>
+  <p>
+    <b>Theme</b> הוא סגנון של האפליקציה כולה (צבע ראשי, סרגל מצב, רקע). <b>Style</b> הוא חבילת מאפיינים לרכיב אחד.
+    הסגנון <code>KeyButton</code> הוא הסיבה שבשלב 7 כל מקש במקלדת הוא שורה אחת של XML במקום עשר. שימו לב לשורה האחרונה בו – נחזור אליה.
+  </p>
+
+  <h2>ה. רשימת המילים כמשאב <span class="timechip">⏱️ 10 דק'</span></h2>
+  <p>
+    המילים הן נתונים, לא קוד. <code>string-array</code> נותן לנו מערך מוכן: <code>getResources().getStringArray(R.array.words)</code>.
+    מי שרוצה להוסיף מילים לא צריך להבין Java.
+  </p>
+<div class="codecard">
+  <div class="codecard-head">
+    <span class="codecard-file">res/values/words.xml (105 מילים)</span>
+    <span class="codecard-btns"><button class="btn btn-toggle">הצג קוד ˅</button><button class="btn btn-copy">העתק קוד 📋</button></span>
+  </div>
+<pre><code>&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;
+&lt;resources&gt;
+    &lt;!-- מאגר המילים: כל מילה בת 5 אותיות בדיוק. אפשר להוסיף ולמחוק מילים כאן בלי לגעת בקוד. --&gt;
+    &lt;string-array name=&quot;words&quot;&gt;
+        &lt;item&gt;שולחן&lt;/item&gt;
+        &lt;item&gt;מקלדת&lt;/item&gt;
+        &lt;item&gt;תלמיד&lt;/item&gt;
+        &lt;item&gt;מורים&lt;/item&gt;
+        &lt;item&gt;ספרים&lt;/item&gt;
+        &lt;item&gt;חברים&lt;/item&gt;
+        &lt;item&gt;ילדים&lt;/item&gt;
+        &lt;item&gt;בניין&lt;/item&gt;
+        &lt;item&gt;מכונה&lt;/item&gt;
+        &lt;item&gt;מכשיר&lt;/item&gt;
+        &lt;item&gt;טלפון&lt;/item&gt;
+        &lt;item&gt;מחברת&lt;/item&gt;
+        &lt;item&gt;אבטיח&lt;/item&gt;
+        &lt;item&gt;אגסים&lt;/item&gt;
+        &lt;item&gt;שמשיה&lt;/item&gt;
+        &lt;item&gt;מטריה&lt;/item&gt;
+        &lt;item&gt;מחשבה&lt;/item&gt;
+        &lt;item&gt;ספינה&lt;/item&gt;
+        &lt;item&gt;שמיים&lt;/item&gt;
+        &lt;item&gt;מדינה&lt;/item&gt;
+        &lt;item&gt;גבינה&lt;/item&gt;
+        &lt;item&gt;עוגיה&lt;/item&gt;
+        &lt;item&gt;עוגות&lt;/item&gt;
+        &lt;item&gt;פלאפל&lt;/item&gt;
+        &lt;item&gt;חומוס&lt;/item&gt;
+        &lt;item&gt;סלטים&lt;/item&gt;
+        &lt;item&gt;בקבוק&lt;/item&gt;
+        &lt;item&gt;כוסות&lt;/item&gt;
+        &lt;item&gt;שמיכה&lt;/item&gt;
+        &lt;item&gt;מדפים&lt;/item&gt;
+        &lt;item&gt;דלתות&lt;/item&gt;
+        &lt;item&gt;קירות&lt;/item&gt;
+        &lt;item&gt;מנהלת&lt;/item&gt;
+        &lt;item&gt;רופאה&lt;/item&gt;
+        &lt;item&gt;שוטרת&lt;/item&gt;
+        &lt;item&gt;כבאים&lt;/item&gt;
+        &lt;item&gt;נהגים&lt;/item&gt;
+        &lt;item&gt;כלבים&lt;/item&gt;
+        &lt;item&gt;חתולה&lt;/item&gt;
+        &lt;item&gt;סוסים&lt;/item&gt;
+        &lt;item&gt;ציפור&lt;/item&gt;
+        &lt;item&gt;נמלים&lt;/item&gt;
+        &lt;item&gt;פילים&lt;/item&gt;
+        &lt;item&gt;קופים&lt;/item&gt;
+        &lt;item&gt;אריות&lt;/item&gt;
+        &lt;item&gt;נמרים&lt;/item&gt;
+        &lt;item&gt;זברות&lt;/item&gt;
+        &lt;item&gt;פרחים&lt;/item&gt;
+        &lt;item&gt;יערות&lt;/item&gt;
+        &lt;item&gt;נהרות&lt;/item&gt;
+        &lt;item&gt;אגמים&lt;/item&gt;
+        &lt;item&gt;חופים&lt;/item&gt;
+        &lt;item&gt;גשמים&lt;/item&gt;
+        &lt;item&gt;רוחות&lt;/item&gt;
+        &lt;item&gt;עננים&lt;/item&gt;
+        &lt;item&gt;שלגים&lt;/item&gt;
+        &lt;item&gt;תוכנה&lt;/item&gt;
+        &lt;item&gt;חומרה&lt;/item&gt;
+        &lt;item&gt;מסכים&lt;/item&gt;
+        &lt;item&gt;רמקול&lt;/item&gt;
+        &lt;item&gt;מצלמה&lt;/item&gt;
+        &lt;item&gt;מדפסת&lt;/item&gt;
+        &lt;item&gt;עברית&lt;/item&gt;
+        &lt;item&gt;ערבית&lt;/item&gt;
+        &lt;item&gt;כימיה&lt;/item&gt;
+        &lt;item&gt;שיעור&lt;/item&gt;
+        &lt;item&gt;הפסקה&lt;/item&gt;
+        &lt;item&gt;בחינה&lt;/item&gt;
+        &lt;item&gt;שאלות&lt;/item&gt;
+        &lt;item&gt;תשובה&lt;/item&gt;
+        &lt;item&gt;תעודה&lt;/item&gt;
+        &lt;item&gt;חידות&lt;/item&gt;
+        &lt;item&gt;קלפים&lt;/item&gt;
+        &lt;item&gt;שירים&lt;/item&gt;
+        &lt;item&gt;ריקוד&lt;/item&gt;
+        &lt;item&gt;גיטרה&lt;/item&gt;
+        &lt;item&gt;תופים&lt;/item&gt;
+        &lt;item&gt;כינור&lt;/item&gt;
+        &lt;item&gt;חברות&lt;/item&gt;
+        &lt;item&gt;משפחה&lt;/item&gt;
+        &lt;item&gt;הורים&lt;/item&gt;
+        &lt;item&gt;אחיות&lt;/item&gt;
+        &lt;item&gt;דודים&lt;/item&gt;
+        &lt;item&gt;תיקים&lt;/item&gt;
+        &lt;item&gt;מגפים&lt;/item&gt;
+        &lt;item&gt;חולצה&lt;/item&gt;
+        &lt;item&gt;שניות&lt;/item&gt;
+        &lt;item&gt;ארוחה&lt;/item&gt;
+        &lt;item&gt;לחמים&lt;/item&gt;
+        &lt;item&gt;ביצים&lt;/item&gt;
+        &lt;item&gt;ספורט&lt;/item&gt;
+        &lt;item&gt;שחייה&lt;/item&gt;
+        &lt;item&gt;גלידה&lt;/item&gt;
+        &lt;item&gt;סיפור&lt;/item&gt;
+        &lt;item&gt;משורר&lt;/item&gt;
+        &lt;item&gt;עיתון&lt;/item&gt;
+        &lt;item&gt;מספרה&lt;/item&gt;
+        &lt;item&gt;כרטיס&lt;/item&gt;
+        &lt;item&gt;תחנות&lt;/item&gt;
+        &lt;item&gt;רכבות&lt;/item&gt;
+        &lt;item&gt;טייסת&lt;/item&gt;
+        &lt;item&gt;קניון&lt;/item&gt;
+        &lt;item&gt;שכונה&lt;/item&gt;
+        &lt;item&gt;רמזור&lt;/item&gt;
+        &lt;item&gt;גשרים&lt;/item&gt;
+    &lt;/string-array&gt;
+&lt;/resources&gt;
+</code></pre>
+</div>
+
+  <div class="infobox">
+    <h3>🤔 מה זה R?</h3>
+    <p style="margin:0;">
+      בכל בנייה אנדרואיד סורק את <code>res/</code> ומייצר מחלקה בשם <code>R</code> עם מספר לכל משאב: <code>R.string.msg_win</code>, <code>R.color.tile_correct</code>,
+      <code>R.id.btnCheck</code>. זה למה שגיאת כתיב בשם משאב היא שגיאת <b>קומפילציה</b> ולא קריסה בזמן ריצה – המהדר בודק בשבילכם. ואם ה-R "אדום" פתאום – כמעט תמיד יש XML שבור באחד הקבצים.
+    </p>
+  </div>
+
+  <div class="checkpoint">
+    <span class="cp-label">תחנת אישור מורה</span>
+    <p class="cp-title">✅ ודאו לפני שאתם ניגשים למורה:</p>
+    <ol>
+      <li>אין בקוד Java אף מחרוזת עברית ואף צבע הקסדצימלי.</li>
+      <li>ארבעת ה-drawables מוצגים נכון: שנו זמנית את <code>paintTile</code> בבדיקה של שלב 5 לכל מצב.</li>
+      <li>הוספתם 5 מילים משלכם ל-<code>words.xml</code>, כולן בנות 5 אותיות.</li>
+    </ol>
+    <div class="question-box">
+      <b>שאלת הבנה (המורה ישאל):</b><br>
+      רוצים שעל טאבלט האריח יהיה 80dp ועל טלפון 52dp, בלי אף <code>if</code> בקוד.<br>
+      <b>א.</b> איזו תיקייה יוצרים ואיזה קובץ שמים בה?<br>
+      <b>ב.</b> איך אנדרואיד יודע באיזו מהן להשתמש?
+    </div>
+  </div>
+</section>
+
+<!-- ================= STEP 7 ================= -->
+<section id="sec-7">
+  <h1>שלב 7: המקלדת העברית – דרך 1, מאזין ב-XML <span class="timechip total">⏱️ סה"כ כ-50 דק'</span></h1>
+
+  <div class="goal">🎯 מטרה: לבנות מקלדת של 27 מקשים, שכולם מפעילים את אותה מתודה דרך <code>android:onClick</code>, ולהכניס אותיות לשורה הנוכחית.</div>
+
+  <h2>למה ככה?</h2>
+  <p>
+    לחיצה על כפתור היא <b>אירוע</b>. מישהו צריך "להאזין" לו. באנדרואיד יש ארבע דרכים לרשום מאזין, וביחידה הזאת נשתמש <b>בכל הארבע</b>, כל אחת על כפתור אחר,
+    כדי שתרגישו את ההבדל. הראשונה והפשוטה: לכתוב ב-XML את שם המתודה. המערכת, בזמן הלחיצה, מחפשת בפעילות מתודה <code>public void</code> בשם הזה שמקבלת <code>View</code>.
+    זה נהדר ל-27 מקשים זהים: שורה אחת בסגנון, ו<b>אפס</b> שורות חיבור בקוד.
+  </p>
+
+  <h2>א. קובץ המקלדת <span class="timechip">⏱️ 20 דק'</span></h2>
+<div class="codecard">
+  <div class="codecard-head">
+    <span class="codecard-file">res/layout/keyboard.xml</span>
+    <span class="codecard-btns"><button class="btn btn-toggle">הצג קוד ˅</button><button class="btn btn-copy">העתק קוד 📋</button></span>
+  </div>
+<pre><code>&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;
+&lt;!--
+    המקלדת העברית. כל מקש הוא Button עם style=&quot;@style/KeyButton&quot;, והסגנון מכיל
+    android:onClick=&quot;onLetterKey&quot; - כלומר כל 27 המקשים קוראים לאותה מתודה בפעילות
+    (דרך 1 לטיפול באירועים: מאזין ב-XML).
+    הסידור הוא לפי המקלדת הפיזית, מימין לשמאל, כי supportsRtl=&quot;true&quot;.
+--&gt;
+&lt;LinearLayout xmlns:android=&quot;http://schemas.android.com/apk/res/android&quot;
+    android:id=&quot;@+id/keyboard&quot;
+    android:layout_width=&quot;match_parent&quot;
+    android:layout_height=&quot;wrap_content&quot;
+    android:orientation=&quot;vertical&quot;&gt;
+
+    &lt;LinearLayout
+        android:layout_width=&quot;match_parent&quot;
+        android:layout_height=&quot;wrap_content&quot;
+        android:orientation=&quot;horizontal&quot;&gt;
+        &lt;Button style=&quot;@style/KeyButton&quot; android:text=&quot;ק&quot; /&gt;
+        &lt;Button style=&quot;@style/KeyButton&quot; android:text=&quot;ר&quot; /&gt;
+        &lt;Button style=&quot;@style/KeyButton&quot; android:text=&quot;א&quot; /&gt;
+        &lt;Button style=&quot;@style/KeyButton&quot; android:text=&quot;ט&quot; /&gt;
+        &lt;Button style=&quot;@style/KeyButton&quot; android:text=&quot;ו&quot; /&gt;
+        &lt;Button style=&quot;@style/KeyButton&quot; android:text=&quot;ן&quot; /&gt;
+        &lt;Button style=&quot;@style/KeyButton&quot; android:text=&quot;ם&quot; /&gt;
+        &lt;Button style=&quot;@style/KeyButton&quot; android:text=&quot;פ&quot; /&gt;
+    &lt;/LinearLayout&gt;
+
+    &lt;LinearLayout
+        android:layout_width=&quot;match_parent&quot;
+        android:layout_height=&quot;wrap_content&quot;
+        android:orientation=&quot;horizontal&quot;&gt;
+        &lt;Button style=&quot;@style/KeyButton&quot; android:text=&quot;ש&quot; /&gt;
+        &lt;Button style=&quot;@style/KeyButton&quot; android:text=&quot;ד&quot; /&gt;
+        &lt;Button style=&quot;@style/KeyButton&quot; android:text=&quot;ג&quot; /&gt;
+        &lt;Button style=&quot;@style/KeyButton&quot; android:text=&quot;כ&quot; /&gt;
+        &lt;Button style=&quot;@style/KeyButton&quot; android:text=&quot;ע&quot; /&gt;
+        &lt;Button style=&quot;@style/KeyButton&quot; android:text=&quot;י&quot; /&gt;
+        &lt;Button style=&quot;@style/KeyButton&quot; android:text=&quot;ח&quot; /&gt;
+        &lt;Button style=&quot;@style/KeyButton&quot; android:text=&quot;ל&quot; /&gt;
+        &lt;Button style=&quot;@style/KeyButton&quot; android:text=&quot;ך&quot; /&gt;
+        &lt;Button style=&quot;@style/KeyButton&quot; android:text=&quot;ף&quot; /&gt;
+    &lt;/LinearLayout&gt;
+
+    &lt;LinearLayout
+        android:layout_width=&quot;match_parent&quot;
+        android:layout_height=&quot;wrap_content&quot;
+        android:orientation=&quot;horizontal&quot;&gt;
+        &lt;Button style=&quot;@style/KeyButton&quot; android:text=&quot;ז&quot; /&gt;
+        &lt;Button style=&quot;@style/KeyButton&quot; android:text=&quot;ס&quot; /&gt;
+        &lt;Button style=&quot;@style/KeyButton&quot; android:text=&quot;ב&quot; /&gt;
+        &lt;Button style=&quot;@style/KeyButton&quot; android:text=&quot;ה&quot; /&gt;
+        &lt;Button style=&quot;@style/KeyButton&quot; android:text=&quot;נ&quot; /&gt;
+        &lt;Button style=&quot;@style/KeyButton&quot; android:text=&quot;מ&quot; /&gt;
+        &lt;Button style=&quot;@style/KeyButton&quot; android:text=&quot;צ&quot; /&gt;
+        &lt;Button style=&quot;@style/KeyButton&quot; android:text=&quot;ת&quot; /&gt;
+        &lt;Button style=&quot;@style/KeyButton&quot; android:text=&quot;ץ&quot; /&gt;
+    &lt;/LinearLayout&gt;
+
+    &lt;!-- שני המקשים האלה לא מקבלים onClick ב-XML בכוונה: הם מחוברים מהקוד (דרכים 2 ו-3) --&gt;
+    &lt;LinearLayout
+        android:layout_width=&quot;match_parent&quot;
+        android:layout_height=&quot;wrap_content&quot;
+        android:orientation=&quot;horizontal&quot;&gt;
+        &lt;Button
+            android:id=&quot;@+id/btnDelete&quot;
+            style=&quot;@style/KeyButton&quot;
+            android:layout_weight=&quot;2&quot;
+            android:onClick=&quot;@null&quot;
+            android:text=&quot;@string/key_delete&quot; /&gt;
+        &lt;Button
+            android:id=&quot;@+id/btnCheck&quot;
+            style=&quot;@style/KeyButton&quot;
+            android:layout_weight=&quot;2&quot;
+            android:onClick=&quot;@null&quot;
+            android:backgroundTint=&quot;@color/primary&quot;
+            android:textColor=&quot;@color/white&quot;
+            android:text=&quot;@string/key_check&quot; /&gt;
+    &lt;/LinearLayout&gt;
+&lt;/LinearLayout&gt;
+</code></pre>
+</div>
+  <ul>
+    <li>הסידור הוא של המקלדת הפיזית. בגלל <code>supportsRtl</code>, הילד הראשון ב-<code>LinearLayout</code> אופקי יושב <b>מימין</b>.</li>
+    <li><code>layout_weight="1"</code> לכל מקש + <code>layout_width="0dp"</code> = חלוקה שווה של הרוחב. שורה של 10 מקשים מקבלת מקשים צרים יותר משורה של 8 – בדיוק כמו במקלדת.</li>
+    <li>"מחק" ו"בדיקה" מקבלים <code>android:onClick="@null"</code> כדי <b>לבטל</b> את ה-onClick שירשו מהסגנון. אותם נחבר בדרכים אחרות בשלב 8.</li>
+  </ul>
+
+  <h2>ב. המתודה בפעילות <span class="timechip">⏱️ 15 דק'</span></h2>
+<div class="codecard">
+  <div class="codecard-head">
+    <span class="codecard-file">MainActivity.java – onLetterKey</span>
+    <span class="codecard-btns"><button class="btn btn-toggle">הצג קוד ˅</button><button class="btn btn-copy">העתק קוד 📋</button></span>
+  </div>
+<pre><code>/**
+ * דרך 1: מאזין ב-XML. כל 27 מקשי האותיות מצהירים android:onClick=&quot;onLetterKey&quot;
+ * (דרך הסגנון KeyButton), ולכן אנדרואיד מחפש כאן מתודה public בשם הזה
+ * שמקבלת View אחד. הטקסט של הכפתור הוא האות עצמה.
+ */
+public void onLetterKey(View view) {
+    if (game.isOver()) return;
+    if (current.length() &gt;= WordleGame.WORD_LENGTH) return;
+
+    char letter = ((Button) view).getText().charAt(0);
+    current.append(letter);
+    int row = game.getGuessCount();
+    tiles[row][current.length() - 1].setText(String.valueOf(letter));
+}</code></pre>
+</div>
+  <p>
+    הפרמטר <code>view</code> הוא הכפתור שנלחץ. אנחנו לא צריכים 27 מתודות, כי הטקסט של הכפתור <b>הוא</b> האות. שימו לב לשני תנאי העצירה: אחרי סיום המשחק ואחרי 5 אותיות
+    אין מה להוסיף. <code>current</code> הוא <code>StringBuilder</code> שמחזיק את מה שהוקלד; הוא מוגדר בשלב 9 יחד עם <code>game</code> – בינתיים הוסיפו אותו כשדה ואתחלו את <code>game</code> במילה קבועה.
+  </p>
+
+  <div class="warnbox">
+    <h3>⚠️ השגיאה שתראו בוודאות</h3>
+    <p style="margin:0;">
+      <code>IllegalStateException: Could not find method onLetterKey(View)</code> – המתודה לא <code>public</code>, או לא מקבלת <code>View</code>, או שיש טעות כתיב בין ה-XML לקוד.
+      זו החולשה של דרך 1: הקשר בין ה-XML לקוד הוא <b>מחרוזת</b>, והמהדר לא בודק אותה. הקריסה מגיעה רק בלחיצה.
+    </p>
+  </div>
+
+  <h2>ג. בדיקה <span class="timechip">⏱️ 15 דק'</span></h2>
+  <p>הריצו, הקלידו 5 אותיות. האותיות צריכות להופיע בשורה הראשונה מימין לשמאל, והאות השישית לא נכנסת.</p>
+
+  <div class="checkpoint">
+    <span class="cp-label">תחנת אישור מורה</span>
+    <p class="cp-title">✅ ודאו לפני שאתם ניגשים למורה:</p>
+    <ol>
+      <li>27 מקשים, שלוש שורות, הסידור כמו במקלדת פיזית.</li>
+      <li>אין אף <code>setOnClickListener</code> עבור מקשי האותיות.</li>
+      <li>אתם יכולים להסביר מאיפה המתודה יודעת איזו אות נלחצה.</li>
+    </ol>
+    <div class="question-box">
+      <b>שאלת הבנה (המורה ישאל):</b><br>
+      תלמידה שינתה את שם המתודה ל-<code>onLetter</code> ושכחה לעדכן את הסגנון. הפרויקט התקמפל והאפליקציה עלתה.<br>
+      <b>א.</b> מתי בדיוק תתגלה הטעות?<br>
+      <b>ב.</b> מה היה קורה באותו מקרה בדרך 2 (שלב הבא)?
+    </div>
+  </div>
+</section>
+
+<!-- ================= STEP 8 ================= -->
+<section id="sec-8">
+  <h1>שלב 8: מחיקה ובדיקה – דרכים 2 ו-3 <span class="timechip total">⏱️ סה"כ כ-50 דק'</span></h1>
+
+  <div class="goal">🎯 מטרה: לחבר את "מחק" דרך הפעילות שמממשת <code>OnClickListener</code>, ואת "בדיקה" דרך מחלקה פנימית – ולהבין מתי כל דרך מתאימה.</div>
+
+  <h2>למה ככה?</h2>
+  <p>
+    <code>setOnClickListener</code> מקבל <b>אובייקט</b> שמממש את הממשק <code>View.OnClickListener</code> (מתודה אחת: <code>onClick(View)</code>).
+    השאלה היא רק <b>מי</b> האובייקט הזה. דרך 2: הפעילות עצמה (<code>this</code>). דרך 3: מחלקה פנימית שכתבנו. בשתיהן המהדר בודק שהמתודה קיימת –
+    זה היתרון הגדול על דרך 1.
+  </p>
+
+  <h2>א. דרך 2: הפעילות מממשת <span class="timechip">⏱️ 15 דק'</span></h2>
+  <p>שלוש פעולות: (1) <code>implements View.OnClickListener</code> בכותרת המחלקה; (2) דורסים <code>onClick</code>; (3) ב-<code>wireButtons</code> מעבירים <code>this</code>.</p>
+<div class="codecard">
+  <div class="codecard-head">
+    <span class="codecard-file">MainActivity.java – onClick של הפעילות</span>
+    <span class="codecard-btns"><button class="btn btn-toggle">הצג קוד ˅</button><button class="btn btn-copy">העתק קוד 📋</button></span>
+  </div>
+<pre><code>/**
+ * דרך 2: הפעילות עצמה מממשת OnClickListener. כפתור &quot;מחק&quot; מקבל this כמאזין
+ * (ראו wireButtons), ולכן הלחיצה מגיעה לכאן. כשיש כמה כפתורים עם אותו מאזין,
+ * מבדילים ביניהם לפי view.getId().
+ */
+@Override
+public void onClick(View view) {
+    if (view.getId() == R.id.btnDelete) {
+        if (game.isOver() || current.length() == 0) return;
+        current.deleteCharAt(current.length() - 1);
+        int row = game.getGuessCount();
+        tiles[row][current.length()].setText(&quot;&quot;);
+    }
+}</code></pre>
+</div>
+  <p>
+    מתי זה מתאים? כשיש <b>הרבה</b> כפתורים ורוצים מקום אחד. החיסרון: <code>onClick</code> אחת הופכת לסדרת <code>if (view.getId() == ...)</code>. אצלנו יש בה כפתור אחד, בכוונה, כדי שתראו את הצורה.
+  </p>
+
+  <h2>ב. דרך 3: מחלקה פנימית <span class="timechip">⏱️ 20 דק'</span></h2>
+<div class="codecard">
+  <div class="codecard-head">
+    <span class="codecard-file">MainActivity.java – CheckListener</span>
+    <span class="codecard-btns"><button class="btn btn-toggle">הצג קוד ˅</button><button class="btn btn-copy">העתק קוד 📋</button></span>
+  </div>
+<pre><code>/**
+ * דרך 3: מחלקה פנימית. למחלקה פנימית (לא static) יש גישה לכל השדות של הפעילות
+ * - game, tiles, current - בלי להעביר אותם כפרמטרים.
+ */
+private class CheckListener implements View.OnClickListener {
+    @Override
+    public void onClick(View view) {
+        if (game.isOver()) return;
+        if (current.length() &lt; WordleGame.WORD_LENGTH) {
+            txtMessage.setText(R.string.msg_too_short);
+            return;
+        }
+        Guess guess = game.submit(current.toString());
+        int row = game.getGuessCount() - 1;
+        showGuess(row, guess);
+        current.setLength(0);
+        updateMessage();
+    }
+}</code></pre>
+</div>
+  <p>
+    <code>CheckListener</code> היא מחלקה שלמה בתוך <code>MainActivity</code>. בגלל שהיא <b>לא static</b>, יש לה גישה ישירה ל-<code>game</code>, <code>tiles</code>, <code>current</code> ו-<code>txtMessage</code>.
+    מתי זה מתאים? כשהמאזין עושה עבודה אמיתית (כאן: בדיקה, צביעה, הודעה) ומגיע לו שם משלו. המתודות <code>showGuess</code> ו-<code>updateMessage</code> נכתבות בשלב הבא.
+  </p>
+
+  <h2>ג. חיבור <span class="timechip">⏱️ 5 דק'</span></h2>
+  <p>שתי השורות הראשונות של <code>wireButtons</code> (השלישית – בשלב 9):</p>
+  <div class="ascii">findViewById(R.id.btnDelete).setOnClickListener(this);                 // דרך 2
+findViewById(R.id.btnCheck).setOnClickListener(new CheckListener());   // דרך 3</div>
+
+  <h2>ד. בדיקה <span class="timechip">⏱️ 10 דק'</span></h2>
+  <p>הקלידו שלוש אותיות, לחצו "מחק" פעמיים – נשארת אחת. לחצו "בדיקה" עם 3 אותיות – ההודעה "צריך 5 אותיות".</p>
+
+  <div class="checkpoint">
+    <span class="cp-label">תחנת אישור מורה</span>
+    <p class="cp-title">✅ ודאו לפני שאתם ניגשים למורה:</p>
+    <ol>
+      <li>"מחק" עובד ולא מוחק מעבר לתחילת השורה (אין קריסה בלחיצה על שורה ריקה).</li>
+      <li>"בדיקה" עם פחות מ-5 אותיות מציגה הודעה ולא זורקת חריגה.</li>
+      <li>אתם יכולים להסביר למה <code>CheckListener</code> רואה את <code>game</code> בלי שהעברנו לה אותו.</li>
+    </ol>
+    <div class="question-box">
+      <b>שאלת הבנה (המורה ישאל):</b><br>
+      הוספנו <code>static</code> ל-<code>CheckListener</code>. הפרויקט מפסיק להתקמפל.<br>
+      <b>א.</b> איזו שורה בדיוק נשברת ולמה?<br>
+      <b>ב.</b> איך הייתם מתקנים בלי להסיר את ה-static?
+    </div>
+  </div>
+</section>
+
+<!-- ================= STEP 9 ================= -->
+<section id="sec-9">
+  <h1>שלב 9: לוגיקת המשחק וצביעה – דרך 4 <span class="timechip total">⏱️ סה"כ כ-70 דק'</span></h1>
+
+  <div class="goal">🎯 מטרה: לכתוב את חוקי המשחק ב-Java טהור עם בדיקות JUnit, לחבר אותם למסך, ולסגור את "משחק חדש" עם מאזין אנונימי.</div>
+
+  <h2>למה ככה? למה המודל נפרד מהמסך?</h2>
+  <p>
+    <code>WordleGame</code> לא מייבא שום דבר מ-<code>android.*</code>. התוצאה: אפשר לבדוק אותו ב-JUnit על המחשב בחצי שנייה, בלי אמולטור, ובכל פעם שנוגעים בו
+    הבדיקות אומרות מיד אם שברנו משהו. אלגוריתם שני המעברים מהתכנון (שלב 1) יושב כאן, ורק כאן.
+  </p>
+
+  <h2>א. המודל <span class="timechip">⏱️ 25 דק'</span></h2>
+  <p>צרו חבילה <code>model</code> (קליק ימני על החבילה → New → Package) ובה שלוש מחלקות:</p>
+<div class="codecard">
+  <div class="codecard-head">
+    <span class="codecard-file">model/LetterState.java</span>
+    <span class="codecard-btns"><button class="btn btn-toggle">הצג קוד ˅</button><button class="btn btn-copy">העתק קוד 📋</button></span>
+  </div>
+<pre><code>package com.example.hebrewwordle.model;
+
+/**
+ * מצב של אות אחת בניחוש. כל אריח על הלוח וכל מקש במקלדת מקבל אחד מארבעת המצבים.
+ * enum הוא &quot;מחלקה עם מספר קבוע של עצמים&quot; - אין מצב חמישי, והמהדר שומר על זה בשבילנו.
+ */
+public enum LetterState {
+    EMPTY,    // עדיין לא נבדק
+    ABSENT,   // האות לא נמצאת במילה (אפור)
+    PRESENT,  // האות נמצאת במילה אבל במקום אחר (צהוב)
+    CORRECT   // האות נמצאת בדיוק במקום הזה (ירוק)
+}
+</code></pre>
+</div>
+<div class="codecard">
+  <div class="codecard-head">
+    <span class="codecard-file">model/Guess.java</span>
+    <span class="codecard-btns"><button class="btn btn-toggle">הצג קוד ˅</button><button class="btn btn-copy">העתק קוד 📋</button></span>
+  </div>
+<pre><code>package com.example.hebrewwordle.model;
+
+/**
+ * ניחוש אחד: המילה שהוקלדה והמצב של כל אות בה.
+ * העצם הזה &quot;קפוא&quot; (immutable): אחרי שנוצר אי אפשר לשנות אותו - כך שורה שכבר נבדקה
+ * לעולם לא משתנה בטעות.
+ */
+public class Guess {
+
+    private final String word;
+    private final LetterState[] states;
+
+    public Guess(String word, LetterState[] states) {
+        this.word = word;
+        this.states = states;
+    }
+
+    public String getWord() {
+        return word;
+    }
+
+    public LetterState getState(int index) {
+        return states[index];
+    }
+
+    public LetterState[] getStates() {
+        return states.clone();   // עותק, כדי שאף אחד בחוץ לא ישנה את המערך הפנימי
+    }
+
+    /** ניחוש &quot;מנצח&quot; הוא ניחוש שכל אותיותיו ירוקות. */
+    public boolean isAllCorrect() {
+        for (LetterState s : states) {
+            if (s != LetterState.CORRECT) return false;
+        }
+        return true;
+    }
+}
+</code></pre>
+</div>
+<div class="codecard">
+  <div class="codecard-head">
+    <span class="codecard-file">model/WordleGame.java</span>
+    <span class="codecard-btns"><button class="btn btn-toggle">הצג קוד ˅</button><button class="btn btn-copy">העתק קוד 📋</button></span>
+  </div>
+<pre><code>package com.example.hebrewwordle.model;
+
+import java.util.ArrayList;
+import java.util.List;
+
+/**
+ * חוקי המשחק, ב-Java טהור. המחלקה הזאת לא יודעת שקיים אנדרואיד:
+ * אין כאן TextView, אין Button, אין צבעים. בגלל זה אפשר לבדוק אותה ב-JUnit
+ * על המחשב, בלי אמולטור.
+ */
+public class WordleGame {
+
+    public static final int WORD_LENGTH = 5;
+    public static final int MAX_GUESSES = 6;
+
+    private final String secret;
+    private final List&lt;Guess&gt; guesses = new ArrayList&lt;&gt;();
+
+    public WordleGame(String secret) {
+        if (secret == null || secret.length() != WORD_LENGTH) {
+            throw new IllegalArgumentException(&quot;המילה הסודית חייבת להיות בת &quot; + WORD_LENGTH + &quot; אותיות&quot;);
+        }
+        this.secret = secret;
+    }
+
+    /**
+     * בודק ניחוש ומוסיף אותו לרשימה.
+     * @throws IllegalArgumentException אם אורך המילה שגוי
+     * @throws IllegalStateException אם המשחק כבר נגמר
+     */
+    public Guess submit(String word) {
+        if (isOver()) {
+            throw new IllegalStateException(&quot;המשחק נגמר&quot;);
+        }
+        if (word == null || word.length() != WORD_LENGTH) {
+            throw new IllegalArgumentException(&quot;הניחוש חייב להיות בן &quot; + WORD_LENGTH + &quot; אותיות&quot;);
+        }
+        Guess guess = new Guess(word, evaluate(secret, word));
+        guesses.add(guess);
+        return guess;
+    }
+
+    /**
+     * לב המשחק: משווה ניחוש למילה הסודית ומחזיר מצב לכל אות.
+     * שני מעברים: קודם מסמנים ירוקים, ורק אחר כך צהובים - אחרת אות כפולה
+     * בניחוש הייתה &quot;גונבת&quot; צהוב שלא מגיע לה.
+     */
+    public static LetterState[] evaluate(String secret, String word) {
+        LetterState[] result = new LetterState[WORD_LENGTH];
+        char[] s = normalize(secret).toCharArray();
+        char[] g = normalize(word).toCharArray();
+        boolean[] usedInSecret = new boolean[WORD_LENGTH];
+
+        // מעבר 1: ירוקים
+        for (int i = 0; i &lt; WORD_LENGTH; i++) {
+            if (g[i] == s[i]) {
+                result[i] = LetterState.CORRECT;
+                usedInSecret[i] = true;
+            }
+        }
+        // מעבר 2: צהובים ואפורים
+        for (int i = 0; i &lt; WORD_LENGTH; i++) {
+            if (result[i] != null) continue;          // כבר ירוק
+            result[i] = LetterState.ABSENT;
+            for (int j = 0; j &lt; WORD_LENGTH; j++) {
+                if (!usedInSecret[j] &amp;&amp; g[i] == s[j]) {
+                    result[i] = LetterState.PRESENT;
+                    usedInSecret[j] = true;         // כל אות במילה הסודית &quot;משלמת&quot; פעם אחת
+                    break;
+                }
+            }
+        }
+        return result;
+    }
+
+    /**
+     * אותיות סופיות נחשבות כאות הרגילה: מי שהקליד &quot;מ&quot; במקום &quot;ם&quot; עדיין צודק לגבי האות.
+     */
+    public static String normalize(String word) {
+        return word.replace(&#x27;ך&#x27;, &#x27;כ&#x27;)
+                   .replace(&#x27;ם&#x27;, &#x27;מ&#x27;)
+                   .replace(&#x27;ן&#x27;, &#x27;נ&#x27;)
+                   .replace(&#x27;ף&#x27;, &#x27;פ&#x27;)
+                   .replace(&#x27;ץ&#x27;, &#x27;צ&#x27;);
+    }
+
+    public boolean isWon() {
+        return !guesses.isEmpty() &amp;&amp; guesses.get(guesses.size() - 1).isAllCorrect();
+    }
+
+    public boolean isLost() {
+        return !isWon() &amp;&amp; guesses.size() &gt;= MAX_GUESSES;
+    }
+
+    public boolean isOver() {
+        return isWon() || isLost();
+    }
+
+    public String getSecret() {
+        return secret;
+    }
+
+    public List&lt;Guess&gt; getGuesses() {
+        return new ArrayList&lt;&gt;(guesses);
+    }
+
+    public int getGuessCount() {
+        return guesses.size();
+    }
+}
+</code></pre>
+</div>
+  <ul>
+    <li><code>evaluate</code> היא <code>static</code>: היא פונקציה טהורה – קלט נכנס, פלט יוצא, בלי מצב. קל לבדוק.</li>
+    <li><code>normalize</code> הופכת אותיות סופיות לרגילות לפני ההשוואה, כך ש-"מ" ו-"ם" נחשבות אותה אות. האותיות שמוצגות על הלוח נשארות כפי שהוקלדו.</li>
+    <li><code>submit</code> זורק חריגות על קלט לא חוקי. ביחידה 1 למדתם למה זה עדיף על החזרת <code>null</code>.</li>
+  </ul>
+
+  <h2>ב. הבדיקות <span class="timechip">⏱️ 15 דק'</span></h2>
+  <p>ב-<code>app/src/test/java/.../model/</code> (שימו לב: <b>test</b>, לא main):</p>
+<div class="codecard">
+  <div class="codecard-head">
+    <span class="codecard-file">test/.../WordleGameTest.java</span>
+    <span class="codecard-btns"><button class="btn btn-toggle">הצג קוד ˅</button><button class="btn btn-copy">העתק קוד 📋</button></span>
+  </div>
+<pre><code>package com.example.hebrewwordle.model;
+
+import static org.junit.Assert.*;
+import static com.example.hebrewwordle.model.LetterState.*;
+
+import org.junit.Test;
+
+public class WordleGameTest {
+
+    @Test
+    public void allCorrectWhenGuessEqualsSecret() {
+        LetterState[] r = WordleGame.evaluate(&quot;שולחן&quot;, &quot;שולחן&quot;);
+        assertArrayEquals(new LetterState[]{CORRECT, CORRECT, CORRECT, CORRECT, CORRECT}, r);
+    }
+
+    @Test
+    public void letterInWrongPlaceIsPresent() {
+        // ל נמצאת במילה הסודית במקום 3, בניחוש היא במקום 1
+        LetterState[] r = WordleGame.evaluate(&quot;שולחן&quot;, &quot;למדים&quot;);
+        assertEquals(PRESENT, r[0]);
+        assertEquals(ABSENT, r[1]);
+    }
+
+    @Test
+    public void duplicateLetterIsCountedOnce() {
+        // במילה הסודית יש ת אחת. בניחוש יש שתיים: רק אחת מקבלת צבע.
+        LetterState[] r = WordleGame.evaluate(&quot;תלמיד&quot;, &quot;תתתתת&quot;);
+        assertEquals(CORRECT, r[0]);
+        for (int i = 1; i &lt; 5; i++) assertEquals(ABSENT, r[i]);
+    }
+
+    @Test
+    public void greenWinsOverYellowForDuplicates() {
+        // ב&quot;ספינה&quot; יש י אחת, באינדקס 2. בניחוש &quot;ימיים&quot; יש י באינדקסים 0, 2, 3.
+        // ה-י היחידה של המילה הסודית &quot;משולמת&quot; לירוק באינדקס 2, ולכן שתי האחרות אפורות.
+        LetterState[] r = WordleGame.evaluate(&quot;ספינה&quot;, &quot;ימיים&quot;);
+        assertEquals(ABSENT, r[0]);
+        assertEquals(CORRECT, r[2]);
+        assertEquals(ABSENT, r[3]);
+    }
+
+    @Test
+    public void finalLettersMatchRegularLetters() {
+        LetterState[] r = WordleGame.evaluate(&quot;שולחן&quot;, &quot;שולחנ&quot;);
+        assertEquals(CORRECT, r[4]);
+    }
+
+    @Test
+    public void winOnSixthGuess() {
+        WordleGame game = new WordleGame(&quot;שולחן&quot;);
+        for (int i = 0; i &lt; 5; i++) game.submit(&quot;תלמיד&quot;);
+        assertFalse(game.isOver());
+        game.submit(&quot;שולחן&quot;);
+        assertTrue(game.isWon());
+        assertTrue(game.isOver());
+    }
+
+    @Test
+    public void loseAfterSixWrongGuesses() {
+        WordleGame game = new WordleGame(&quot;שולחן&quot;);
+        for (int i = 0; i &lt; 6; i++) game.submit(&quot;תלמיד&quot;);
+        assertTrue(game.isLost());
+        assertFalse(game.isWon());
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void shortGuessIsRejected() {
+        new WordleGame(&quot;שולחן&quot;).submit(&quot;שול&quot;);
+    }
+
+    @Test(expected = IllegalStateException.class)
+    public void noGuessAfterGameOver() {
+        WordleGame game = new WordleGame(&quot;שולחן&quot;);
+        game.submit(&quot;שולחן&quot;);
+        game.submit(&quot;תלמיד&quot;);
+    }
+}
+</code></pre>
+</div>
+  <p>
+    הריצו (קליק ימני על הקובץ → Run). תשע בדיקות ירוקות. הבדיקה <code>greenWinsOverYellowForDuplicates</code> היא בדיוק השאלה מהתכנון: <b>ספינה</b> מול <b>ימיים</b>.
+    אם כתבתם תשובה אחרת על הנייר בשלב 1 – עכשיו אתם יודעים למה.
+  </p>
+
+  <h2>ג. חיבור למסך <span class="timechip">⏱️ 20 דק'</span></h2>
+<div class="codecard">
+  <div class="codecard-head">
+    <span class="codecard-file">MainActivity.java – שדות המשחק</span>
+    <span class="codecard-btns"><button class="btn btn-toggle">הצג קוד ˅</button><button class="btn btn-copy">העתק קוד 📋</button></span>
+  </div>
+<pre><code>private WordleGame game;
+private final StringBuilder current = new StringBuilder();   // האותיות שהוקלדו בשורה הנוכחית
+private final Map&lt;Character, Button&gt; keyByLetter = new HashMap&lt;&gt;();</code></pre>
+</div>
+<div class="codecard">
+  <div class="codecard-head">
+    <span class="codecard-file">MainActivity.java – משחק חדש, צביעה והודעות</span>
+    <span class="codecard-btns"><button class="btn btn-toggle">הצג קוד ˅</button><button class="btn btn-copy">העתק קוד 📋</button></span>
+  </div>
+<pre><code>private void startNewGame() {
+    String[] words = getResources().getStringArray(R.array.words);
+    String secret = words[new Random().nextInt(words.length)];
+    game = new WordleGame(secret);
+    current.setLength(0);
+    clearBoard();
+    txtMessage.setText(R.string.msg_start);
+    Log.d(TAG, &quot;משחק חדש. המילה הסודית: &quot; + secret);   // רק לפיתוח - מוחקים לפני הגשה
+}
+
+private void clearBoard() {
+    for (TextView[] row : tiles) {
+        for (TextView tile : row) {
+            tile.setText(&quot;&quot;);
+            paintTile(tile, LetterState.EMPTY);
+        }
+    }
+    for (Button key : keyByLetter.values()) {
+        key.setBackgroundTintList(ContextCompat.getColorStateList(this, R.color.key_bg));
+        key.setTextColor(ContextCompat.getColor(this, R.color.ink));
+    }
+}
+
+/** מציג ניחוש שנבדק בשורה נתונה: אותיות, צבעי אריחים וצבעי מקשים. */
+private void showGuess(int row, Guess guess) {
+    String word = guess.getWord();
+    for (int col = 0; col &lt; WordleGame.WORD_LENGTH; col++) {
+        tiles[row][col].setText(String.valueOf(word.charAt(col)));
+        paintTile(tiles[row][col], guess.getState(col));
+        paintKey(word.charAt(col), guess.getState(col));
+    }
+}
+
+/** מקש עולה בדרגה בלבד: אפור -&gt; צהוב -&gt; ירוק, אף פעם לא יורד. */
+private void paintKey(char letter, LetterState state) {
+    Button key = keyByLetter.get(letter);
+    if (key == null) return;
+    LetterState old = (LetterState) key.getTag();
+    if (old != null &amp;&amp; old.ordinal() &gt;= state.ordinal()) return;
+    key.setTag(state);
+
+    int color;
+    switch (state) {
+        case CORRECT: color = R.color.tile_correct; break;
+        case PRESENT: color = R.color.tile_present; break;
+        default:      color = R.color.tile_absent;  break;
+    }
+    key.setBackgroundTintList(ContextCompat.getColorStateList(this, color));
+    key.setTextColor(ContextCompat.getColor(this, R.color.tile_text_light));
+}
+
+private void updateMessage() {
+    if (game.isWon()) {
+        txtMessage.setText(getString(R.string.msg_win, game.getGuessCount()));
+    } else if (game.isLost()) {
+        txtMessage.setText(getString(R.string.msg_lose, game.getSecret()));
+    } else {
+        txtMessage.setText(getString(R.string.msg_guesses_left,
+                WordleGame.MAX_GUESSES - game.getGuessCount()));
+    }
+}</code></pre>
+</div>
+  <ul>
+    <li><code>showGuess</code> צובעת שורה אחת ואת המקשים שלה. <code>paintKey</code> דואגת שמקש רק "עולה בדרגה": אות שכבר ירוקה לא תהפוך צהובה בניחוש הבא. זו הסיבה ל-<code>ordinal()</code> ול-<code>setTag</code>.</li>
+    <li>שורת ה-Log עם המילה הסודית היא כלי פיתוח. <b>מוחקים לפני הגשה.</b></li>
+  </ul>
+
+  <h2>ד. דרך 4: מאזין אנונימי, ואיסוף המקשים <span class="timechip">⏱️ 10 דק'</span></h2>
+<div class="codecard">
+  <div class="codecard-head">
+    <span class="codecard-file">MainActivity.java – wireButtons ו-collectKeyboardButtons</span>
+    <span class="codecard-btns"><button class="btn btn-toggle">הצג קוד ˅</button><button class="btn btn-copy">העתק קוד 📋</button></span>
+  </div>
+<pre><code>/** מחבר את שלושת הכפתורים שלא מקבלים onClick ב-XML, כל אחד בדרך אחרת. */
+private void wireButtons() {
+    findViewById(R.id.btnDelete).setOnClickListener(this);                 // דרך 2
+    findViewById(R.id.btnCheck).setOnClickListener(new CheckListener());   // דרך 3
+
+    // דרך 4: מאזין אנונימי - מחלקה בלי שם שנכתבת במקום, מתאימה לקוד קצר של פעם אחת
+    findViewById(R.id.btnNewGame).setOnClickListener(new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            startNewGame();
+        }
+    });
+}
+
+/** אוסף את כל מקשי האותיות למפה, כדי שנוכל לצבוע מקש לפי האות שלו. */
+private void collectKeyboardButtons() {
+    keyByLetter.clear();
+    LinearLayout keyboard = findViewById(R.id.keyboard);
+    for (int r = 0; r &lt; keyboard.getChildCount(); r++) {
+        View rowView = keyboard.getChildAt(r);
+        if (!(rowView instanceof LinearLayout)) continue;
+        LinearLayout row = (LinearLayout) rowView;
+        for (int i = 0; i &lt; row.getChildCount(); i++) {
+            View child = row.getChildAt(i);
+            if (child instanceof Button &amp;&amp; child.getId() == View.NO_ID) {
+                Button key = (Button) child;
+                keyByLetter.put(key.getText().charAt(0), key);
+            }
+        }
+    }
+}</code></pre>
+</div>
+  <p>
+    <code>new View.OnClickListener() { ... }</code> הוא <b>מחלקה בלי שם</b> שנוצרת במקום. מתאים לקוד של שורה-שתיים שלא יחזור. ארבע הדרכים, בטבלה אחת:
+  </p>
+  <table class="schema">
+    <tr><th>דרך</th><th>איפה אצלנו</th><th>מתי לבחור</th><th>המהדר בודק?</th></tr>
+    <tr><td>1. <code>android:onClick</code> ב-XML</td><td>27 מקשי האותיות</td><td>הרבה כפתורים זהים</td><td><b>לא</b></td></tr>
+    <tr><td>2. הפעילות מממשת</td><td>מחק</td><td>מקום אחד לכל הכפתורים</td><td>כן</td></tr>
+    <tr><td>3. מחלקה פנימית</td><td>בדיקה</td><td>מאזין עם עבודה אמיתית ושם</td><td>כן</td></tr>
+    <tr><td>4. אנונימי</td><td>משחק חדש</td><td>שורה אחת, פעם אחת</td><td>כן</td></tr>
+  </table>
+  <p>ולבסוף, <code>onCreate</code> המלא שמחבר הכול:</p>
+<div class="codecard">
+  <div class="codecard-head">
+    <span class="codecard-file">MainActivity.java – onCreate</span>
+    <span class="codecard-btns"><button class="btn btn-toggle">הצג קוד ˅</button><button class="btn btn-copy">העתק קוד 📋</button></span>
+  </div>
+<pre><code>@Override
+protected void onCreate(Bundle savedInstanceState) {
+    super.onCreate(savedInstanceState);      // תמיד קוראים ל-super קודם
+    setContentView(R.layout.activity_main);
+    Log.d(TAG, &quot;onCreate - המסך נבנה. savedInstanceState=&quot; + (savedInstanceState == null ? &quot;null&quot; : &quot;יש מצב שמור&quot;));
+
+    txtMessage = findViewById(R.id.txtMessage);
+    boardContainer = findViewById(R.id.boardContainer);
+    buildBoard();                            // שלב 5
+    collectKeyboardButtons();                // שלב 9
+    wireButtons();                           // שלבים 8-9
+
+    if (savedInstanceState == null) {
+        startNewGame();                      // הפעלה רגילה
+    } else {
+        restoreGame(savedInstanceState);     // שלב 10: חזרה מסיבוב מסך
+    }
+}</code></pre>
+</div>
+
+  <h2>ה. משחקים! </h2>
+  <p>הנה המשחק הגמור באמולטור, אחרי ניחוש אחד שגוי וניחוש נכון. שימו לב למקשים: ח' צהובה בניחוש הראשון הפכה ירוקה בשני.</p>
+  <figure class="shot">
+    <img src="img/screen-win.png" alt="ניצחון בשני ניחושים">
+    <img src="img/screen-land.png" class="wide" alt="המסך לרוחב">
+    <figcaption>מימין: ניצחון בשני ניחושים. משמאל: אותו משחק אחרי סיבוב, לפני שלב 10 הלוח היה מתאפס. שימו לב שהלוח נחתך לרוחב (הרחבה בשלב 4).</figcaption>
+  </figure>
+
+  <div class="checkpoint">
+    <span class="cp-label">תחנת אישור מורה</span>
+    <p class="cp-title">✅ ודאו לפני שאתם ניגשים למורה:</p>
+    <ol>
+      <li>9 בדיקות JUnit ירוקות.</li>
+      <li>משחק מלא: ניצחון, הפסד אחרי 6, "משחק חדש" מנקה לוח ומקשים.</li>
+      <li>אתם יכולים להסביר למה <code>WordleGame</code> לא מכיר <code>TextView</code>, ומה היה קורה אם היה מכיר.</li>
+    </ol>
+    <div class="question-box">
+      <b>שאלת הבנה (המורה ישאל):</b><br>
+      הסירו מ-<code>paintKey</code> את הבדיקה של <code>old.ordinal() >= state.ordinal()</code>.<br>
+      <b>א.</b> תארו רצף של שני ניחושים שבו מקש יוצג בצבע שגוי.<br>
+      <b>ב.</b> למה הסדר של הקבועים ב-<code>LetterState</code> חשוב לקוד הזה? מה יקרה אם נחליף את מקומם של PRESENT ו-CORRECT?
+    </div>
+  </div>
+</section>
+
+<!-- ================= STEP 10 ================= -->
+<section id="sec-10">
+  <h1>שלב 10: שמירת מצב בסיבוב מסך <span class="timechip total">⏱️ סה"כ כ-50 דק'</span></h1>
+
+  <div class="goal">🎯 מטרה: שסיבוב הטלפון לא ימחק את המשחק – לשמור את המינימום ב-<code>onSaveInstanceState</code> ולשחזר ממנו הכול.</div>
+
+  <h2>למה ככה?</h2>
+  <p>
+    בשלב 3 ראיתם: סיבוב = <code>onDestroy</code> ואז <code>onCreate</code> חדש. אובייקט חדש, שדות חדשים, <code>game</code> ריק. המערכת נותנת לנו חלון הזדמנות:
+    רגע לפני ההריסה היא קוראת ל-<code>onSaveInstanceState(Bundle)</code>, ואת אותו Bundle היא מחזירה ל-<code>onCreate</code> החדש.
+    הכלל מהתכנון (שלב 1, טבלת הישויות): שומרים <b>מקור</b>, לא <b>תוצאה</b>. מילה סודית + רשימת ניחושים + מה שהוקלד. את הצבעים מחשבים מחדש.
+  </p>
+
+  <h2>א. שמירה <span class="timechip">⏱️ 15 דק'</span></h2>
+<div class="codecard">
+  <div class="codecard-head">
+    <span class="codecard-file">MainActivity.java – מפתחות</span>
+    <span class="codecard-btns"><button class="btn btn-toggle">הצג קוד ˅</button><button class="btn btn-copy">העתק קוד 📋</button></span>
+  </div>
+<pre><code>// מפתחות ל-Bundle של שמירת המצב
+private static final String KEY_SECRET = &quot;secret&quot;;
+private static final String KEY_GUESSES = &quot;guesses&quot;;
+private static final String KEY_CURRENT = &quot;current&quot;;</code></pre>
+</div>
+<div class="codecard">
+  <div class="codecard-head">
+    <span class="codecard-file">MainActivity.java – שמירה ושחזור</span>
+    <span class="codecard-btns"><button class="btn btn-toggle">הצג קוד ˅</button><button class="btn btn-copy">העתק קוד 📋</button></span>
+  </div>
+<pre><code>/**
+ * נקרא לפני שהפעילות נהרסת בגלל שינוי תצורה (סיבוב מסך, שינוי שפה...).
+ * שומרים רק את המינימום שממנו אפשר לשחזר הכול: המילה הסודית, רשימת הניחושים
+ * והאותיות שהוקלדו בשורה הנוכחית. את הצבעים לא שומרים - מחשבים אותם מחדש.
+ */
+@Override
+protected void onSaveInstanceState(Bundle outState) {
+    super.onSaveInstanceState(outState);
+    outState.putString(KEY_SECRET, game.getSecret());
+    ArrayList&lt;String&gt; words = new ArrayList&lt;&gt;();
+    for (Guess g : game.getGuesses()) words.add(g.getWord());
+    outState.putStringArrayList(KEY_GUESSES, words);
+    outState.putString(KEY_CURRENT, current.toString());
+    Log.d(TAG, &quot;onSaveInstanceState - נשמרו &quot; + words.size() + &quot; ניחושים&quot;);
+}
+
+/** בונה מחדש את המשחק מה-Bundle ומצייר את הלוח. */
+private void restoreGame(Bundle state) {
+    String secret = state.getString(KEY_SECRET);
+    List&lt;String&gt; words = state.getStringArrayList(KEY_GUESSES);
+    String typed = state.getString(KEY_CURRENT, &quot;&quot;);
+
+    game = new WordleGame(secret);
+    clearBoard();
+    if (words != null) {
+        for (int row = 0; row &lt; words.size(); row++) {
+            Guess guess = game.submit(words.get(row));   // הבדיקה מחדש נותנת שוב את הצבעים
+            showGuess(row, guess);
+        }
+    }
+    current.setLength(0);
+    current.append(typed);
+    int row = game.getGuessCount();
+    for (int col = 0; col &lt; typed.length() &amp;&amp; row &lt; WordleGame.MAX_GUESSES; col++) {
+        tiles[row][col].setText(String.valueOf(typed.charAt(col)));
+    }
+    updateMessage();
+    Log.d(TAG, &quot;restoreGame - שוחזרו &quot; + (words == null ? 0 : words.size()) + &quot; ניחושים&quot;);
+}</code></pre>
+</div>
+  <ul>
+    <li><b>Bundle</b> הוא מילון: מפתח (מחרוזת) → ערך פשוט (מספר, מחרוזת, רשימת מחרוזות...). לא שמים בו אובייקטים שלנו ישירות; לכן שומרים את <b>המילים</b> ולא את <code>Guess</code>.</li>
+    <li>המפתחות הם קבועים. מחרוזת שכתובה פעמיים (בשמירה ובשחזור) היא באג שמחכה לקרות.</li>
+    <li>ב-<code>restoreGame</code> אנחנו פשוט <b>משחקים מחדש</b> את הניחושים דרך <code>submit</code>. הצבעים חוזרים לבד, והמקשים נצבעים דרך אותה <code>showGuess</code>.</li>
+  </ul>
+
+  <h2>ב. ההסתעפות ב-onCreate <span class="timechip">⏱️ 5 דק'</span></h2>
+  <p>
+    הפרמטר <code>savedInstanceState</code> הוא <code>null</code> בהפעלה רגילה, ומלא אחרי סיבוב. זו כל ההחלטה: <code>startNewGame()</code> או <code>restoreGame(savedInstanceState)</code>
+    (ראו <code>onCreate</code> בשלב 9).
+  </p>
+
+  <h2>ג. בדיקה <span class="timechip">⏱️ 15 דק'</span></h2>
+  <ol>
+    <li>נחשו מילה אחת, הקלידו שתי אותיות בשורה השנייה.</li>
+    <li>סובבו. השורה הראשונה צבועה, שתי האותיות במקומן, המקשים צבועים, ההודעה "נשארו 5 ניסיונות".</li>
+    <li>ב-Logcat: <code>onSaveInstanceState - נשמרו 1 ניחושים</code> ואז <code>restoreGame - שוחזרו 1 ניחושים</code>.</li>
+    <li>לחצו "משחק חדש" וסובבו שוב: לוח ריק נשאר ריק.</li>
+  </ol>
+
+  <div class="infobox">
+    <h3>🤔 ומה עם סגירה אמיתית?</h3>
+    <p style="margin:0;">
+      <code>onSaveInstanceState</code> שורד סיבוב ושורד "הרג" של האפליקציה ברקע על ידי המערכת. הוא <b>לא</b> שורד סגירה על ידי המשתמש (אחורה / החלקה מהרשימה).
+      כדי שהמשחק ישרוד גם את זה צריך לכתוב לדיסק – <code>SharedPreferences</code> ו-SQLite – וזו יחידה 5, שולחן השיאים.
+    </p>
+  </div>
+
+  <h2>ד. הרחבות <span class="timechip">⏱️ 15 דק'</span></h2>
+  <ul>
+    <li><b>מילה לא במאגר</b>: לפני <code>submit</code> בדקו שהמילה קיימת ב-<code>words</code> והציגו "לא במילון". שימו לב: השוואה אחרי <code>normalize</code>.</li>
+    <li><b>תבנית לרוחב</b>: <code>res/layout-land/activity_main.xml</code> עם לוח ומקלדת זה לצד זה. הקוד לא משתנה – ה-ids זהים.</li>
+    <li><b>סטטיסטיקה</b>: ספרו ניצחונות ברצף. איפה תשמרו? מה קורה בסיבוב? מה קורה בסגירה?</li>
+  </ul>
+
+  <div class="checkpoint">
+    <span class="cp-label">תחנת אישור מורה</span>
+    <p class="cp-title">✅ ודאו לפני שאתם ניגשים למורה:</p>
+    <ol>
+      <li>סיבוב באמצע משחק שומר לוח, מקשים, הודעה ואותיות שהוקלדו.</li>
+      <li>ב-Bundle נשמרים רק שלושה מפתחות. אין בו צבעים.</li>
+      <li>שורת ה-Log עם המילה הסודית נמחקה.</li>
+    </ol>
+    <div class="question-box">
+      <b>שאלת הבנה (המורה ישאל):</b><br>
+      תלמיד שמר ב-Bundle גם את הצבע של כל אריח (30 מספרים), "ליתר ביטחון".<br>
+      <b>א.</b> זה עובד. אז מה הבעיה? תנו דוגמה לבאג שיכול להיווצר כשיש שני מקורות לאותו מידע.<br>
+      <b>ב.</b> מה הקשר בין השאלה הזאת לכלל "חוקי המשחק לא יודעים שקיים אנדרואיד"?
+    </div>
+  </div>
+
+  <div class="finishbox">
+    <h2>🎉 סיימתם את יחידה 2!</h2>
+    <p>משחק שלם, מקלדת עברית, ארבע דרכים לטפל באירועים, ולוח ששורד סיבוב. ביחידה 3 נצא מהמסך היחיד: מסכים מרובים ו-Intents.</p>
+  </div>
+</section>
+
+  </main>
+</div>
+
+<script>
+(function(){
+  var links = document.querySelectorAll('.toc-link');
+  function show(id){
+    var secs = document.querySelectorAll('main.content section');
+    for(var i=0;i<secs.length;i++){
+      secs[i].classList.toggle('visible', secs[i].id === id);
+    }
+    for(var j=0;j<links.length;j++){
+      links[j].classList.toggle('active', links[j].getAttribute('data-target') === id);
+    }
+    window.scrollTo({top:0,behavior:'smooth'});
+  }
+  for(var k=0;k<links.length;k++){
+    links[k].addEventListener('click', function(e){
+      e.preventDefault();
+      show(this.getAttribute('data-target'));
+    });
+  }
+
+  /* code toggle */
+  document.addEventListener('click', function(e){
+    var t = e.target;
+    if(t.classList && t.classList.contains('btn-toggle')){
+      var card = t.closest('.codecard');
+      var pre = card.querySelector('pre');
+      var open = pre.classList.toggle('open');
+      t.textContent = open ? 'הסתר קוד ˄' : 'הצג קוד ˅';
+    }
+    if(t.classList && t.classList.contains('btn-copy')){
+      var card2 = t.closest('.codecard');
+      var codeEl = card2.querySelector('pre code');
+      var txt = codeEl.innerText;
+      var done = function(){
+        var old = t.textContent;
+        t.textContent = 'הועתק!';
+        setTimeout(function(){ t.textContent = old; }, 1400);
+      };
+      if(navigator.clipboard && navigator.clipboard.writeText){
+        navigator.clipboard.writeText(txt).then(done, function(){ fallback(txt, done); });
+      } else {
+        fallback(txt, done);
+      }
+    }
+  });
+  function fallback(txt, done){
+    var ta = document.createElement('textarea');
+    ta.value = txt;
+    ta.style.position='fixed'; ta.style.left='-9999px';
+    document.body.appendChild(ta); ta.select();
+    try{ document.execCommand('copy'); done(); }catch(err){}
+    document.body.removeChild(ta);
+  }
+})();
+</script>
+</body>
+</html>

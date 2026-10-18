@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    המקלדת העברית. כל מקש הוא Button עם style="@style/KeyButton", והסגנון מכיל
+    android:onClick="onLetterKey" - כלומר כל 27 המקשים קוראים לאותה מתודה בפעילות
+    (דרך 1 לטיפול באירועים: מאזין ב-XML).
+    הסידור הוא לפי המקלדת הפיזית, מימין לשמאל, כי supportsRtl="true".
+-->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/keyboard"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+        <Button style="@style/KeyButton" android:text="ק" />
+        <Button style="@style/KeyButton" android:text="ר" />
+        <Button style="@style/KeyButton" android:text="א" />
+        <Button style="@style/KeyButton" android:text="ט" />
+        <Button style="@style/KeyButton" android:text="ו" />
+        <Button style="@style/KeyButton" android:text="ן" />
+        <Button style="@style/KeyButton" android:text="ם" />
+        <Button style="@style/KeyButton" android:text="פ" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+        <Button style="@style/KeyButton" android:text="ש" />
+        <Button style="@style/KeyButton" android:text="ד" />
+        <Button style="@style/KeyButton" android:text="ג" />
+        <Button style="@style/KeyButton" android:text="כ" />
+        <Button style="@style/KeyButton" android:text="ע" />
+        <Button style="@style/KeyButton" android:text="י" />
+        <Button style="@style/KeyButton" android:text="ח" />
+        <Button style="@style/KeyButton" android:text="ל" />
+        <Button style="@style/KeyButton" android:text="ך" />
+        <Button style="@style/KeyButton" android:text="ף" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+        <Button style="@style/KeyButton" android:text="ז" />
+        <Button style="@style/KeyButton" android:text="ס" />
+        <Button style="@style/KeyButton" android:text="ב" />
+        <Button style="@style/KeyButton" android:text="ה" />
+        <Button style="@style/KeyButton" android:text="נ" />
+        <Button style="@style/KeyButton" android:text="מ" />
+        <Button style="@style/KeyButton" android:text="צ" />
+        <Button style="@style/KeyButton" android:text="ת" />
+        <Button style="@style/KeyButton" android:text="ץ" />
+    </LinearLayout>
+
+    <!-- שני המקשים האלה לא מקבלים onClick ב-XML בכוונה: הם מחוברים מהקוד (דרכים 2 ו-3) -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+        <Button
+            android:id="@+id/btnDelete"
+            style="@style/KeyButton"
+            android:layout_weight="2"
+            android:onClick="@null"
+            android:text="@string/key_delete" />
+        <Button
+            android:id="@+id/btnCheck"
+            style="@style/KeyButton"
+            android:layout_weight="2"
+            android:onClick="@null"
+            android:backgroundTint="@color/primary"
+            android:textColor="@color/white"
+            android:text="@string/key_check" />
+    </LinearLayout>
+</LinearLayout>

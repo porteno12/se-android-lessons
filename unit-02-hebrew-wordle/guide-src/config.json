@@ -1,0 +1,27 @@
+{
+  "title": "ווֹרדל בעברית – מדריך שלב אחר שלב",
+  "subtitle": "יחידה 2 · מדריך שלב-אחר-שלב (Java)",
+  "badge": "ווֹרדל בעברית",
+  "credit": "קרדיט: רוני רובן, ויצו נהלל, שנה&quot;ל 2026-7",
+  "source_url": "https://github.com/porteno12/se-android-lessons/tree/main/unit-02-hebrew-wordle/app",
+  "palette": {
+    "--accent-1": "#FFD43B",
+    "--accent-2": "#7DE07D",
+    "--accent-3": "#5BC8FF",
+    "--accent-4": "#A5F3A5",
+    "--accent-5": "#9D8CFF",
+    "--accent-6": "#FFA94D",
+    "--bg-deep": "#07110A",
+    "--surface": "#0C1A10",
+    "--surface-2": "#122418",
+    "--surface-3": "#1A3322",
+    "--sidebar-bg": "#0A160D",
+    "--row-bg": "#14281A",
+    "--row-hover": "#1F3D28",
+    "--text": "#E6F2E8",
+    "--text-dim": "#9DB8A4",
+    "--line": "rgba(125,224,125,.32)",
+    "--code-bg": "#0E1F13",
+    "--code-red": "#FFD43B"
+  }
+}
