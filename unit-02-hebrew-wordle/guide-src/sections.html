@@ -36,104 +36,34 @@
 
   <div class="infobox">
     <h3>⏱️ כמה זמן זה לוקח?</h3>
-    <p style="margin:0;">כ-8.5 שעות עבודה בכיתה ובמעבדה, מחולקות ל-9 שלבים. ליד כל שלב וכל תת-שלב יש הערכת זמן. אם אתם מהירים – הרחבות מופיעות בסוף כל שלב.</p>
+    <p style="margin:0;">כ-7.5 שעות עבודה בכיתה ובמעבדה, מחולקות ל-9 שלבים. ליד כל שלב וכל תת-שלב יש הערכת זמן. אם אתם מהירים – הרחבות מופיעות בסוף כל שלב.</p>
   </div>
 </section>
 
 <!-- ================= STEP 1 ================= -->
 <section id="sec-1">
-  <h1>שלב 1: הפרויקט הראשון <span class="timechip total">⏱️ סה"כ כ-60 דק'</span></h1>
+  <h1>שלב 1: יוצרים את הפרויקט <span class="timechip total">⏱️ סה"כ כ-15 דק'</span></h1>
 
-  <div class="goal">🎯 מטרה: ליצור פרויקט חדש באנדרואיד סטודיו, להבין מה כל תיקייה וכל קובץ עושים, ולראות את המסך הראשון רץ באמולטור.</div>
+  <div class="goal">🎯 מטרה: פרויקט ריק שרץ באמולטור, כדי שבשלב הבא נתחיל לכתוב קוד.</div>
 
-  <h2>למה ככה?</h2>
-  <p>
-    אנדרואיד סטודיו יוצר בשבילכם עשרות קבצים. רובם לא מעניינים אתכם השנה, אבל חמישה מהם תפתחו כל שיעור.
-    השלב הזה הוא סיור מודרך: לדעת <b>איפה</b> כל דבר יושב ו<b>מי</b> קורא אותו. בלי זה, כל שגיאת קומפילציה נראית כמו קסם שחור.
-  </p>
-
-  <h2>א. יוצרים את הפרויקט <span class="timechip">⏱️ 15 דק'</span></h2>
   <ol>
     <li>🆕 <b>File → New → New Project</b>, בוחרים <b>Empty Views Activity</b> (לא "Empty Activity" – זו Compose, שלא נלמד השנה).</li>
     <li>✏️ <b>Name:</b> <code>HebrewWordle</code>. <b>Package name:</b> <code>com.example.hebrewwordle</code>. <b>Language:</b> Java. <b>Minimum SDK:</b> API 24.</li>
-    <li>⏳ <b>Finish</b>, וממתינים ל-Gradle Sync (הסרגל התחתון). בפעם הראשונה זה יכול לקחת כמה דקות.</li>
-    <li>▶️ לוחצים על החץ הירוק (Run). אם אין אמולטור: <b>Device Manager → Create Device → Pixel 9a</b>, מערכת API 34.</li>
+    <li>⏳ <b>Finish</b>, וממתינים שהסרגל התחתון יסיים (Gradle Sync). בפעם הראשונה זה יכול לקחת כמה דקות.</li>
+    <li>▶️ לוחצים על החץ הירוק (Run). אם אין אמולטור: <b>Device Manager → Create Device</b>, בוחרים טלפון כלשהו.</li>
   </ol>
 
-  <h2>ב. סיור במבנה הפרויקט <span class="timechip">⏱️ 25 דק'</span></h2>
-  <p>עברו לתצוגת <b>Project</b> (התפריט הנפתח מעל עץ הקבצים, לא "Android") כדי לראות את התיקיות האמיתיות:</p>
-  <div class="ascii">HebrewWordle/
-├── settings.gradle          <- אילו מודולים יש בפרויקט (אצלנו: app בלבד)
-├── build.gradle             <- אילו תוספים (plugins) ובאילו גרסאות
-├── gradle.properties        <- הגדרות כלליות ל-Gradle
-├── local.properties         <- איפה ה-SDK על המחשב שלכם. לא נכנס ל-git!
-└── app/
-    ├── build.gradle         <- ה-build של האפליקציה: גרסאות SDK, ספריות
-    └── src/
-        ├── main/
-        │   ├── AndroidManifest.xml      <- "תעודת הזהות": אילו מסכים, אילו הרשאות
-        │   ├── java/com/example/hebrewwordle/
-        │   │   └── MainActivity.java    <- הקוד
-        │   └── res/                     <- משאבים (שלב 5)
-        │       ├── layout/activity_main.xml
-        │       ├── values/strings.xml, colors.xml, themes.xml
-        │       ├── drawable/
-        │       └── mipmap-*/ic_launcher  <- האייקון
-        └── test/java/...                <- בדיקות JUnit שרצות על המחשב</div>
-
-  <h3>קובץ ההגדרות: AndroidManifest.xml</h3>
   <p>
-    המניפסט הוא המקום היחיד שבו מערכת ההפעלה "קוראת עליכם" לפני שהאפליקציה רצה. כאן היא לומדת
-    איזה מסך לפתוח כשלוחצים על האייקון, ואילו הרשאות אתם מבקשים. לנו יש מסך אחד:
+    את כל הקוד נכתוב בשלושה מקומות: <code>MainActivity.java</code>, התיקייה <code>res/layout</code> (המסכים) והתיקייה <code>res/values</code> (טקסטים, צבעים, סגנונות).
+    בשאר הקבצים שאנדרואיד סטודיו יצר לא נוגעים.
   </p>
-{{CODE:app/src/main/AndroidManifest.xml|AndroidManifest.xml}}
-  <ul>
-    <li><code>android:label</code> – השם שמופיע מתחת לאייקון. שימו לב שהוא <b>לא</b> כתוב כאן אלא מפנה ל-<code>@string/app_name</code>. למה? שלב 5.</li>
-    <li><code>android:supportsRtl="true"</code> – בלי זה, המקלדת העברית תסודר משמאל לימין.</li>
-    <li><code>&lt;intent-filter&gt;</code> עם <code>MAIN</code> ו-<code>LAUNCHER</code> – "אני המסך שפותחים מהאייקון". על Intents נדבר הרבה ביחידה 3.</li>
-    <li><code>android:exported="true"</code> – חובה על מסך שהלאנצ'ר (אפליקציה אחרת!) פותח. בלי זה הבנייה נכשלת.</li>
-  </ul>
-
-  <h3>קובץ ה-build: app/build.gradle</h3>
-{{CODE:app/build.gradle|app/build.gradle}}
-  <table class="schema">
-    <tr><th>שורה</th><th>פירוש</th></tr>
-    <tr><td><code>compileSdk 34</code></td><td>מול איזו גרסת אנדרואיד הקוד מתקמפל. קובע אילו מתודות קיימות</td></tr>
-    <tr><td><code>minSdk 24</code></td><td>הגרסה הישנה ביותר שהאפליקציה מסכימה לרוץ עליה (אנדרואיד 7)</td></tr>
-    <tr><td><code>targetSdk 34</code></td><td>"בדקתי את עצמי מול 34" – משפיע על התנהגויות של המערכת</td></tr>
-    <tr><td><code>applicationId</code></td><td>המזהה הייחודי בעולם. שתי אפליקציות עם אותו מזהה דורסות זו את זו</td></tr>
-    <tr><td><code>dependencies</code></td><td>ספריות: appcompat (תאימות לאחור), material (הכפתורים), constraintlayout (שלב 3)</td></tr>
-  </table>
-
-  <h2>ג. מריצים ומסתכלים על Logcat <span class="timechip">⏱️ 20 דק'</span></h2>
-  <p>
-    הריצו את הפרויקט הריק. פתחו את החלון <b>Logcat</b> (למטה) והקלידו בשורת הסינון
-    <code>package:mine</code>. זה החלון שבו תבלו את השלב הבא. אם אתם רואים "Hello World!" באמולטור וזרם של שורות ב-Logcat – סיימתם.
-  </p>
-
-  <div class="warnbox">
-    <h3>⚠️ שלוש התקלות הנפוצות בשלב הזה</h3>
-    <ul style="margin:0;">
-      <li><b>Gradle sync failed</b> – כמעט תמיד אין אינטרנט או שה-SDK לא נמצא. בדקו את <code>local.properties</code>.</li>
-      <li><b>האמולטור לא עולה</b> – ב-Device Manager מחקו את המכשיר ויצרו חדש; ודאו ש-Virtualization מופעל ב-BIOS.</li>
-      <li><b>"Installed on … but not launched"</b> – פשוט לחצו על האייקון באמולטור. זו לא שגיאה.</li>
-    </ul>
-  </div>
 
   <div class="checkpoint">
     <span class="cp-label">תחנת אישור מורה</span>
     <p class="cp-title">✅ ודאו לפני שאתם ניגשים למורה:</p>
     <ol>
-      <li>הפרויקט רץ באמולטור ומציג את מסך הפתיחה הריק.</li>
-      <li>אתם יכולים להצביע בעץ הקבצים על: המניפסט, ה-build של app, התבנית של המסך, ו-strings.xml – ולומר במשפט מה כל אחד עושה.</li>
-      <li>Logcat פתוח ומסונן ל-<code>package:mine</code>.</li>
+      <li>האמולטור מציג "Hello World!".</li>
     </ol>
-    <div class="question-box">
-      <b>שאלת הבנה (המורה ישאל):</b><br>
-      שינינו את <code>minSdk</code> מ-24 ל-21.<br>
-      <b>א.</b> יותר טלפונים או פחות טלפונים יוכלו להתקין את האפליקציה?<br>
-      <b>ב.</b> מה המחיר? רמז: מה קורה אם נקרא למתודה שנוספה באנדרואיד 7?
-    </div>
   </div>
 </section>
 
@@ -396,6 +326,13 @@ D LIFECYCLE: onResume - המסך בחזית ומגיב ללחיצות</div>
     <b>Theme</b> הוא סגנון של האפליקציה כולה (צבע ראשי, סרגל מצב, רקע). <b>Style</b> הוא חבילת מאפיינים לרכיב אחד.
     הסגנון <code>KeyButton</code> הוא הסיבה שבשלב 6 כל מקש במקלדת הוא שורה אחת של XML במקום עשר. שימו לב לשורה האחרונה בו – נחזור אליה.
   </p>
+  <div class="warnbox">
+    <h3>⚠️ שני תיקונים, אחרת הבנייה נכשלת</h3>
+    <ul style="margin:0;">
+      <li>ב-<code>AndroidManifest.xml</code> שנו את <code>android:theme</code> ל-<code>@style/Theme.App</code>.</li>
+      <li>מחקו את הקובץ <code>res/values-night/themes.xml</code>. הוא מתייחס לערכת הנושא הישנה, ו-<code>Theme.App</code> כבר מטפלת במצב לילה בעצמה (DayNight).</li>
+    </ul>
+  </div>
 
   <h2>ה. רשימת המילים כמשאב <span class="timechip">⏱️ 10 דק'</span></h2>
   <p>
