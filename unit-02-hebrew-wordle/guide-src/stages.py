@@ -176,7 +176,9 @@ def diff_body(old, new):
 
 
 def render(src, dst):
-    text = open(src, encoding='utf-8').read()
+    sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+    import diagrams
+    text = diagrams.expand(open(src, encoding='utf-8').read())
 
     def add(m):
         sid, path, title = m.group(1), m.group(2), m.group(3)
