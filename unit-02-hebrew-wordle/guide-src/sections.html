@@ -43,6 +43,11 @@
   .dg .used{fill:rgba(0,0,0,.45);}
   .animfig{border:1px solid var(--line);border-radius:14px;padding:8px 6px 4px;background:rgba(0,0,0,.18);}
   @media (prefers-reduced-motion:reduce){.dg.anim *{animation:none!important;}}
+  a.steplink{color:var(--accent-3);font-weight:700;text-decoration:underline;text-underline-offset:3px;cursor:pointer;}
+  .stepnav{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;margin:40px 0 10px;padding-top:18px;border-top:1px solid var(--line);}
+  .stepnav a.steplink{text-decoration:none;padding:12px 20px;border-radius:12px;}
+  .stepnav a.nextbtn{background:var(--accent-2);color:#062B00;font-size:18px;box-shadow:var(--glow-g);}
+  .stepnav a.prevbtn{border:1px solid var(--line);color:var(--text-dim);font-size:15px;}
 </style>
 
 <!-- ================= INTRO ================= -->
@@ -64,10 +69,10 @@
 
   <h2>מה תלמדו (לפי תוכנית הלימודים)</h2>
   <ul>
-    <li><b>מבוא לאפליקציה</b> – מה זה Activity, ממה בנוי פרויקט, ומה קורה למסך מרגע שהוא נפתח ועד שהוא נסגר (שלבים 1–2).</li>
-    <li><b>ממשק משתמש</b> – לבנות מסך ב-XML עם LinearLayout, ליצור רכיבים בקוד Java, ולשמור על המשחק כשהמסך מסתובב (שלבים 3, 4, 10).</li>
-    <li><b>משאבי האפליקציה</b> – טקסטים, צבעים, מידות וצורות בתיקייה <code>res</code> (שלבים 3, 4, 5, 8 – כל משאב בשלב שבו המשחק צריך אותו).</li>
-    <li><b>טיפול באירועים</b> – ארבע דרכים להגיב ללחיצה, כל אחת על כפתור אחר במשחק (שלבים 5, 6, 8, 9).</li>
+    <li><b>מבוא לאפליקציה</b> – מה זה Activity, ממה בנוי פרויקט, ומה קורה למסך מרגע שהוא נפתח ועד שהוא נסגר (שלבים <a class="steplink" data-target="sec-1" href="#">1</a>–<a class="steplink" data-target="sec-2" href="#">2</a>).</li>
+    <li><b>ממשק משתמש</b> – לבנות מסך ב-XML עם LinearLayout, ליצור רכיבים בקוד Java, ולשמור על המשחק כשהמסך מסתובב (שלבים <a class="steplink" data-target="sec-3" href="#">3</a>, <a class="steplink" data-target="sec-4" href="#">4</a>, <a class="steplink" data-target="sec-10" href="#">10</a>).</li>
+    <li><b>משאבי האפליקציה</b> – טקסטים, צבעים, מידות וצורות בתיקייה <code>res</code> (שלבים <a class="steplink" data-target="sec-3" href="#">3</a>, <a class="steplink" data-target="sec-4" href="#">4</a>, <a class="steplink" data-target="sec-5" href="#">5</a>, <a class="steplink" data-target="sec-8" href="#">8</a> – כל משאב בשלב שבו המשחק צריך אותו).</li>
+    <li><b>טיפול באירועים</b> – ארבע דרכים להגיב ללחיצה, כל אחת על כפתור אחר במשחק (שלבים <a class="steplink" data-target="sec-5" href="#">5</a>, <a class="steplink" data-target="sec-6" href="#">6</a>, <a class="steplink" data-target="sec-8" href="#">8</a>, <a class="steplink" data-target="sec-9" href="#">9</a>).</li>
   </ul>
 
   <h2>איך עובדים עם המדריך</h2>
@@ -81,6 +86,9 @@
     בסוף חלק הקוד יש ציור של מה שאמור להופיע על המסך, ו<b>"הקוד המלא בסוף השלב"</b> – הקבצים כפי שהם אמורים להיראות בשלב הזה. השוו אותם לשלכם.
     הקוד של כל שלב נבדק: הוא מתקמפל ורץ.
   </p>
+  <div class="stepnav">
+    <a class="steplink nextbtn" data-target="sec-1" href="#">מתחילים: שלב 1 – יוצרים את הפרויקט ←</a>
+  </div>
 </section>
 
 <!-- ================= STEP 1 ================= -->
@@ -117,14 +125,14 @@
 {{DIAGRAM:projectform|ממלאים בדיוק כך, ולוחצים Finish. ממתינים שהסרגל בתחתית החלון יסיים (Gradle Sync).}}
 
   <h3>3. מריצים</h3>
-  <p>לוחצים על החץ הירוק ▶️ (Run) בסרגל העליון. אם עוד אין אמולטור: <b>Device Manager → Create Device</b>, בוחרים טלפון כלשהו וממשיכים עם ברירות המחדל.</p>
+  <p>לוחצים על החץ הירוק ▶️ (Run) בסרגל העליון. אם עוד אין אמולטור: פותחים את <b>Device Manager</b> (בסרגל הימני), לוחצים <b>+</b> ← <b>Create Virtual Device</b>, בוחרים טלפון כלשהו וממשיכים עם ברירות המחדל.</p>
 
   <h3>4. מוצאים את שני הקבצים</h3>
 {{DIAGRAM:projecttree|עץ הקבצים, בצד שמאל של החלון. את כל הקוד במדריך נכתוב ב-MainActivity ובתיקיות layout ו-values.}}
   <p>
     פתחו את <code>MainActivity.java</code>. יש בו כבר כמה שורות שאנדרואיד סטודיו כתב: <code>EdgeToEdge</code> ו-<code>setOnApplyWindowInsetsListener</code>.
     הן דואגות שהמסך שלנו לא יוסתר מתחת לשורת השעון והסוללה. <b>משאירים אותן</b> ומוסיפים אחריהן.
-    שימו לב שהן מחפשות רכיב בשם <code>R.id.main</code> – נחזור לזה בשלב 3.
+    שימו לב שהן מחפשות רכיב בשם <code>R.id.main</code> – נחזור לזה ב<a class="steplink" data-target="sec-3" href="#">שלב 3</a>.
     (אם בגרסה שלכם של אנדרואיד סטודיו השורות האלה לא נוצרו – זה בסדר, ממשיכים בלעדיהן.)
   </p>
 
@@ -134,6 +142,10 @@
   </div>
 
 {{SNAP:01|main/java/com/example/hebrewwordle/MainActivity.java,main/res/layout/activity_main.xml}}
+  <div class="stepnav">
+    <a class="steplink nextbtn" data-target="sec-2" href="#">לשלב הבא: שלב 2 – מעגל חיי הפעילות ←</a>
+    <a class="steplink prevbtn" data-target="sec-intro" href="#">→ חזרה למבוא</a>
+  </div>
 </section>
 
 <!-- ================= STEP 2 ================= -->
@@ -211,6 +223,10 @@
   </div>
 
 {{SNAP:02|main/java/com/example/hebrewwordle/MainActivity.java}}
+  <div class="stepnav">
+    <a class="steplink nextbtn" data-target="sec-3" href="#">לשלב הבא: שלב 3 – הכותרת וההודעה ←</a>
+    <a class="steplink prevbtn" data-target="sec-1" href="#">→ לשלב הקודם</a>
+  </div>
 </section>
 
 <!-- ================= STEP 3 ================= -->
@@ -285,13 +301,13 @@
 {{ADD:03|main/res/values/colors.xml|res/values/colors.xml}}
 
   <h3>4. המידות</h3>
-  <p>קובץ חדש: קליק ימני על התיקייה <code>values</code> → <b>New → Values Resource File</b>, בשם <code>dimens</code>:</p>
+  <p>קובץ חדש: קליק ימני על התיקייה <code>values</code> → <b>New → Values Resource File</b>, בשם <code>dimens</code>. מחליפים את כל התוכן שלו:</p>
 {{ADD:03|main/res/values/dimens.xml|res/values/dimens.xml}}
 
   <h3>5. ערכת הנושא</h3>
   <p>משנים את <code>DayNight</code> ל-<code>Light</code> (תמיד בהיר) ומוסיפים שני צבעים:</p>
 {{ADD:03|main/res/values/themes.xml|res/values/themes.xml}}
-  <p>ואז מוחקים את הקובץ <code>res/values-night/themes.xml</code> (קליק ימני → <b>Delete</b>).</p>
+  <p>ואז מוחקים את קובץ מצב הלילה. בעץ הקבצים הוא מופיע בתוך <code>values/themes</code> בשם <b>themes.xml (night)</b>: קליק ימני עליו → <b>Delete</b>.</p>
 
   <div class="result">
     <h3>✅ מה אמור להופיע</h3>
@@ -299,6 +315,10 @@
   </div>
 
 {{SNAP:03|main/res/layout/activity_main.xml,main/res/values/strings.xml,main/res/values/colors.xml,main/res/values/dimens.xml,main/res/values/themes.xml}}
+  <div class="stepnav">
+    <a class="steplink nextbtn" data-target="sec-4" href="#">לשלב הבא: שלב 4 – הלוח – 30 אריחים בקוד ←</a>
+    <a class="steplink prevbtn" data-target="sec-2" href="#">→ לשלב הקודם</a>
+  </div>
 </section>
 
 <!-- ================= STEP 4 ================= -->
@@ -364,7 +384,7 @@
 {{ADD:04|main/res/layout/activity_main.xml|res/layout/activity_main.xml}}
 
   <h3>2. הצורה של אריח</h3>
-  <p>קליק ימני על התיקייה <code>drawable</code> → <b>New → Drawable Resource File</b>, בשם <code>tile_empty</code>:</p>
+  <p>קליק ימני על התיקייה <code>drawable</code> → <b>New → Drawable Resource File</b>, בשם <code>tile_empty</code>. אנדרואיד סטודיו יוצר קובץ עם <code>&lt;selector&gt;</code> – מחליפים את כל התוכן שלו:</p>
 {{ADD:04|main/res/drawable/tile_empty.xml|res/drawable/tile_empty.xml}}
 
   <h3>3. הצבעים והגודל של האריח</h3>
@@ -384,6 +404,10 @@
   </div>
 
 {{SNAP:04|main/java/com/example/hebrewwordle/MainActivity.java,main/res/layout/activity_main.xml,main/res/values/colors.xml,main/res/values/dimens.xml}}
+  <div class="stepnav">
+    <a class="steplink nextbtn" data-target="sec-5" href="#">לשלב הבא: שלב 5 – המקלדת (דרך 1) ←</a>
+    <a class="steplink prevbtn" data-target="sec-3" href="#">→ לשלב הקודם</a>
+  </div>
 </section>
 
 <!-- ================= STEP 5 ================= -->
@@ -457,7 +481,7 @@
 
   <h3>5. המתודה שמקבלת את הלחיצה</h3>
 {{ADD:05|main/java/com/example/hebrewwordle/MainActivity.java|MainActivity.java}}
-  <p>בינתיים כל האותיות נכתבות בשורה הראשונה (<code>row = 0</code>). בשלב 8, כשיהיה כפתור "בדיקה", השורה תתקדם.</p>
+  <p>בינתיים כל האותיות נכתבות בשורה הראשונה (<code>row = 0</code>). ב<a class="steplink" data-target="sec-8" href="#">שלב 8</a>, כשיהיה כפתור "בדיקה", השורה תתקדם.</p>
 
   <div class="warnbox">
     <h3>⚠️ אם האפליקציה קורסת בלחיצה</h3>
@@ -472,6 +496,10 @@
   </div>
 
 {{SNAP:05|main/java/com/example/hebrewwordle/MainActivity.java,main/res/layout/activity_main.xml,main/res/layout/keyboard.xml,main/res/values/themes.xml}}
+  <div class="stepnav">
+    <a class="steplink nextbtn" data-target="sec-6" href="#">לשלב הבא: שלב 6 – מחיקה (דרך 2) ←</a>
+    <a class="steplink prevbtn" data-target="sec-4" href="#">→ לשלב הקודם</a>
+  </div>
 </section>
 
 <!-- ================= STEP 6 ================= -->
@@ -518,7 +546,7 @@
 
   <h3>3. הפעילות מקשיבה ל"מחק"</h3>
 {{ADD:06|main/java/com/example/hebrewwordle/MainActivity.java|MainActivity.java}}
-  <p>הכפתור "בדיקה" כבר על המסך, אבל עוד לא עושה כלום. נחבר אותו בשלב 8.</p>
+  <p>הכפתור "בדיקה" כבר על המסך, אבל עוד לא עושה כלום. נחבר אותו ב<a class="steplink" data-target="sec-8" href="#">שלב 8</a>.</p>
 
   <div class="result">
     <h3>✅ מה אמור להופיע</h3>
@@ -526,6 +554,10 @@
   </div>
 
 {{SNAP:06|main/java/com/example/hebrewwordle/MainActivity.java,main/res/layout/keyboard.xml,main/res/values/strings.xml}}
+  <div class="stepnav">
+    <a class="steplink nextbtn" data-target="sec-7" href="#">לשלב הבא: שלב 7 – חוקי המשחק – Java ובדיקות ←</a>
+    <a class="steplink prevbtn" data-target="sec-5" href="#">→ לשלב הקודם</a>
+  </div>
 </section>
 
 <!-- ================= STEP 7 ================= -->
@@ -539,7 +571,7 @@
   <p>
     הכפתור "בדיקה" כבר על המסך. כדי שיעשה משהו, צריך קוד שיודע לבדוק ניחוש. את הקוד הזה נכתוב במחלקות Java רגילות,
     בחבילה (package) נפרדת בשם <code>model</code>. הן <b>לא יודעות שקיים אנדרואיד</b>: אין בהן TextView, אין Button, אין צבעים.
-    בגלל זה אפשר לבדוק אותן על המחשב, בחצי שנייה, בלי אמולטור. בשלב 8 נחבר אותן למסך.
+    בגלל זה אפשר לבדוק אותן על המחשב, בחצי שנייה, בלי אמולטור. ב<a class="steplink" data-target="sec-8" href="#">שלב 8</a> נחבר אותן למסך.
   </p>
 {{DIAGRAM:model|MainActivity שואלת את המודל, והמודל עונה. המודל לא מכיר את המסך – ולכן אפשר לבדוק אותו לבד.}}
 
@@ -578,7 +610,7 @@
   <div class="part code">💻 חלק ב – כותבים את הקוד</div>
 
   <h3>1. החבילה model</h3>
-  <p>קליק ימני על <code>com.example.hebrewwordle</code> (התיקייה של MainActivity) → <b>New → Package</b>, בשם <code>model</code>. בתוכה, שלוש מחלקות (<b>New → Java Class</b>):</p>
+  <p>קליק ימני על <code>com.example.hebrewwordle</code> (התיקייה של MainActivity) → <b>New → Package</b>, בשם <code>model</code>. בתוכה, שלוש מחלקות (<b>New → Java Class</b>; ל-<code>LetterState</code> בוחרים בחלון את הסוג <b>Enum</b>). בכל קובץ מחליפים את כל התוכן:</p>
 {{ADD:07|main/java/com/example/hebrewwordle/model/LetterState.java|model/LetterState.java}}
 {{ADD:07|main/java/com/example/hebrewwordle/model/Guess.java|model/Guess.java}}
 {{ADD:07|main/java/com/example/hebrewwordle/model/WordleGame.java|model/WordleGame.java}}
@@ -595,6 +627,10 @@
 {{DIAGRAM:testrun|תשע בדיקות ירוקות. האפליקציה עצמה לא השתנתה – את החיבור למסך עושים בשלב הבא.}}
   </div>
   <p class="note-small">בשלב הזה כל הקבצים חדשים, והם מוצגים למעלה במלואם.</p>
+  <div class="stepnav">
+    <a class="steplink nextbtn" data-target="sec-8" href="#">לשלב הבא: שלב 8 – בדיקת הניחוש (דרך 3) ←</a>
+    <a class="steplink prevbtn" data-target="sec-6" href="#">→ לשלב הקודם</a>
+  </div>
 </section>
 
 <!-- ================= STEP 8 ================= -->
@@ -646,11 +682,11 @@
   <div class="part code">💻 חלק ב – כותבים את הקוד</div>
 
   <h3>1. רשימת המילים</h3>
-  <p>קובץ חדש בתיקייה <code>values</code>, בשם <code>words</code>:</p>
+  <p>קובץ חדש בתיקייה <code>values</code> (<b>New → Values Resource File</b>), בשם <code>words</code>. מחליפים את כל התוכן שלו:</p>
 {{ADD:08|main/res/values/words.xml|res/values/words.xml (105 מילים)}}
 
   <h3>2. שלוש צורות לאריח שנבדק</h3>
-  <p>בדיוק כמו <code>tile_empty</code> משלב 4, רק בצבע אחר:</p>
+  <p>שלושה קבצים חדשים בתיקייה <code>drawable</code>, בדיוק כמו <code>tile_empty</code> מ<a class="steplink" data-target="sec-4" href="#">שלב 4</a> – רק בצבע אחר:</p>
 {{ADD:08|main/res/drawable/tile_correct.xml|res/drawable/tile_correct.xml}}
 {{ADD:08|main/res/drawable/tile_present.xml|res/drawable/tile_present.xml}}
 {{ADD:08|main/res/drawable/tile_absent.xml|res/drawable/tile_absent.xml}}
@@ -681,6 +717,10 @@
   </div>
 
 {{SNAP:08|main/java/com/example/hebrewwordle/MainActivity.java,main/res/values/strings.xml,main/res/values/colors.xml}}
+  <div class="stepnav">
+    <a class="steplink nextbtn" data-target="sec-9" href="#">לשלב הבא: שלב 9 – משחק חדש וצביעת המקלדת (דרך 4) ←</a>
+    <a class="steplink prevbtn" data-target="sec-7" href="#">→ לשלב הקודם</a>
+  </div>
 </section>
 
 <!-- ================= STEP 9 ================= -->
@@ -698,7 +738,7 @@
 {{DIAGRAM:anonymous|new View.OnClickListener() יוצר אובייקט של מחלקה בלי שם, עם onClick אחת.}}
 
   <h2>gravity מול layout_gravity</h2>
-  <p>את הכפתור נרצה באמצע השורה. <code>gravity</code> (משלב 3) מזיז את התוכן <b>בתוך</b> רכיב. כדי להזיז את הרכיב עצמו <b>בתוך ההורה</b> – <code>layout_gravity</code>.</p>
+  <p>את הכפתור נרצה באמצע השורה. <code>gravity</code> (מ<a class="steplink" data-target="sec-3" href="#">שלב 3</a>) מזיז את התוכן <b>בתוך</b> רכיב. כדי להזיז את הרכיב עצמו <b>בתוך ההורה</b> – <code>layout_gravity</code>.</p>
 {{DIAGRAM:gravity|מימין: הטקסט ממורכז בתוך התיבה. משמאל: הכפתור ממורכז בתוך ההורה.}}
 
   <h2>למצוא מקש לפי אות: Map</h2>
@@ -740,6 +780,10 @@
 {{DIAGRAM:ways|כל לחיצה במשחק מחוברת בדרך אחרת. רק בדרך 1 המהדר לא בודק את הקשר.}}
 
 {{SNAP:09|main/java/com/example/hebrewwordle/MainActivity.java,main/res/layout/activity_main.xml}}
+  <div class="stepnav">
+    <a class="steplink nextbtn" data-target="sec-10" href="#">לשלב הבא: שלב 10 – שמירת המשחק בסיבוב מסך ←</a>
+    <a class="steplink prevbtn" data-target="sec-8" href="#">→ לשלב הקודם</a>
+  </div>
 </section>
 
 <!-- ================= STEP 10 ================= -->
@@ -751,7 +795,7 @@
 
   <h2>הבעיה</h2>
   <p>
-    נסו עכשיו: נחשו מילה אחת וסובבו את הטלפון. הלוח מתרוקן ויש מילה סודית חדשה. זה בדיוק מה שראיתם בשלב 2:
+    נסו עכשיו: נחשו מילה אחת, סובבו את הטלפון לרוחב ובחזרה לאורך. הלוח ריק ויש מילה סודית חדשה. זה בדיוק מה שראיתם ב<a class="steplink" data-target="sec-2" href="#">שלב 2</a>:
     סיבוב = <code>onDestroy</code> ואז <code>onCreate</code> של פעילות חדשה – ו-<code>onCreate</code> מתחילה משחק חדש.
   </p>
 {{ANIM:anim_rotate|בלי שמירה – הפעילות החדשה מתחילה מאפס. עם Bundle – הנתונים יוצאים לפני הסיבוב וחוזרים אחריו.}}
@@ -783,13 +827,15 @@
   <h3>2. בודקים</h3>
   <ol>
     <li>נחשו מילה אחת, והקלידו שתי אותיות בשורה השנייה.</li>
-    <li>סובבו. השורה הראשונה צבועה, שתי האותיות במקומן, המקשים צבועים, וההודעה "נשארו 5 ניסיונות".</li>
-    <li>ב-Logcat: <code>onSaveInstanceState - נשמרו 1 ניחושים</code>, ואחרי ה-<code>onCreate</code> החדש <code>restoreGame - שוחזרו 1 ניחושים</code>.</li>
+    <li>סובבו לרוחב. במסך לרוחב אין מספיק גובה ללוח וגם למקלדת, ולכן הלוח כמעט לא נראה – זה צפוי.</li>
+    <li>סובבו בחזרה לאורך. השורה הראשונה צבועה, שתי האותיות במקומן, המקשים צבועים, וההודעה "נשארו 5 ניסיונות" – המשחק עבר שני סיבובים ונשמר בשניהם.</li>
+    <li>ב-Logcat, בכל סיבוב: <code>onSaveInstanceState - נשמרו 1 ניחושים</code>, ואחרי ה-<code>onCreate</code> החדש <code>restoreGame - שוחזרו 1 ניחושים</code>.</li>
   </ol>
+  <p class="note-small">רוצים שהמשחק ייראה טוב גם לרוחב? זו ההרחבה "מסך לרוחב" בסוף השלב.</p>
 
   <div class="result">
     <h3>✅ מה אמור להופיע</h3>
-{{PHONE:s9|אחרי הסיבוב: בדיוק אותו משחק – אותו לוח, אותם צבעים, אותה הודעה.}}
+{{PHONE:s9|אחרי שני סיבובים (לרוחב ובחזרה לאורך): בדיוק אותו משחק – אותו לוח, אותם צבעים, אותה הודעה.}}
   </div>
 
   <div class="infobox">
@@ -813,4 +859,18 @@
     <h2>🎉 סיימתם את יחידה 2!</h2>
     <p>משחק שלם, מקלדת עברית, ארבע דרכים לטפל בלחיצות, ולוח ששורד סיבוב. ביחידה 3 נעבור לאפליקציה עם כמה מסכים, ונלמד איך עוברים ביניהם (Intents).</p>
   </div>
+  <div class="stepnav">
+    <a class="steplink prevbtn" data-target="sec-9" href="#">→ לשלב הקודם</a>
+  </div>
 </section>
+
+<script>
+/* קישורים לשלבים מתוך הטקסט וכפתורי "לשלב הבא": מפעילים את הקישור המתאים בתוכן העניינים */
+document.addEventListener('click', function(e){
+  var a = e.target.closest && e.target.closest('a.steplink');
+  if(!a) return;
+  e.preventDefault();
+  var toc = document.querySelector('.toc-link[data-target="' + a.getAttribute('data-target') + '"]');
+  if(toc) toc.click();
+});
+</script>
