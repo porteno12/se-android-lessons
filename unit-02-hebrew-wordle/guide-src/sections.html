@@ -38,6 +38,11 @@
   .dg .grid{stroke:var(--line);stroke-width:1;}
   .dg .phone{fill:#1c1c1e;stroke:#55595c;stroke-width:2;}
   .dg .screen,.dg .key{stroke:none;}
+  .dg .hlbox{fill:none;stroke:var(--accent-1);stroke-width:3;}
+  .dg .finger{fill:rgba(255,212,59,.35);stroke:var(--accent-1);stroke-width:2;}
+  .dg .used{fill:rgba(0,0,0,.45);}
+  .animfig{border:1px solid var(--line);border-radius:14px;padding:8px 6px 4px;background:rgba(0,0,0,.18);}
+  @media (prefers-reduced-motion:reduce){.dg.anim *{animation:none!important;}}
 </style>
 
 <!-- ================= INTRO ================= -->
@@ -181,6 +186,8 @@
     לעומת זאת, כפתור הבית רק מסתיר את המשחק – הוא לא נהרס:
   </p>
 {{DIAGRAM:rotate|כפתור הבית: המשחק מחכה ברקע. סיבוב: המשחק נהרס ונבנה מחדש – וכל מה שהפעילות זכרה נמחק. בשלב 10 נטפל בזה.}}
+  <p>וכך זה נראה ברצף – המסגרת הצהובה זזה במדרגות, ובאותו רגע מופיעה שורה ב-Logcat:</p>
+{{ANIM:anim_lifecycle|הרצה, כפתור הבית, חזרה וסיבוב – כל מעבר מדרגה הוא קריאה של אנדרואיד למתודה, ושורה אחת ב-Logcat.}}
 
   <div class="part code">💻 חלק ב – כותבים את הקוד</div>
 
@@ -347,6 +354,8 @@
     כדי להגיע מהקוד אל <code>boardContainer</code> שב-XML משתמשים ב-<code>findViewById(R.id.boardContainer)</code> – הוא מחפש את הרכיב לפי ה-id ומחזיר אותו.
   </p>
 {{DIAGRAM:board|LinearLayout אנכי שמכיל 6 LinearLayouts אופקיים. tiles[2][0] הוא האריח הימני בשורה השלישית.}}
+  <p>הלולאה הכפולה בפעולה – הלולאה החיצונית עוברת על השורות, והפנימית על 5 האריחים של כל שורה:</p>
+{{ANIM:anim_board|row ו-col מתחלפים, ובכל סיבוב של הלולאה הפנימית נוצר אריח אחד ונכנס לשורה – מימין לשמאל.}}
 
   <div class="part code">💻 חלק ב – כותבים את הקוד</div>
 
@@ -425,6 +434,8 @@
     ולמחוק ממנה אות (<code>deleteCharAt</code>). המספר <code>current.length()</code> אומר כמה אותיות יש – וגם לאיזו עמודה תיכנס האות הבאה.
   </p>
 {{DIAGRAM:builder|current משתנה עם כל לחיצה.}}
+  <p>הכול ביחד – מה יקרה כשתקלידו "שלו":</p>
+{{ANIM:anim_tap|לחיצה ← onLetterKey רצה ← האות נכנסת ל-current ולאריח הבא.}}
 
   <div class="part code">💻 חלק ב – כותבים את הקוד</div>
 
@@ -555,7 +566,7 @@
     הלב של המשחק הוא <code>evaluate</code>. היא עוברת על הניחוש פעמיים. במעבר הראשון היא מסמנת רק <b>ירוקים</b>, ו"מנצלת" את האות המתאימה במילה הסודית.
     במעבר השני, לכל אות שעוד לא נצבעה, היא מחפשת במילה הסודית אות <b>שעוד לא נוצלה</b>: מצאה – צהוב; לא מצאה – אפור.
   </p>
-{{DIAGRAM:twopass|המילה הסודית "תלמיד", הניחוש "תתתתת". בלי שני מעברים, כל ה-ת' היו נצבעות בצהוב.}}
+{{ANIM:anim_twopass|המילה הסודית "תלמיד", הניחוש "תתתתת". בלי שני מעברים, כל ה-ת' היו נצבעות בצהוב.}}
 
   <h2>בדיקות יחידה: JUnit</h2>
   <p>
@@ -595,6 +606,7 @@
 
   <h2>מה קורה כשלוחצים "בדיקה"</h2>
 {{DIAGRAM:checkflow|הבדיקה עצמה נעשית במודל משלב 7. הפעילות רק מציגה את התוצאה.}}
+{{ANIM:anim_check|לחיצה על "בדיקה": המודל בודק, showGuess צובעת אריח אחר אריח, updateMessage מעדכנת, וההקלדה עוברת לשורה הבאה.}}
 
   <h2>מילה סודית: string-array ו-Random</h2>
   <p>
@@ -703,6 +715,7 @@
     צובעים רק אם המצב החדש גבוה יותר.
   </p>
 {{DIAGRAM:upgrade|אפור ← צהוב ← ירוק, ואף פעם לא בחזרה.}}
+{{ANIM:anim_keys|המילה הסודית "תלמיד". בניחוש השני י' במקום אחר – אבל המקש כבר ירוק, ונשאר ירוק.}}
 
   <div class="part code">💻 חלק ב – כותבים את הקוד</div>
 
@@ -741,7 +754,7 @@
     נסו עכשיו: נחשו מילה אחת וסובבו את הטלפון. הלוח מתרוקן ויש מילה סודית חדשה. זה בדיוק מה שראיתם בשלב 2:
     סיבוב = <code>onDestroy</code> ואז <code>onCreate</code> של פעילות חדשה – ו-<code>onCreate</code> מתחילה משחק חדש.
   </p>
-{{DIAGRAM:lost|הפעילות החדשה לא יודעת כלום על המשחק של הפעילות הישנה.}}
+{{ANIM:anim_rotate|בלי שמירה – הפעילות החדשה מתחילה מאפס. עם Bundle – הנתונים יוצאים לפני הסיבוב וחוזרים אחריו.}}
 
   <h2>Bundle ו-onSaveInstanceState</h2>
   <p>

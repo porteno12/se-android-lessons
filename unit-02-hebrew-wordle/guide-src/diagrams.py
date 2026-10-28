@@ -872,3 +872,353 @@ def expand(text):
 
     text = re.sub(r'\{\{DIAGRAM:(\w+)\|([^}]*)\}\}', dia, text)
     return re.sub(r'\{\{PHONE:(\w+)\|([^}]*)\}\}', ph, text)
+
+
+# ============================================================ animations
+# כל אנימציה היא SVG עם CSS keyframes משלה, באורך מחזור T שניות, שחוזר על עצמו.
+# כל רכיב מונפש מקבל "מסלול": רשימת (זמן, css). בלי תנועה (prefers-reduced-motion) רואים את כל הרכיבים במצבם הרגיל.
+
+class A(D):
+    def __init__(self, name, w, h, T):
+        super().__init__(name, w, h)
+        self.T, self.css, self.n = T, [], 0
+
+    def track(self, frames, base=''):
+        self.n += 1
+        c = '%s-%d' % (self.name, self.n)
+        fr = sorted(frames, key=lambda f: f[0])
+        if fr[0][0] > 0:
+            fr = [(0, fr[0][1])] + fr
+        if fr[-1][0] < self.T:
+            fr = fr + [(self.T, fr[-1][1])]
+        ks = ''.join('%.3f%%{%s}' % (min(t, self.T) / self.T * 100, css) for t, css in fr)
+        self.css.append('@keyframes k-%s{%s}.%s{animation:k-%s %ss linear infinite;%s}' % (c, ks, c, c, self.T, base))
+        return c
+
+    def vis(self, on, off=None):
+        off = self.T - 0.5 if off is None else off
+        return self.track([(0, 'opacity:0'), (on, 'opacity:0'), (on + 0.25, 'opacity:1'),
+                           (off, 'opacity:1'), (off + 0.25, 'opacity:0')])
+
+    def g(self, cls):
+        self.p.append('<g class="%s">' % cls)
+
+    def end(self):
+        self.p.append('</g>')
+
+    def svg(self, label):
+        return super().svg(label).replace('<svg class="dg"', '<svg class="dg anim"', 1).replace(
+            '<defs>', '<style>%s</style><defs>' % ''.join(self.css), 1)
+
+
+def anim_lifecycle():
+    d = A('anim_lifecycle', 720, 410, 24)
+    ys = [55, 135, 215, 295]
+    names = ['הפעילות לא קיימת', 'נוצרה: המסך נבנה', 'מוצגת על המסך', 'פעילה: אפשר ללחוץ']
+    for i, (y, n) in enumerate(zip(ys, names)):
+        d.box(440, y, 250, 46, [n], 'box green' if i == 3 else 'box', dash=(i == 0))
+    for s, on, off in [('▶ מפעילים את המשחק', 0, 4.6), ('🏠 לוחצים על כפתור הבית', 5, 8.6),
+                       ('↩ חוזרים למשחק', 9, 12.6), ('🔄 מסובבים את הטלפון', 13, 22.8)]:
+        d.g(d.vis(on, off))
+        d.t(565, 32, s, weight=700, size=17)
+        d.end()
+    seq = [(0, 0), (1, 1), (2, 2), (3, 3), (6, 2), (7, 1), (10, 2), (11, 3),
+           (14, 2), (15, 1), (16, 0), (17, 1), (18, 2), (19, 3)]
+    tr = lambda lv: 'transform:translate(0px,%spx)' % (ys[lv] - ys[0])
+    frames, prev = [(0, tr(0))], 0
+    for t, lv in seq[1:]:
+        frames += [(t - 0.35, tr(prev)), (t, tr(lv))]
+        prev = lv
+    frames += [(d.T - 0.4, tr(prev)), (d.T, tr(0))]
+    d.g(d.track(frames))
+    d.rect(434, ys[0] - 5, 262, 56, 'hlbox', rx=12)
+    d.end()
+    window(d, 20, 45, 380, 350, 'Logcat')
+    logs = [(1, 'onCreate', ''), (2, 'onStart', ''), (3, 'onResume', ''), (6, 'onPause', ''), (7, 'onStop', ''),
+            (10, 'onStart', ''), (11, 'onResume', ''), (14, 'onPause', ''), (15, 'onStop', ''),
+            (16, 'onDestroy', '#FFA94D'), (17, 'onCreate', '#7DE07D'), (18, 'onStart', ''), (19, 'onResume', '')]
+    for i, (t, m, col) in enumerate(logs):
+        d.g(d.vis(t))
+        d.t(38, 96 + i * 22.5, '`D  LIFECYCLE  ' + m, anchor='start', size=13, fill=col or None)
+        d.end()
+    d.t(565, 375, 'המסגרת הצהובה: איפה המשחק נמצא עכשיו', cls='dim')
+    return d
+
+
+def anim_board():
+    d = A('anim_board', 720, 330, 11)
+    d.rect(20, 20, 320, 165, 'term', rx=8)
+    for i, s in enumerate(['for (row = 0; row < ROWS; row++)', '  for (col = 0; col < COLS; col++)',
+                           '    tile = new TextView(this)', '    tiles[row][col] = tile',
+                           '    rowLayout.addView(tile)']):
+        d.t(36, 50 + i * 28, '`' + s, anchor='start', size=13)
+    step, t0 = 0.27, 0.5
+    for r in range(6):
+        y = 25 + r * 48
+        d.g(d.vis(t0 + r * 5 * step - 0.1))
+        d.rect(400, y - 3, 300, 46, 'box blue', rx=6)
+        d.end()
+        d.g(d.vis(t0 + r * 5 * step, t0 + (r + 1) * 5 * step if r < 5 else None))
+        d.t(180, 240, '`row = %d' % r, size=20)
+        d.end()
+        for c in range(5):
+            t = t0 + (r * 5 + c) * step
+            d.g(d.vis(t))
+            tile(d, 438 + (4 - c) * 46, y, 40)
+            d.end()
+            d.g(d.vis(t, t + step if (r, c) != (5, 4) else None))
+            d.t(180, 280, '`col = %d' % c, size=20)
+            d.end()
+    return d
+
+
+def anim_tap():
+    d = A('anim_tap', 720, 300, 12)
+    for c in range(5):
+        tile(d, 470 + (4 - c) * 50, 20, 44)
+    rows = ['קראטוןםפ', 'שדגכעיחלךף']
+    pos = {}
+    for r, letters in enumerate(rows):
+        n = len(letters)
+        kw = (400 - (n - 1) * 4) / n
+        for i, ch in enumerate(letters):
+            x = 300 + i * (kw + 4)
+            d.rect(round(x, 1), 120 + r * 50, round(kw, 1), 42, 'key', rx=5, fill=KEY_BG)
+            d.t(round(x + kw / 2, 1), 147 + r * 50, ch, fill=INK, weight=700)
+            pos[ch] = (x + kw / 2, 141 + r * 50)
+    d.box(20, 110, 240, 56, ['`onLetterKey(view)'], 'box', size=15)
+    states = ['""', '"ש"', '"של"', '"שלו"']
+    taps = [(1, 'ש', 0), (4, 'ל', 1), (7, 'ו', 2)]
+    for t, ch, col in taps:
+        x, y = pos[ch]
+        d.g(d.vis(t - 0.4, t + 0.6))
+        d.p.append('<circle cx="%s" cy="%s" r="16" class="finger"/>' % (round(x, 1), y))
+        d.end()
+        d.g(d.vis(t + 0.3, t + 1.3))
+        d.rect(16, 106, 248, 64, 'hlbox', rx=12)
+        d.end()
+        d.g(d.vis(t + 1.0))
+        tile(d, 470 + (4 - col) * 50, 20, 44, ch)
+        d.end()
+    bounds = [0, 1.6, 4.6, 7.6, None]
+    for i, s in enumerate(states):
+        d.g(d.vis(bounds[i], bounds[i + 1]))
+        d.t(140, 228, '`current = ' + s, size=17)
+        d.end()
+    d.arrow([(296, 150), (266, 140)])
+    return d
+
+
+def anim_twopass():
+    d = A('anim_twopass', 720, 300, 13)
+    xs = [450 - c * 62 for c in range(5)]
+    for lab, y in [('המילה הסודית', 30), ('הניחוש', 110), ('התוצאה', 200)]:
+        d.t(700, y + 32, lab, anchor='start', weight=700)
+    for c in range(5):
+        tile(d, xs[c], 30, 50, 'תלמיד'[c])
+        tile(d, xs[c], 110, 50, 'ת')
+        tile(d, xs[c], 200, 50)
+    d.g(d.vis(0.5, 5.8))
+    d.t(110, 60, 'מעבר 1:', weight=700, size=17)
+    d.t(110, 84, 'מחפשים ירוקים', cls='dim')
+    d.end()
+    d.g(d.vis(6, 12.4))
+    d.t(110, 60, 'מעבר 2:', weight=700, size=17)
+    d.t(110, 84, 'כל השאר', cls='dim')
+    d.end()
+    # הסמן על הניחוש
+    pts = [(1 + c * 0.8, c) for c in range(5)] + [(6.6 + (c - 1) * 1.3, c) for c in range(1, 5)]
+    tr = lambda c: 'transform:translate(%spx,0px)' % (xs[c] - xs[0])
+    frames, prev = [(0, tr(0) + ';opacity:0'), (0.8, tr(0) + ';opacity:0'), (1, tr(0) + ';opacity:1')], 0
+    for t, c in pts[1:]:
+        frames += [(t - 0.3, tr(prev) + ';opacity:1'), (t, tr(c) + ';opacity:1')]
+        prev = c
+    frames += [(d.T - 0.6, tr(prev) + ';opacity:1'), (d.T - 0.3, tr(prev) + ';opacity:0')]
+    d.g(d.track(frames))
+    d.rect(xs[0] - 5, 105, 60, 60, 'hlbox', rx=8)
+    d.end()
+    d.g(d.vis(1.3))
+    tile(d, xs[0], 200, 50, 'ת', 'c')
+    d.end()
+    d.g(d.vis(1.6))
+    d.rect(xs[0], 30, 50, 50, 'used', rx=3)
+    d.t(xs[0] + 25, 96, 'נוצלה', cls='dim', size=12)
+    d.end()
+    for c in range(1, 5):
+        t = 6.6 + (c - 1) * 1.3
+        d.g(d.vis(t + 0.4))
+        tile(d, xs[c], 200, 50, 'ת', 'a')
+        d.end()
+    d.g(d.vis(7, 12.4))
+    d.t(110, 225, 'אין עוד ת\' פנויה', cls='dim')
+    d.t(110, 247, 'במילה הסודית ← אפור', cls='dim')
+    d.end()
+    return d
+
+
+def anim_check():
+    d = A('anim_check', 720, 320, 11)
+    xs = [640 - c * 54 for c in range(5)]
+    for c in range(5):
+        tile(d, xs[c], 30, 46, 'מורים'[c])
+        tile(d, xs[c], 84, 46)
+    for c, st in enumerate('paaca'):
+        d.g(d.vis(1.8 + c * 0.45))
+        tile(d, xs[c], 30, 46, 'מורים'[c], st)
+        d.end()
+    d.g(d.vis(0, 4.0))
+    d.rect(xs[4] - 6, 24, 278, 58, 'hlbox', rx=8)
+    d.end()
+    d.g(d.vis(4.4))
+    d.rect(xs[4] - 6, 78, 278, 58, 'hlbox', rx=8)
+    d.end()
+    d.g(d.vis(0, 4.2))
+    d.t(530, 172, 'נחשו מילה בת 5 אותיות. יש לכם 6 ניסיונות.', size=14)
+    d.end()
+    d.g(d.vis(4.4))
+    d.t(530, 172, 'נשארו 5 ניסיונות', size=16, weight=700)
+    d.end()
+    d.rect(470, 200, 120, 40, 'key', rx=6, fill=PRIMARY)
+    d.t(530, 226, 'בדיקה', fill='#FFFFFF', weight=700)
+    d.g(d.vis(0.6, 1.5))
+    d.p.append('<circle cx="530" cy="220" r="18" class="finger"/>')
+    d.end()
+    calls = [('`game.submit("מורים")', 1.2, 1.9), ('`showGuess(0, guess)', 1.8, 4.0), ('`updateMessage()', 4.1, 4.9)]
+    for i, (s, on, off) in enumerate(calls):
+        y = 40 + i * 75
+        d.box(20, y, 290, 54, [s], 'box', size=14)
+        d.g(d.vis(on, off))
+        d.rect(16, y - 4, 298, 62, 'hlbox', rx=12)
+        d.end()
+    d.t(165, 280, 'השורה הבאה מחכה להקלדה', cls='dim')
+    return d
+
+
+def anim_keys():
+    d = A('anim_keys', 720, 260, 11)
+    keys = ['מ', 'ו', 'ר', 'י', 'ל', 'ד', 'ת']
+    xs = {k: 590 - i * 82 for i, k in enumerate(keys)}
+    for k in keys:
+        d.rect(xs[k], 110, 66, 56, 'key', rx=6, fill=KEY_BG)
+        d.t(xs[k] + 33, 145, k, fill=INK, weight=700, size=20)
+
+    def paint(k, st, on):
+        d.g(d.vis(on))
+        d.rect(xs[k], 110, 66, 56, 'key', rx=6, fill=STATE[st])
+        d.t(xs[k] + 33, 145, k, fill='#FFFFFF', weight=700, size=20)
+        d.end()
+
+    d.g(d.vis(0.5, 4.2))
+    d.t(360, 40, 'ניחוש 1: מורים', weight=700, size=18)
+    d.end()
+    for k, st in [('מ', 'p'), ('ו', 'a'), ('ר', 'a'), ('י', 'c')]:
+        paint(k, st, 1.5)
+    d.g(d.vis(4.5))
+    d.t(360, 40, 'ניחוש 2: יולדת', weight=700, size=18)
+    d.end()
+    for k in 'לדת':
+        paint(k, 'p', 5.2)
+    d.g(d.vis(5.4, 7.0))
+    d.rect(xs['י'] + 8, 70, 50, 34, 'key', rx=5, fill=YELLOW)
+    d.t(xs['י'] + 33, 93, 'י', fill='#FFFFFF', weight=700)
+    d.end()
+    d.g(d.vis(6.2, 7.0))
+    d.t(xs['י'] + 33, 98, '✗', size=34, weight=700, fill='#ff6b6b')
+    d.end()
+    d.g(d.vis(7.0))
+    d.t(xs['י'] + 33, 200, 'י נשארת ירוקה', weight=700)
+    d.t(xs['י'] + 33, 222, 'רק עולים בדרגה', cls='dim')
+    d.end()
+    return d
+
+
+def anim_rotate():
+    d = A('anim_rotate', 720, 350, 18)
+    rot = 'transform-box:fill-box;transform-origin:center;'
+
+    def portrait(on, off, rotate_at):
+        frames = [(0, 'opacity:0;transform:rotate(0deg)'), (on, 'opacity:0;transform:rotate(0deg)'),
+                  (on + 0.25, 'opacity:1;transform:rotate(0deg)'), (rotate_at, 'opacity:1;transform:rotate(0deg)'),
+                  (rotate_at + 0.8, 'opacity:0;transform:rotate(-90deg)'), (off, 'opacity:0;transform:rotate(-90deg)')]
+        d.g(d.track(frames, rot))
+        d.rect(115, 50, 120, 230, 'phone', rx=16)
+        d.rect(122, 62, 106, 206, 'screen', rx=6, fill=SCREEN_BG)
+        for r, (word, st) in enumerate([('מורים', 'paaca'), ('תל', '')]):
+            for c in range(5):
+                tile(d, 128 + (4 - c) * 19.5, 100 + r * 20, 17, word[c] if c < len(word) else '',
+                     st[c] if c < len(st) else None)
+        d.end()
+
+    def landscape(on, off, filled_at=None):
+        d.g(d.vis(on, off))
+        d.rect(60, 105, 230, 120, 'phone', rx=16)
+        d.rect(72, 112, 206, 106, 'screen', rx=6, fill=SCREEN_BG)
+        for r in range(2):
+            for c in range(5):
+                tile(d, 128 + (4 - c) * 19.5, 130 + r * 20, 17)
+        d.end()
+        if filled_at:
+            d.g(d.vis(filled_at, off))
+            for r, (word, st) in enumerate([('מורים', 'paaca'), ('תל', '')]):
+                for c in range(5):
+                    if c < len(word):
+                        tile(d, 128 + (4 - c) * 19.5, 130 + r * 20, 17, word[c], st[c] if c < len(st) else None)
+            d.end()
+
+    # סצנה 1: בלי שמירה
+    d.g(d.vis(0, 8))
+    d.t(175, 30, 'בלי שמירה', weight=700, size=18)
+    d.end()
+    portrait(0, 8, 2)
+    landscape(2.7, 8)
+    d.g(d.vis(3.5, 8))
+    d.t(175, 260, '✗ הלוח ריק, מילה סודית חדשה', weight=700, fill='#ff6b6b')
+    d.end()
+    # סצנה 2: עם Bundle
+    d.g(d.vis(8.6))
+    d.t(175, 30, 'עם onSaveInstanceState', weight=700, size=18)
+    d.end()
+    portrait(8.6, d.T, 12)
+    landscape(12.7, d.T - 0.5, 14.6)
+    d.g(d.vis(8.6))
+    d.rect(430, 80, 270, 170, 'box yellow')
+    d.t(565, 106, '`Bundle', weight=700)
+    d.end()
+    chips = ['`secret: "תלמיד"', '`guesses: ["מורים"]', '`current: "תל"']
+    for i, s in enumerate(chips):
+        t0 = 10 + i * 0.35
+        frames = [(0, 'opacity:0;transform:translate(-390px,0px)'), (t0, 'opacity:0;transform:translate(-390px,0px)'),
+                  (t0 + 0.1, 'opacity:1;transform:translate(-390px,0px)'), (t0 + 0.9, 'opacity:1;transform:translate(0px,0px)'),
+                  (13.6 + i * 0.2, 'opacity:1;transform:translate(0px,0px)'),
+                  (14.4 + i * 0.2, 'opacity:1;transform:translate(-390px,0px)'),
+                  (14.6 + i * 0.2, 'opacity:0;transform:translate(-390px,0px)')]
+        d.g(d.track(frames))
+        d.rect(450, 122 + i * 40, 230, 32, 'box', rx=6)
+        d.t(565, 143 + i * 40, s, size=13)
+        d.end()
+    d.g(d.vis(10, 11.5))
+    d.t(565, 290, '`onSaveInstanceState', size=14)
+    d.end()
+    d.g(d.vis(13.5, 14.8))
+    d.t(565, 290, '`onCreate → restoreGame', size=14)
+    d.end()
+    d.g(d.vis(15))
+    d.t(175, 260, '✓ אותו משחק בדיוק', weight=700, fill='#7DE07D')
+    d.end()
+    return d
+
+
+ANIMS = {f.__name__: f for f in (anim_lifecycle, anim_board, anim_tap, anim_twopass, anim_check, anim_keys,
+                                 anim_rotate)}
+_expand_static = expand
+
+
+def expand(text):
+    def an(m):
+        name, cap = m.group(1), m.group(2)
+        if name not in ANIMS:
+            raise SystemExit('unknown animation ' + name)
+        return ('<figure class="diagram animfig">%s<figcaption>🎬 %s</figcaption></figure>'
+                % (ANIMS[name]().svg(cap), cap))
+
+    return _expand_static(re.sub(r'\{\{ANIM:(\w+)\|([^}]*)\}\}', an, text))
