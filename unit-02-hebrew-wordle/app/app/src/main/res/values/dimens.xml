@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <dimen name="screen_padding">12dp</dimen>
     <dimen name="tile_size">52dp</dimen>
     <dimen name="tile_margin">3dp</dimen>
     <dimen name="tile_text">26sp</dimen>
     <dimen name="key_height">46dp</dimen>
     <dimen name="key_margin">2dp</dimen>
     <dimen name="key_text">16sp</dimen>
-    <dimen name="screen_padding">12dp</dimen>
 </resources>

@@ -28,7 +28,8 @@
   th,td{padding:12px 14px;border-bottom:1px solid var(--line);vertical-align:top;text-align:right;}
   th{background:var(--brand-soft);color:var(--brand);font-weight:800;font-size:14px;}
   td.num{font-weight:900;font-size:20px;color:var(--brand);width:56px;}
-  td.core{color:var(--muted);font-size:14px;max-width:360px;}
+  td.about{font-size:15px;max-width:380px;}
+  td.topics-col{color:var(--muted);font-size:14px;}
   .desc{color:var(--muted);font-size:14px;margin-top:4px;}
   .status{display:inline-block;border-radius:999px;padding:3px 12px;font-weight:700;font-size:13px;white-space:nowrap;}
   .status.planned{background:var(--gray-soft);color:var(--gray);}
@@ -42,7 +43,7 @@
   .btn{display:inline-block;background:var(--brand);color:#fff;text-decoration:none;border-radius:8px;padding:6px 12px;font-weight:700;font-size:14px;}
   .btn.ghost{background:#fff;color:var(--brand);border:1px solid var(--brand);}
   footer{text-align:center;color:var(--muted);font-size:13px;padding:20px;}
-  @media (max-width:900px){ ol.topics{columns:1;} td.core{display:none;} th:nth-child(4){display:none;} }
+  @media (max-width:900px){ ol.topics{columns:1;} td.topics-col{display:none;} th:nth-child(4){display:none;} }
 </style>
 </head>
 <body>
@@ -78,97 +79,97 @@
 
   <h2>יחידות הלימוד והאפליקציות</h2>
   <table>
-    <thead><tr><th>יחידה</th><th>אפליקציה</th><th>נושאים בתכ"ל</th><th>דרישות הליבה</th><th>מצב</th></tr></thead>
+    <thead><tr><th>יחידה</th><th>אפליקציה</th><th>תיאור</th><th>נושאים בתכ"ל</th><th>מצב</th></tr></thead>
     <tbody>
       <tr class="done">
         <td class="num">1</td>
-        <td><b>קרב דמויות</b><div class="desc">כל שחקן בוחר דמות (לוחם, קוסם, רובוט) עם כוחות שונים; תורות של התקפה והגנה עד שאחת הדמויות נופלת.</div></td>
-        <td>תכנות מונחה עצמים; אוספים גנריים; טיפול בחריגות</td>
-        <td class="core">היררכיית Character ← Warrior / Mage / Robot; ממשק Attacker; פולימורפיזם בחישוב נזק; ArrayList של מהלכים ו-HashMap לניקוד; Comparator למיון; חריגה מותאמת אישית OutOfEnergyException עם try/catch</td>
+        <td><b>קרב דמויות</b></td>
+        <td class="about">שני שחקנים בוחרים דמויות עם כוחות שונים ונלחמים בתורות, עד שאחת הדמויות נופלת.</td>
+        <td class="topics-col">תכנות מונחה עצמים; אוספים גנריים; טיפול בחריגות</td>
         <td><span class="status done">מוכן</span><div class="date">11.10.2026</div><div class="date">המדריך נבנה על ידי המורה מחוץ לפרויקט; קישור יתווסף בהמשך</div><div class="links"></div></td>
       </tr>
       <tr class="done">
         <td class="num">2</td>
-        <td><b>ווֹרדל בעברית</b><div class="desc">ניחוש מילה בת 5 אותיות ב-6 ניסיונות; האותיות נצבעות ירוק / צהוב / אפור לפי הדיוק.</div></td>
-        <td>מבוא לאפליקציה; ממשק משתמש; טיפול באירועים; משאבי האפליקציה</td>
-        <td class="core">Activity ומעגל החיים עם Log בכל שלב; ConstraintLayout; לוח 6×5 של TextViews שנבנה בקוד; מקלדת עברית על המסך (מאזינים ב-4 הדרכים: XML, פעילות מממשת, מחלקה פנימית, אנונימית); strings / colors / dimens / drawables; שמירת הלוח ב-onSaveInstanceState</td>
+        <td><b>ווֹרדל בעברית</b></td>
+        <td class="about">מנחשים מילה בת 5 אותיות ב-6 ניסיונות; אחרי כל ניחוש האותיות נצבעות לפי הדיוק.</td>
+        <td class="topics-col">מבוא לאפליקציה; ממשק משתמש; טיפול באירועים; משאבי האפליקציה</td>
         <td><span class="status done">מוכן</span><div class="date">11.10.2026</div><div class="links"><a class="btn" href="unit-02-hebrew-wordle/index.html">📖 המדריך</a> <a class="btn ghost" href="https://github.com/porteno12/se-android-lessons/tree/main/unit-02-hebrew-wordle/app" target="_blank" rel="noopener">📂 הקוד</a></div></td>
       </tr>
       <tr class="planned">
         <td class="num">3</td>
-        <td><b>מי רוצה להיות מיליונר</b><div class="desc">סולם של 15 שאלות, 3 עזרים (50:50, שאלת הקהל, טלפון לחבר), מסך פתיחה, שאלה וסיכום, שיתוף התוצאה.</div></td>
-        <td>Intents</td>
-        <td class="core">מספר Activities; Intent מפורש עם Bundle; startActivityForResult לבחירת עזר; Intent מרומז לשיתוף; מסנני Intent; מחסנית המסכים</td>
+        <td><b>מי רוצה להיות מיליונר</b></td>
+        <td class="about">15 שאלות בסולם עולה, עם שלושה גלגלי הצלה.</td>
+        <td class="topics-col">Intents</td>
         <td><span class="status planned">מתוכנן</span><div class="links"></div></td>
       </tr>
       <tr class="planned">
         <td class="num">4</td>
-        <td><b>ארבע בשורה נגד המחשב</b><div class="desc">שלוש רמות קושי; ברמה הקשה המחשב לא מפסיד.</div></td>
-        <td>תפריטים, תיבות דו-שיח, הודעות</td>
-        <td class="core">Options Menu לבחירת רמה; AlertDialog מותאם להזנת שמות; Toast ו-Snackbar למשוב; Notification &quot;תורך&quot;; אלגוריתם Minimax</td>
+        <td><b>ארבע בשורה נגד המחשב</b></td>
+        <td class="about">ארבע בשורה מול המחשב, בשלוש רמות קושי.</td>
+        <td class="topics-col">תפריטים, תיבות דו-שיח, הודעות</td>
         <td><span class="status planned">מתוכנן</span><div class="links"></div></td>
       </tr>
       <tr class="planned">
         <td class="num">5</td>
-        <td><b>שולחן שיאים</b><div class="desc">מודול רוחבי שמתווסף לכל משחק: הגדרות, יומן משחקים ושיאים לכל שחקן.</div></td>
-        <td>אחסון נתונים</td>
-        <td class="core">SharedPreferences להגדרות; קובץ פנימי ליומן; SQLite עם SQLiteOpenHelper; CRUD מלא; שאילתות ORDER BY ו-WHERE</td>
+        <td><b>שולחן שיאים</b></td>
+        <td class="about">הגדרות, יומן משחקים ושיאים לכל שחקן, שמתווספים למשחקים הקודמים.</td>
+        <td class="topics-col">אחסון נתונים</td>
         <td><span class="status planned">מתוכנן</span><div class="links"></div></td>
       </tr>
       <tr class="embedded">
         <td class="num">6</td>
-        <td><b>תכנון וניתוח אפליקציות</b><div class="desc">לא אפליקציה. הוסר מהמדריכים: המדריכים מתמקדים בבניית הקוד בשלבים.</div></td>
-        <td>תכנון וניתוח אפליקציות</td>
-        <td class="core">UML של המחלקות; שרטוט מסכים; תרשים זרימה; שרטוט ישויות</td>
+        <td><b>תכנון וניתוח אפליקציות</b></td>
+        <td class="about">לא אפליקציה. לא נכלל במדריכים.</td>
+        <td class="topics-col">תכנון וניתוח אפליקציות</td>
         <td><span class="status embedded">לא במדריכים</span><div class="links"></div></td>
       </tr>
       <tr class="planned">
         <td class="num">7</td>
-        <td><b>מי בתמונה</b><div class="desc">המשחק שולף תמונות מהגלריה ומבקש לנחש מתי ואיפה צולמו, או בונה מהן לוח זיכרון. אפליקציה שנייה קוראת את שולחן השיאים.</div></td>
-        <td>ספקי תוכן</td>
-        <td class="core">ContentResolver מול MediaStore; Cursor; הרשאות קריאה; ContentProvider משלנו שחושף את ה-SQLite מיחידה 5; URI ו-UriMatcher</td>
+        <td><b>מי בתמונה</b></td>
+        <td class="about">משחק ניחוש על התמונות שבגלריה: מתי ואיפה הן צולמו.</td>
+        <td class="topics-col">ספקי תוכן</td>
         <td><span class="status planned">מתוכנן</span><div class="links"></div></td>
       </tr>
       <tr class="planned">
         <td class="num">8</td>
-        <td><b>סנייק</b><div class="desc">הנחש גדל, המהירות עולה, מכשולים מתווספים.</div></td>
-        <td>תהליכים והליכונים</td>
-        <td class="core">לולאת משחק ב-Thread; Handler ו-postDelayed; Runnable; איסור נגיעה ב-UI מ-Thread; סנכרון; ExecutorService; השוואה ל-AsyncTask</td>
+        <td><b>סנייק</b></td>
+        <td class="about">הנחש גדל, המהירות עולה, ומכשולים מתווספים.</td>
+        <td class="topics-col">תהליכים והליכונים</td>
         <td><span class="status planned">מתוכנן</span><div class="links"></div></td>
       </tr>
       <tr class="planned">
         <td class="num">9</td>
-        <td><b>שעון ויכוחים</b><div class="desc">לכל דובר זמן מוגבל; השעון ממשיך לרוץ ברקע עם Notification חיה וצליל כשהזמן נגמר.</div></td>
-        <td>שירותים</td>
-        <td class="core">Service; Foreground Service עם Notification מתעדכנת; Bound Service; IntentService; תזמון עם AlarmManager</td>
+        <td><b>שעון ויכוחים</b></td>
+        <td class="about">שעון לדיון בכיתה: לכל דובר זמן מוגבל, השעון ממשיך ברקע ומתריע כשהזמן נגמר.</td>
+        <td class="topics-col">שירותים</td>
         <td><span class="status planned">מתוכנן</span><div class="links"></div></td>
       </tr>
       <tr class="planned">
         <td class="num">10</td>
-        <td><b>מצב ריכוז</b><div class="desc">אתגר &quot;אל תיגע בטלפון&quot; בזמן לימוד; שיחה או SMS נכנסים נרשמים כהפרעה ומורידים ניקוד; Widget מציג רצף ימים.</div></td>
-        <td>BroadcastReceiver, הרשאות, App Widgets; טלפוניה</td>
-        <td class="core">BroadcastReceiver ברישום סטטי ודינמי; הרשאות בזמן ריצה; TelephonyManager ו-PhoneStateListener; קריאת SMS; App Widget</td>
+        <td><b>מצב ריכוז</b></td>
+        <td class="about">אתגר "לא נוגעים בטלפון" בזמן לימוד; שיחות והודעות נכנסות מורידות ניקוד.</td>
+        <td class="topics-col">BroadcastReceiver, הרשאות, App Widgets; טלפוניה</td>
         <td><span class="status planned">מתוכנן</span><div class="links"></div></td>
       </tr>
       <tr class="planned">
         <td class="num">11</td>
-        <td><b>ציד אוצרות</b><div class="desc">אוצרות פזורים במפה; השחקן מנווט אליהם עם מצפן, מקבל התראה בהגעה ומצלם הוכחה.</div></td>
-        <td>מולטימדיה, מצלמה, חיישנים, GPS, מפות</td>
-        <td class="core">SensorManager (מצפן); GPS ו-Geofence; Google Maps עם סמנים; מצלמה; MediaPlayer לצלילים</td>
+        <td><b>ציד אוצרות</b></td>
+        <td class="about">מנווטים עם מצפן ו-GPS לאוצרות שעל המפה, ומצלמים הוכחה.</td>
+        <td class="topics-col">מולטימדיה, מצלמה, חיישנים, GPS, מפות</td>
         <td><span class="status planned">מתוכנן</span><div class="links"></div></td>
       </tr>
       <tr class="planned">
         <td class="num">12</td>
-        <td><b>פלאפי בירד</b><div class="desc">ציפור, צינורות, ניקוד.</div></td>
-        <td>גרפיקה ואנימציה</td>
-        <td class="core">Custom View ו-Canvas; SurfaceView ו-SurfaceHolder; זיהוי התנגשויות; AnimationDrawable; ObjectAnimator</td>
+        <td><b>פלאפי בירד</b></td>
+        <td class="about">הציפור עפה בין צינורות; כל צינור שעוברים הוא נקודה.</td>
+        <td class="topics-col">גרפיקה ואנימציה</td>
         <td><span class="status planned">מתוכנן</span><div class="links"></div></td>
       </tr>
       <tr class="planned">
         <td class="num">13</td>
-        <td><b>עבודת גמר</b><div class="desc">דף הנחיות.</div></td>
-        <td>עבודת גמר</td>
-        <td class="core">רמות, לוח זמנים, תיק פרויקט</td>
+        <td><b>עבודת גמר</b></td>
+        <td class="about">דף הנחיות לעבודת הגמר.</td>
+        <td class="topics-col">עבודת גמר</td>
         <td><span class="status planned">מתוכנן</span><div class="links"></div></td>
       </tr>
     </tbody>

@@ -1,14 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!--
     המקלדת העברית. כל מקש הוא Button עם style="@style/KeyButton", והסגנון מכיל
-    android:onClick="onLetterKey" - כלומר כל 27 המקשים קוראים לאותה מתודה בפעילות
+    android:onClick="onLetterKey": כל המקשים קוראים לאותה מתודה בפעילות
     (דרך 1 לטיפול באירועים: מאזין ב-XML).
-    הסידור הוא לפי המקלדת הפיזית, מימין לשמאל, כי supportsRtl="true".
+    layoutDirection="ltr": המקשים מסודרים משמאל לימין, בדיוק כמו במקלדת הפיזית.
 -->
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/keyboard"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:layoutDirection="ltr"
     android:orientation="vertical">
 
     <LinearLayout
@@ -56,7 +57,7 @@
         <Button style="@style/KeyButton" android:text="ץ" />
     </LinearLayout>
 
-    <!-- שני המקשים האלה לא מקבלים onClick ב-XML בכוונה: הם מחוברים מהקוד (דרכים 2 ו-3) -->
+    <!-- מחק ובדיקה לא מקבלים onClick ב-XML בכוונה: הם מחוברים מהקוד (דרכים 2 ו-3) -->
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

@@ -1,15 +1,13 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-    <style name="Theme.App" parent="Theme.Material3.DayNight.NoActionBar">
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <!-- Base application theme. -->
+    <style name="Base.Theme.HebrewWordle" parent="Theme.Material3.Light.NoActionBar">
         <item name="colorPrimary">@color/primary</item>
-        <item name="colorOnPrimary">@color/on_primary</item>
-        <item name="colorSecondary">@color/secondary</item>
-        <item name="colorOnSecondary">@color/on_secondary</item>
-        <item name="android:statusBarColor">@color/primary</item>
         <item name="android:windowBackground">@color/screen_bg</item>
     </style>
 
-    <!-- מקש אות במקלדת: כל 27 המקשים חולקים את הסגנון הזה -->
+    <style name="Theme.HebrewWordle" parent="Base.Theme.HebrewWordle" />
+
+    <!-- מקש אות במקלדת: כל המקשים חולקים את הסגנון הזה -->
     <style name="KeyButton" parent="Widget.Material3.Button.TextButton">
         <item name="android:layout_width">0dp</item>
         <item name="android:layout_height">@dimen/key_height</item>

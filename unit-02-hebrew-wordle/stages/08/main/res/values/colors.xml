@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="black">#FF000000</color>
+    <color name="white">#FFFFFFFF</color>
+
+    <color name="primary">#538D4E</color>      <!-- ירוק: הכותרת והכפתורים -->
+    <color name="ink">#1A1A2E</color>          <!-- צבע הטקסט -->
+    <color name="screen_bg">#F7F7F7</color>    <!-- רקע המסך -->
+
+    <!-- אריח ריק -->
+    <color name="tile_empty">#FFFFFF</color>
+    <color name="tile_border">#9AA0A6</color>
+    <color name="tile_text">#1A1A2E</color>
+
+    <!-- אריח אחרי בדיקה -->
+    <color name="tile_absent">#787C7E</color>
+    <color name="tile_present">#C9B458</color>
+    <color name="tile_correct">#6AAA64</color>
+    <color name="tile_text_light">#FFFFFF</color>
+
+    <color name="key_bg">#D3D6DA</color>       <!-- מקש במקלדת -->
+</resources>

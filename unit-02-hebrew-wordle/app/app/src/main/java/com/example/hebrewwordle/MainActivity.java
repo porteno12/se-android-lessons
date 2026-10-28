@@ -1,16 +1,22 @@
 package com.example.hebrewwordle;
 
 import android.content.res.Resources;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.util.Log;
+import android.util.TypedValue;
 import android.view.Gravity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
+import androidx.core.graphics.Insets;
+import androidx.core.view.ViewCompat;
+import androidx.core.view.WindowInsetsCompat;
 
 import com.example.hebrewwordle.model.Guess;
 import com.example.hebrewwordle.model.LetterState;
@@ -22,120 +28,103 @@ import java.util.List;
 import java.util.Map;
 import java.util.Random;
 
-/**
- * המסך היחיד של המשחק. הפעילות אחראית על שלושה דברים בלבד:
- * 1. לבנות את הלוח (30 אריחים) ולצבוע אותו לפי המצב של המשחק.
- * 2. לקבל לחיצות מהמקלדת ולהעביר אותן ל-WordleGame.
- * 3. לשמור ולשחזר את המצב כשהמסך מסתובב.
- * חוקי המשחק עצמם נמצאים ב-WordleGame, לא כאן.
- *
- * הפעילות "מממשת OnClickListener" - זו דרך 2 לטיפול באירועים (ראו onClick למטה).
- */
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
-    //region step3-lifecycle
     private static final String TAG = "LIFECYCLE";
-    //endregion
 
-    //region step10-keys
     // מפתחות ל-Bundle של שמירת המצב
     private static final String KEY_SECRET = "secret";
     private static final String KEY_GUESSES = "guesses";
     private static final String KEY_CURRENT = "current";
-    //endregion
 
-    //region step5-fields
-    private TextView[][] tiles;                 // [שורה][עמודה] - 6×5
+    private static final int ROWS = WordleGame.MAX_GUESSES;   // ניסיונות
+    private static final int COLS = WordleGame.WORD_LENGTH;   // אותיות במילה
+
+    private TextView[][] tiles;                 // [שורה][עמודה]
     private LinearLayout boardContainer;
     private TextView txtMessage;
-    //endregion
 
-    //region step9-fields
     private WordleGame game;
+    private final Map<Character, Button> keyByLetter = new HashMap<>();   // אות -> המקש שלה
     private final StringBuilder current = new StringBuilder();   // האותיות שהוקלדו בשורה הנוכחית
-    private final Map<Character, Button> keyByLetter = new HashMap<>();
-    //endregion
 
-    //region step3-oncreate
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);      // תמיד קוראים ל-super קודם
+        super.onCreate(savedInstanceState);
+        EdgeToEdge.enable(this);
         setContentView(R.layout.activity_main);
-        Log.d(TAG, "onCreate - המסך נבנה. savedInstanceState=" + (savedInstanceState == null ? "null" : "יש מצב שמור"));
+        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
+            Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
+            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
+            return insets;
+        });
+        Log.d(TAG, "onCreate - הפעילות נוצרת. savedInstanceState=" + (savedInstanceState == null ? "null" : "יש מצב שמור"));
 
         txtMessage = findViewById(R.id.txtMessage);
         boardContainer = findViewById(R.id.boardContainer);
-        buildBoard();                            // שלב 5
-        collectKeyboardButtons();                // שלב 9
-        wireButtons();                           // שלבים 8-9
+        buildBoard();
+        collectKeyboardButtons();
+        wireButtons();
 
         if (savedInstanceState == null) {
             startNewGame();                      // הפעלה רגילה
         } else {
-            restoreGame(savedInstanceState);     // שלב 10: חזרה מסיבוב מסך
+            restoreGame(savedInstanceState);     // חזרה מסיבוב מסך
         }
     }
-    //endregion
 
-    //region step3-callbacks
     @Override
     protected void onStart() {
         super.onStart();
-        Log.d(TAG, "onStart - המסך נהיה גלוי");
+        Log.d(TAG, "onStart - המסך מוצג");
     }
 
     @Override
     protected void onResume() {
         super.onResume();
-        Log.d(TAG, "onResume - המסך בחזית ומגיב ללחיצות");
+        Log.d(TAG, "onResume - אפשר ללחוץ על המסך");
     }
 
     @Override
     protected void onPause() {
         super.onPause();
-        Log.d(TAG, "onPause - משהו כיסה אותי, אני מאבד פוקוס");
+        Log.d(TAG, "onPause - המסך מפסיק להגיב ללחיצות");
     }
 
     @Override
     protected void onStop() {
         super.onStop();
-        Log.d(TAG, "onStop - אני כבר לא גלוי בכלל");
+        Log.d(TAG, "onStop - המסך כבר לא מוצג");
     }
 
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        Log.d(TAG, "onDestroy - הפעילות נהרסת (סיבוב מסך או סגירה)");
+        Log.d(TAG, "onDestroy - הפעילות נהרסת");
     }
-    //endregion
 
-    //region step5-board
-    /**
-     * בונה 6 שורות של 5 אריחים בקוד. כל אריח הוא TextView רגיל עם רקע מ-drawable.
-     * למה בקוד ולא ב-XML? כי 30 רכיבים זהים ב-XML הם 30 הזדמנויות לטעות העתקה,
-     * ואילו לולאה כפולה היא 8 שורות.
-     */
+    /** בונה ROWS שורות של COLS אריחים. כל אריח הוא TextView עם רקע מ-drawable. */
     private void buildBoard() {
         Resources res = getResources();
         int size = res.getDimensionPixelSize(R.dimen.tile_size);
         int margin = res.getDimensionPixelSize(R.dimen.tile_margin);
 
-        tiles = new TextView[WordleGame.MAX_GUESSES][WordleGame.WORD_LENGTH];
+        tiles = new TextView[ROWS][COLS];
         boardContainer.removeAllViews();
 
-        for (int row = 0; row < WordleGame.MAX_GUESSES; row++) {
+        for (int row = 0; row < ROWS; row++) {
             LinearLayout rowLayout = new LinearLayout(this);
             rowLayout.setOrientation(LinearLayout.HORIZONTAL);
             rowLayout.setGravity(Gravity.CENTER);
 
-            for (int col = 0; col < WordleGame.WORD_LENGTH; col++) {
+            for (int col = 0; col < COLS; col++) {
                 TextView tile = new TextView(this);
                 LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(size, size);
                 lp.setMargins(margin, margin, margin, margin);
                 tile.setLayoutParams(lp);
                 tile.setGravity(Gravity.CENTER);
-                tile.setTextSize(android.util.TypedValue.COMPLEX_UNIT_PX, res.getDimension(R.dimen.tile_text));
-                tile.setTypeface(null, android.graphics.Typeface.BOLD);
+                tile.setTextSize(TypedValue.COMPLEX_UNIT_PX, res.getDimension(R.dimen.tile_text));
+                tile.setTypeface(null, Typeface.BOLD);
                 paintTile(tile, LetterState.EMPTY);
 
                 tiles[row][col] = tile;
@@ -158,26 +147,22 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         tile.setBackground(ContextCompat.getDrawable(this, bg));
         tile.setTextColor(ContextCompat.getColor(this, textColor));
     }
-    //endregion
 
-    //region step7-letterkey
     /**
-     * דרך 1: מאזין ב-XML. כל 27 מקשי האותיות מצהירים android:onClick="onLetterKey"
+     * דרך 1: מאזין ב-XML. כל מקשי האותיות מצהירים android:onClick="onLetterKey"
      * (דרך הסגנון KeyButton), ולכן אנדרואיד מחפש כאן מתודה public בשם הזה
      * שמקבלת View אחד. הטקסט של הכפתור הוא האות עצמה.
      */
     public void onLetterKey(View view) {
         if (game.isOver()) return;
-        if (current.length() >= WordleGame.WORD_LENGTH) return;
+        if (current.length() >= COLS) return;
 
         char letter = ((Button) view).getText().charAt(0);
         current.append(letter);
-        int row = game.getGuessCount();
+        int row = game.getGuessCount();          // השורה של הניחוש הנוכחי
         tiles[row][current.length() - 1].setText(String.valueOf(letter));
     }
-    //endregion
 
-    //region step8-delete
     /**
      * דרך 2: הפעילות עצמה מממשת OnClickListener. כפתור "מחק" מקבל this כמאזין
      * (ראו wireButtons), ולכן הלחיצה מגיעה לכאן. כשיש כמה כפתורים עם אותו מאזין,
@@ -192,9 +177,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             tiles[row][current.length()].setText("");
         }
     }
-    //endregion
 
-    //region step8-check
     /**
      * דרך 3: מחלקה פנימית. למחלקה פנימית (לא static) יש גישה לכל השדות של הפעילות
      * - game, tiles, current - בלי להעביר אותם כפרמטרים.
@@ -203,7 +186,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         @Override
         public void onClick(View view) {
             if (game.isOver()) return;
-            if (current.length() < WordleGame.WORD_LENGTH) {
+            if (current.length() < COLS) {
                 txtMessage.setText(R.string.msg_too_short);
                 return;
             }
@@ -214,10 +197,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             updateMessage();
         }
     }
-    //endregion
 
-    //region step9-wire
-    /** מחבר את שלושת הכפתורים שלא מקבלים onClick ב-XML, כל אחד בדרך אחרת. */
+    /** מחבר את הכפתורים שלא מקבלים onClick ב-XML, כל אחד בדרך אחרת. */
     private void wireButtons() {
         findViewById(R.id.btnDelete).setOnClickListener(this);                 // דרך 2
         findViewById(R.id.btnCheck).setOnClickListener(new CheckListener());   // דרך 3
@@ -231,26 +212,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         });
     }
 
-    /** אוסף את כל מקשי האותיות למפה, כדי שנוכל לצבוע מקש לפי האות שלו. */
-    private void collectKeyboardButtons() {
-        keyByLetter.clear();
-        LinearLayout keyboard = findViewById(R.id.keyboard);
-        for (int r = 0; r < keyboard.getChildCount(); r++) {
-            View rowView = keyboard.getChildAt(r);
-            if (!(rowView instanceof LinearLayout)) continue;
-            LinearLayout row = (LinearLayout) rowView;
-            for (int i = 0; i < row.getChildCount(); i++) {
-                View child = row.getChildAt(i);
-                if (child instanceof Button && child.getId() == View.NO_ID) {
-                    Button key = (Button) child;
-                    keyByLetter.put(key.getText().charAt(0), key);
-                }
-            }
-        }
-    }
-    //endregion
-
-    //region step9-game
     private void startNewGame() {
         String[] words = getResources().getStringArray(R.array.words);
         String secret = words[new Random().nextInt(words.length)];
@@ -269,6 +230,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             }
         }
         for (Button key : keyByLetter.values()) {
+            key.setTag(null);
             key.setBackgroundTintList(ContextCompat.getColorStateList(this, R.color.key_bg));
             key.setTextColor(ContextCompat.getColor(this, R.color.ink));
         }
@@ -277,10 +239,35 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     /** מציג ניחוש שנבדק בשורה נתונה: אותיות, צבעי אריחים וצבעי מקשים. */
     private void showGuess(int row, Guess guess) {
         String word = guess.getWord();
-        for (int col = 0; col < WordleGame.WORD_LENGTH; col++) {
+        for (int col = 0; col < COLS; col++) {
             tiles[row][col].setText(String.valueOf(word.charAt(col)));
             paintTile(tiles[row][col], guess.getState(col));
             paintKey(word.charAt(col), guess.getState(col));
+        }
+    }
+
+    private void updateMessage() {
+        if (game.isWon()) {
+            txtMessage.setText(getString(R.string.msg_win, game.getGuessCount()));
+        } else if (game.isLost()) {
+            txtMessage.setText(getString(R.string.msg_lose, game.getSecret()));
+        } else {
+            txtMessage.setText(getString(R.string.msg_guesses_left, ROWS - game.getGuessCount()));
+        }
+    }
+
+    /** אוסף את כל מקשי האותיות למפה, כדי שנוכל לצבוע מקש לפי האות שלו. */
+    private void collectKeyboardButtons() {
+        keyByLetter.clear();
+        LinearLayout keyboard = findViewById(R.id.keyboard);
+        for (int r = 0; r < keyboard.getChildCount(); r++) {
+            LinearLayout row = (LinearLayout) keyboard.getChildAt(r);
+            for (int i = 0; i < row.getChildCount(); i++) {
+                Button key = (Button) row.getChildAt(i);
+                if (key.getId() == View.NO_ID) {          // למחק ולבדיקה יש id, לאותיות אין
+                    keyByLetter.put(key.getText().charAt(0), key);
+                }
+            }
         }
     }
 
@@ -302,21 +289,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         key.setTextColor(ContextCompat.getColor(this, R.color.tile_text_light));
     }
 
-    private void updateMessage() {
-        if (game.isWon()) {
-            txtMessage.setText(getString(R.string.msg_win, game.getGuessCount()));
-        } else if (game.isLost()) {
-            txtMessage.setText(getString(R.string.msg_lose, game.getSecret()));
-        } else {
-            txtMessage.setText(getString(R.string.msg_guesses_left,
-                    WordleGame.MAX_GUESSES - game.getGuessCount()));
-        }
-    }
-    //endregion
-
-    //region step10-state
     /**
-     * נקרא לפני שהפעילות נהרסת בגלל שינוי תצורה (סיבוב מסך, שינוי שפה...).
+     * נקרא לפני שהפעילות נהרסת בגלל סיבוב מסך.
      * שומרים רק את המינימום שממנו אפשר לשחזר הכול: המילה הסודית, רשימת הניחושים
      * והאותיות שהוקלדו בשורה הנוכחית. את הצבעים לא שומרים - מחשבים אותם מחדש.
      */
@@ -348,11 +322,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         current.setLength(0);
         current.append(typed);
         int row = game.getGuessCount();
-        for (int col = 0; col < typed.length() && row < WordleGame.MAX_GUESSES; col++) {
+        for (int col = 0; col < typed.length() && row < ROWS; col++) {
             tiles[row][col].setText(String.valueOf(typed.charAt(col)));
         }
         updateMessage();
         Log.d(TAG, "restoreGame - שוחזרו " + (words == null ? 0 : words.size()) + " ניחושים");
     }
-    //endregion
 }

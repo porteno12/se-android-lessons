@@ -1,0 +1,11 @@
+<resources>
+    <string name="app_name">ווֹרדל בעברית</string>
+    <string name="title">ווֹרדל בעברית</string>
+    <string name="msg_start">נחשו מילה בת 5 אותיות. יש לכם 6 ניסיונות.</string>
+    <string name="key_delete">מחק</string>
+    <string name="key_check">בדיקה</string>
+    <string name="msg_too_short">צריך 5 אותיות לפני הבדיקה</string>
+    <string name="msg_win">כל הכבוד! ניחשתם ב-%1$d ניסיונות</string>
+    <string name="msg_lose">נגמרו הניסיונות. המילה הייתה: %1$s</string>
+    <string name="msg_guesses_left">נשארו %1$d ניסיונות</string>
+</resources>

@@ -1,0 +1,9 @@
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <!-- Base application theme. -->
+    <style name="Base.Theme.HebrewWordle" parent="Theme.Material3.Light.NoActionBar">
+        <item name="colorPrimary">@color/primary</item>
+        <item name="android:windowBackground">@color/screen_bg</item>
+    </style>
+
+    <style name="Theme.HebrewWordle" parent="Base.Theme.HebrewWordle" />
+</resources>

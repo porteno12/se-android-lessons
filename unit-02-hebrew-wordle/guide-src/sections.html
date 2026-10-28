@@ -1,8 +1,21 @@
+<style>
+  .codecard.diff pre code .ln{display:inline-block;min-width:100%;}
+  .ln.add{background:rgba(125,224,125,.24);box-shadow:inset 4px 0 0 var(--accent-2);}
+  .ln.del{background:rgba(255,99,99,.18);text-decoration:line-through;opacity:.8;box-shadow:inset 4px 0 0 #ff6b6b;}
+  .ln.ctx{opacity:.55;}
+  .ln.gap{color:var(--text-dim);}
+  .codecard-file small{font-weight:normal;opacity:.75;}
+  .snapshot{border:1px dashed var(--line);border-radius:12px;padding:4px 16px 6px;margin:26px 0 18px;}
+  .snapshot h3{margin-top:10px;}
+  .legend{direction:ltr;text-align:left;font-family:monospace;white-space:pre;border-radius:10px;padding:10px 14px;background:var(--code-bg);margin:10px 0;overflow-x:auto;}
+  .legend .ln{display:block;}
+</style>
+
 <!-- ================= INTRO ================= -->
 <section id="sec-intro" class="visible">
   <h1>ברוכים הבאים ליחידה 2: ווֹרדל בעברית!</h1>
 
-  <div class="goal">🎯 מטרה: לבנות את האפליקציה האמיתית הראשונה שלכם באנדרואיד – משחק ניחוש מילים שלם – וללמוד דרכה מה זה Activity, איך בונים מסך, איך מגיבים ללחיצות ואיך לא מאבדים את המשחק כשהטלפון מסתובב.</div>
+  <div class="goal">🎯 מטרה: לבנות את האפליקציה האמיתית הראשונה שלכם באנדרואיד – משחק ניחוש מילים שלם – וללמוד תוך כדי מה זה Activity, איך בונים מסך, איך מגיבים ללחיצות ואיך לא מאבדים את המשחק כשהטלפון מסתובב.</div>
 
   <p>
     ווֹרדל הוא משחק פשוט להסבר וקשה להפסקה: צריך לנחש מילה בת 5 אותיות ב-6 ניסיונות. אחרי כל ניחוש
@@ -13,30 +26,33 @@
 
   <figure class="shot">
     <img src="img/screen-start.png" alt="מסך הפתיחה של המשחק">
-    <img src="img/screen-win.png" alt="המשחק אחרי ניצחון בשני ניחושים">
-    <figcaption>המשחק הגמור באמולטור: בהתחלה, ואחרי ניחוש שגוי אחד וניחוש נכון. שימו לב שהמקשים נצבעים גם הם.</figcaption>
+    <figcaption>המשחק הגמור: כותרת, הודעה, לוח של 6 שורות × 5 אריחים, כפתור "משחק חדש" ומקלדת עברית.</figcaption>
   </figure>
 
   <h2>מה לומדים ביחידה הזאת (לפי תוכנית הלימודים)</h2>
   <table class="schema">
     <tr><th>נושא בתכ"ל</th><th>איפה זה מופיע במשחק</th><th>שלבים</th></tr>
-    <tr><td>מבוא לאפליקציה: Activity, מבנה הפרויקט, קובץ ההגדרות, מעגל חיי הפעילות</td><td>המסך היחיד של המשחק הוא Activity. נראה אותו נולד, נעצר, נהרס ונולד מחדש</td><td>1, 2</td></tr>
-    <tr><td>ממשק משתמש: רכיבים ותבניות XML מקוד, סידור בתבניות, שמירת מצב בשינוי תצורה</td><td>שלד המסך ב-ConstraintLayout, לוח של 30 אריחים שנבנה בלולאה, והלוח שורד סיבוב</td><td>3, 4, 9</td></tr>
-    <tr><td>טיפול באירועים: מאזינים ב-XML, פעילות מממשת, מחלקה פנימית, מאזין בשורה</td><td>ארבע דרכים לטפל בלחיצה – כל אחת על כפתור אחר, בכוונה</td><td>6, 7, 8</td></tr>
-    <tr><td>משאבי האפליקציה: מבנה תיקיית המשאבים, יצירה וארגון</td><td>strings, colors, dimens, drawables, ורשימת המילים כמשאב</td><td>5</td></tr>
+    <tr><td>מבוא לאפליקציה: Activity, מבנה הפרויקט, מעגל חיי הפעילות</td><td>המסך היחיד של המשחק הוא Activity. נראה מתי אנדרואיד יוצר אותו, מציג אותו והורס אותו</td><td>1, 2</td></tr>
+    <tr><td>ממשק משתמש: תבניות XML, רכיבים מקוד, שמירת מצב בשינוי תצורה</td><td>המסך ב-LinearLayout, לוח של 30 אריחים שנבנה בלולאה, והלוח שורד סיבוב</td><td>3, 4, 10</td></tr>
+    <tr><td>משאבי האפליקציה: מבנה תיקיית המשאבים, יצירה וארגון</td><td>טקסטים, צבעים, מידות, צורות ורשימת המילים – כל משאב נוסף בשלב שבו המשחק צריך אותו</td><td>3, 4, 5, 8</td></tr>
+    <tr><td>טיפול באירועים: מאזין ב-XML, פעילות מממשת, מחלקה פנימית, מאזין אנונימי</td><td>ארבע דרכים לטפל בלחיצה – כל אחת על כפתור אחר, בכוונה</td><td>5, 6, 8, 9</td></tr>
   </table>
 
   <h2>איך עובדים עם המדריך</h2>
   <ul>
-    <li>כל שלב מתחיל ב-<b>"למה ככה?"</b> – ההחלטה שמאחורי הקוד – ורק אחר כך מגיע הקוד. קראו את ההסבר לפני שאתם מעתיקים.</li>
-    <li>בכל כרטיס קוד יש כפתור <b>הצג קוד</b> ו<b>העתק קוד</b>. הקוד במדריך נלקח ישירות מהפרויקט הבנוי, אז הוא תמיד מתקמפל.</li>
+    <li>יש פרויקט <b>אחד</b> שגדל משלב לשלב. כל שלב מוסיף למשחק חלק אחד שרואים על המסך, ואיתו בדיוק מה שהחלק הזה צריך: קוד, טקסטים, צבעים. לא מכינים שום דבר מראש.</li>
+    <li>בסוף כל שלב האפליקציה מתקמפלת ורצה – כל שלב נבדק ככה לפני שנכתב במדריך.</li>
+    <li>כרטיס <b>"מה מוסיפים"</b> מראה את הקובץ שלכם עם השורות החדשות מודגשות בירוק, ומסביבן כמה שורות שכבר קיימות, כדי שתדעו בדיוק <b>איפה</b> להוסיף:</li>
+  </ul>
+  <div class="legend"><span class="ln ctx">        buildBoard();         &lt;- שורה שכבר קיימת אצלכם (חיוורת)</span><span class="ln add">        wireButtons();        &lt;- שורה חדשה: מוסיפים אותה</span><span class="ln del">        int row = 0;          &lt;- שורה מחוקה: מוחקים או משנים אותה</span><span class="ln gap">    ⋮                         &lt;- כאן יש קוד שלא משתנה</span></div>
+  <ul>
+    <li>בסוף כל שלב יש <b>"הקוד המלא בסוף השלב"</b>: הקבצים כמו שהם צריכים להיראות עכשיו. השוו לשלכם. אם משהו לא עובד – משם אפשר להעתיק.</li>
     <li>כל שלב נגמר ב-<b>תחנת אישור מורה</b>: רשימת בדיקה ושאלת הבנה. לא ממשיכים לשלב הבא בלי לעבור אותה.</li>
-    <li>את הפרויקט המלא אפשר להוריד מהקישור <b>"קוד המקור של האפליקציה"</b> למעלה – אבל המטרה היא לכתוב בעצמכם ולהשוות, לא להוריד ולהריץ.</li>
   </ul>
 
   <div class="infobox">
     <h3>⏱️ כמה זמן זה לוקח?</h3>
-    <p style="margin:0;">כ-7.5 שעות עבודה בכיתה ובמעבדה, מחולקות ל-9 שלבים. ליד כל שלב וכל תת-שלב יש הערכת זמן. אם אתם מהירים – הרחבות מופיעות בסוף כל שלב.</p>
+    <p style="margin:0;">כ-7 שעות עבודה בכיתה ובמעבדה, מחולקות ל-10 שלבים. ליד כל שלב וכל תת-שלב יש הערכת זמן.</p>
   </div>
 </section>
 
@@ -57,6 +73,12 @@
     את כל הקוד נכתוב בשלושה מקומות: <code>MainActivity.java</code>, התיקייה <code>res/layout</code> (המסכים) והתיקייה <code>res/values</code> (טקסטים, צבעים, סגנונות).
     בשאר הקבצים שאנדרואיד סטודיו יצר לא נוגעים.
   </p>
+  <p>
+    ב-<code>MainActivity.java</code> שנוצר יש כבר כמה שורות (<code>EdgeToEdge</code>, <code>setOnApplyWindowInsetsListener</code>). הן דואגות שהמסך שלנו לא יוסתר מתחת לשורת השעון והסוללה.
+    <b>משאירים אותן</b> ומוסיפים אחריהן. אם בגרסה שלכם של אנדרואיד סטודיו הן לא נוצרו – זה בסדר, פשוט ממשיכים בלעדיהן.
+  </p>
+
+{{SNAP:01|main/java/com/example/hebrewwordle/MainActivity.java,main/res/layout/activity_main.xml}}
 
   <div class="checkpoint">
     <span class="cp-label">תחנת אישור מורה</span>
@@ -69,568 +91,582 @@
 
 <!-- ================= STEP 2 ================= -->
 <section id="sec-2">
-  <h1>שלב 2: מעגל חיי הפעילות <span class="timechip total">⏱️ סה"כ כ-50 דק'</span></h1>
+  <h1>שלב 2: מעגל חיי הפעילות <span class="timechip total">⏱️ סה"כ כ-40 דק'</span></h1>
 
-  <div class="goal">🎯 מטרה: לראות במו עיניכם ב-Logcat מתי הפעילות נולדת, נעצרת, נהרסת ונולדת מחדש – ולגלות שסיבוב מסך הורג אותה.</div>
+  <div class="goal">🎯 מטרה: לראות ב-Logcat מתי אנדרואיד יוצר את מסך המשחק, מציג אותו, מסתיר אותו והורס אותו – ולגלות שסיבוב הטלפון בונה את המסך מחדש.</div>
 
   <h2>למה ככה?</h2>
   <p>
-    Activity היא לא תוכנית רגילה עם <code>main</code> שרצה מההתחלה לסוף. היא <b>אובייקט שמערכת ההפעלה מנהלת</b>:
-    המערכת יוצרת אותה, מודיעה לה כשהיא עולה למסך, כשמשהו מכסה אותה, וכשהגיע זמנה למות.
-    כל הודעה כזאת היא מתודה (callback) שאתם יכולים לדרוס. אם לא מבינים את הסדר – כותבים קוד שמתחיל
-    מוזיקה ב-<code>onCreate</code> ולא מכבה אותה אף פעם, או מאבדים את הלוח בכל סיבוב.
+    ב-<code>MainActivity</code> אין <code>main</code>. מי שמפעיל אותה הוא אנדרואיד: בכל פעם שמשהו קורה למסך, הוא קורא לאחת המתודות שלה.
+    כדי שהמשחק שלנו לא ייעלם באמצע, צריך לדעת מתי כל מתודה נקראת. המתודות באות בזוגות:
   </p>
-
-  <div class="flow">
-    <div class="box"><b>onCreate</b><br>המערכת יוצרת את הפעילות. פעם אחת לכל "חיים" שלה</div>
-    <div class="arrow">↓</div>
-    <div class="box"><b>onStart</b><br>המסך נהיה גלוי</div>
-    <div class="arrow">↓</div>
-    <div class="box"><b>onResume</b><br>המסך בחזית ומגיב ללחיצות</div>
-    <div class="arrow">↓<small>המשתמש לחץ Home / הגיעה שיחה / סיבוב מסך</small></div>
-    <div class="box"><b>onPause</b><br>מאבד פוקוס (אולי עדיין גלוי)</div>
-    <div class="arrow">↓</div>
-    <div class="box"><b>onStop</b><br>לא גלוי בכלל. חזרה לאפליקציה: <b>onRestart</b> → <b>onStart</b> → <b>onResume</b></div>
-    <div class="arrow">↓</div>
-    <div class="box end"><b>onDestroy</b><br>סוף. בסיבוב מסך: מיד אחר כך <b>onCreate</b> חדש!</div>
-  </div>
-
-  <h2>א. מוסיפים Log לכל שלב <span class="timechip">⏱️ 20 דק'</span></h2>
+  <table class="schema">
+    <tr><th>נכנסים</th><th>יוצאים</th><th>מה זה אומר במשחק</th></tr>
+    <tr><td><code>onCreate</code></td><td><code>onDestroy</code></td><td>הפעילות נוצרת / נהרסת. ב-<code>onCreate</code> בונים את המסך: הלוח, המקלדת, המילה הסודית</td></tr>
+    <tr><td><code>onStart</code></td><td><code>onStop</code></td><td>המשחק מוצג על המסך / כבר לא מוצג</td></tr>
+    <tr><td><code>onResume</code></td><td><code>onPause</code></td><td>אפשר ללחוץ על המקשים / המקשים מפסיקים להגיב</td></tr>
+  </table>
   <p>
-    ב-<code>MainActivity</code> דורסים את חמש המתודות. בכל אחת קוראים קודם ל-<code>super</code> (חובה – אחרת המערכת זורקת חריגה), ואז כותבים ל-Log עם תגית קבועה:
+    כשהמשחק עולה, אנדרואיד קורא להן מלמעלה למטה: <code>onCreate</code> ← <code>onStart</code> ← <code>onResume</code>.
+    כשהמשחק יורד מהמסך – בסדר ההפוך: <code>onPause</code> ← <code>onStop</code> ← <code>onDestroy</code>.
   </p>
-{{CODE:app/src/main/java/com/example/hebrewwordle/MainActivity.java|MainActivity.java – התגית|step3-lifecycle}}
-{{CODE:app/src/main/java/com/example/hebrewwordle/MainActivity.java|MainActivity.java – חמשת ה-callbacks|step3-callbacks}}
-  <p class="note-small">
-    הגרסה המלאה של <code>onCreate</code> מופיעה בשלב 8, כי היא קוראת למתודות שעוד לא כתבנו. בינתיים השאירו בה רק את <code>setContentView</code> ואת שורת ה-Log.
-  </p>
+
+  <h2>א. מוסיפים Log לכל מתודה <span class="timechip">⏱️ 20 דק'</span></h2>
+{{ADD:02|main/java/com/example/hebrewwordle/MainActivity.java|MainActivity.java}}
+  <ul>
+    <li><code>TAG</code> הוא שם קבוע שמופיע בכל שורת Log. לפיו נסנן ב-Logcat.</li>
+    <li><code>Log.d(TAG, "...")</code> כותב שורה לחלון Logcat של אנדרואיד סטודיו. המשתמש לא רואה אותה.</li>
+    <li>כל מתודה מתחילה ב-<code>super</code>. זו חובה: בלי זה האפליקציה קורסת.</li>
+  </ul>
 
   <h2>ב. משחקים עם הטלפון <span class="timechip">⏱️ 20 דק'</span></h2>
-  <p>סננו את Logcat לפי <code>LIFECYCLE</code> ובצעו את הרצף הבא. רשמו ליד כל פעולה אילו שורות הופיעו:</p>
+  <p>
+    הריצו. פתחו את <b>Logcat</b> (בתחתית החלון, או <b>View → Tool Windows → Logcat</b>) וכתבו בשורת הסינון <code>tag:LIFECYCLE</code>.
+    עשו את הפעולות האלה בזו אחר זו, ורשמו ליד כל פעולה אילו שורות הופיעו:
+  </p>
   <table class="schema">
-    <tr><th>פעולה</th><th>מה תראו ב-Logcat</th><th>למה</th></tr>
-    <tr><td>הרצה ראשונה</td><td>onCreate → onStart → onResume</td><td>לידה מלאה</td></tr>
-    <tr><td>כפתור הבית</td><td>onPause → onStop</td><td>האפליקציה חיה ברקע, לא נהרסה</td></tr>
-    <tr><td>חזרה לאפליקציה</td><td>onStart → onResume (בלי onCreate!)</td><td>אותו אובייקט חוזר לחזית</td></tr>
-    <tr><td><b>סיבוב מסך</b></td><td>onPause → onStop → <b>onDestroy → onCreate</b> → onStart → onResume</td><td>הפעילות נהרגת ונולדת מחדש – כל השדות מתאפסים!</td></tr>
-    <tr><td>כפתור "אחורה"</td><td>onPause → onStop → onDestroy</td><td>סוף אמיתי</td></tr>
+    <tr><th>פעולה</th><th>מה תראו ב-Logcat</th><th>מה קרה</th></tr>
+    <tr><td>הרצה</td><td>onCreate → onStart → onResume</td><td>המשחק נוצר ומוצג</td></tr>
+    <tr><td>כפתור הבית</td><td>onPause → onStop</td><td>המשחק מוסתר, אבל הוא עדיין קיים</td></tr>
+    <tr><td>חוזרים למשחק</td><td>onStart → onResume</td><td>אותו משחק חוזר. <b>אין onCreate</b></td></tr>
+    <tr><td><b>מסובבים את המסך</b></td><td>onPause → onStop → <b>onDestroy → onCreate</b> → onStart → onResume</td><td>המשחק <b>נהרס ונוצר מחדש</b></td></tr>
   </table>
-  <p>זה הפלט האמיתי מהאמולטור של המשחק הגמור, אחרי ניחוש אחד וסיבוב מסך:</p>
-  <div class="ascii">D LIFECYCLE: onCreate - המסך נבנה. savedInstanceState=null
-D LIFECYCLE: onStart - המסך נהיה גלוי
-D LIFECYCLE: onResume - המסך בחזית ומגיב ללחיצות
-D LIFECYCLE: onPause - משהו כיסה אותי, אני מאבד פוקוס
-D LIFECYCLE: onStop - אני כבר לא גלוי בכלל
-D LIFECYCLE: onSaveInstanceState - נשמרו 1 ניחושים
-D LIFECYCLE: onDestroy - הפעילות נהרסת (סיבוב מסך או סגירה)
-D LIFECYCLE: onCreate - המסך נבנה. savedInstanceState=יש מצב שמור
-D LIFECYCLE: restoreGame - שוחזרו 1 ניחושים
-D LIFECYCLE: onStart - המסך נהיה גלוי
-D LIFECYCLE: onResume - המסך בחזית ומגיב ללחיצות</div>
+  <p class="note-small">
+    לסיבוב: כפתורי הסיבוב בסרגל שליד האמולטור. אם המסך לא מסתובב – הפעילו <b>Auto-rotate</b> בהגדרות המהירות של האמולטור (גוררים מלמעלה למטה).
+  </p>
 
   <div class="infobox">
-    <h3>🤔 אז למה בכלל להרוג את הפעילות בסיבוב?</h3>
+    <h3>🤔 למה אנדרואיד הורס את המשחק כשמסובבים?</h3>
     <p style="margin:0;">
-      כי בסיבוב ייתכן שצריך <b>תבנית אחרת לגמרי</b> (למשל <code>layout-land/</code>), צבעים אחרים, מחרוזות בשפה אחרת.
-      הדרך הפשוטה ביותר להבטיח שהכול נטען מחדש נכון היא להתחיל מאפס. המחיר: אנחנו אחראים לשמור את מה שחשוב.
-      זה בדיוק שלב 9, ואת השורות <code>onSaveInstanceState</code> ו-<code>restoreGame</code> בפלט למעלה נכתוב שם.
+      כי אחרי סיבוב המסך רחב ונמוך, ואולי צריך לבנות אותו אחרת. הדרך של אנדרואיד להבטיח שהכול ייבנה נכון היא לבנות את הפעילות מחדש, מ-<code>onCreate</code>.
+      המחיר: כל מה שהפעילות זכרה – נמחק. במשחק שלנו זה יהיה הלוח עם הניחושים. בשלב 10 נשמור אותו.
     </p>
   </div>
+
+{{SNAP:02|main/java/com/example/hebrewwordle/MainActivity.java}}
 
   <div class="checkpoint">
     <span class="cp-label">תחנת אישור מורה</span>
     <p class="cp-title">✅ ודאו לפני שאתם ניגשים למורה:</p>
     <ol>
-      <li>חמש המתודות דרוסות, כל אחת קוראת ל-<code>super</code> בשורה הראשונה.</li>
+      <li>שש המתודות כתובות, וכל אחת קוראת ל-<code>super</code> בשורה הראשונה.</li>
       <li>מילאתם את הטבלה מהניסוי שלכם, והיא תואמת לטבלה במדריך.</li>
-      <li>אתם יכולים להסביר למה "חזרה לאפליקציה" לא מפעילה <code>onCreate</code> אבל "סיבוב" כן.</li>
+      <li>אתם יכולים להסביר למה "חוזרים למשחק" לא מפעיל <code>onCreate</code>, ו"מסובבים" כן.</li>
     </ol>
     <div class="question-box">
       <b>שאלת הבנה (המורה ישאל):</b><br>
-      תלמידה שמה את ההגרלה של המילה הסודית בתוך <code>onCreate</code>.<br>
-      <b>א.</b> מה יקרה למילה הסודית כשהמשתמש יסובב את המסך באמצע משחק?<br>
-      <b>ב.</b> האם להעביר את ההגרלה ל-<code>onStart</code> פותר את זה? הסבירו.
+      בשלב 8 נגריל את המילה הסודית בתוך <code>onCreate</code>.<br>
+      <b>א.</b> השחקן לחץ על כפתור הבית וחזר למשחק. האם המילה הסודית השתנתה? למה?<br>
+      <b>ב.</b> השחקן סובב את הטלפון. האם המילה הסודית השתנתה? למה?
     </div>
   </div>
 </section>
 
 <!-- ================= STEP 3 ================= -->
 <section id="sec-3">
-  <h1>שלב 3: שלד המסך ב-ConstraintLayout <span class="timechip total">⏱️ סה"כ כ-60 דק'</span></h1>
+  <h1>שלב 3: הכותרת וההודעה <span class="timechip total">⏱️ סה"כ כ-45 דק'</span></h1>
 
-  <div class="goal">🎯 מטרה: לבנות ב-XML את ארבעת האזורים של המסך – כותרת, הודעה, לוח ומקלדת – כך שיתאימו לכל גודל מסך.</div>
+  <div class="goal">🎯 מטרה: המסך הראשון של המשחק – כותרת ירוקה ושורת הודעה – בעזרת LinearLayout, והמשאבים הראשונים: טקסט, צבע ומידה.</div>
 
-  <h2>למה ככה? למה ConstraintLayout?</h2>
+  <h2>א. המסך <span class="timechip">⏱️ 15 דק'</span></h2>
   <p>
-    באנדרואיד אין "מסך בגודל קבוע". אותה אפליקציה רצה על טלפון צר ועל טאבלט רחב. לכן לא כותבים "הכפתור במרחק 300 פיקסלים מלמעלה",
-    אלא <b>יחסים</b>: "הלוח מתחת להודעה ומעל הכפתור, ממורכז". <code>ConstraintLayout</code> הוא תבנית שבה כל רכיב
-    מוגדר על ידי <b>אילוצים</b> (constraints) לרכיבים אחרים או להורה. רכיב בלי אילוצים "קופץ" לפינה השמאלית-עליונה – זו הטעות מספר אחת.
+    המסך של המשחק הוא רשימה של אזורים, אחד מתחת לשני: כותרת, הודעה, לוח, מקלדת. <code>LinearLayout</code> עם <code>orientation="vertical"</code> מסדר את הרכיבים שבתוכו
+    בדיוק כך – מלמעלה למטה, בסדר שבו כתבנו אותם. בשלב הזה נשים בו שני רכיבים בלבד, ובכל שלב נוסיף עוד אחד.
   </p>
-
-  <h2>א. התבנית <span class="timechip">⏱️ 30 דק'</span></h2>
-  <p>פתחו את <code>res/layout/activity_main.xml</code> בתצוגת <b>Code</b> (לא Design – נלמד לקרוא XML) והחליפו את התוכן:</p>
-{{CODE:app/src/main/res/layout/activity_main.xml|res/layout/activity_main.xml}}
-
-  <h3>איך קוראים אילוץ</h3>
+  <p>פתחו את <code>res/layout/activity_main.xml</code> בתצוגת <b>Code</b> (הכפתור בפינה העליונה של העורך). <b>מחקו את כל מה שבקובץ</b> וכתבו במקומו:</p>
+{{FULL:03|main/res/layout/activity_main.xml|res/layout/activity_main.xml <small>(מחליפים את כל הקובץ)</small>}}
   <table class="schema">
-    <tr><th>מאפיין</th><th>פירוש</th></tr>
-    <tr><td><code>layout_constraintTop_toBottomOf="@id/txtTitle"</code></td><td>"הצד העליון שלי צמוד לצד התחתון של הכותרת"</td></tr>
-    <tr><td><code>layout_constraintStart_toStartOf="parent"</code> + <code>End_toEndOf="parent"</code></td><td>אילוץ משני הצדדים = מרכוז אופקי</td></tr>
-    <tr><td><code>layout_width="0dp"</code></td><td>"match constraints": תמלא את כל המרחב שהאילוצים מרשים</td></tr>
-    <tr><td><code>layout_height="0dp"</code> על הלוח</td><td>הלוח תופס את כל הגובה שנשאר בין ההודעה לכפתור</td></tr>
-    <tr><td><code>Start</code> / <code>End</code> ולא <code>Left</code> / <code>Right</code></td><td>ב-RTL "התחלה" היא ימין. תמיד Start/End</td></tr>
+    <tr><th>מאפיין</th><th>מה הוא עושה</th></tr>
+    <tr><td><code>orientation="vertical"</code></td><td>הרכיבים בתוך ה-LinearLayout מסודרים אחד מתחת לשני</td></tr>
+    <tr><td><code>layout_width="match_parent"</code></td><td>רוחב כמו ההורה: כל רוחב המסך</td></tr>
+    <tr><td><code>layout_height="wrap_content"</code></td><td>גובה לפי התוכן: בדיוק כמה שהטקסט צריך</td></tr>
+    <tr><td><code>gravity="center"</code></td><td>הטקסט יושב במרכז הרכיב</td></tr>
+    <tr><td><code>android:id="@+id/main"</code></td><td>חובה להשאיר: השורות מהתבנית ב-<code>MainActivity</code> מחפשות את ה-id הזה. בלעדיו האפליקציה קורסת</td></tr>
   </table>
 
-  <div class="warnbox">
-    <h3>⚠️ include דורס את ה-id</h3>
+  <h2>ב. המשאבים שהמסך צריך <span class="timechip">⏱️ 20 דק'</span></h2>
+  <p>
+    שימו לב: בתבנית לא כתבנו את הטקסט עצמו ואת הצבע עצמו, אלא <b>שמות</b>: <code>@string/title</code>, <code>@color/primary</code>, <code>@dimen/screen_padding</code>.
+    הם אדומים כרגע, כי עוד אין משאבים בשמות האלה. הערכים יושבים בתיקייה <code>res/values</code>, כל סוג בקובץ משלו.
+    היתרון: הירוק של המשחק ייכתב פעם אחת, וכל רכיב שצריך אותו ישתמש בשם.
+  </p>
+{{ADD:03|main/res/values/strings.xml|res/values/strings.xml}}
+{{ADD:03|main/res/values/colors.xml|res/values/colors.xml}}
+  <p>קובץ חדש: קליק ימני על <code>values</code> → <b>New → Values Resource File</b>, בשם <code>dimens</code>.</p>
+{{ADD:03|main/res/values/dimens.xml|res/values/dimens.xml}}
+
+  <div class="infobox">
+    <h3>🤔 מה זה R?</h3>
     <p style="margin:0;">
-      המקלדת יושבת בקובץ נפרד (<code>keyboard.xml</code>, שלב 6) ומוכללת עם <code>&lt;include&gt;</code>.
-      כש-include מקבל <code>android:id</code>, ה-id הזה <b>מחליף</b> את ה-id של שורש הקובץ המוכלל. אם בקוד תחפשו את ה-id הפנימי
-      תקבלו <code>null</code> וקריסה ב-<code>onCreate</code>. כך בדיוק קרס המשחק הזה בהרצה הראשונה שלו – אל תחזרו על זה.
+      בכל בנייה אנדרואיד סורק את <code>res/</code> ומייצר מחלקה בשם <code>R</code> עם מספר לכל משאב: <code>R.string.title</code>, <code>R.color.primary</code>, <code>R.id.txtMessage</code>.
+      כך הקוד ב-Java מגיע למשאבים. וזה גם הסיבה שטעות כתיב בשם של משאב היא שגיאת <b>קומפילציה</b>, ולא קריסה בזמן ריצה.
     </p>
   </div>
 
-  <h2>ב. בודקים בשני גדלים <span class="timechip">⏱️ 15 דק'</span></h2>
+  <h2>ג. צבע הרקע של האפליקציה <span class="timechip">⏱️ 5 דק'</span></h2>
   <p>
-    הלוח עדיין ריק (הוא נבנה בקוד בשלב הבא), אבל כבר אפשר לבדוק את השלד. בתצוגת <b>Design</b> לחצו על אייקון המכשיר ובחרו
-    פעם Pixel 9a ופעם טאבלט. הכותרת וההודעה צריכות להישאר ממורכזות, והמקלדת צמודה לתחתית בשניהם.
+    <b>ערכת הנושא</b> (Theme) קובעת את העיצוב של כל האפליקציה. נשנה בה שני דברים: הצבע הראשי יהיה הירוק שלנו, והרקע יהיה אפור-בהיר.
+    <code>Light</code> במקום <code>DayNight</code> אומר שהמשחק תמיד בהיר, גם כשהטלפון במצב לילה.
   </p>
-  <p>הריצו גם על האמולטור. המסך צריך להיראות כך (עוד בלי אריחים):</p>
-  <figure class="shot">
-    <img src="img/screen-start.png" alt="המסך אחרי שלב 4: כותרת, הודעה, לוח ריק, כפתור ומקלדת">
-    <figcaption>כך ייראה המסך אחרי שלב 4 (בשלב הזה הלוח עדיין ריק). ארבעת האזורים: כותרת, הודעה, לוח, מקלדת.</figcaption>
-  </figure>
+{{ADD:03|main/res/values/themes.xml|res/values/themes.xml}}
+  <div class="warnbox">
+    <h3>⚠️ מחקו את <code>res/values-night/themes.xml</code></h3>
+    <p style="margin:0;">זה הקובץ של מצב לילה. המשחק שלנו תמיד בהיר, ובלי המחיקה, טלפון במצב לילה יציג רקע כהה עם טקסט כהה.</p>
+  </div>
 
-  <h2>ג. הרחבה: מסך לרוחב <span class="timechip">⏱️ 15 דק'</span></h2>
-  <p>
-    סובבו את האמולטור. הלוח יחתך, כי בגובה של מסך רוחבי אין מקום ל-6 שורות של 52dp ועוד מקלדת.
-    פתרון: תיקיית <code>res/layout-land/</code> עם גרסה שנייה של התבנית, שבה הלוח והמקלדת זה לצד זה. המערכת בוחרת לבד לפי הכיוון – זה בדיוק אחד
-    ממנגנוני המשאבים של שלב 5. נסו, זה תרגיל טוב, אבל לא חובה.
-  </p>
+  <h2>ד. בדיקה <span class="timechip">⏱️ 5 דק'</span></h2>
+  <p>הריצו. בראש המסך כותרת ירוקה "ווֹרדל בעברית", מתחתיה ההודעה, והרקע אפור-בהיר.</p>
+
+{{SNAP:03|main/res/layout/activity_main.xml,main/res/values/strings.xml,main/res/values/colors.xml,main/res/values/dimens.xml,main/res/values/themes.xml}}
 
   <div class="checkpoint">
     <span class="cp-label">תחנת אישור מורה</span>
     <p class="cp-title">✅ ודאו לפני שאתם ניגשים למורה:</p>
     <ol>
-      <li>אין אף רכיב עם אזהרת "not constrained" בעורך.</li>
-      <li>הכותרת וההודעה נשארות ממורכזות גם על טאבלט.</li>
-      <li>אתם יכולים להסביר מה ההבדל בין <code>wrap_content</code>, <code>match_parent</code> ו-<code>0dp</code>.</li>
+      <li>הכותרת וההודעה ממורכזות בראש המסך.</li>
+      <li>אין בקובץ <code>activity_main.xml</code> אף טקסט עברי ואף צבע – רק שמות של משאבים.</li>
     </ol>
     <div class="question-box">
       <b>שאלת הבנה (המורה ישאל):</b><br>
-      מחקנו מ-<code>txtMessage</code> את האילוץ <code>layout_constraintEnd_toEndOf</code> והשארנו רק Start ו-Top.<br>
-      <b>א.</b> איפה הטקסט יופיע עכשיו?<br>
-      <b>ב.</b> מה יקרה ל-<code>layout_width="0dp"</code> שלו? למה זו שגיאה?
+      רוצים שהכותרת תהיה "ווֹרדל של כיתה י"א".<br>
+      <b>א.</b> באיזה קובץ משנים, ואיזו שורה?<br>
+      <b>ב.</b> למה לא כותבים את הטקסט ישירות ב-<code>activity_main.xml</code>?
     </div>
   </div>
 </section>
 
 <!-- ================= STEP 4 ================= -->
 <section id="sec-4">
-  <h1>שלב 4: הלוח נבנה בקוד <span class="timechip total">⏱️ סה"כ כ-60 דק'</span></h1>
+  <h1>שלב 4: הלוח – 30 אריחים בקוד <span class="timechip total">⏱️ סה"כ כ-50 דק'</span></h1>
 
-  <div class="goal">🎯 מטרה: ליצור 30 אריחים (6 שורות × 5) בלולאה כפולה, לשמור אותם במערך דו-ממדי ולצבוע אותם לפי מצב.</div>
+  <div class="goal">🎯 מטרה: לוח של 6 שורות × 5 אריחים מתחת להודעה. האריחים נבנים בלולאה ב-Java ונשמרים במערך דו-ממדי.</div>
 
-  <h2>למה ככה? למה לא 30 TextViews ב-XML?</h2>
+  <h2>למה בקוד ולא ב-XML?</h2>
   <p>
-    אפשר. זה יעבוד. אבל זה 30 בלוקים זהים של 8 שורות כל אחד, ועוד 30 <code>findViewById</code> בקוד.
-    וכשתרצו לשנות את גודל האריח – 30 מקומות לערוך. בקוד זו לולאה אחת, והמערך <code>tiles[row][col]</code>
-    נותן לנו בדיוק את מה שהמשחק צריך: "האריח בשורה 2, עמודה 3". כלל אצבע: <b>רכיבים ייחודיים ב-XML, רכיבים חוזרים בקוד</b>.
+    30 אריחים זהים ב-XML הם 30 בלוקים זהים, ועוד 30 <code>findViewById</code>. בקוד זו לולאה אחת, והמערך <code>tiles[row][col]</code>
+    נותן בדיוק את מה שהמשחק צריך: "האריח בשורה 2, עמודה 3". כלל אצבע: <b>רכיב ייחודי – ב-XML. רכיבים שחוזרים על עצמם – בקוד.</b>
   </p>
 
-  <h2>א. השדות <span class="timechip">⏱️ 5 דק'</span></h2>
-{{CODE:app/src/main/java/com/example/hebrewwordle/MainActivity.java|MainActivity.java – שדות הלוח|step5-fields}}
-
-  <h2>ב. בונים את הלוח <span class="timechip">⏱️ 30 דק'</span></h2>
-{{CODE:app/src/main/java/com/example/hebrewwordle/MainActivity.java|MainActivity.java – buildBoard ו-paintTile|step5-board}}
+  <h2>א. מקום ללוח במסך <span class="timechip">⏱️ 10 דק'</span></h2>
+  <p>ב-XML שמים רק <b>מיכל</b> ריק – <code>LinearLayout</code> שהקוד ימלא:</p>
+{{ADD:04|main/res/layout/activity_main.xml|res/layout/activity_main.xml}}
   <ul>
-    <li><b>LayoutParams</b> – כשיוצרים רכיב בקוד, הגודל והשוליים לא נכתבים עליו אלא על אובייקט "פרמטרים של תבנית" שמתאים להורה שלו. ההורה כאן הוא <code>LinearLayout</code>, ולכן <code>LinearLayout.LayoutParams</code>.</li>
-    <li><b>dp לעומת px</b> – ב-<code>dimens.xml</code> כתוב 52dp. המסך עובד בפיקסלים, וצפיפות הפיקסלים שונה בכל טלפון. <code>getDimensionPixelSize</code> עושה את ההמרה בשבילנו.</li>
-    <li><b>paintTile</b> – מתודה אחת שמקבלת מצב ומחליפה רקע וצבע טקסט. היא תשרת אותנו גם בשלב 8 (צביעה אחרי ניחוש) וגם בשלב 9 (שחזור). כתבו אותה פעם אחת.</li>
-    <li>ב-<code>onCreate</code> קוראים <code>buildBoard()</code> מיד אחרי <code>findViewById</code> של המיכל.</li>
+    <li><code>layout_height="0dp"</code> + <code>layout_weight="1"</code> – הלוח מקבל את כל הגובה <b>שנשאר</b> אחרי שהכותרת וההודעה לקחו את מה שהן צריכות.</li>
+    <li><code>layoutDirection="rtl"</code> – מימין לשמאל, גם כשהטלפון מוגדר לאנגלית. כך האות הראשונה של כל ניחוש תופיע בצד ימין של הלוח, כמו בעברית.</li>
   </ul>
 
-  <h2>ג. בדיקה <span class="timechip">⏱️ 10 דק'</span></h2>
+  <h2>ב. איך נראה אריח <span class="timechip">⏱️ 10 דק'</span></h2>
   <p>
-    הריצו. אמורים לראות 30 ריבועים לבנים עם מסגרת אפורה. כדי לוודא שהמערך נכון, הוסיפו זמנית ב-<code>onCreate</code>
-    את השורה <code>tiles[2][4].setText("א");</code> – האות צריכה להופיע בשורה השלישית, באריח <b>הימני</b> (עמודה 0 היא ימין, כי RTL). מחקו אחר כך.
+    רקע של אריח הוא לא תמונה אלא <b>צורה</b> שמתוארת ב-XML: מלבן לבן עם מסגרת אפורה ופינות מעוגלות.
+    קליק ימני על <code>drawable</code> → <b>New → Drawable Resource File</b>, בשם <code>tile_empty</code>:
+  </p>
+{{ADD:04|main/res/drawable/tile_empty.xml|res/drawable/tile_empty.xml}}
+  <p>הצבעים והגודל של האריח, כמו תמיד, בקבצי המשאבים:</p>
+{{ADD:04|main/res/values/colors.xml|res/values/colors.xml}}
+{{ADD:04|main/res/values/dimens.xml|res/values/dimens.xml}}
+
+  <h2>ג. בונים את הלוח <span class="timechip">⏱️ 20 דק'</span></h2>
+{{ADD:04|main/java/com/example/hebrewwordle/MainActivity.java|MainActivity.java}}
+  <ul>
+    <li><code>ROWS</code> ו-<code>COLS</code> – גודל הלוח, בקבועים ולא במספרים מפוזרים בקוד.</li>
+    <li>ב-<code>onCreate</code> מוצאים את המיכל לפי ה-id שלו וקוראים ל-<code>buildBoard()</code>.</li>
+    <li><b>כל שורה בלוח היא <code>LinearLayout</code> אופקי</b> עם 5 אריחים, ו-6 שורות כאלה נכנסות למיכל האנכי. אותו רעיון כמו ב-XML, רק בקוד.</li>
+    <li><b>LayoutParams</b> – כשיוצרים רכיב בקוד, הגודל והשוליים שלו נכתבים על אובייקט "פרמטרים של תבנית". ההורה הוא <code>LinearLayout</code>, ולכן <code>LinearLayout.LayoutParams</code>.</li>
+    <li><b>dp ופיקסלים</b> – ב-<code>dimens.xml</code> כתוב 52dp. <code>getDimensionPixelSize</code> ממיר לפיקסלים של הטלפון הספציפי.</li>
+  </ul>
+
+  <h2>ד. בדיקה <span class="timechip">⏱️ 10 דק'</span></h2>
+  <p>
+    הריצו. רואים 30 ריבועים לבנים עם מסגרת אפורה. כדי לוודא שהמערך נכון, הוסיפו זמנית בסוף <code>onCreate</code>
+    את השורה <code>tiles[2][0].setText("א");</code> – האות צריכה להופיע בשורה השלישית, באריח <b>הימני</b>. מחקו אחר כך.
   </p>
 
-  <h2>ד. הרחבה <span class="timechip">⏱️ 15 דק'</span></h2>
-  <p>החליפו את <code>LinearLayout</code> המקונן ב-<code>GridLayout</code> אחד עם <code>columnCount=5</code>. מה יותר קצר? מה קורה לשוליים?</p>
+{{SNAP:04|main/java/com/example/hebrewwordle/MainActivity.java,main/res/layout/activity_main.xml,main/res/values/colors.xml,main/res/values/dimens.xml}}
 
   <div class="checkpoint">
     <span class="cp-label">תחנת אישור מורה</span>
     <p class="cp-title">✅ ודאו לפני שאתם ניגשים למורה:</p>
     <ol>
       <li>30 אריחים על המסך, ממורכזים, בגודל אחיד.</li>
-      <li>הניסוי עם <code>tiles[2][4]</code> הציג את האות במקום הנכון.</li>
-      <li>אתם יכולים להסביר למה האריח צריך <code>LayoutParams</code> ולמה לא כותבים <code>setWidth(52)</code>.</li>
+      <li>הניסוי עם <code>tiles[2][0]</code> הציג את האות במקום הנכון.</li>
     </ol>
     <div class="question-box">
       <b>שאלת הבנה (המורה ישאל):</b><br>
-      תלמיד שינה את <code>tile_size</code> ב-<code>dimens.xml</code> ל-80dp, ועל הטלפון שלו שתי השורות התחתונות נעלמו.<br>
+      תלמיד שינה את <code>tile_size</code> ב-<code>dimens.xml</code> ל-80dp, ועל הטלפון שלו השורות התחתונות נעלמו.<br>
       <b>א.</b> למה הן נעלמו ולא "נדחסו"?<br>
-      <b>ב.</b> הציעו שני פתרונות: אחד ב-XML ואחד בקוד.
+      <b>ב.</b> מה עוד היה צריך לשנות אם רוצים לוח של 7 ניסיונות? כמה שורות קוד?
     </div>
   </div>
 </section>
 
 <!-- ================= STEP 5 ================= -->
 <section id="sec-5">
-  <h1>שלב 5: משאבי האפליקציה <span class="timechip total">⏱️ סה"כ כ-50 דק'</span></h1>
+  <h1>שלב 5: המקלדת – דרך 1, מאזין ב-XML <span class="timechip total">⏱️ סה"כ כ-50 דק'</span></h1>
 
-  <div class="goal">🎯 מטרה: להוציא מהקוד כל טקסט, צבע, מידה וצורה אל תיקיית <code>res/</code>, ולהבין איך אנדרואיד בוחר משאב לפי המכשיר.</div>
+  <div class="goal">🎯 מטרה: מקלדת עברית בתחתית המסך. לחיצה על מקש כותבת את האות בלוח.</div>
 
   <h2>למה ככה?</h2>
   <p>
-    "כל הכבוד! ניחשתם ב-2 ניסיונות" יכול להיכתב ישירות בקוד. אבל אז: תרגום לערבית = לחפש בכל הקוד; שינוי הירוק = לחפש בכל הקוד;
-    אריח גדול יותר לטאבלט = לכתוב תנאים. ב-<code>res/</code> כל דבר כזה יושב במקום אחד, עם <b>שם</b>, והקוד מתייחס לשם.
-    ויש בונוס: אנדרואיד יודע לבחור <b>לבד</b> בין <code>values/</code> ל-<code>values-ar/</code> לפי שפת המכשיר, ובין <code>layout/</code> ל-<code>layout-land/</code> לפי הכיוון.
+    לחיצה על כפתור היא <b>אירוע</b>, וצריך מישהו שיאזין לו. באנדרואיד יש ארבע דרכים לחבר מאזין, ובמשחק נשתמש <b>בכל הארבע</b>, כל אחת על כפתור אחר.
+    הראשונה והפשוטה: לכתוב ב-XML את שם המתודה (<code>android:onClick</code>). בזמן הלחיצה אנדרואיד מחפש בפעילות מתודה <code>public void</code> בשם הזה, שמקבלת <code>View</code>.
+    זה מצוין ל-27 מקשים זהים: כולם קוראים לאותה מתודה.
   </p>
 
-  <div class="ascii">res/
-├── values/
-│   ├── strings.xml     <- כל טקסט שהמשתמש רואה
-│   ├── colors.xml      <- כל צבע, בשם שאומר מה הוא (tile_correct, לא green)
-│   ├── dimens.xml      <- מידות: tile_size, key_height
-│   ├── themes.xml      <- ערכת הנושא + הסגנון KeyButton
-│   └── words.xml       <- רשימת המילים כ-string-array
-├── drawable/
-│   └── tile_*.xml      <- ארבע צורות אריח (shape)
-└── layout/
-    ├── activity_main.xml
-    └── keyboard.xml</div>
-
-  <h2>א. מחרוזות <span class="timechip">⏱️ 10 דק'</span></h2>
-{{CODE:app/src/main/res/values/strings.xml|res/values/strings.xml}}
+  <h2>א. סגנון אחד לכל המקשים <span class="timechip">⏱️ 10 דק'</span></h2>
   <p>
-    שימו לב ל-<code>%1$d</code> ו-<code>%1$s</code>: מחרוזת עם "חור" למספר או לטקסט. בקוד: <code>getString(R.string.msg_win, 2)</code>.
-    לעולם לא <code>"ניחשתם ב-" + n + " ניסיונות"</code> בקוד – בשפות אחרות סדר המילים שונה.
+    לכל מקש צריך אותו גודל, אותו צבע ואותו <code>onClick</code>. במקום לכתוב את זה 27 פעמים, כותבים <b>סגנון</b> (Style) – חבילת מאפיינים עם שם – ונותנים אותו לכל מקש בשורה אחת:
   </p>
+{{ADD:05|main/res/values/themes.xml|res/values/themes.xml}}
+  <ul>
+    <li><code>layout_width="0dp"</code> + <code>layout_weight="1"</code> – כל המקשים בשורה מתחלקים ברוחב שווה.</li>
+    <li>השורה האחרונה, <code>onClick</code>, היא דרך 1: כל מקש עם הסגנון הזה יקרא ל-<code>onLetterKey</code>.</li>
+  </ul>
+  <p>הצבע והמידות של המקש:</p>
+{{ADD:05|main/res/values/colors.xml|res/values/colors.xml}}
+{{ADD:05|main/res/values/dimens.xml|res/values/dimens.xml}}
 
-  <h2>ב. צבעים ומידות <span class="timechip">⏱️ 10 דק'</span></h2>
-{{CODE:app/src/main/res/values/colors.xml|res/values/colors.xml}}
-{{CODE:app/src/main/res/values/dimens.xml|res/values/dimens.xml}}
+  <h2>ב. המקשים <span class="timechip">⏱️ 15 דק'</span></h2>
+  <p>המקלדת ארוכה, אז היא תשב בקובץ משלה. קליק ימני על <code>layout</code> → <b>New → Layout Resource File</b>, בשם <code>keyboard</code>:</p>
+{{ADD:05|main/res/layout/keyboard.xml|res/layout/keyboard.xml}}
+  <ul>
+    <li>כל שורה במקלדת היא <code>LinearLayout</code> אופקי, וכל מקש הוא <code>Button</code> עם <code>style="@style/KeyButton"</code>.</li>
+    <li><code>layoutDirection="ltr"</code> – המקשים מסודרים משמאל לימין, כמו במקלדת הפיזית שעל השולחן.</li>
+  </ul>
+  <p><code>&lt;include&gt;</code> מכניס את קובץ המקלדת לתחתית המסך, כאילו היה כתוב שם:</p>
+{{ADD:05|main/res/layout/activity_main.xml|res/layout/activity_main.xml}}
 
-  <h2>ג. צורות: drawable <span class="timechip">⏱️ 10 דק'</span></h2>
-  <p>
-    רקע של אריח הוא לא תמונה אלא <b>צורה</b> שמתוארת ב-XML: מלבן, צבע מילוי, מסגרת, פינות מעוגלות. ארבעה קבצים, אחד לכל מצב. הנה הירוק:
-  </p>
-{{CODE:app/src/main/res/drawable/tile_correct.xml|res/drawable/tile_correct.xml}}
-  <p>צרו באותו אופן את <code>tile_present</code>, <code>tile_absent</code> ו-<code>tile_empty</code> (ללבן: מילוי לבן ומסגרת <code>tile_border</code>).</p>
+  <h2>ג. המתודה שמקבלת את הלחיצה <span class="timechip">⏱️ 15 דק'</span></h2>
+{{ADD:05|main/java/com/example/hebrewwordle/MainActivity.java|MainActivity.java}}
+  <ul>
+    <li><code>view</code> הוא הכפתור שנלחץ. לא צריך 27 מתודות, כי הטקסט של הכפתור <b>הוא</b> האות.</li>
+    <li><code>current</code> מחזיק את האותיות שהוקלדו בשורה הנוכחית. אחרי 5 אותיות לא מוסיפים עוד.</li>
+    <li>בינתיים כל האותיות נכתבות בשורה הראשונה (<code>row = 0</code>). כשנוסיף את בדיקת הניחוש, בשלב 8, השורה תתקדם.</li>
+  </ul>
 
-  <h2>ד. ערכת נושא וסגנון <span class="timechip">⏱️ 10 דק'</span></h2>
-{{CODE:app/src/main/res/values/themes.xml|res/values/themes.xml}}
-  <p>
-    <b>Theme</b> הוא סגנון של האפליקציה כולה (צבע ראשי, סרגל מצב, רקע). <b>Style</b> הוא חבילת מאפיינים לרכיב אחד.
-    הסגנון <code>KeyButton</code> הוא הסיבה שבשלב 6 כל מקש במקלדת הוא שורה אחת של XML במקום עשר. שימו לב לשורה האחרונה בו – נחזור אליה.
-  </p>
   <div class="warnbox">
-    <h3>⚠️ שני תיקונים, אחרת הבנייה נכשלת</h3>
-    <ul style="margin:0;">
-      <li>ב-<code>AndroidManifest.xml</code> שנו את <code>android:theme</code> ל-<code>@style/Theme.App</code>.</li>
-      <li>מחקו את הקובץ <code>res/values-night/themes.xml</code>. הוא מתייחס לערכת הנושא הישנה, ו-<code>Theme.App</code> כבר מטפלת במצב לילה בעצמה (DayNight).</li>
-    </ul>
-  </div>
-
-  <h2>ה. רשימת המילים כמשאב <span class="timechip">⏱️ 10 דק'</span></h2>
-  <p>
-    המילים הן נתונים, לא קוד. <code>string-array</code> נותן לנו מערך מוכן: <code>getResources().getStringArray(R.array.words)</code>.
-    מי שרוצה להוסיף מילים לא צריך להבין Java.
-  </p>
-{{CODE:app/src/main/res/values/words.xml|res/values/words.xml (105 מילים)}}
-
-  <div class="infobox">
-    <h3>🤔 מה זה R?</h3>
+    <h3>⚠️ השגיאה שתראו בוודאות</h3>
     <p style="margin:0;">
-      בכל בנייה אנדרואיד סורק את <code>res/</code> ומייצר מחלקה בשם <code>R</code> עם מספר לכל משאב: <code>R.string.msg_win</code>, <code>R.color.tile_correct</code>,
-      <code>R.id.btnCheck</code>. זה למה שגיאת כתיב בשם משאב היא שגיאת <b>קומפילציה</b> ולא קריסה בזמן ריצה – המהדר בודק בשבילכם. ואם ה-R "אדום" פתאום – כמעט תמיד יש XML שבור באחד הקבצים.
+      <code>IllegalStateException: Could not find method onLetterKey(View)</code> – המתודה לא <code>public</code>, או לא מקבלת <code>View</code>, או שיש טעות כתיב בין ה-XML לקוד.
+      זו החולשה של דרך 1: הקשר בין ה-XML לקוד הוא <b>מחרוזת</b>, והמהדר לא בודק אותה. הקריסה מגיעה רק כשלוחצים.
     </p>
   </div>
+
+  <h2>ד. בדיקה <span class="timechip">⏱️ 10 דק'</span></h2>
+  <p>הריצו והקלידו 5 אותיות. הן מופיעות בשורה הראשונה מימין לשמאל, והאות השישית לא נכנסת.</p>
+
+{{SNAP:05|main/java/com/example/hebrewwordle/MainActivity.java,main/res/layout/activity_main.xml,main/res/layout/keyboard.xml,main/res/values/themes.xml}}
 
   <div class="checkpoint">
     <span class="cp-label">תחנת אישור מורה</span>
     <p class="cp-title">✅ ודאו לפני שאתם ניגשים למורה:</p>
     <ol>
-      <li>אין בקוד Java אף מחרוזת עברית ואף צבע הקסדצימלי.</li>
-      <li>ארבעת ה-drawables מוצגים נכון: שנו זמנית את <code>paintTile</code> בבדיקה של שלב 4 לכל מצב.</li>
-      <li>הוספתם 5 מילים משלכם ל-<code>words.xml</code>, כולן בנות 5 אותיות.</li>
+      <li>27 מקשים בשלוש שורות, בסדר של המקלדת הפיזית.</li>
+      <li>אין בקוד אף <code>setOnClickListener</code> למקשי האותיות.</li>
+      <li>אתם יכולים להסביר איך <code>onLetterKey</code> יודעת איזו אות נלחצה.</li>
     </ol>
     <div class="question-box">
       <b>שאלת הבנה (המורה ישאל):</b><br>
-      רוצים שעל טאבלט האריח יהיה 80dp ועל טלפון 52dp, בלי אף <code>if</code> בקוד.<br>
-      <b>א.</b> איזו תיקייה יוצרים ואיזה קובץ שמים בה?<br>
-      <b>ב.</b> איך אנדרואיד יודע באיזו מהן להשתמש?
+      תלמידה שינתה את שם המתודה ל-<code>onLetter</code> ושכחה לעדכן את הסגנון. הפרויקט התקמפל והאפליקציה עלתה.<br>
+      <b>א.</b> מתי בדיוק תתגלה הטעות?<br>
+      <b>ב.</b> למה המהדר לא מצא אותה?
     </div>
   </div>
 </section>
 
 <!-- ================= STEP 6 ================= -->
 <section id="sec-6">
-  <h1>שלב 6: המקלדת העברית – דרך 1, מאזין ב-XML <span class="timechip total">⏱️ סה"כ כ-50 דק'</span></h1>
+  <h1>שלב 6: מחיקה – דרך 2, הפעילות מממשת <span class="timechip total">⏱️ סה"כ כ-35 דק'</span></h1>
 
-  <div class="goal">🎯 מטרה: לבנות מקלדת של 27 מקשים, שכולם מפעילים את אותה מתודה דרך <code>android:onClick</code>, ולהכניס אותיות לשורה הנוכחית.</div>
+  <div class="goal">🎯 מטרה: שורה רביעית במקלדת עם "מחק" ו"בדיקה". "מחק" כבר עובד.</div>
 
   <h2>למה ככה?</h2>
   <p>
-    לחיצה על כפתור היא <b>אירוע</b>. מישהו צריך "להאזין" לו. באנדרואיד יש ארבע דרכים לרשום מאזין, וביחידה הזאת נשתמש <b>בכל הארבע</b>, כל אחת על כפתור אחר,
-    כדי שתרגישו את ההבדל. הראשונה והפשוטה: לכתוב ב-XML את שם המתודה. המערכת, בזמן הלחיצה, מחפשת בפעילות מתודה <code>public void</code> בשם הזה שמקבלת <code>View</code>.
-    זה נהדר ל-27 מקשים זהים: שורה אחת בסגנון, ו<b>אפס</b> שורות חיבור בקוד.
+    "מחק" לא יכול להשתמש בסגנון של האותיות: <code>onLetterKey</code> הייתה כותבת "מ" בלוח. צריך לו מאזין משלו.
+    הדרך הכללית לחבר מאזין היא <code>setOnClickListener</code>, שמקבל <b>אובייקט</b> עם מתודה <code>onClick(View)</code> (הממשק <code>View.OnClickListener</code>).
+    השאלה היא רק <b>מי</b> האובייקט. דרך 2: הפעילות עצמה – <code>this</code>.
   </p>
 
-  <h2>א. קובץ המקלדת <span class="timechip">⏱️ 20 דק'</span></h2>
-{{CODE:app/src/main/res/layout/keyboard.xml|res/layout/keyboard.xml}}
+  <h2>א. הכפתורים <span class="timechip">⏱️ 10 דק'</span></h2>
+{{ADD:06|main/res/layout/keyboard.xml|res/layout/keyboard.xml}}
   <ul>
-    <li>הסידור הוא של המקלדת הפיזית. בגלל <code>supportsRtl</code>, הילד הראשון ב-<code>LinearLayout</code> אופקי יושב <b>מימין</b>.</li>
-    <li><code>layout_weight="1"</code> לכל מקש + <code>layout_width="0dp"</code> = חלוקה שווה של הרוחב. שורה של 10 מקשים מקבלת מקשים צרים יותר משורה של 8 – בדיוק כמו במקלדת.</li>
-    <li>"מחק" ו"בדיקה" מקבלים <code>android:onClick="@null"</code> כדי <b>לבטל</b> את ה-onClick שירשו מהסגנון. אותם נחבר בדרכים אחרות בשלב 7.</li>
+    <li><code>android:onClick="@null"</code> <b>מבטל</b> את ה-onClick שהגיע מהסגנון. בלי זה, "מחק" היה קורא ל-<code>onLetterKey</code>.</li>
+    <li><code>layout_weight="2"</code> – כל אחד מהשניים רחב כמו שני מקשים רגילים.</li>
+    <li>"בדיקה" נמצא כבר על המסך, אבל עוד לא עושה כלום. נחבר אותו בשלב 8.</li>
+  </ul>
+{{ADD:06|main/res/values/strings.xml|res/values/strings.xml}}
+
+  <h2>ב. הפעילות מקשיבה <span class="timechip">⏱️ 15 דק'</span></h2>
+{{ADD:06|main/java/com/example/hebrewwordle/MainActivity.java|MainActivity.java}}
+  <ul>
+    <li><code>implements View.OnClickListener</code> בשורת המחלקה – הפעילות מתחייבת שיש לה <code>onClick(View)</code>.</li>
+    <li><code>wireButtons</code> מעבירה את הפעילות עצמה (<code>this</code>) ככפתור המאזין של "מחק".</li>
+    <li>ב-<code>onClick</code> בודקים <b>איזה</b> כפתור נלחץ, לפי <code>view.getId()</code>. כרגע יש רק אחד, אבל כך עובדים כשכמה כפתורים חולקים את אותה פעילות כמאזין.</li>
+    <li>בשונה מדרך 1, כאן המהדר בודק: אם תשכחו את <code>onClick</code>, הפרויקט לא יתקמפל.</li>
   </ul>
 
-  <h2>ב. המתודה בפעילות <span class="timechip">⏱️ 15 דק'</span></h2>
-{{CODE:app/src/main/java/com/example/hebrewwordle/MainActivity.java|MainActivity.java – onLetterKey|step7-letterkey}}
-  <p>
-    הפרמטר <code>view</code> הוא הכפתור שנלחץ. אנחנו לא צריכים 27 מתודות, כי הטקסט של הכפתור <b>הוא</b> האות. שימו לב לשני תנאי העצירה: אחרי סיום המשחק ואחרי 5 אותיות
-    אין מה להוסיף. <code>current</code> הוא <code>StringBuilder</code> שמחזיק את מה שהוקלד; הוא מוגדר בשלב 8 יחד עם <code>game</code> – בינתיים הוסיפו אותו כשדה ואתחלו את <code>game</code> במילה קבועה.
-  </p>
+  <h2>ג. בדיקה <span class="timechip">⏱️ 10 דק'</span></h2>
+  <p>הקלידו שלוש אותיות ולחצו "מחק" פעמיים – נשארת אחת. לחצו "מחק" על שורה ריקה – לא קורה כלום, ואין קריסה.</p>
 
-  <div class="warnbox">
-    <h3>⚠️ השגיאה שתראו בוודאות</h3>
-    <p style="margin:0;">
-      <code>IllegalStateException: Could not find method onLetterKey(View)</code> – המתודה לא <code>public</code>, או לא מקבלת <code>View</code>, או שיש טעות כתיב בין ה-XML לקוד.
-      זו החולשה של דרך 1: הקשר בין ה-XML לקוד הוא <b>מחרוזת</b>, והמהדר לא בודק אותה. הקריסה מגיעה רק בלחיצה.
-    </p>
-  </div>
-
-  <h2>ג. בדיקה <span class="timechip">⏱️ 15 דק'</span></h2>
-  <p>הריצו, הקלידו 5 אותיות. האותיות צריכות להופיע בשורה הראשונה מימין לשמאל, והאות השישית לא נכנסת.</p>
+{{SNAP:06|main/java/com/example/hebrewwordle/MainActivity.java,main/res/layout/keyboard.xml,main/res/values/strings.xml}}
 
   <div class="checkpoint">
     <span class="cp-label">תחנת אישור מורה</span>
     <p class="cp-title">✅ ודאו לפני שאתם ניגשים למורה:</p>
     <ol>
-      <li>27 מקשים, שלוש שורות, הסידור כמו במקלדת פיזית.</li>
-      <li>אין אף <code>setOnClickListener</code> עבור מקשי האותיות.</li>
-      <li>אתם יכולים להסביר מאיפה המתודה יודעת איזו אות נלחצה.</li>
+      <li>"מחק" מוחק אות אחת בכל לחיצה, ולא קורס בשורה ריקה.</li>
+      <li>אתם יכולים להסביר מה <code>this</code> אומר בשורה <code>setOnClickListener(this)</code>.</li>
     </ol>
     <div class="question-box">
       <b>שאלת הבנה (המורה ישאל):</b><br>
-      תלמידה שינתה את שם המתודה ל-<code>onLetter</code> ושכחה לעדכן את הסגנון. הפרויקט התקמפל והאפליקציה עלתה.<br>
-      <b>א.</b> מתי בדיוק תתגלה הטעות?<br>
-      <b>ב.</b> מה היה קורה באותו מקרה בדרך 2 (שלב הבא)?
+      מחקנו את <code>implements View.OnClickListener</code> והשארנו את כל השאר.<br>
+      <b>א.</b> באיזו שורה תופיע שגיאת הקומפילציה, ולמה דווקא שם?<br>
+      <b>ב.</b> מה ההבדל בין זה לבין הטעות בשאלה של שלב 5?
     </div>
   </div>
 </section>
 
 <!-- ================= STEP 7 ================= -->
 <section id="sec-7">
-  <h1>שלב 7: מחיקה ובדיקה – דרכים 2 ו-3 <span class="timechip total">⏱️ סה"כ כ-50 דק'</span></h1>
+  <h1>שלב 7: חוקי המשחק – Java ובדיקות <span class="timechip total">⏱️ סה"כ כ-50 דק'</span></h1>
 
-  <div class="goal">🎯 מטרה: לחבר את "מחק" דרך הפעילות שמממשת <code>OnClickListener</code>, ואת "בדיקה" דרך מחלקה פנימית – ולהבין מתי כל דרך מתאימה.</div>
+  <div class="goal">🎯 מטרה: לפני שמחברים את "בדיקה", לכתוב את מה שהוא צריך לדעת: אילו אותיות ירוקות, צהובות או אפורות. ולבדוק את זה עם JUnit.</div>
 
   <h2>למה ככה?</h2>
   <p>
-    <code>setOnClickListener</code> מקבל <b>אובייקט</b> שמממש את הממשק <code>View.OnClickListener</code> (מתודה אחת: <code>onClick(View)</code>).
-    השאלה היא רק <b>מי</b> האובייקט הזה. דרך 2: הפעילות עצמה (<code>this</code>). דרך 3: מחלקה פנימית שכתבנו. בשתיהן המהדר בודק שהמתודה קיימת –
-    זה היתרון הגדול על דרך 1.
+    הכפתור "בדיקה" כבר על המסך. כדי שיעשה משהו, צריך קוד שמקבל מילה סודית וניחוש ומחזיר צבע לכל אות. את הקוד הזה נכתוב במחלקות Java רגילות,
+    שלא יודעות שקיים אנדרואיד: אין בהן <code>TextView</code>, אין <code>Button</code>, אין צבעים. בגלל זה אפשר לבדוק אותן ב-JUnit על המחשב, בחצי שנייה, בלי אמולטור.
+    בשלב הבא נחבר אותן למסך.
   </p>
 
-  <h2>א. דרך 2: הפעילות מממשת <span class="timechip">⏱️ 15 דק'</span></h2>
-  <p>שלוש פעולות: (1) <code>implements View.OnClickListener</code> בכותרת המחלקה; (2) דורסים <code>onClick</code>; (3) ב-<code>wireButtons</code> מעבירים <code>this</code>.</p>
-{{CODE:app/src/main/java/com/example/hebrewwordle/MainActivity.java|MainActivity.java – onClick של הפעילות|step8-delete}}
-  <p>
-    מתי זה מתאים? כשיש <b>הרבה</b> כפתורים ורוצים מקום אחד. החיסרון: <code>onClick</code> אחת הופכת לסדרת <code>if (view.getId() == ...)</code>. אצלנו יש בה כפתור אחד, בכוונה, כדי שתראו את הצורה.
-  </p>
-
-  <h2>ב. דרך 3: מחלקה פנימית <span class="timechip">⏱️ 20 דק'</span></h2>
-{{CODE:app/src/main/java/com/example/hebrewwordle/MainActivity.java|MainActivity.java – CheckListener|step8-check}}
-  <p>
-    <code>CheckListener</code> היא מחלקה שלמה בתוך <code>MainActivity</code>. בגלל שהיא <b>לא static</b>, יש לה גישה ישירה ל-<code>game</code>, <code>tiles</code>, <code>current</code> ו-<code>txtMessage</code>.
-    מתי זה מתאים? כשהמאזין עושה עבודה אמיתית (כאן: בדיקה, צביעה, הודעה) ומגיע לו שם משלו. המתודות <code>showGuess</code> ו-<code>updateMessage</code> נכתבות בשלב הבא.
-  </p>
-
-  <h2>ג. חיבור <span class="timechip">⏱️ 5 דק'</span></h2>
-  <p>שתי השורות הראשונות של <code>wireButtons</code> (השלישית – בשלב 8):</p>
-  <div class="ascii">findViewById(R.id.btnDelete).setOnClickListener(this);                 // דרך 2
-findViewById(R.id.btnCheck).setOnClickListener(new CheckListener());   // דרך 3</div>
-
-  <h2>ד. בדיקה <span class="timechip">⏱️ 10 דק'</span></h2>
-  <p>הקלידו שלוש אותיות, לחצו "מחק" פעמיים – נשארת אחת. לחצו "בדיקה" עם 3 אותיות – ההודעה "צריך 5 אותיות".</p>
-
-  <div class="checkpoint">
-    <span class="cp-label">תחנת אישור מורה</span>
-    <p class="cp-title">✅ ודאו לפני שאתם ניגשים למורה:</p>
-    <ol>
-      <li>"מחק" עובד ולא מוחק מעבר לתחילת השורה (אין קריסה בלחיצה על שורה ריקה).</li>
-      <li>"בדיקה" עם פחות מ-5 אותיות מציגה הודעה ולא זורקת חריגה.</li>
-      <li>אתם יכולים להסביר למה <code>CheckListener</code> רואה את <code>game</code> בלי שהעברנו לה אותו.</li>
-    </ol>
-    <div class="question-box">
-      <b>שאלת הבנה (המורה ישאל):</b><br>
-      הוספנו <code>static</code> ל-<code>CheckListener</code>. הפרויקט מפסיק להתקמפל.<br>
-      <b>א.</b> איזו שורה בדיוק נשברת ולמה?<br>
-      <b>ב.</b> איך הייתם מתקנים בלי להסיר את ה-static?
-    </div>
-  </div>
-</section>
-
-<!-- ================= STEP 8 ================= -->
-<section id="sec-8">
-  <h1>שלב 8: לוגיקת המשחק וצביעה – דרך 4 <span class="timechip total">⏱️ סה"כ כ-70 דק'</span></h1>
-
-  <div class="goal">🎯 מטרה: לכתוב את חוקי המשחק ב-Java טהור עם בדיקות JUnit, לחבר אותם למסך, ולסגור את "משחק חדש" עם מאזין אנונימי.</div>
-
-  <h2>למה ככה? למה המודל נפרד מהמסך?</h2>
-  <p>
-    <code>WordleGame</code> לא מייבא שום דבר מ-<code>android.*</code>. התוצאה: אפשר לבדוק אותו ב-JUnit על המחשב בחצי שנייה, בלי אמולטור, ובכל פעם שנוגעים בו
-    הבדיקות אומרות מיד אם שברנו משהו. אלגוריתם שני המעברים (הסבר בהמשך השלב) יושב כאן, ורק כאן.
-  </p>
-
-  <h2>א. המודל <span class="timechip">⏱️ 25 דק'</span></h2>
-  <p>צרו חבילה <code>model</code> (קליק ימני על החבילה → New → Package) ובה שלוש מחלקות:</p>
-{{CODE:app/src/main/java/com/example/hebrewwordle/model/LetterState.java|model/LetterState.java}}
-{{CODE:app/src/main/java/com/example/hebrewwordle/model/Guess.java|model/Guess.java}}
-{{CODE:app/src/main/java/com/example/hebrewwordle/model/WordleGame.java|model/WordleGame.java}}
+  <h2>א. שלוש מחלקות <span class="timechip">⏱️ 25 דק'</span></h2>
+  <p>צרו חבילה <code>model</code>: קליק ימני על <code>com.example.hebrewwordle</code> → <b>New → Package</b>. בתוכה:</p>
+{{ADD:07|main/java/com/example/hebrewwordle/model/LetterState.java|model/LetterState.java}}
+{{ADD:07|main/java/com/example/hebrewwordle/model/Guess.java|model/Guess.java}}
+{{ADD:07|main/java/com/example/hebrewwordle/model/WordleGame.java|model/WordleGame.java}}
   <ul>
-    <li><code>evaluate</code> היא <code>static</code>: היא פונקציה טהורה – קלט נכנס, פלט יוצא, בלי מצב. קל לבדוק.</li>
-    <li><code>normalize</code> הופכת אותיות סופיות לרגילות לפני ההשוואה, כך ש-"מ" ו-"ם" נחשבות אותה אות. האותיות שמוצגות על הלוח נשארות כפי שהוקלדו.</li>
-    <li><code>submit</code> זורק חריגות על קלט לא חוקי. ביחידה 1 למדתם למה זה עדיף על החזרת <code>null</code>.</li>
+    <li><code>LetterState</code> – ארבעת המצבים של אות. <code>enum</code> מבטיח שאין מצב חמישי.</li>
+    <li><code>Guess</code> – ניחוש אחד: המילה, ומצב לכל אות.</li>
+    <li><code>WordleGame</code> – המילה הסודית ורשימת הניחושים. <code>submit</code> בודקת ניחוש ומוסיפה אותו; <code>isWon</code>, <code>isLost</code>, <code>isOver</code> עונות מה מצב המשחק.</li>
+    <li><code>normalize</code> הופכת אותיות סופיות לרגילות לפני ההשוואה, כך ש-"מ" ו-"ם" נחשבות אותה אות.</li>
   </ul>
 
   <div class="infobox">
-    <h3>🤔 ואיך פותרים את האות הכפולה?</h3>
+    <h3>🤔 ואיך פותרים אות שמופיעה פעמיים?</h3>
     <p style="margin:0;">
-      בשני מעברים. במעבר הראשון מסמנים רק <b>ירוקים</b> ו"מנצלים" את האות המתאימה במילה הסודית.
-      במעבר השני, לכל אות שעוד לא נצבעה, מחפשים אות <b>שעוד לא נוצלה</b> במילה הסודית: מצאנו – צהוב ומנצלים אותה; לא מצאנו – אפור.
-      כך בדוגמה של <b>תלמיד</b> מול <b>תתתתת</b>: ה-ת' הראשונה ירוקה (ומנצלת את ה-ת' היחידה), וארבע האחרות אפורות.
-      נסו לענות לפני שמריצים את הבדיקות: מה יקרה עם <b>ספינה</b> מול <b>ימיים</b>?
+      <code>evaluate</code> עובדת בשני מעברים. במעבר הראשון מסמנים רק <b>ירוקים</b>, ו"מנצלים" את האות המתאימה במילה הסודית.
+      במעבר השני, לכל אות שעוד לא נצבעה, מחפשים במילה הסודית אות <b>שעוד לא נוצלה</b>: מצאנו – צהוב, ומנצלים אותה; לא מצאנו – אפור.
+      דוגמה: המילה הסודית <b>תלמיד</b>, הניחוש <b>תתתתת</b>. ה-ת' הראשונה ירוקה ומנצלת את ה-ת' היחידה, וארבע האחרות אפורות.
     </p>
   </div>
 
-  <h2>ב. הבדיקות <span class="timechip">⏱️ 15 דק'</span></h2>
-  <p>ב-<code>app/src/test/java/.../model/</code> (שימו לב: <b>test</b>, לא main):</p>
-{{CODE:app/src/test/java/com/example/hebrewwordle/model/WordleGameTest.java|test/.../WordleGameTest.java}}
+  <h2>ב. הבדיקות <span class="timechip">⏱️ 20 דק'</span></h2>
+  <p>הבדיקות יושבות בתיקייה <code>test</code> (לא <code>main</code>!): <code>app/src/test/java/com/example/hebrewwordle/</code>. צרו בה חבילה <code>model</code> ובתוכה:</p>
+{{ADD:07|test/java/com/example/hebrewwordle/model/WordleGameTest.java|test/.../model/WordleGameTest.java}}
   <p>
-    הריצו (קליק ימני על הקובץ → Run). תשע בדיקות ירוקות. הבדיקה <code>greenWinsOverYellowForDuplicates</code> בודקת בדיוק את מקרה האות הכפולה: <b>ספינה</b> מול <b>ימיים</b>.
+    קליק ימני על הקובץ → <b>Run</b>. תשע בדיקות ירוקות. הבדיקה <code>greenWinsOverYellowForDuplicates</code> בודקת אות כפולה: <b>ספינה</b> מול <b>ימיים</b>.
   </p>
-
-  <h2>ג. חיבור למסך <span class="timechip">⏱️ 20 דק'</span></h2>
-{{CODE:app/src/main/java/com/example/hebrewwordle/MainActivity.java|MainActivity.java – שדות המשחק|step9-fields}}
-{{CODE:app/src/main/java/com/example/hebrewwordle/MainActivity.java|MainActivity.java – משחק חדש, צביעה והודעות|step9-game}}
-  <ul>
-    <li><code>showGuess</code> צובעת שורה אחת ואת המקשים שלה. <code>paintKey</code> דואגת שמקש רק "עולה בדרגה": אות שכבר ירוקה לא תהפוך צהובה בניחוש הבא. זו הסיבה ל-<code>ordinal()</code> ול-<code>setTag</code>.</li>
-    <li>שורת ה-Log עם המילה הסודית היא כלי פיתוח. <b>מוחקים לפני הגשה.</b></li>
-  </ul>
-
-  <h2>ד. דרך 4: מאזין אנונימי, ואיסוף המקשים <span class="timechip">⏱️ 10 דק'</span></h2>
-{{CODE:app/src/main/java/com/example/hebrewwordle/MainActivity.java|MainActivity.java – wireButtons ו-collectKeyboardButtons|step9-wire}}
-  <p>
-    <code>new View.OnClickListener() { ... }</code> הוא <b>מחלקה בלי שם</b> שנוצרת במקום. מתאים לקוד של שורה-שתיים שלא יחזור. ארבע הדרכים, בטבלה אחת:
-  </p>
-  <table class="schema">
-    <tr><th>דרך</th><th>איפה אצלנו</th><th>מתי לבחור</th><th>המהדר בודק?</th></tr>
-    <tr><td>1. <code>android:onClick</code> ב-XML</td><td>27 מקשי האותיות</td><td>הרבה כפתורים זהים</td><td><b>לא</b></td></tr>
-    <tr><td>2. הפעילות מממשת</td><td>מחק</td><td>מקום אחד לכל הכפתורים</td><td>כן</td></tr>
-    <tr><td>3. מחלקה פנימית</td><td>בדיקה</td><td>מאזין עם עבודה אמיתית ושם</td><td>כן</td></tr>
-    <tr><td>4. אנונימי</td><td>משחק חדש</td><td>שורה אחת, פעם אחת</td><td>כן</td></tr>
-  </table>
-  <p>ולבסוף, <code>onCreate</code> המלא שמחבר הכול:</p>
-{{CODE:app/src/main/java/com/example/hebrewwordle/MainActivity.java|MainActivity.java – onCreate|step3-oncreate}}
-
-  <h2>ה. משחקים! </h2>
-  <p>הנה המשחק הגמור באמולטור, אחרי ניחוש אחד שגוי וניחוש נכון. שימו לב למקשים: ח' צהובה בניחוש הראשון הפכה ירוקה בשני.</p>
-  <figure class="shot">
-    <img src="img/screen-win.png" alt="ניצחון בשני ניחושים">
-    <img src="img/screen-land.png" class="wide" alt="המסך לרוחב">
-    <figcaption>מימין: ניצחון בשני ניחושים. משמאל: אותו משחק אחרי סיבוב, לפני שלב 9 הלוח היה מתאפס. שימו לב שהלוח נחתך לרוחב (הרחבה בשלב 3).</figcaption>
-  </figure>
+  <p class="note-small">בשלב הזה כל הקבצים חדשים, והם מוצגים למעלה במלואם. האפליקציה עצמה עוד לא השתנתה – את החיבור למסך נעשה בשלב הבא.</p>
 
   <div class="checkpoint">
     <span class="cp-label">תחנת אישור מורה</span>
     <p class="cp-title">✅ ודאו לפני שאתם ניגשים למורה:</p>
     <ol>
       <li>9 בדיקות JUnit ירוקות.</li>
-      <li>משחק מלא: ניצחון, הפסד אחרי 6, "משחק חדש" מנקה לוח ומקשים.</li>
-      <li>אתם יכולים להסביר למה <code>WordleGame</code> לא מכיר <code>TextView</code>, ומה היה קורה אם היה מכיר.</li>
+      <li>אין אף <code>import android</code> בחבילה <code>model</code>.</li>
     </ol>
     <div class="question-box">
       <b>שאלת הבנה (המורה ישאל):</b><br>
-      הסירו מ-<code>paintKey</code> את הבדיקה של <code>old.ordinal() >= state.ordinal()</code>.<br>
-      <b>א.</b> תארו רצף של שני ניחושים שבו מקש יוצג בצבע שגוי.<br>
-      <b>ב.</b> למה הסדר של הקבועים ב-<code>LetterState</code> חשוב לקוד הזה? מה יקרה אם נחליף את מקומם של PRESENT ו-CORRECT?
+      <b>א.</b> המילה הסודית <b>ספינה</b>, הניחוש <b>ימיים</b>. כתבו את הצבע של כל אחת מחמש האותיות, לפני שאתם מסתכלים בבדיקה.<br>
+      <b>ב.</b> מה ישתנה אם נבדוק ירוק וצהוב באותה לולאה, במעבר אחד?
+    </div>
+  </div>
+</section>
+
+<!-- ================= STEP 8 ================= -->
+<section id="sec-8">
+  <h1>שלב 8: בדיקת הניחוש – דרך 3, מחלקה פנימית <span class="timechip total">⏱️ סה"כ כ-60 דק'</span></h1>
+
+  <div class="goal">🎯 מטרה: המשחק אמיתי – מילה סודית מוגרלת, "בדיקה" צובעת את השורה, וההודעה מספרת כמה ניסיונות נשארו.</div>
+
+  <h2>למה ככה?</h2>
+  <p>
+    המאזין של "בדיקה" עושה עבודה אמיתית: בודק, צובע, מעדכן הודעה. מגיע לו שם משלו. דרך 3: <b>מחלקה פנימית</b> – מחלקה שלמה שכתובה בתוך <code>MainActivity</code>
+    ומממשת <code>View.OnClickListener</code>. כמו בדרך 2, המהדר בודק שהמתודה קיימת.
+  </p>
+
+  <h2>א. מה המשחק צריך <span class="timechip">⏱️ 15 דק'</span></h2>
+  <p>
+    <b>רשימת המילים.</b> המילים הן נתונים, לא קוד, אז הן משאב: <code>string-array</code>. בקוד: <code>getResources().getStringArray(R.array.words)</code>.
+    צרו קובץ <code>words</code> בתיקייה <code>values</code>:
+  </p>
+{{ADD:08|main/res/values/words.xml|res/values/words.xml (105 מילים)}}
+  <p><b>שלוש צורות</b> לאריח שנבדק – ירוק, צהוב, אפור. בדיוק כמו <code>tile_empty</code> משלב 4, רק בצבע אחר:</p>
+{{ADD:08|main/res/drawable/tile_correct.xml|res/drawable/tile_correct.xml}}
+{{ADD:08|main/res/drawable/tile_present.xml|res/drawable/tile_present.xml}}
+{{ADD:08|main/res/drawable/tile_absent.xml|res/drawable/tile_absent.xml}}
+{{ADD:08|main/res/values/colors.xml|res/values/colors.xml}}
+  <p><b>ההודעות.</b> <code>%1$d</code> ו-<code>%1$s</code> הם "חור" במחרוזת, למספר או לטקסט. בקוד: <code>getString(R.string.msg_win, 2)</code> יציג "כל הכבוד! ניחשתם ב-2 ניסיונות".</p>
+{{ADD:08|main/res/values/strings.xml|res/values/strings.xml}}
+
+  <h2>ב. הקוד <span class="timechip">⏱️ 30 דק'</span></h2>
+{{ADD:08|main/java/com/example/hebrewwordle/MainActivity.java|MainActivity.java}}
+  <ul>
+    <li><code>ROWS</code> ו-<code>COLS</code> לוקחים עכשיו את הערכים מ-<code>WordleGame</code>. חוקי המשחק במקום אחד.</li>
+    <li><code>startNewGame</code> מגרילה מילה ויוצרת <code>WordleGame</code>. שורת ה-Log מדפיסה את המילה הסודית, כדי שתוכלו לבדוק. <b>מוחקים אותה לפני הגשה.</b></li>
+    <li><code>paintTile</code> צובעת אריח לפי <code>LetterState</code>. גם <code>buildBoard</code> משתמשת בה עכשיו, במקום שתי השורות שהיו שם.</li>
+    <li>ב-<code>onLetterKey</code> וב-<code>onClick</code>, השורה כבר לא תמיד 0: <code>game.getGuessCount()</code> – כמה ניחושים כבר נבדקו.</li>
+    <li><code>CheckListener</code> – <b>דרך 3</b>. בגלל שהיא <b>לא static</b>, היא רואה את השדות של הפעילות: <code>game</code>, <code>current</code>, <code>txtMessage</code>. השורה השנייה ב-<code>wireButtons</code> מחברת אותה.</li>
+    <li><code>showGuess</code> כותבת וצובעת שורה אחת; <code>updateMessage</code> מציגה ניצחון, הפסד או כמה ניסיונות נשארו.</li>
+  </ul>
+
+  <h2>ג. בדיקה <span class="timechip">⏱️ 15 דק'</span></h2>
+  <ol>
+    <li>ב-Logcat (סינון <code>tag:LIFECYCLE</code>) מצאו את המילה הסודית.</li>
+    <li>לחצו "בדיקה" עם פחות מ-5 אותיות – ההודעה "צריך 5 אותיות לפני הבדיקה".</li>
+    <li>נחשו מילה אחרת – השורה נצבעת, ההודעה "נשארו 5 ניסיונות", והאותיות הבאות נכתבות בשורה השנייה.</li>
+    <li>נחשו את המילה הסודית – השורה ירוקה כולה והודעת ניצחון.</li>
+  </ol>
+
+{{SNAP:08|main/java/com/example/hebrewwordle/MainActivity.java,main/res/values/strings.xml,main/res/values/colors.xml}}
+
+  <div class="checkpoint">
+    <span class="cp-label">תחנת אישור מורה</span>
+    <p class="cp-title">✅ ודאו לפני שאתם ניגשים למורה:</p>
+    <ol>
+      <li>ניחוש נצבע נכון (בדקו מול המילה הסודית ב-Logcat).</li>
+      <li>אחרי ניצחון או 6 ניחושים, המקלדת כבר לא כותבת.</li>
+      <li>אתם יכולים להסביר למה <code>CheckListener</code> רואה את <code>game</code> בלי שהעברנו לה אותו.</li>
+    </ol>
+    <div class="question-box">
+      <b>שאלת הבנה (המורה ישאל):</b><br>
+      הוספנו <code>static</code> ל-<code>CheckListener</code>, והפרויקט הפסיק להתקמפל.<br>
+      <b>א.</b> אילו שורות נשברות, ולמה?<br>
+      <b>ב.</b> כמה מקומות בקוד היינו צריכים לשנות אם לא היו לנו <code>ROWS</code> ו-<code>COLS</code>, והמשחק היה עובר למילים בנות 6 אותיות?
     </div>
   </div>
 </section>
 
 <!-- ================= STEP 9 ================= -->
 <section id="sec-9">
-  <h1>שלב 9: שמירת מצב בסיבוב מסך <span class="timechip total">⏱️ סה"כ כ-50 דק'</span></h1>
+  <h1>שלב 9: משחק חדש וצביעת המקלדת – דרך 4 <span class="timechip total">⏱️ סה"כ כ-40 דק'</span></h1>
 
-  <div class="goal">🎯 מטרה: שסיבוב הטלפון לא ימחק את המשחק – לשמור את המינימום ב-<code>onSaveInstanceState</code> ולשחזר ממנו הכול.</div>
+  <div class="goal">🎯 מטרה: כפתור "משחק חדש", ומקלדת שנצבעת לפי הניחושים – כדי שהשחקן יראה אילו אותיות כבר נוסו.</div>
 
   <h2>למה ככה?</h2>
   <p>
-    בשלב 2 ראיתם: סיבוב = <code>onDestroy</code> ואז <code>onCreate</code> חדש. אובייקט חדש, שדות חדשים, <code>game</code> ריק. המערכת נותנת לנו חלון הזדמנות:
-    רגע לפני ההריסה היא קוראת ל-<code>onSaveInstanceState(Bundle)</code>, ואת אותו Bundle היא מחזירה ל-<code>onCreate</code> החדש.
-    הכלל: שומרים <b>מקור</b>, לא <b>תוצאה</b>. מילה סודית + רשימת ניחושים + מה שהוקלד. את הצבעים מחשבים מחדש.
+    "משחק חדש" עושה דבר אחד: קורא ל-<code>startNewGame()</code>. לא שווה לכתוב בשביל זה מחלקה עם שם.
+    <b>מאזין אנונימי</b> – <code>new View.OnClickListener() { ... }</code> – הוא מחלקה בלי שם שנכתבת בדיוק במקום שבו משתמשים בה.
   </p>
 
-  <h2>א. שמירה <span class="timechip">⏱️ 15 דק'</span></h2>
-{{CODE:app/src/main/java/com/example/hebrewwordle/MainActivity.java|MainActivity.java – מפתחות|step10-keys}}
-{{CODE:app/src/main/java/com/example/hebrewwordle/MainActivity.java|MainActivity.java – שמירה ושחזור|step10-state}}
+  <h2>א. הכפתור <span class="timechip">⏱️ 5 דק'</span></h2>
+  <p>בין הלוח למקלדת:</p>
+{{ADD:09|main/res/layout/activity_main.xml|res/layout/activity_main.xml}}
+  <p><code>layout_gravity="center_horizontal"</code> – הכפתור עצמו ממורכז ברוחב המסך. (<code>gravity</code> משלב 3 ממרכז את התוכן <b>בתוך</b> רכיב; <code>layout_gravity</code> ממרכז את הרכיב <b>בתוך ההורה</b>.)</p>
+{{ADD:09|main/res/values/strings.xml|res/values/strings.xml}}
+
+  <h2>ב. הקוד <span class="timechip">⏱️ 20 דק'</span></h2>
+{{ADD:09|main/java/com/example/hebrewwordle/MainActivity.java|MainActivity.java}}
   <ul>
-    <li><b>Bundle</b> הוא מילון: מפתח (מחרוזת) → ערך פשוט (מספר, מחרוזת, רשימת מחרוזות...). לא שמים בו אובייקטים שלנו ישירות; לכן שומרים את <b>המילים</b> ולא את <code>Guess</code>.</li>
-    <li>המפתחות הם קבועים. מחרוזת שכתובה פעמיים (בשמירה ובשחזור) היא באג שמחכה לקרות.</li>
-    <li>ב-<code>restoreGame</code> אנחנו פשוט <b>משחקים מחדש</b> את הניחושים דרך <code>submit</code>. הצבעים חוזרים לבד, והמקשים נצבעים דרך אותה <code>showGuess</code>.</li>
+    <li><b>דרך 4</b> – השורה השלישית ב-<code>wireButtons</code>.</li>
+    <li><code>keyByLetter</code> הוא מילון: אות ← המקש שלה. <code>collectKeyboardButtons</code> עוברת על שורות המקלדת וממלאת אותו, כדי שנוכל לצבוע את המקש של "ש" בלי לחפש אותו.</li>
+    <li><code>paintKey</code> צובעת מקש, אבל רק "כלפי מעלה": אפור ← צהוב ← ירוק. אות שכבר ירוקה לא תהפוך צהובה בניחוש הבא. המצב הנוכחי של המקש נשמר ב-<code>setTag</code>, וההשוואה היא לפי הסדר ב-<code>LetterState</code> (<code>ordinal()</code>).</li>
+    <li><code>clearBoard</code> מחזירה גם את המקשים לצבע המקורי, כדי ש"משחק חדש" יתחיל נקי.</li>
   </ul>
 
-  <h2>ב. ההסתעפות ב-onCreate <span class="timechip">⏱️ 5 דק'</span></h2>
-  <p>
-    הפרמטר <code>savedInstanceState</code> הוא <code>null</code> בהפעלה רגילה, ומלא אחרי סיבוב. זו כל ההחלטה: <code>startNewGame()</code> או <code>restoreGame(savedInstanceState)</code>
-    (ראו <code>onCreate</code> בשלב 8).
-  </p>
+  <h2>ארבע הדרכים, בטבלה אחת</h2>
+  <table class="schema">
+    <tr><th>דרך</th><th>במשחק</th><th>מתי לבחור</th><th>המהדר בודק?</th></tr>
+    <tr><td>1. <code>android:onClick</code> ב-XML</td><td>27 מקשי האותיות (שלב 5)</td><td>הרבה כפתורים זהים</td><td><b>לא</b></td></tr>
+    <tr><td>2. הפעילות מממשת</td><td>מחק (שלב 6)</td><td>מקום אחד לכמה כפתורים</td><td>כן</td></tr>
+    <tr><td>3. מחלקה פנימית</td><td>בדיקה (שלב 8)</td><td>מאזין עם עבודה אמיתית</td><td>כן</td></tr>
+    <tr><td>4. מאזין אנונימי</td><td>משחק חדש (שלב 9)</td><td>שורה-שתיים, פעם אחת</td><td>כן</td></tr>
+  </table>
 
-  <h2>ג. בדיקה <span class="timechip">⏱️ 15 דק'</span></h2>
-  <ol>
-    <li>נחשו מילה אחת, הקלידו שתי אותיות בשורה השנייה.</li>
-    <li>סובבו. השורה הראשונה צבועה, שתי האותיות במקומן, המקשים צבועים, ההודעה "נשארו 5 ניסיונות".</li>
-    <li>ב-Logcat: <code>onSaveInstanceState - נשמרו 1 ניחושים</code> ואז <code>restoreGame - שוחזרו 1 ניחושים</code>.</li>
-    <li>לחצו "משחק חדש" וסובבו שוב: לוח ריק נשאר ריק.</li>
-  </ol>
+  <h2>ג. משחקים! <span class="timechip">⏱️ 15 דק'</span></h2>
+  <p>שחקו משחק שלם. בדקו ניצחון, הפסד אחרי 6 ניסיונות, ו"משחק חדש" שמנקה את הלוח ואת המקלדת.</p>
 
-  <div class="infobox">
-    <h3>🤔 ומה עם סגירה אמיתית?</h3>
-    <p style="margin:0;">
-      <code>onSaveInstanceState</code> שורד סיבוב ושורד "הרג" של האפליקציה ברקע על ידי המערכת. הוא <b>לא</b> שורד סגירה על ידי המשתמש (אחורה / החלקה מהרשימה).
-      כדי שהמשחק ישרוד גם את זה צריך לכתוב לדיסק – <code>SharedPreferences</code> ו-SQLite – וזו יחידה 5, שולחן השיאים.
-    </p>
-  </div>
-
-  <h2>ד. הרחבות <span class="timechip">⏱️ 15 דק'</span></h2>
-  <ul>
-    <li><b>מילה לא במאגר</b>: לפני <code>submit</code> בדקו שהמילה קיימת ב-<code>words</code> והציגו "לא במילון". שימו לב: השוואה אחרי <code>normalize</code>.</li>
-    <li><b>תבנית לרוחב</b>: <code>res/layout-land/activity_main.xml</code> עם לוח ומקלדת זה לצד זה. הקוד לא משתנה – ה-ids זהים.</li>
-    <li><b>סטטיסטיקה</b>: ספרו ניצחונות ברצף. איפה תשמרו? מה קורה בסיבוב? מה קורה בסגירה?</li>
-  </ul>
+{{SNAP:09|main/java/com/example/hebrewwordle/MainActivity.java,main/res/layout/activity_main.xml}}
 
   <div class="checkpoint">
     <span class="cp-label">תחנת אישור מורה</span>
     <p class="cp-title">✅ ודאו לפני שאתם ניגשים למורה:</p>
     <ol>
-      <li>סיבוב באמצע משחק שומר לוח, מקשים, הודעה ואותיות שהוקלדו.</li>
-      <li>ב-Bundle נשמרים רק שלושה מפתחות. אין בו צבעים.</li>
+      <li>משחק מלא: ניצחון, הפסד, ו"משחק חדש" מנקה לוח ומקשים.</li>
+      <li>מקש שהיה ירוק נשאר ירוק גם אם הופיע אחר כך במקום לא נכון.</li>
+    </ol>
+    <div class="question-box">
+      <b>שאלת הבנה (המורה ישאל):</b><br>
+      הסירו מ-<code>paintKey</code> את השורה עם <code>old.ordinal() >= state.ordinal()</code>.<br>
+      <b>א.</b> תארו שני ניחושים, אחד אחרי השני, שבהם מקש יוצג בצבע שגוי.<br>
+      <b>ב.</b> מה יקרה אם נחליף ב-<code>LetterState</code> את הסדר של PRESENT ו-CORRECT?
+    </div>
+  </div>
+</section>
+
+<!-- ================= STEP 10 ================= -->
+<section id="sec-10">
+  <h1>שלב 10: שמירת המשחק בסיבוב מסך <span class="timechip total">⏱️ סה"כ כ-45 דק'</span></h1>
+
+  <div class="goal">🎯 מטרה: שסיבוב הטלפון לא ימחק את המשחק – שומרים את המינימום ב-<code>onSaveInstanceState</code> ומשחזרים ממנו הכול.</div>
+
+  <h2>למה ככה?</h2>
+  <p>
+    נסו עכשיו: נחשו מילה אחת וסובבו את הטלפון. הלוח מתרוקן ויש מילה סודית חדשה. זה בדיוק מה שראיתם בשלב 2: סיבוב = <code>onDestroy</code> ואז <code>onCreate</code> חדש, ו-<code>onCreate</code> מגרילה משחק חדש.
+    אבל רגע לפני ההריסה אנדרואיד קורא ל-<code>onSaveInstanceState(Bundle)</code>, ואת אותו <code>Bundle</code> הוא מעביר ל-<code>onCreate</code> החדש.
+    מה שומרים? רק את מה שאי אפשר לחשב: המילה הסודית, המילים שניחשו, והאותיות שהוקלדו. את הצבעים מחשבים מחדש.
+  </p>
+
+  <h2>א. הקוד <span class="timechip">⏱️ 25 דק'</span></h2>
+{{ADD:10|main/java/com/example/hebrewwordle/MainActivity.java|MainActivity.java}}
+  <ul>
+    <li><b>Bundle</b> הוא מילון: מפתח (מחרוזת) ← ערך פשוט (מספר, מחרוזת, רשימת מחרוזות). לכן שומרים את <b>המילים</b> ולא את אובייקטי <code>Guess</code>.</li>
+    <li>המפתחות הם קבועים (<code>KEY_SECRET</code> ...). מחרוזת שכתובה פעמיים, פעם בשמירה ופעם בשחזור, היא באג שמחכה לקרות.</li>
+    <li>ב-<code>onCreate</code>: <code>savedInstanceState</code> הוא <code>null</code> בהפעלה רגילה, ומלא אחרי סיבוב. לכן <code>startNewGame()</code> או <code>restoreGame(...)</code>.</li>
+    <li><code>restoreGame</code> פשוט "משחקת מחדש" את הניחושים דרך <code>submit</code>. הצבעים של האריחים והמקשים חוזרים דרך אותה <code>showGuess</code>.</li>
+  </ul>
+
+  <h2>ב. בדיקה <span class="timechip">⏱️ 20 דק'</span></h2>
+  <ol>
+    <li>נחשו מילה אחת, והקלידו שתי אותיות בשורה השנייה.</li>
+    <li>סובבו. השורה הראשונה צבועה, שתי האותיות במקומן, המקשים צבועים, וההודעה "נשארו 5 ניסיונות".</li>
+    <li>ב-Logcat: <code>onSaveInstanceState - נשמרו 1 ניחושים</code>, ואחרי ה-<code>onCreate</code> החדש <code>restoreGame - שוחזרו 1 ניחושים</code>.</li>
+    <li>לחצו "משחק חדש" וסובבו שוב: לוח ריק נשאר ריק.</li>
+  </ol>
+
+  <div class="infobox">
+    <h3>🤔 ומה אם סוגרים את האפליקציה?</h3>
+    <p style="margin:0;">
+      <code>onSaveInstanceState</code> שומר את המשחק בסיבוב, וגם כשאנדרואיד סוגר את האפליקציה ברקע כדי לפנות זיכרון.
+      הוא <b>לא</b> שומר כשהמשתמש עצמו סוגר את האפליקציה (מחליק אותה מרשימת האפליקציות האחרונות). בשביל זה צריך לכתוב לזיכרון הקבוע של הטלפון – וזו יחידה 5.
+    </p>
+  </div>
+
+  <h2>ג. הרחבות</h2>
+  <ul>
+    <li><b>מילה לא במאגר</b>: לפני <code>submit</code> בדקו שהמילה קיימת ב-<code>words.xml</code>, והציגו "לא במילון". שימו לב להשוות אחרי <code>normalize</code>.</li>
+    <li><b>מסך לרוחב</b>: צרו <code>res/layout-land/activity_main.xml</code> שבו הלוח והמקלדת זה לצד זה (LinearLayout אופקי). הקוד לא משתנה, כי ה-ids זהים.</li>
+  </ul>
+
+{{SNAP:10|main/java/com/example/hebrewwordle/MainActivity.java}}
+
+  <div class="checkpoint">
+    <span class="cp-label">תחנת אישור מורה</span>
+    <p class="cp-title">✅ ודאו לפני שאתם ניגשים למורה:</p>
+    <ol>
+      <li>סיבוב באמצע משחק שומר את הלוח, המקשים, ההודעה והאותיות שהוקלדו.</li>
+      <li>ב-Bundle יש רק שלושה מפתחות, ואין בו צבעים.</li>
       <li>שורת ה-Log עם המילה הסודית נמחקה.</li>
     </ol>
     <div class="question-box">
       <b>שאלת הבנה (המורה ישאל):</b><br>
       תלמיד שמר ב-Bundle גם את הצבע של כל אריח (30 מספרים), "ליתר ביטחון".<br>
-      <b>א.</b> זה עובד. אז מה הבעיה? תנו דוגמה לבאג שיכול להיווצר כשיש שני מקורות לאותו מידע.<br>
-      <b>ב.</b> מה הקשר בין השאלה הזאת לכלל "חוקי המשחק לא יודעים שקיים אנדרואיד"?
+      <b>א.</b> זה עובד. אז מה הבעיה? תנו דוגמה לבאג שיכול לקרות כשאותו מידע שמור בשני מקומות.<br>
+      <b>ב.</b> למה אחרי סיבוב המילה הסודית <b>לא</b> מוגרלת מחדש? הצביעו על השורה.
     </div>
   </div>
 
   <div class="finishbox">
     <h2>🎉 סיימתם את יחידה 2!</h2>
-    <p>משחק שלם, מקלדת עברית, ארבע דרכים לטפל באירועים, ולוח ששורד סיבוב. ביחידה 3 נצא מהמסך היחיד: מסכים מרובים ו-Intents.</p>
+    <p>משחק שלם, מקלדת עברית, ארבע דרכים לטפל בלחיצות, ולוח ששורד סיבוב. ביחידה 3 נצא מהמסך היחיד: מסכים מרובים ו-Intents.</p>
   </div>
 </section>
