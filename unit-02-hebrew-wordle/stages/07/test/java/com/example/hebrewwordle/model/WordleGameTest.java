@@ -32,7 +32,7 @@ public class WordleGameTest {
     @Test
     public void greenWinsOverYellowForDuplicates() {
         // ב"ספינה" יש י אחת, באינדקס 2. בניחוש "ימיים" יש י באינדקסים 0, 2, 3.
-        // ה-י היחידה של המילה הסודית "משולמת" לירוק באינדקס 2, ולכן שתי האחרות אפורות.
+        // ה-י היחידה של המילה הסודית נספרת בירוק באינדקס 2, ולכן שתי האחרות אפורות.
         LetterState[] r = WordleGame.evaluate("ספינה", "ימיים");
         assertEquals(ABSENT, r[0]);
         assertEquals(CORRECT, r[2]);

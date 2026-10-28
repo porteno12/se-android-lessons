@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * חוקי המשחק, ב-Java טהור. המחלקה הזאת לא יודעת שקיים אנדרואיד:
+ * חוקי המשחק, ב-Java רגיל. המחלקה הזאת לא יודעת שקיים אנדרואיד:
  * אין כאן TextView, אין Button, אין צבעים. בגלל זה אפשר לבדוק אותה ב-JUnit
  * על המחשב, בלי אמולטור.
  */
@@ -42,8 +42,8 @@ public class WordleGame {
 
     /**
      * לב המשחק: משווה ניחוש למילה הסודית ומחזיר מצב לכל אות.
-     * שני מעברים: קודם מסמנים ירוקים, ורק אחר כך צהובים - אחרת אות כפולה
-     * בניחוש הייתה "גונבת" צהוב שלא מגיע לה.
+     * שני מעברים: קודם מסמנים ירוקים, ורק אחר כך צהובים - אחרת אות שמופיעה פעמיים
+     * בניחוש הייתה מקבלת צהוב שלא מגיע לה.
      */
     public static LetterState[] evaluate(String secret, String word) {
         LetterState[] result = new LetterState[WORD_LENGTH];
@@ -65,7 +65,7 @@ public class WordleGame {
             for (int j = 0; j < WORD_LENGTH; j++) {
                 if (!usedInSecret[j] && g[i] == s[j]) {
                     result[i] = LetterState.PRESENT;
-                    usedInSecret[j] = true;         // כל אות במילה הסודית "משלמת" פעם אחת
+                    usedInSecret[j] = true;         // כל אות במילה הסודית נספרת פעם אחת בלבד
                     break;
                 }
             }
@@ -74,7 +74,7 @@ public class WordleGame {
     }
 
     /**
-     * אותיות סופיות נחשבות כאות הרגילה: מי שהקליד "מ" במקום "ם" עדיין צודק לגבי האות.
+     * אותיות סופיות נחשבות כמו האות הרגילה: מי שהקליד "מ" במקום "ם" עדיין צודק לגבי האות.
      */
     public static String normalize(String word) {
         return word.replace('ך', 'כ')

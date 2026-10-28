@@ -784,7 +784,7 @@ def nullcheck():
     d = D('nullcheck', 720, 180)
     d.box(250, 15, 220, 50, ['`savedInstanceState'], 'box blue', size=14)
     d.arrow([(320, 65), (180, 110)], '`null', 230, 80)
-    d.arrow([(400, 65), (540, 110)], 'יש בו משהו', 500, 80)
+    d.arrow([(400, 65), (540, 110)], 'יש בו נתונים', 500, 80)
     d.box(40, 112, 280, 54, ['הפעלה רגילה', '`startNewGame()'], 'box', size=14)
     d.box(400, 112, 280, 54, ['חזרה מסיבוב', '`restoreGame(...)'], 'box green', size=14)
     return d
