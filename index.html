@@ -4,178 +4,340 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>הנדסת תוכנה דרך משחקים</title>
+<meta name="description" content="לומדים לתכנת אנדרואיד ב-Java דרך משחקים: כל יחידה בתוכנית הלימודים היא משחק שבונים שלב אחר שלב.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Heebo:wght@400;500;700;900&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Heebo:wght@400;500;700&family=Rubik:wght@600;800&display=swap" rel="stylesheet">
 <style>
   :root{
-    --bg:#F4F6FB; --surface:#FFFFFF; --ink:#16213E; --muted:#5B6480; --line:#DDE3F0;
-    --brand:#1F4FD8; --brand-soft:#E4EBFF; --ok:#1E8E5A; --ok-soft:#E1F5EA;
-    --warn:#B9770E; --warn-soft:#FFF3DC; --gray:#6B7280; --gray-soft:#EEF0F4; --violet:#6D3FD1; --violet-soft:#EFE8FF;
+    --bg:#F3F6F1;
+    --surface:#FCFDFB;
+    --ink:#17231B;
+    --muted:#4C5D51;
+    --line:#D8E1D5;
+    --line-strong:#B4C3B0;
+    --accent:#2E7D46;
+    --accent-ink:#1F5C33;
+    --accent-soft:#E2F0E3;
+    --hero:#15201A;
+    --hero-ink:#EEF4EC;
+    --hero-muted:#A9BBAE;
+    --t-green:#6AAA64;
+    --t-yellow:#C9B458;
+    --t-gray:#787C7E;
+    --radius:14px;
+    --ease-out:cubic-bezier(0.23, 1, 0.32, 1);
   }
   *{box-sizing:border-box;}
-  body{margin:0;background:var(--bg);color:var(--ink);font-family:'Heebo',Arial,sans-serif;line-height:1.65;}
-  header{background:var(--ink);color:#fff;padding:36px 24px 30px;}
-  header .wrap{max-width:1240px;margin:0 auto;}
-  header h1{margin:0 0 6px;font-size:34px;font-weight:900;}
-  header p{margin:0;color:#C9D2F0;font-size:17px;}
-  .meter{display:inline-block;margin-top:14px;background:rgba(255,255,255,.12);border-radius:999px;padding:6px 16px;font-weight:700;}
-  main{max-width:1240px;margin:0 auto;padding:28px 24px 60px;}
-  h2{font-size:24px;font-weight:800;margin:30px 0 12px;border-right:5px solid var(--brand);padding-right:12px;}
-  ol.topics{columns:2;column-gap:40px;padding-inline-start:24px;margin:0;font-size:16px;}
-  ol.topics li{break-inside:avoid;margin-bottom:6px;}
-  table{width:100%;border-collapse:collapse;background:var(--surface);border:1px solid var(--line);border-radius:12px;overflow:hidden;font-size:15px;}
-  th,td{padding:12px 14px;border-bottom:1px solid var(--line);vertical-align:top;text-align:right;}
-  th{background:var(--brand-soft);color:var(--brand);font-weight:800;font-size:14px;}
-  td.num{font-weight:900;font-size:20px;color:var(--brand);width:56px;}
-  td.about{font-size:15px;max-width:380px;}
-  td.topics-col{color:var(--muted);font-size:14px;}
-  .desc{color:var(--muted);font-size:14px;margin-top:4px;}
-  .status{display:inline-block;border-radius:999px;padding:3px 12px;font-weight:700;font-size:13px;white-space:nowrap;}
-  .status.planned{background:var(--gray-soft);color:var(--gray);}
-  .status.progress{background:var(--warn-soft);color:var(--warn);}
-  .status.done{background:var(--ok-soft);color:var(--ok);}
-  .status.embedded{background:var(--violet-soft);color:var(--violet);}
-  tr.done td{background:#F7FCF9;}
-  tr.embedded td{background:#FBF9FF;}
-  .date{color:var(--muted);font-size:12px;margin-top:4px;}
-  .links{margin-top:8px;display:flex;gap:6px;flex-wrap:wrap;}
-  .btn{display:inline-block;background:var(--brand);color:#fff;text-decoration:none;border-radius:8px;padding:6px 12px;font-weight:700;font-size:14px;}
-  .btn.ghost{background:#fff;color:var(--brand);border:1px solid var(--brand);}
-  footer{text-align:center;color:var(--muted);font-size:13px;padding:20px;}
-  @media (max-width:900px){ ol.topics{columns:1;} td.topics-col{display:none;} th:nth-child(4){display:none;} }
+  html{scroll-behavior:smooth;}
+  body{margin:0;background:var(--bg);color:var(--ink);font-family:'Heebo',Arial,sans-serif;font-size:17px;line-height:1.6;}
+  h1,h2,h3{font-family:'Rubik','Heebo',sans-serif;text-wrap:balance;margin:0;}
+  a{color:var(--accent-ink);}
+  :focus-visible{outline:3px solid var(--t-yellow);outline-offset:3px;border-radius:8px;}
+
+  /* ---------- hero ---------- */
+  .hero{background:var(--hero);color:var(--hero-ink);padding:56px 24px 52px;}
+  .hero .wrap{max-width:1080px;margin:0 auto;display:grid;grid-template-columns:1.25fr 1fr;gap:48px;align-items:center;}
+  .kicker{margin:0 0 14px;color:var(--hero-muted);font-weight:500;font-size:16px;}
+  .hero h1{font-size:clamp(2rem, 4.2vw, 3.2rem);font-weight:800;line-height:1.12;letter-spacing:-0.01em;}
+  .hero h1 em{font-style:normal;color:var(--t-green);}
+  .lead{margin:18px 0 0;font-size:19px;color:var(--hero-ink);opacity:.86;max-width:34ch;}
+  .board{display:grid;grid-template-columns:repeat(6, 1fr);gap:8px;max-width:390px;justify-self:center;width:100%;}
+  .board span{aspect-ratio:1;display:grid;place-items:center;border:2px solid #3A4A40;border-radius:6px;
+    font-family:'Rubik',sans-serif;font-weight:800;font-size:clamp(16px, 2.2vw, 22px);color:#5E7064;}
+  .board span.done{background:var(--t-green);border-color:var(--t-green);color:#fff;animation:flip .32s var(--ease-out) both;}
+  .board span.done:nth-child(2){animation-delay:.12s;}
+  @keyframes flip{from{transform:rotateX(90deg);}to{transform:rotateX(0);}}
+  .board-cap{grid-column:2;justify-self:center;margin:12px 0 0;color:var(--hero-muted);font-size:15px;}
+  .board-wrap{display:flex;flex-direction:column;align-items:center;}
+
+  /* ---------- path ---------- */
+  main{max-width:1080px;margin:0 auto;padding:56px 24px 40px;}
+  .section-head{text-align:center;margin-bottom:40px;}
+  .section-head h2{font-size:clamp(1.6rem, 3vw, 2.2rem);font-weight:800;}
+  .section-head p{margin:10px auto 0;color:var(--muted);max-width:60ch;}
+  .legend{display:flex;gap:18px;justify-content:center;flex-wrap:wrap;margin-top:14px;font-size:15px;color:var(--muted);}
+  .legend i{display:inline-block;width:14px;height:14px;border-radius:3px;vertical-align:-2px;margin-inline-end:6px;}
+
+  .path{list-style:none;margin:0;padding:0;position:relative;}
+  .path::before{content:"";position:absolute;top:24px;bottom:24px;inset-inline-start:50%;width:4px;transform:translateX(50%);
+    background:repeating-linear-gradient(to bottom, var(--line-strong) 0 12px, transparent 12px 22px);border-radius:2px;}
+  .level{display:grid;grid-template-columns:1fr 76px 1fr;align-items:center;margin-bottom:26px;position:relative;}
+  .node{grid-column:2;grid-row:1;justify-self:center;width:54px;height:54px;border-radius:12px;display:grid;place-items:center;
+    font-family:'Rubik',sans-serif;font-weight:800;font-size:22px;background:var(--surface);border:2px solid var(--line-strong);color:var(--muted);position:relative;z-index:1;}
+  .card{grid-row:1;grid-column:1;background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);padding:20px 22px;}
+  .level:nth-child(even) .card{grid-column:3;}
+
+  .level.done .node{background:var(--t-green);border-color:var(--t-green);color:#fff;}
+  .level.done .card{border-color:#A9CFA6;box-shadow:0 1px 2px rgba(23,35,27,.06), 0 8px 24px -12px rgba(46,125,70,.35);}
+  .level.final .node{background:var(--t-yellow);border-color:var(--t-yellow);color:var(--ink);}
+  .level.skip .node{border-style:dashed;background:transparent;}
+  .level.skip .card{background:transparent;border-style:dashed;}
+
+  .card-head{display:flex;gap:16px;align-items:flex-start;}
+  .art{flex:none;width:60px;height:60px;border-radius:12px;background:var(--bg);display:grid;place-items:center;}
+  .art svg{width:46px;height:46px;}
+  .level.planned .art svg,.level.final .art svg,.level.skip .art svg{filter:grayscale(1);opacity:.6;}
+  .card h3{font-size:21px;font-weight:600;line-height:1.25;}
+  .card .desc{margin:6px 0 0;color:var(--muted);font-size:16px;}
+  .chips{list-style:none;margin:14px 0 0;padding:0;display:flex;flex-wrap:wrap;gap:6px;}
+  .chips li{font-size:13.5px;padding:3px 10px;border-radius:999px;background:var(--bg);border:1px solid var(--line);color:var(--muted);}
+  .chips li.link{background:#FBF6E2;border-color:#E6D7A0;color:#6B5A1A;}
+  .foot{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;margin-top:16px;}
+  .status{font-size:14px;font-weight:700;color:var(--muted);}
+  .level.done .status{color:var(--accent-ink);}
+  .note{font-size:14px;color:var(--muted);}
+  .actions{display:flex;gap:8px;flex-wrap:wrap;}
+  .btn{display:inline-flex;align-items:center;gap:6px;min-height:44px;padding:0 16px;border-radius:10px;text-decoration:none;font-weight:700;font-size:15px;
+    transition:transform .16s var(--ease-out), background-color .16s var(--ease-out);}
+  .btn.primary{background:var(--accent);color:#fff;}
+  .btn.primary:hover{background:var(--accent-ink);}
+  .btn.ghost{color:var(--accent-ink);border:1.5px solid #A9CFA6;background:var(--surface);}
+  .btn.ghost:hover{background:var(--accent-soft);}
+  .btn:active{transform:scale(.97);}
+
+  /* ---------- syllabus ---------- */
+  .syllabus{margin:56px auto 0;max-width:820px;background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);}
+  .syllabus summary{cursor:pointer;padding:18px 22px;font-family:'Rubik',sans-serif;font-weight:600;font-size:19px;list-style:none;display:flex;justify-content:space-between;align-items:center;}
+  .syllabus summary::-webkit-details-marker{display:none;}
+  .syllabus summary::after{content:"＋";color:var(--accent);font-size:22px;}
+  .syllabus[open] summary::after{content:"－";}
+  .syllabus ol{margin:0;padding:0 46px 22px 22px;columns:2;column-gap:36px;font-size:16px;}
+  .syllabus li{break-inside:avoid;margin-bottom:6px;}
+
+  footer{text-align:center;color:var(--muted);font-size:14px;padding:28px 20px 36px;}
+
+  @media (max-width:820px){
+    .hero{padding:40px 20px 40px;}
+    .hero .wrap{grid-template-columns:1fr;gap:32px;}
+    .board{max-width:320px;}
+    .path::before{inset-inline-start:27px;}
+    .level{grid-template-columns:56px 1fr;gap:14px;}
+    .node{grid-column:1;}
+    .card,.level:nth-child(even) .card{grid-column:2;}
+    .syllabus ol{columns:1;}
+  }
+  @media (hover:hover) and (pointer:fine){
+    .level.done .card{transition:transform .2s var(--ease-out), box-shadow .2s var(--ease-out);}
+    .level.done .card:hover{transform:translateY(-2px);box-shadow:0 1px 2px rgba(23,35,27,.06), 0 14px 30px -14px rgba(46,125,70,.45);}
+  }
+  @media (prefers-reduced-motion:reduce){
+    .board span.done{animation:none;}
+    .level.done .card,.btn{transition:none;}
+    html{scroll-behavior:auto;}
+  }
 </style>
 </head>
 <body>
-<header><div class="wrap">
-  <h1>הנדסת תוכנה (אנדרואיד/Java) דרך משחקים</h1>
-  <p>כל יחידה בתוכנית הלימודים נלמדת דרך משחק אחד שנבנה שלב אחר שלב: מדריך מקוון ופרויקט Android Studio מלא.</p>
-  <span class="meter">נבנו 2 מתוך 12 אפליקציות</span>
-</div></header>
+
+<header class="hero">
+  <div class="wrap">
+    <div>
+      <p class="kicker">הנדסת תוכנה · אנדרואיד ו-Java</p>
+      <h1>לומדים לתכנת אנדרואיד <em>דרך 12 משחקים</em></h1>
+      <p class="lead">כל יחידה בתוכנית הלימודים היא משחק שבונים מאפס, שלב אחר שלב: מדריך מקוון וקוד מלא.</p>
+    </div>
+    <div class="board-wrap">
+      <div class="board" role="img" aria-label="2 מתוך 12 משחקים מוכנים">
+        <span class="done">1</span><span class="done">2</span><span>3</span><span>4</span><span>5</span><span>7</span>
+        <span>8</span><span>9</span><span>10</span><span>11</span><span>12</span><span>13</span>
+      </div>
+      <p class="board-cap">2 מתוך 12 משחקים מוכנים</p>
+    </div>
+  </div>
+</header>
+
 <main>
-  <h2>נושאי הלימוד</h2>
-  <ol class="topics">
-<li>סקירה: מה זה אנדרואיד, סביבת העבודה</li>
-<li>תכנות מונחה עצמים: הורשה, פולימורפיזם, מחלקות, עצמים, ממשקים</li>
-<li>אוספים גנריים והתאמתם לשפת המימוש</li>
-<li>טיפול בחריגות</li>
-<li>מבוא לאפליקציה: Activity, מבנה הפרויקט, קובץ ההגדרות, מעגל חיי הפעילות</li>
-<li>ממשק משתמש: רכיבים ותבניות XML מקוד, סידור בתבניות, שמירת מצב בשינוי תצורה</li>
-<li>טיפול באירועים: מאזינים ב-XML, פעילות מממשת, מחלקה פנימית, מאזין בשורה</li>
-<li>Intents: סוגי מסרים, מסנני מסרים, פעילות למטרת תוצאה</li>
-<li>תפריטים, תיבות דו-שיח, הודעות Status bar</li>
-<li>משאבי האפליקציה: מבנה תיקיית המשאבים, יצירה וארגון</li>
-<li>אחסון נתונים: SharedPreferences, אחסון פנימי וחיצוני, SQLite</li>
-<li>תכנון וניתוח אפליקציות: UML, תיאור מסכים, תרשימי זרימה, שרטוט ישויות</li>
-<li>ספקי תוכן: Content Providers, URI, שאילתות</li>
-<li>תהליכים והליכונים: Thread, Processes, Handler, AsyncTask</li>
-<li>שירותים: סוגי Service, מעגל חיים, IntentService, שירות חזית, תזמון</li>
-<li>BroadcastReceiver, שירותי מערכת, הרשאות ואבטחה, App Widgets</li>
-<li>טלפוניה: TelephonyManager, PhoneStateListener, SMS</li>
-<li>רכיבים מתקדמים: מולטימדיה, מצלמה, חיישנים, GPS, מפות</li>
-<li>גרפיקה ואנימציה: View, SurfaceView, AnimationDrawable</li>
-<li>הנחיה והגשת עבודת גמר</li>
+  <div class="section-head">
+    <h2>מסלול המשחקים</h2>
+    <p>משחק אחד לכל יחידה, לפי הסדר של תוכנית הלימודים. כל משחק מלמד את נושאי היחידה שלו.</p>
+    <div class="legend"><span><i style="background:var(--t-green)"></i>מוכן ללמידה</span><span><i style="background:#fff;border:2px solid var(--line-strong)"></i>בקרוב</span></div>
+  </div>
+
+  <ol class="path">
+    <li class="level done">
+      <div class="node">1</div>
+      <article class="card">
+        <div class="card-head">
+          <span class="art"><svg viewBox="0 0 64 64" aria-hidden="true"><g stroke="#17231B" stroke-width="4.5" stroke-linecap="round"><path d="M14 12 L44 42"/><path d="M50 12 L20 42"/><path d="M45 45 L53 53"/><path d="M19 45 L11 53"/></g><g stroke="#C9B458" stroke-width="5" stroke-linecap="round"><path d="M36 48 L48 36"/><path d="M16 36 L28 48"/></g></svg></span>
+          <div><h3>קרב דמויות</h3><p class="desc">שני שחקנים בוחרים דמויות עם כוחות שונים ונלחמים בתורות, עד שאחת הדמויות נופלת.</p></div>
+        </div>
+        <ul class="chips"><li>תכנות מונחה עצמים</li><li>אוספים גנריים</li><li>טיפול בחריגות</li></ul>
+        <div class="foot"><span class="status">✓ מוכן</span><span class="note">קישור למדריך יתווסף בקרוב</span></div>
+      </article>
+    </li>
+
+    <li class="level done">
+      <div class="node">2</div>
+      <article class="card">
+        <div class="card-head">
+          <span class="art"><svg viewBox="0 0 64 64" aria-hidden="true"><rect x="2" y="21" width="10.5" height="22" rx="2" fill="#6AAA64"/><rect x="14.5" y="21" width="10.5" height="22" rx="2" fill="#C9B458"/><rect x="27" y="21" width="10.5" height="22" rx="2" fill="#787C7E"/><rect x="39.5" y="21" width="10.5" height="22" rx="2" fill="#6AAA64"/><rect x="52" y="21" width="10.5" height="22" rx="2" fill="#787C7E"/></svg></span>
+          <div><h3>ווֹרדל בעברית</h3><p class="desc">מנחשים מילה בת 5 אותיות ב-6 ניסיונות. אחרי כל ניחוש האותיות נצבעות לפי הדיוק.</p></div>
+        </div>
+        <ul class="chips"><li>מבוא לאפליקציה</li><li>ממשק משתמש</li><li>טיפול באירועים</li><li>משאבי האפליקציה</li></ul>
+        <div class="foot"><span class="status">✓ מוכן</span>
+          <div class="actions"><a class="btn primary" href="unit-02-hebrew-wordle/index.html">📖 למדריך</a><a class="btn ghost" href="https://github.com/porteno12/se-android-lessons/tree/main/unit-02-hebrew-wordle/app" target="_blank" rel="noopener">💻 הקוד המלא</a></div>
+        </div>
+      </article>
+    </li>
+
+    <li class="level planned">
+      <div class="node">3</div>
+      <article class="card">
+        <div class="card-head">
+          <span class="art"><svg viewBox="0 0 64 64" aria-hidden="true"><g fill="none" stroke="#17231B" stroke-width="3"><rect x="14" y="44" width="36" height="8" rx="3"/><rect x="14" y="20" width="36" height="8" rx="3"/><rect x="14" y="8" width="36" height="8" rx="3"/></g><rect x="14" y="32" width="36" height="8" rx="3" fill="#C9B458"/></svg></span>
+          <div><h3>מי רוצה להיות מיליונר</h3><p class="desc">15 שאלות בסולם עולה, עם שלושה גלגלי הצלה.</p></div>
+        </div>
+        <ul class="chips"><li>Intents</li></ul>
+        <div class="foot"><span class="status">בקרוב</span></div>
+      </article>
+    </li>
+
+    <li class="level planned">
+      <div class="node">4</div>
+      <article class="card">
+        <div class="card-head">
+          <span class="art"><svg viewBox="0 0 64 64" aria-hidden="true"><rect x="6" y="10" width="52" height="44" rx="6" fill="#2F4A3A"/><g fill="#F3F6F1"><circle cx="17" cy="21" r="5"/><circle cx="29" cy="21" r="5"/><circle cx="41" cy="21" r="5"/><circle cx="53" cy="21" r="5" opacity="0"/><circle cx="17" cy="33" r="5"/><circle cx="29" cy="33" r="5"/><circle cx="47" cy="21" r="5"/></g><g fill="#C9B458"><circle cx="17" cy="45" r="5"/><circle cx="29" cy="33" r="5"/><circle cx="41" cy="45" r="5"/></g><g fill="#6AAA64"><circle cx="29" cy="45" r="5"/><circle cx="41" cy="33" r="5"/><circle cx="47" cy="45" r="5" opacity="0"/></g></svg></span>
+          <div><h3>ארבע בשורה נגד המחשב</h3><p class="desc">ארבע בשורה מול המחשב, בשלוש רמות קושי.</p></div>
+        </div>
+        <ul class="chips"><li>תפריטים</li><li>תיבות דו-שיח</li><li>הודעות</li></ul>
+        <div class="foot"><span class="status">בקרוב</span></div>
+      </article>
+    </li>
+
+    <li class="level planned">
+      <div class="node">5</div>
+      <article class="card">
+        <div class="card-head">
+          <span class="art"><svg viewBox="0 0 64 64" aria-hidden="true"><path d="M20 10 H44 V24 A12 12 0 0 1 20 24 Z" fill="#C9B458"/><path d="M20 14 H12 V20 A8 8 0 0 0 20 28 M44 14 H52 V20 A8 8 0 0 1 44 28" fill="none" stroke="#C9B458" stroke-width="3.5"/><rect x="29" y="36" width="6" height="10" fill="#17231B"/><rect x="21" y="46" width="22" height="7" rx="2" fill="#17231B"/></svg></span>
+          <div><h3>שולחן שיאים</h3><p class="desc">הגדרות, יומן משחקים ושיאים לכל שחקן, שמתווספים למשחקים הקודמים.</p></div>
+        </div>
+        <ul class="chips"><li>אחסון נתונים</li></ul>
+        <div class="foot"><span class="status">בקרוב</span></div>
+      </article>
+    </li>
+
+    <li class="level skip">
+      <div class="node">6</div>
+      <article class="card">
+        <div class="card-head">
+          <span class="art"><svg viewBox="0 0 64 64" aria-hidden="true"><path d="M16 48 L40 14 L48 20 L24 54 L14 56 Z" fill="none" stroke="#17231B" stroke-width="3.5" stroke-linejoin="round"/></svg></span>
+          <div><h3>תכנון וניתוח אפליקציות</h3><p class="desc">נושא בתוכנית הלימודים, לא משחק. לא נכלל במדריכים.</p></div>
+        </div>
+      </article>
+    </li>
+
+    <li class="level planned">
+      <div class="node">7</div>
+      <article class="card">
+        <div class="card-head">
+          <span class="art"><svg viewBox="0 0 64 64" aria-hidden="true"><rect x="8" y="12" width="48" height="40" rx="5" fill="none" stroke="#17231B" stroke-width="3.5"/><path d="M12 48 L26 30 L35 40 L42 33 L52 48 Z" fill="#6AAA64"/><circle cx="44" cy="22" r="5" fill="#C9B458"/></svg></span>
+          <div><h3>מי בתמונה</h3><p class="desc">משחק ניחוש על התמונות שבגלריה: מתי ואיפה הן צולמו.</p></div>
+        </div>
+        <ul class="chips"><li>ספקי תוכן</li><li class="link">ממשיך את שולחן השיאים (יחידה 5)</li></ul>
+        <div class="foot"><span class="status">בקרוב</span></div>
+      </article>
+    </li>
+
+    <li class="level planned">
+      <div class="node">8</div>
+      <article class="card">
+        <div class="card-head">
+          <span class="art"><svg viewBox="0 0 64 64" aria-hidden="true"><g fill="#6AAA64"><rect x="6" y="38" width="10" height="10" rx="2"/><rect x="17" y="38" width="10" height="10" rx="2"/><rect x="28" y="38" width="10" height="10" rx="2"/><rect x="28" y="27" width="10" height="10" rx="2"/><rect x="28" y="16" width="10" height="10" rx="2"/><rect x="39" y="16" width="10" height="10" rx="2"/></g><rect x="50" y="16" width="10" height="10" rx="2" fill="#2E7D46"/><circle cx="54" cy="44" r="5" fill="#C9B458"/></svg></span>
+          <div><h3>סנייק</h3><p class="desc">הנחש גדל, המהירות עולה, ומכשולים מתווספים.</p></div>
+        </div>
+        <ul class="chips"><li>תהליכים והליכונים</li></ul>
+        <div class="foot"><span class="status">בקרוב</span></div>
+      </article>
+    </li>
+
+    <li class="level planned">
+      <div class="node">9</div>
+      <article class="card">
+        <div class="card-head">
+          <span class="art"><svg viewBox="0 0 64 64" aria-hidden="true"><rect x="27" y="5" width="10" height="7" rx="2" fill="#17231B"/><circle cx="32" cy="36" r="21" fill="none" stroke="#17231B" stroke-width="4"/><path d="M32 36 L32 22" stroke="#6AAA64" stroke-width="4.5" stroke-linecap="round"/><path d="M32 36 L42 42" stroke="#C9B458" stroke-width="4" stroke-linecap="round"/></svg></span>
+          <div><h3>שעון ויכוחים</h3><p class="desc">שעון לדיון בכיתה: לכל דובר זמן מוגבל, השעון ממשיך ברקע ומתריע כשהזמן נגמר.</p></div>
+        </div>
+        <ul class="chips"><li>שירותים</li></ul>
+        <div class="foot"><span class="status">בקרוב</span></div>
+      </article>
+    </li>
+
+    <li class="level planned">
+      <div class="node">10</div>
+      <article class="card">
+        <div class="card-head">
+          <span class="art"><svg viewBox="0 0 64 64" aria-hidden="true"><rect x="19" y="6" width="26" height="52" rx="6" fill="none" stroke="#17231B" stroke-width="3.5"/><path d="M28 32 V27 A4 4 0 0 1 36 27 V32" fill="none" stroke="#6AAA64" stroke-width="3"/><rect x="26" y="31" width="12" height="10" rx="2" fill="#6AAA64"/></svg></span>
+          <div><h3>מצב ריכוז</h3><p class="desc">אתגר "לא נוגעים בטלפון" בזמן לימוד. שיחות והודעות נכנסות מורידות ניקוד.</p></div>
+        </div>
+        <ul class="chips"><li>BroadcastReceiver</li><li>הרשאות</li><li>App Widgets</li><li>טלפוניה</li></ul>
+        <div class="foot"><span class="status">בקרוב</span></div>
+      </article>
+    </li>
+
+    <li class="level planned">
+      <div class="node">11</div>
+      <article class="card">
+        <div class="card-head">
+          <span class="art"><svg viewBox="0 0 64 64" aria-hidden="true"><rect x="6" y="12" width="52" height="40" rx="4" fill="#F1E6BE" stroke="#C9B458" stroke-width="2.5"/><path d="M13 45 C22 40, 26 30, 36 30 S44 22, 46 20" fill="none" stroke="#17231B" stroke-width="2.5" stroke-dasharray="4 4"/><path d="M43 15 L51 23 M51 15 L43 23" stroke="#B3412E" stroke-width="3.5" stroke-linecap="round"/></svg></span>
+          <div><h3>ציד אוצרות</h3><p class="desc">מנווטים עם מצפן ו-GPS לאוצרות שעל המפה, ומצלמים הוכחה.</p></div>
+        </div>
+        <ul class="chips"><li>מולטימדיה ומצלמה</li><li>חיישנים</li><li>GPS ומפות</li></ul>
+        <div class="foot"><span class="status">בקרוב</span></div>
+      </article>
+    </li>
+
+    <li class="level planned">
+      <div class="node">12</div>
+      <article class="card">
+        <div class="card-head">
+          <span class="art"><svg viewBox="0 0 64 64" aria-hidden="true"><rect x="40" y="0" width="13" height="22" fill="#6AAA64"/><rect x="37" y="18" width="19" height="6" rx="1" fill="#2E7D46"/><rect x="40" y="42" width="13" height="22" fill="#6AAA64"/><rect x="37" y="40" width="19" height="6" rx="1" fill="#2E7D46"/><circle cx="18" cy="32" r="9" fill="#C9B458"/><circle cx="21" cy="29" r="2" fill="#17231B"/><path d="M26 32 L32 34 L26 36 Z" fill="#B3412E"/></svg></span>
+          <div><h3>פלאפי בירד</h3><p class="desc">הציפור עפה בין צינורות. כל צינור שעוברים הוא נקודה.</p></div>
+        </div>
+        <ul class="chips"><li>גרפיקה ואנימציה</li></ul>
+        <div class="foot"><span class="status">בקרוב</span></div>
+      </article>
+    </li>
+
+    <li class="level final">
+      <div class="node">13</div>
+      <article class="card">
+        <div class="card-head">
+          <span class="art"><svg viewBox="0 0 64 64" aria-hidden="true"><path d="M18 8 V58" stroke="#17231B" stroke-width="4" stroke-linecap="round"/><path d="M20 10 H48 L41 19 L48 28 H20 Z" fill="#6AAA64"/></svg></span>
+          <div><h3>עבודת גמר</h3><p class="desc">הקו הסופי: אפליקציה משלכם, עם דף הנחיות לעבודת הגמר.</p></div>
+        </div>
+        <div class="foot"><span class="status">בקרוב</span></div>
+      </article>
+    </li>
   </ol>
 
-  <h2>יחידות הלימוד והאפליקציות</h2>
-  <table>
-    <thead><tr><th>יחידה</th><th>אפליקציה</th><th>תיאור</th><th>נושאים בתכ"ל</th><th>מצב</th></tr></thead>
-    <tbody>
-      <tr class="done">
-        <td class="num">1</td>
-        <td><b>קרב דמויות</b></td>
-        <td class="about">שני שחקנים בוחרים דמויות עם כוחות שונים ונלחמים בתורות, עד שאחת הדמויות נופלת.</td>
-        <td class="topics-col">תכנות מונחה עצמים; אוספים גנריים; טיפול בחריגות</td>
-        <td><span class="status done">מוכן</span><div class="date">11.10.2026</div><div class="date">המדריך נבנה על ידי המורה מחוץ לפרויקט; קישור יתווסף בהמשך</div><div class="links"></div></td>
-      </tr>
-      <tr class="done">
-        <td class="num">2</td>
-        <td><b>ווֹרדל בעברית</b></td>
-        <td class="about">מנחשים מילה בת 5 אותיות ב-6 ניסיונות; אחרי כל ניחוש האותיות נצבעות לפי הדיוק.</td>
-        <td class="topics-col">מבוא לאפליקציה; ממשק משתמש; טיפול באירועים; משאבי האפליקציה</td>
-        <td><span class="status done">מוכן</span><div class="date">11.10.2026</div><div class="links"><a class="btn" href="unit-02-hebrew-wordle/index.html">📖 המדריך</a> <a class="btn ghost" href="https://github.com/porteno12/se-android-lessons/tree/main/unit-02-hebrew-wordle/app" target="_blank" rel="noopener">📂 הקוד</a></div></td>
-      </tr>
-      <tr class="planned">
-        <td class="num">3</td>
-        <td><b>מי רוצה להיות מיליונר</b></td>
-        <td class="about">15 שאלות בסולם עולה, עם שלושה גלגלי הצלה.</td>
-        <td class="topics-col">Intents</td>
-        <td><span class="status planned">מתוכנן</span><div class="links"></div></td>
-      </tr>
-      <tr class="planned">
-        <td class="num">4</td>
-        <td><b>ארבע בשורה נגד המחשב</b></td>
-        <td class="about">ארבע בשורה מול המחשב, בשלוש רמות קושי.</td>
-        <td class="topics-col">תפריטים, תיבות דו-שיח, הודעות</td>
-        <td><span class="status planned">מתוכנן</span><div class="links"></div></td>
-      </tr>
-      <tr class="planned">
-        <td class="num">5</td>
-        <td><b>שולחן שיאים</b></td>
-        <td class="about">הגדרות, יומן משחקים ושיאים לכל שחקן, שמתווספים למשחקים הקודמים.</td>
-        <td class="topics-col">אחסון נתונים</td>
-        <td><span class="status planned">מתוכנן</span><div class="links"></div></td>
-      </tr>
-      <tr class="embedded">
-        <td class="num">6</td>
-        <td><b>תכנון וניתוח אפליקציות</b></td>
-        <td class="about">לא אפליקציה. לא נכלל במדריכים.</td>
-        <td class="topics-col">תכנון וניתוח אפליקציות</td>
-        <td><span class="status embedded">לא במדריכים</span><div class="links"></div></td>
-      </tr>
-      <tr class="planned">
-        <td class="num">7</td>
-        <td><b>מי בתמונה</b></td>
-        <td class="about">משחק ניחוש על התמונות שבגלריה: מתי ואיפה הן צולמו.</td>
-        <td class="topics-col">ספקי תוכן</td>
-        <td><span class="status planned">מתוכנן</span><div class="links"></div></td>
-      </tr>
-      <tr class="planned">
-        <td class="num">8</td>
-        <td><b>סנייק</b></td>
-        <td class="about">הנחש גדל, המהירות עולה, ומכשולים מתווספים.</td>
-        <td class="topics-col">תהליכים והליכונים</td>
-        <td><span class="status planned">מתוכנן</span><div class="links"></div></td>
-      </tr>
-      <tr class="planned">
-        <td class="num">9</td>
-        <td><b>שעון ויכוחים</b></td>
-        <td class="about">שעון לדיון בכיתה: לכל דובר זמן מוגבל, השעון ממשיך ברקע ומתריע כשהזמן נגמר.</td>
-        <td class="topics-col">שירותים</td>
-        <td><span class="status planned">מתוכנן</span><div class="links"></div></td>
-      </tr>
-      <tr class="planned">
-        <td class="num">10</td>
-        <td><b>מצב ריכוז</b></td>
-        <td class="about">אתגר "לא נוגעים בטלפון" בזמן לימוד; שיחות והודעות נכנסות מורידות ניקוד.</td>
-        <td class="topics-col">BroadcastReceiver, הרשאות, App Widgets; טלפוניה</td>
-        <td><span class="status planned">מתוכנן</span><div class="links"></div></td>
-      </tr>
-      <tr class="planned">
-        <td class="num">11</td>
-        <td><b>ציד אוצרות</b></td>
-        <td class="about">מנווטים עם מצפן ו-GPS לאוצרות שעל המפה, ומצלמים הוכחה.</td>
-        <td class="topics-col">מולטימדיה, מצלמה, חיישנים, GPS, מפות</td>
-        <td><span class="status planned">מתוכנן</span><div class="links"></div></td>
-      </tr>
-      <tr class="planned">
-        <td class="num">12</td>
-        <td><b>פלאפי בירד</b></td>
-        <td class="about">הציפור עפה בין צינורות; כל צינור שעוברים הוא נקודה.</td>
-        <td class="topics-col">גרפיקה ואנימציה</td>
-        <td><span class="status planned">מתוכנן</span><div class="links"></div></td>
-      </tr>
-      <tr class="planned">
-        <td class="num">13</td>
-        <td><b>עבודת גמר</b></td>
-        <td class="about">דף הנחיות לעבודת הגמר.</td>
-        <td class="topics-col">עבודת גמר</td>
-        <td><span class="status planned">מתוכנן</span><div class="links"></div></td>
-      </tr>
-    </tbody>
-  </table>
-  <p class="desc">יחידות 5 ו-7 בנויות זו על זו (שולחן השיאים נחשף כ-ContentProvider). שאר היחידות עצמאיות.</p>
+  <details class="syllabus">
+    <summary>כל נושאי תוכנית הלימודים</summary>
+    <ol>
+      <li>סקירה: מה זה אנדרואיד, סביבת העבודה</li>
+      <li>תכנות מונחה עצמים: הורשה, פולימורפיזם, מחלקות, עצמים, ממשקים</li>
+      <li>אוספים גנריים והתאמתם לשפת המימוש</li>
+      <li>טיפול בחריגות</li>
+      <li>מבוא לאפליקציה: Activity, מבנה הפרויקט, קובץ ההגדרות, מעגל חיי הפעילות</li>
+      <li>ממשק משתמש: רכיבים ותבניות XML מקוד, סידור בתבניות, שמירת מצב בשינוי תצורה</li>
+      <li>טיפול באירועים: מאזינים ב-XML, פעילות מממשת, מחלקה פנימית, מאזין בשורה</li>
+      <li>Intents: סוגי מסרים, מסנני מסרים, פעילות למטרת תוצאה</li>
+      <li>תפריטים, תיבות דו-שיח, הודעות Status bar</li>
+      <li>משאבי האפליקציה: מבנה תיקיית המשאבים, יצירה וארגון</li>
+      <li>אחסון נתונים: SharedPreferences, אחסון פנימי וחיצוני, SQLite</li>
+      <li>תכנון וניתוח אפליקציות: UML, תיאור מסכים, תרשימי זרימה, שרטוט ישויות</li>
+      <li>ספקי תוכן: Content Providers, URI, שאילתות</li>
+      <li>תהליכים והליכונים: Thread, Processes, Handler, AsyncTask</li>
+      <li>שירותים: סוגי Service, מעגל חיים, IntentService, שירות חזית, תזמון</li>
+      <li>BroadcastReceiver, שירותי מערכת, הרשאות ואבטחה, App Widgets</li>
+      <li>טלפוניה: TelephonyManager, PhoneStateListener, SMS</li>
+      <li>רכיבים מתקדמים: מולטימדיה, מצלמה, חיישנים, GPS, מפות</li>
+      <li>גרפיקה ואנימציה: View, SurfaceView, AnimationDrawable</li>
+      <li>הנחיה והגשת עבודת גמר</li>
+    </ol>
+  </details>
 </main>
-<footer>רוני רובן · ויצו נהלל · שנת הלימודים תשפ״ז · עודכן 28.10.2026</footer>
+
+<footer>רוני רובן · ויצו נהלל · שנת הלימודים תשפ״ז · עודכן 29.10.2026</footer>
 </body>
 </html>
