@@ -13,7 +13,16 @@
       "app": null,
       "date": "11.10.2026",
       "external": true,
-      "note": "המדריך נבנה על ידי המורה מחוץ לפרויקט; קישור יתווסף בהמשך"
+      "guides": [
+        {
+          "label": "חלק א׳",
+          "url": "https://claude.ai/artifact/8bjErv3RgVQBCDza4HL5ik"
+        },
+        {
+          "label": "חלק ב׳",
+          "url": "https://claude.ai/artifact/S3eUH88HmXhiPdgquyZabm"
+        }
+      ]
     },
     {
       "unit": 2,

@@ -97,7 +97,7 @@
   .btn:active{transform:scale(.97);}
 
   /* ---------- syllabus ---------- */
-  .syllabus{margin:56px auto 0;max-width:820px;background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);}
+  .syllabus{margin:0 auto 56px;max-width:820px;background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);}
   .syllabus summary{cursor:pointer;padding:18px 22px;font-family:'Rubik',sans-serif;font-weight:600;font-size:19px;list-style:none;display:flex;justify-content:space-between;align-items:center;}
   .syllabus summary::-webkit-details-marker{display:none;}
   .syllabus summary::after{content:"＋";color:var(--accent);font-size:22px;}
@@ -148,6 +148,32 @@
 </header>
 
 <main>
+  <details class="syllabus">
+    <summary>כל נושאי תוכנית הלימודים</summary>
+    <ol>
+      <li>סקירה: מה זה אנדרואיד, סביבת העבודה</li>
+      <li>תכנות מונחה עצמים: הורשה, פולימורפיזם, מחלקות, עצמים, ממשקים</li>
+      <li>אוספים גנריים והתאמתם לשפת המימוש</li>
+      <li>טיפול בחריגות</li>
+      <li>מבוא לאפליקציה: Activity, מבנה הפרויקט, קובץ ההגדרות, מעגל חיי הפעילות</li>
+      <li>ממשק משתמש: רכיבים ותבניות XML מקוד, סידור בתבניות, שמירת מצב בשינוי תצורה</li>
+      <li>טיפול באירועים: מאזינים ב-XML, פעילות מממשת, מחלקה פנימית, מאזין בשורה</li>
+      <li>Intents: סוגי מסרים, מסנני מסרים, פעילות למטרת תוצאה</li>
+      <li>תפריטים, תיבות דו-שיח, הודעות Status bar</li>
+      <li>משאבי האפליקציה: מבנה תיקיית המשאבים, יצירה וארגון</li>
+      <li>אחסון נתונים: SharedPreferences, אחסון פנימי וחיצוני, SQLite</li>
+      <li>תכנון וניתוח אפליקציות: UML, תיאור מסכים, תרשימי זרימה, שרטוט ישויות</li>
+      <li>ספקי תוכן: Content Providers, URI, שאילתות</li>
+      <li>תהליכים והליכונים: Thread, Processes, Handler, AsyncTask</li>
+      <li>שירותים: סוגי Service, מעגל חיים, IntentService, שירות חזית, תזמון</li>
+      <li>BroadcastReceiver, שירותי מערכת, הרשאות ואבטחה, App Widgets</li>
+      <li>טלפוניה: TelephonyManager, PhoneStateListener, SMS</li>
+      <li>רכיבים מתקדמים: מולטימדיה, מצלמה, חיישנים, GPS, מפות</li>
+      <li>גרפיקה ואנימציה: View, SurfaceView, AnimationDrawable</li>
+      <li>הנחיה והגשת עבודת גמר</li>
+    </ol>
+  </details>
+
   <div class="section-head">
     <h2>מסלול המשחקים</h2>
     <p>משחק אחד לכל יחידה, לפי הסדר של תוכנית הלימודים. כל משחק מלמד את נושאי היחידה שלו.</p>
@@ -163,7 +189,9 @@
           <div><h3>קרב דמויות</h3><p class="desc">שני שחקנים בוחרים דמויות עם כוחות שונים ונלחמים בתורות, עד שאחת הדמויות נופלת.</p></div>
         </div>
         <ul class="chips"><li>תכנות מונחה עצמים</li><li>אוספים גנריים</li><li>טיפול בחריגות</li></ul>
-        <div class="foot"><span class="status">✓ מוכן</span><span class="note">קישור למדריך יתווסף בקרוב</span></div>
+        <div class="foot"><span class="status">✓ מוכן</span>
+          <div class="actions"><a class="btn primary" href="https://claude.ai/artifact/8bjErv3RgVQBCDza4HL5ik" target="_blank" rel="noopener">📖 חלק א׳</a><a class="btn primary" href="https://claude.ai/artifact/S3eUH88HmXhiPdgquyZabm" target="_blank" rel="noopener">📖 חלק ב׳</a></div>
+        </div>
       </article>
     </li>
 
@@ -311,31 +339,6 @@
     </li>
   </ol>
 
-  <details class="syllabus">
-    <summary>כל נושאי תוכנית הלימודים</summary>
-    <ol>
-      <li>סקירה: מה זה אנדרואיד, סביבת העבודה</li>
-      <li>תכנות מונחה עצמים: הורשה, פולימורפיזם, מחלקות, עצמים, ממשקים</li>
-      <li>אוספים גנריים והתאמתם לשפת המימוש</li>
-      <li>טיפול בחריגות</li>
-      <li>מבוא לאפליקציה: Activity, מבנה הפרויקט, קובץ ההגדרות, מעגל חיי הפעילות</li>
-      <li>ממשק משתמש: רכיבים ותבניות XML מקוד, סידור בתבניות, שמירת מצב בשינוי תצורה</li>
-      <li>טיפול באירועים: מאזינים ב-XML, פעילות מממשת, מחלקה פנימית, מאזין בשורה</li>
-      <li>Intents: סוגי מסרים, מסנני מסרים, פעילות למטרת תוצאה</li>
-      <li>תפריטים, תיבות דו-שיח, הודעות Status bar</li>
-      <li>משאבי האפליקציה: מבנה תיקיית המשאבים, יצירה וארגון</li>
-      <li>אחסון נתונים: SharedPreferences, אחסון פנימי וחיצוני, SQLite</li>
-      <li>תכנון וניתוח אפליקציות: UML, תיאור מסכים, תרשימי זרימה, שרטוט ישויות</li>
-      <li>ספקי תוכן: Content Providers, URI, שאילתות</li>
-      <li>תהליכים והליכונים: Thread, Processes, Handler, AsyncTask</li>
-      <li>שירותים: סוגי Service, מעגל חיים, IntentService, שירות חזית, תזמון</li>
-      <li>BroadcastReceiver, שירותי מערכת, הרשאות ואבטחה, App Widgets</li>
-      <li>טלפוניה: TelephonyManager, PhoneStateListener, SMS</li>
-      <li>רכיבים מתקדמים: מולטימדיה, מצלמה, חיישנים, GPS, מפות</li>
-      <li>גרפיקה ואנימציה: View, SurfaceView, AnimationDrawable</li>
-      <li>הנחיה והגשת עבודת גמר</li>
-    </ol>
-  </details>
 </main>
 
 <footer>רוני רובן · ויצו נהלל · שנת הלימודים תשפ״ז · עודכן 29.10.2026</footer>
