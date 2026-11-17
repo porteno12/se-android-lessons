@@ -48,7 +48,7 @@
   var fill = document.querySelector(".progress-fill");
   var label = document.querySelector(".progress-count");
   var titleEl = document.querySelector(".progress-title");
-  var dotsEl = document.querySelector(".dots");
+  var dotsEl = document.querySelector(".segs");
   var prevBtn = document.querySelector("#prevBtn");
   var nextBtn = document.querySelector("#nextBtn");
   var current = 0;
@@ -56,7 +56,6 @@
   screens.forEach(function (s, i) {
     var b = document.createElement("button");
     b.type = "button";
-    b.textContent = String(i + 1);
     b.title = s.getAttribute("data-title") || "";
     b.setAttribute("aria-label", "מסך " + (i + 1) + ": " + b.title);
     b.addEventListener("click", function () { go(i); });
@@ -78,7 +77,7 @@
       d.classList.toggle("active", i === current);
       d.classList.toggle("done", i < current);
     });
-    fill.style.width = ((current + 1) / screens.length) * 100 + "%";
+    if (fill) fill.style.width = ((current + 1) / screens.length) * 100 + "%";
     label.textContent = "מסך " + (current + 1) + " מתוך " + screens.length;
     titleEl.textContent = screens[current].getAttribute("data-title") || "";
     nextBtn.textContent = current === screens.length - 1 ? nextLabel : "הבא ←";
