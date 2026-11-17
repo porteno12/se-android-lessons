@@ -1,0 +1,353 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>חלק 2 · AlertDialog – תפריטים ותיבות דו־שיח</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body data-prev="part1.html#last" data-next="index.html" data-next-label="סיימתם! לדף הפתיחה">
+
+<header class="site-header">
+  <div class="header-inner">
+    <a class="site-title" href="index.html">תפריטים ותיבות דו־שיח</a>
+    <nav class="tabs" aria-label="חלקי המטלה">
+      <a href="index.html">פתיחה</a>
+      <a href="part1.html">חלק 1 · תפריט</a>
+      <a class="current" href="part2.html">חלק 2 · תיבת דו־שיח</a>
+    </nav>
+  </div>
+  <div class="progress-wrap">
+    <div class="progress-label">
+      <span class="progress-title"></span>
+      <span class="progress-count"></span>
+    </div>
+    <div class="progress-bar"><div class="progress-fill"></div></div>
+    <div class="dots"></div>
+  </div>
+</header>
+
+<main>
+
+  <!-- 1 -->
+  <section class="screen" data-title="מה בונים ולמה">
+    <span class="kicker">חלק 2 · פתיחה</span>
+    <h2>מה בונים בחלק הזה, ולמה</h2>
+    <p>
+      לפעמים האפליקציה צריכה לעצור רגע ולשאול את המשתמש: "בטוח?".
+      בשביל זה יש <span class="en">AlertDialog</span> – חלונית קטנה שקופצת מעל המסך ומחכה לתשובה.
+    </p>
+    <p>
+      נמשיך את הפרויקט מחלק 1: נוסיף כפתור "נקה הודעה". לפני שהטקסט נמחק, תיבת דו־שיח תשאל את המשתמש אם הוא בטוח.
+    </p>
+
+    <div class="demo">
+      <div class="phone demo-dialog" aria-hidden="true">
+        <div class="p-toolbar">
+          <span>MenuDialogDemo</span>
+          <span class="p-dots"><i></i><i></i><i></i></span>
+        </div>
+        <div class="p-body">
+          <div class="p-status" style="margin-top:40px">
+            <span class="s-before">בחרת: אודות</span>
+          </div>
+          <div style="margin-top:24px"><span class="p-btn">נקה הודעה</span></div>
+        </div>
+        <div class="p-scrim"></div>
+        <div class="p-dialog">
+          <div class="t">ניקוי הודעה</div>
+          <div class="m">לנקות את ההודעה שעל המסך?</div>
+          <div class="b"><span>לא</span><span class="yes">כן</span></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="note">
+      <p>חלק 2 נבנה על הפרויקט של חלק 1. אם עוד לא סיימתם אותו – <a href="part1.html">חזרו אליו קודם</a>.</p>
+    </div>
+  </section>
+
+  <!-- 2 -->
+  <section class="screen" data-title="צעד 1 · כפתור במסך">
+    <span class="kicker">צעד 1 מתוך 4</span>
+    <h2>מוסיפים כפתור למסך</h2>
+    <p>
+      פתחו את <code>activity_main.xml</code> והוסיפו את הכפתור הבא מתחת ל־<code>TextView</code>,
+      לפני התגית הסוגרת של ה־<code>LinearLayout</code>:
+    </p>
+
+    <div class="code">
+      <div class="code-head"><span>res/layout/activity_main.xml</span><button class="copy-btn" type="button">העתקה</button></div>
+<pre><code>    &lt;Button
+        android:id="@+id/btnClear"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:text="נקה הודעה" /&gt;</code></pre>
+    </div>
+
+    <div class="tip">
+      <p>ה־<code>id</code> הוא <code>btnClear</code>, ולכן בקוד ניגש אליו כ־<code>binding.btnClear</code>.</p>
+    </div>
+  </section>
+
+  <!-- 3 -->
+  <section class="screen" data-title="צעד 2 · מאזינים ללחיצה">
+    <span class="kicker">צעד 2 מתוך 4</span>
+    <h2>מאזינים ללחיצה דרך <code>binding</code></h2>
+    <p>ב־<code>MainActivity.java</code>, בסוף הפעולה <code>onCreate</code> (אחרי <code>setSupportActionBar</code>), הוסיפו:</p>
+
+    <div class="code">
+      <div class="code-head"><span>MainActivity.java · onCreate</span><button class="copy-btn" type="button">העתקה</button></div>
+<pre><code>binding.btnClear.setOnClickListener(v -&gt; showClearDialog());</code></pre>
+    </div>
+
+    <p>
+      הפעולה <code>showClearDialog</code> עדיין לא קיימת, ולכן היא תסומן באדום. זה בסדר.
+      הוסיפו אותה בתוך המחלקה, מחוץ ל־<code>onCreate</code>, בינתיים ריקה:
+    </p>
+
+    <div class="code">
+      <div class="code-head"><span>MainActivity.java</span><button class="copy-btn" type="button">העתקה</button></div>
+<pre><code>private void showClearDialog() {
+
+}</code></pre>
+    </div>
+
+    <p>למה פעולה נפרדת? כי ככה הקוד של תיבת הדו־שיח יושב במקום אחד ברור, ואפשר לקרוא לו גם ממקומות אחרים.</p>
+  </section>
+
+  <!-- 4 -->
+  <section class="screen" data-title="צעד 3 · בונים את התיבה">
+    <span class="kicker">צעד 3 מתוך 4</span>
+    <h2>בונים את התיבה: כותרת והודעה</h2>
+    <p><span class="en">AlertDialog</span> בנוי משלושה אזורים:</p>
+
+    <div class="anatomy">
+      <div class="p-dialog">
+        <div class="t"><span class="tag">1</span>ניקוי הודעה</div>
+        <div class="m"><span class="tag">2</span>לנקות את ההודעה שעל המסך?</div>
+        <div class="b"><span>לא</span><span>כן</span><span class="tag">3</span></div>
+      </div>
+      <ol>
+        <li>כותרת – <code>setTitle</code></li>
+        <li>הודעה – <code>setMessage</code></li>
+        <li>כפתורים – נוסיף בצעד הבא</li>
+      </ol>
+    </div>
+
+    <p>
+      את התיבה בונים בעזרת <code>AlertDialog.Builder</code>: מגדירים לו מה להציג, שורה אחרי שורה, ובסוף קוראים ל־<code>show()</code>.
+      מלאו את הפעולה:
+    </p>
+
+    <div class="code">
+      <div class="code-head"><span>MainActivity.java</span><button class="copy-btn" type="button">העתקה</button></div>
+<pre><code>private void showClearDialog() {
+    new AlertDialog.Builder(this)
+            .setTitle("ניקוי הודעה")
+            .setMessage("לנקות את ההודעה שעל המסך?")
+            .show();
+}</code></pre>
+    </div>
+
+    <p>והוסיפו בראש הקובץ:</p>
+    <div class="code">
+      <div class="code-head"><span>import</span><button class="copy-btn" type="button">העתקה</button></div>
+<pre><code>import androidx.appcompat.app.AlertDialog;</code></pre>
+    </div>
+
+    <div class="warn-box">
+      <p>
+        כש־<span class="en">Android Studio</span> מציע לייבא את <code>AlertDialog</code>, יש שתי אפשרויות.
+        בחרו בזו של <code>androidx.appcompat.app</code>.
+      </p>
+    </div>
+
+    <div class="tip">
+      <p>הריצו ולחצו על הכפתור. התיבה מופיעה עם כותרת והודעה, בלי כפתורים. לחיצה מחוץ לתיבה סוגרת אותה.</p>
+    </div>
+  </section>
+
+  <!-- 5 -->
+  <section class="screen" data-title="צעד 4 · כפתורי התשובה">
+    <span class="kicker">צעד 4 מתוך 4</span>
+    <h2>מוסיפים כפתורי תשובה</h2>
+    <p>
+      לתיבה יש כפתור חיובי וכפתור שלילי. לכל אחד נותנים טקסט, ומה לעשות כשלוחצים עליו.
+      עדכנו את הפעולה כך שתכלול את השורות המסומנות:
+    </p>
+
+    <div class="code">
+      <div class="code-head"><span>MainActivity.java</span><button class="copy-btn" type="button">העתקה</button></div>
+<pre><code>private void showClearDialog() {
+    new AlertDialog.Builder(this)
+            .setTitle("ניקוי הודעה")
+            .setMessage("לנקות את ההודעה שעל המסך?")
+<span class="hl">            .setPositiveButton("כן", (dialog, which) -&gt; binding.tvStatus.setText(""))</span>
+<span class="hl">            .setNegativeButton("לא", null)</span>
+            .show();
+}</code></pre>
+    </div>
+
+    <ul>
+      <li><code>setPositiveButton</code> – הכפתור "כן". הקוד שאחרי החץ רץ רק אם המשתמש לחץ עליו: הטקסט מתנקה דרך ה־<code>binding</code>.</li>
+      <li><code>setNegativeButton</code> – הכפתור "לא". כתבנו <code>null</code> כי אין מה לעשות: התיבה פשוט נסגרת.</li>
+      <li>בשני המקרים התיבה נסגרת לבד אחרי הלחיצה. לא צריך לסגור אותה בעצמכם.</li>
+    </ul>
+  </section>
+
+  <!-- 6 -->
+  <section class="screen" data-title="נקודת בדיקה">
+    <span class="kicker ok">נקודת בדיקה</span>
+    <h2>מה אמור לקרות כשמריצים</h2>
+    <ul class="check">
+      <li>בחרו פריט מהתפריט, כך שעל המסך יופיע טקסט כמו "בחרת: אודות".</li>
+      <li>לחיצה על "נקה הודעה" מקפיצה תיבה עם כותרת, הודעה ושני כפתורים, והמסך שמאחוריה מתכהה.</li>
+      <li>לחיצה על "לא" סוגרת את התיבה, והטקסט נשאר כמו שהיה.</li>
+      <li>לחיצה על "כן" סוגרת את התיבה, והטקסט נמחק.</li>
+    </ul>
+
+    <!--
+      הערה למורה (לא מוצג לתלמידים):
+      מקום לסרטון. מה כדאי שיופיע בו:
+      1. לחיצה על "נקה הודעה" והופעת התיבה.
+      2. פעם אחת בחירה ב"לא" ופעם אחת ב"כן", כדי לראות את ההבדל.
+      3. מעבר קצר על showClearDialog: איזו שורה אחראית לכל אזור בתיבה.
+      כדי להוסיף: להחליף את ה-div הבא בתגית video או ב-iframe.
+    -->
+    <div class="video-slot">
+      <div class="play"></div>
+      סרטון הדגמה – אוסיף כאן בקרוב
+    </div>
+  </section>
+
+  <!-- 7 -->
+  <section class="screen" data-title="טעויות נפוצות">
+    <span class="kicker warn">טעויות נפוצות</span>
+    <h2>משהו לא עובד? בדקו כאן</h2>
+    <p>לחצו על התיאור שמתאים למה שקורה אצלכם.</p>
+
+    <details>
+      <summary>לוחצים על הכפתור ושום דבר לא קופץ</summary>
+      <ul>
+        <li>בדקו שהשרשרת מסתיימת ב־<code>.show()</code>. בלי זה התיבה נבנית אבל לא מוצגת.</li>
+        <li>בדקו שהשורה <code>binding.btnClear.setOnClickListener(...)</code> נמצאת בתוך <code>onCreate</code>, אחרי <code>setContentView</code>.</li>
+      </ul>
+    </details>
+
+    <details>
+      <summary>התיבה נראית שונה משאר האפליקציה</summary>
+      <p>כנראה ייבאתם את <code>android.app.AlertDialog</code>. מחקו את שורת ה־<code>import</code> הזו וייבאו את <code>androidx.appcompat.app.AlertDialog</code>.</p>
+    </details>
+
+    <details>
+      <summary>נקודה־פסיק באמצע השרשרת</summary>
+      <p>
+        כל השורות שמתחילות בנקודה הן המשך של אותה פקודה. נקודה־פסיק מופיעה רק פעם אחת, בסוף, אחרי <code>.show()</code>.
+      </p>
+    </details>
+
+    <details>
+      <summary><code>binding.btnClear</code> מסומן באדום</summary>
+      <p>בדקו שהוספתם את הכפתור ל־<code>activity_main.xml</code> עם <code>@+id/btnClear</code>, ושהקובץ נשמר בלי שגיאות.</p>
+    </details>
+
+    <details>
+      <summary>אני לא רוצה שלחיצה מחוץ לתיבה תסגור אותה</summary>
+      <p>זו ההתנהגות הרגילה. כדי לחייב את המשתמש לבחור באחד הכפתורים, הוסיפו לשרשרת <code>.setCancelable(false)</code> לפני <code>.show()</code>.</p>
+    </details>
+  </section>
+
+  <!-- 8 -->
+  <section class="screen" data-title="משימת הגשה">
+    <span class="kicker">משימת הגשה · חלק 2</span>
+    <h2>עכשיו אתם</h2>
+    <p>
+      בחלק 1 הפריט "יציאה" רק שינה טקסט. עכשיו תחברו בין שני החלקים: בחירה ב"יציאה" תשאל את המשתמש אם הוא בטוח.
+    </p>
+    <ol>
+      <li>כתבו פעולה חדשה בשם <code>showExitDialog</code>.</li>
+      <li>הפעולה מציגה <span class="en">AlertDialog</span> עם כותרת, הודעה ושני כפתורים – בניסוח שלכם.</li>
+      <li>לחיצה על הכפתור החיובי סוגרת את המסך עם <code>finish()</code>.</li>
+      <li>לחיצה על הכפתור השלילי רק סוגרת את התיבה.</li>
+      <li>ב־<code>onOptionsItemSelected</code>, בתנאי של <code>action_exit</code>, קראו לפעולה החדשה.</li>
+    </ol>
+
+    <h3>לפני שמגישים, ודאו ש:</h3>
+    <ul class="check">
+      <li>בחירה ב"יציאה" מציגה תיבה ולא סוגרת את האפליקציה מיד.</li>
+      <li>"לא" משאיר אתכם באפליקציה, "כן" סוגר אותה.</li>
+      <li>הכפתור "נקה הודעה" מחלק 2 ממשיך לעבוד.</li>
+      <li>אין בקוד אף <code>findViewById</code>.</li>
+    </ul>
+
+    <h3>איך מגישים</h3>
+    <p>העלו את השינויים לאותו <span class="en">repository</span> ב־<span class="en">GitHub</span> מחלק 1, והגישו לי את הקישור אליו.</p>
+  </section>
+
+  <!-- 9 -->
+  <section class="screen" data-title="סוגים נוספים">
+    <span class="kicker">להכיר · בלי לבנות</span>
+    <h2>סוגים נוספים של תיבות דו־שיח</h2>
+    <p>תיבה עם כותרת, הודעה וכפתורים היא רק ההתחלה. הנה שלושה סוגים נוספים, רק כדי שתכירו. אין עליהם משימה.</p>
+
+    <div class="types">
+      <div class="type">
+        <div class="phone small demo-list" aria-hidden="true">
+          <div class="p-toolbar"><span>מסך</span></div>
+          <div class="p-scrim"></div>
+          <div class="p-dialog">
+            <div class="t">בחרו צבע</div>
+            <div style="padding:3px 4px">אדום</div>
+            <div class="pick" style="padding:3px 4px">ירוק</div>
+            <div style="padding:3px 4px">כחול</div>
+          </div>
+        </div>
+        <h3>List dialog</h3>
+        <p>במקום הודעה מוצגת רשימה, והמשתמש בוחר שורה אחת. בונים אותה עם <code>setItems</code>.</p>
+      </div>
+
+      <div class="type">
+        <div class="phone small demo-custom" aria-hidden="true">
+          <div class="p-toolbar"><span>מסך</span></div>
+          <div class="p-scrim"></div>
+          <div class="p-dialog">
+            <div class="t">מה השם שלך?</div>
+            <div class="p-input"></div>
+            <div class="b"><span>ביטול</span><span>אישור</span></div>
+          </div>
+        </div>
+        <h3>Custom dialog</h3>
+        <p>תיבה עם <span class="en">layout</span> משלכם, למשל שדה להקלדה. גם לקובץ הזה נוצרת מחלקת <code>binding</code>.</p>
+      </div>
+
+      <div class="type">
+        <div class="phone small demo-date" aria-hidden="true">
+          <div class="p-toolbar"><span>מסך</span></div>
+          <div class="p-scrim"></div>
+          <div class="p-dialog">
+            <div class="p-cal">
+              <i></i><i></i><i></i><i></i><i></i><i></i><i></i>
+              <i></i><i></i><i class="sel"></i><i></i><i></i><i></i><i></i>
+              <i></i><i></i><i></i><i></i><i></i><i></i><i></i>
+            </div>
+            <div class="b"><span>ביטול</span><span>אישור</span></div>
+          </div>
+        </div>
+        <h3>DatePickerDialog</h3>
+        <p>תיבה מוכנה לבחירת תאריך. יש לה אחות לבחירת שעה: <code>TimePickerDialog</code>.</p>
+      </div>
+    </div>
+  </section>
+
+  <div class="pager">
+    <button class="btn ghost" id="prevBtn" type="button">→ הקודם</button>
+    <button class="btn" id="nextBtn" type="button">הבא ←</button>
+  </div>
+
+</main>
+
+<script src="script.js"></script>
+</body>
+</html>
