@@ -3,9 +3,10 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>תפריטים ותיבות דו־שיח – מטלת הגשה</title>
+  <title>תפריטים ותיבות דו־שיח | מטלת הגשה</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link href="https://fonts.googleapis.com/css2?family=Heebo:wght@400;600;800&display=swap" rel="stylesheet">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans+Hebrew:wght@400;500;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
@@ -15,52 +16,58 @@
     <a class="site-title" href="index.html">תפריטים ותיבות דו־שיח</a>
     <nav class="tabs" aria-label="חלקי המטלה">
       <a class="current" href="index.html">פתיחה</a>
-      <a href="part1.html">חלק 1 · תפריט</a>
-      <a href="part2.html">חלק 2 · תיבת דו־שיח</a>
+      <a href="part1.html">חלק 1</a>
+      <a href="part2.html">חלק 2</a>
     </nav>
   </div>
 </header>
 
 <main>
-  <section class="hero">
-    <h1>תפריטים ותיבות דו־שיח</h1>
-    <p class="lead">שני חלקים קצרים. בכל אחד בונים יחד דבר אחד שעובד, ומגישים משימה קטנה.</p>
+  <span class="kicker">מטלת הגשה</span>
+  <h1>תפריטים ותיבות דו־שיח</h1>
+  <p class="lead">שני חלקים על אותו פרויקט. <span class="en">Android Studio, Java, ViewBinding</span>.</p>
 
-    <div class="cards">
-      <a class="card-link" href="part1.html">
-        <div class="phone small demo-menu" aria-hidden="true">
-          <div class="p-toolbar"><span>App</span><span class="p-dots"><i></i><i></i><i></i></span></div>
-          <div class="p-body">
-            <div class="p-menu"><div>הגדרות</div><div class="pick">אודות</div><div>יציאה</div></div>
-            <div class="p-status"><span class="s-before">…</span><span class="s-after">בחרת: אודות</span></div>
-          </div>
-        </div>
-        <strong>Options Menu</strong>
-        <span class="sub">חלק 1 · תפריט שלוש הנקודות</span>
+  <ol class="toc">
+    <li>
+      <a href="part1.html">
+        <span class="no">01</span>
+        <span>
+          <strong>Options Menu</strong>
+          <span class="sub">תפריט בסרגל העליון עם שלושה פריטים. 6 צעדים ומשימת הגשה.</span>
+        </span>
+        <span class="fig">
+          <span class="phone small demo-menu" aria-hidden="true" style="display:block">
+            <span class="p-toolbar"><span>App</span><span class="p-dots"><i></i><i></i><i></i></span></span>
+            <span class="p-body" style="display:block">
+              <span class="p-menu" style="display:block"><div>הגדרות</div><div class="pick">אודות</div><div>יציאה</div></span>
+            </span>
+          </span>
+        </span>
       </a>
-      <a class="card-link c2" href="part2.html">
-        <div class="phone small demo-simple" aria-hidden="true">
-          <div class="p-toolbar"><span>App</span><span class="p-dots"><i></i><i></i><i></i></span></div>
-          <div class="p-scrim"></div>
-          <div class="p-dialog">
-            <div class="t">ניקוי הודעה</div>
-            <div class="m">לנקות את ההודעה?</div>
-            <div class="b"><span>לא</span><span>כן</span></div>
-          </div>
-        </div>
-        <strong>AlertDialog</strong>
-        <span class="sub">חלק 2 · חלונית ששואלת שאלה</span>
+    </li>
+    <li>
+      <a href="part2.html">
+        <span class="no">02</span>
+        <span>
+          <strong>AlertDialog</strong>
+          <span class="sub">תיבת אישור לפני פעולה. 4 צעדים ומשימת הגשה.</span>
+        </span>
+        <span class="fig">
+          <span class="phone small demo-simple" aria-hidden="true" style="display:block">
+            <span class="p-toolbar"><span>App</span><span class="p-dots"><i></i><i></i><i></i></span></span>
+            <span class="p-scrim"></span>
+            <span class="p-dialog" style="display:block">
+              <span class="t" style="display:block">ניקוי הודעה</span>
+              <span class="m" style="display:block">לנקות את ההודעה?</span>
+              <span class="b"><span>לא</span><span>כן</span></span>
+            </span>
+          </span>
+        </span>
       </a>
-    </div>
-  </section>
+    </li>
+  </ol>
 
-  <div class="how">
-    <div><span class="ico">👣</span>מסך אחד בכל פעם, עם "הקודם" ו"הבא"</div>
-    <div><span class="ico">📋</span>כל קוד מועתק בלחיצה אחת</div>
-    <div><span class="ico">🛟</span>נתקעתם? יש מסך "טעויות נפוצות"</div>
-  </div>
-
-  <p style="text-align:center"><a class="btn" href="part1.html">מתחילים בחלק 1 ←</a></p>
+  <p><a class="btn" href="part1.html">לחלק 1 ←</a></p>
 </main>
 
 </body>

@@ -3,20 +3,21 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>חלק 2 · AlertDialog – תפריטים ותיבות דו־שיח</title>
+  <title>חלק 2 · AlertDialog | תפריטים ותיבות דו־שיח</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link href="https://fonts.googleapis.com/css2?family=Heebo:wght@400;600;800&display=swap" rel="stylesheet">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans+Hebrew:wght@400;500;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="style.css">
 </head>
-<body class="p2" data-prev="part1.html#last" data-next="index.html" data-next-label="סיימתם! לדף הפתיחה">
+<body class="p2" data-prev="part1.html#last" data-next="index.html" data-next-label="לדף הפתיחה">
 
 <header class="site-header">
   <div class="header-inner">
     <a class="site-title" href="index.html">תפריטים ותיבות דו־שיח</a>
     <nav class="tabs" aria-label="חלקי המטלה">
       <a href="index.html">פתיחה</a>
-      <a href="part1.html">חלק 1 · תפריט</a>
-      <a class="current" href="part2.html">חלק 2 · תיבת דו־שיח</a>
+      <a href="part1.html">חלק 1</a>
+      <a class="current" href="part2.html">חלק 2</a>
     </nav>
   </div>
   <div class="progress-wrap">
@@ -35,8 +36,8 @@
     <div class="split">
       <div>
         <span class="kicker">חלק 2</span>
-        <h2>חלונית ששואלת "בטוח?"</h2>
-        <p class="lead">נוסיף לפרויקט מחלק 1 כפתור "נקה הודעה". לפני המחיקה, <span class="en">AlertDialog</span> ישאל את המשתמש.</p>
+        <h2><span class="en">AlertDialog</span></h2>
+        <p class="lead">ממשיכים בפרויקט של חלק 1. כפתור חדש, "נקה הודעה", מציג תיבת אישור לפני שהטקסט נמחק.</p>
       </div>
       <div class="show">
         <div class="phone demo-dialog" aria-hidden="true">
@@ -60,7 +61,7 @@
   <section class="screen" data-title="צעד 1 · כפתור">
     <div class="split">
       <div>
-        <span class="kicker"><b>1</b>צעד 1 מתוך 4</span>
+        <span class="kicker">צעד 1 מתוך 4</span>
         <h2>כפתור במסך</h2>
         <p class="lead">הוסיפו ל־<code>activity_main.xml</code>, מתחת ל־<code>TextView</code>.</p>
       </div>
@@ -90,12 +91,12 @@
   <section class="screen" data-title="צעד 2 · לחיצה">
     <div class="split">
       <div>
-        <span class="kicker"><b>2</b>צעד 2 מתוך 4</span>
+        <span class="kicker">צעד 2 מתוך 4</span>
         <h2>מאזינים ללחיצה</h2>
-        <p class="lead">לחיצה על הכפתור קוראת לפעולה שתציג את התיבה.</p>
+        <p class="lead">לחיצה על הכפתור קוראת לפעולה <code>showClearDialog</code>.</p>
         <ol>
-          <li>השורה הראשונה – בסוף <code>onCreate</code>.</li>
-          <li>הפעולה הריקה – בתוך המחלקה, מחוץ ל־<code>onCreate</code>.</li>
+          <li>השורה הראשונה: בסוף <code>onCreate</code>.</li>
+          <li>הפעולה הריקה: בתוך המחלקה, מחוץ ל־<code>onCreate</code>.</li>
         </ol>
       </div>
       <div class="show">
@@ -126,7 +127,7 @@
   <section class="screen" data-title="צעד 3 · התיבה">
     <div class="split">
       <div>
-        <span class="kicker"><b>3</b>צעד 3 מתוך 4</span>
+        <span class="kicker">צעד 3 מתוך 4</span>
         <h2>כותרת והודעה</h2>
         <p class="lead">בונים את התיבה עם <code>AlertDialog.Builder</code>, ומסיימים ב־<code>show()</code>.</p>
         <p>מלאו את הפעולה, והוסיפו את ה־<span class="en">import</span>.</p>
@@ -167,9 +168,9 @@
   <section class="screen" data-title="צעד 4 · כפתורים">
     <div class="split">
       <div>
-        <span class="kicker"><b>4</b>צעד 4 מתוך 4</span>
+        <span class="kicker">צעד 4 מתוך 4</span>
         <h2>כפתורי תשובה</h2>
-        <p class="lead">לכל כפתור: טקסט, ומה קורה כשלוחצים. התיבה נסגרת לבד.</p>
+        <p class="lead">לכל כפתור מגדירים טקסט ופעולה. אחרי לחיצה התיבה נסגרת מעצמה.</p>
         <p>הוסיפו את שתי השורות המסומנות.</p>
       </div>
       <div class="show">
@@ -187,8 +188,8 @@
           </div>
         </div>
         <div class="results" aria-hidden="true">
-          <span class="pill yes">כן ← הטקסט נמחק</span>
-          <span class="pill no">לא ← שום דבר</span>
+          <span class="pill">כן ← הטקסט נמחק</span>
+          <span class="pill">לא ← אין שינוי</span>
         </div>
       </div>
     </div>
@@ -210,12 +211,12 @@
   <section class="screen" data-title="נקודת בדיקה">
     <div class="split">
       <div>
-        <span class="kicker ok">נקודת בדיקה</span>
-        <h2>הריצו. זה מה שאמור לקרות</h2>
+        <span class="kicker">נקודת בדיקה</span>
+        <h2>הרצה ובדיקה</h2>
         <ul class="check">
           <li>"נקה הודעה" מקפיץ תיבה, והמסך מאחור מתכהה.</li>
-          <li>"לא" – הטקסט נשאר.</li>
-          <li>"כן" – הטקסט נמחק.</li>
+          <li>"לא": הטקסט נשאר.</li>
+          <li>"כן": הטקסט נמחק.</li>
         </ul>
       </div>
       <div class="show">
@@ -243,13 +244,13 @@
       3. מעבר קצר על showClearDialog: איזו שורה אחראית לכל אזור בתיבה.
       כדי להוסיף: להחליף את ה-div הבא בתגית video או ב-iframe.
     -->
-    <div class="video-slot"><div class="play"></div>סרטון הדגמה – אוסיף כאן בקרוב</div>
+    <div class="video-slot">כאן אוסיף סרטון הדגמה</div>
   </section>
 
   <!-- 7 -->
   <section class="screen" data-title="טעויות נפוצות">
-    <span class="kicker warn">טעויות נפוצות</span>
-    <h2>משהו לא עובד?</h2>
+    <span class="kicker">אם משהו לא עובד</span>
+    <h2>טעויות נפוצות</h2>
 
     <details>
       <summary>לוחצים ושום דבר לא קופץ</summary>
@@ -278,7 +279,8 @@
     <div class="split">
       <div>
         <span class="kicker">משימת הגשה · חלק 2</span>
-        <h2>"יציאה" שואלת לפני שיוצאים</h2>
+        <h2>אישור יציאה</h2>
+        <p>בחירה ב"יציאה" מציגה תיבת אישור, ורק אחריה המסך נסגר.</p>
         <ul class="check">
           <li>פעולה חדשה: <code>showExitDialog</code>.</li>
           <li>תיבה עם כותרת, הודעה ושני כפתורים, בניסוח שלכם.</li>
@@ -307,8 +309,9 @@
 
   <!-- 9 -->
   <section class="screen" data-title="סוגים נוספים">
-    <span class="kicker">להכיר · בלי לבנות</span>
-    <h2>עוד סוגי תיבות דו־שיח</h2>
+    <span class="kicker">להיכרות בלבד</span>
+    <h2>סוגי תיבות דו־שיח נוספים</h2>
+    <p>לא חלק מההגשה.</p>
 
     <div class="types">
       <div class="type">
