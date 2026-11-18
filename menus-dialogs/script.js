@@ -11,7 +11,8 @@
   function labelTheme() {
     if (!themeBtn) return;
     themeBtn.setAttribute("aria-label", isDark() ? "מעבר למצב בהיר" : "מעבר למצב כהה");
-    themeBtn.setAttribute("title", isDark() ? "מצב בהיר" : "מצב כהה");
+    var txt = themeBtn.querySelector(".txt");
+    if (txt) txt.textContent = isDark() ? "מצב בהיר" : "מצב כהה";
   }
   if (themeBtn) {
     labelTheme();
@@ -20,6 +21,36 @@
       root.setAttribute("data-theme", next);
       try { localStorage.setItem("md-theme", next); } catch (e) { /* storage unavailable */ }
       labelTheme();
+    });
+  }
+
+  /* ---------- part 2 opens only after every screen of part 1 was visited ---------- */
+  var storageOk = true;
+  function getItem(k) { try { return localStorage.getItem(k); } catch (e) { storageOk = false; return null; } }
+  function setItem(k, v) { try { localStorage.setItem(k, v); } catch (e) { storageOk = false; } }
+  if (/[?&]unlock\b/.test(window.location.search)) setItem("md-done-p1", "1");
+  function part1Done() { var v = getItem("md-done-p1"); return !storageOk || v === "1"; }
+  var isPart1 = document.body.classList.contains("p1");
+  var isPart2 = document.body.classList.contains("p2");
+
+  if (isPart2 && !part1Done()) { window.location.replace("index.html"); return; }
+
+  if (!part1Done()) {
+    document.querySelectorAll('.tabs a[href="part2.html"]').forEach(function (a) {
+      a.classList.add("locked");
+      a.setAttribute("aria-disabled", "true");
+      a.title = "נפתח אחרי שמסיימים את חלק 1";
+      a.addEventListener("click", function (e) { e.preventDefault(); });
+    });
+    document.querySelectorAll(".part.two").forEach(function (a) {
+      a.classList.add("locked");
+      a.setAttribute("aria-disabled", "true");
+      a.addEventListener("click", function (e) {
+        e.preventDefault();
+        a.classList.remove("shake");
+        void a.offsetWidth;
+        a.classList.add("shake");
+      });
     });
   }
 
@@ -184,8 +215,35 @@
     return 0;
   }
 
+  var seen = {};
+  if (isPart1) {
+    (getItem("md-seen-p1") || "").split(",").forEach(function (n) { if (n !== "") seen[n] = true; });
+  }
+  function markSeen() {
+    if (!isPart1) return;
+    seen[current] = true;
+    setItem("md-seen-p1", Object.keys(seen).join(","));
+    if (allSeen()) {
+      setItem("md-done-p1", "1");
+      document.querySelectorAll(".tabs a.locked").forEach(function (a) {
+        var fresh = a.cloneNode(true);
+        fresh.classList.remove("locked");
+        fresh.removeAttribute("aria-disabled");
+        fresh.removeAttribute("title");
+        a.parentNode.replaceChild(fresh, a);
+      });
+    }
+  }
+  function allSeen() {
+    for (var i = 0; i < screens.length; i++) if (!seen[i]) return false;
+    return true;
+  }
+
   function render() {
     screens.forEach(function (s, i) { s.classList.toggle("active", i === current); });
+    markSeen();
+    var note = document.querySelector(".pager-note");
+    if (note) note.classList.remove("show-it");
     segs.forEach(function (d, i) {
       d.classList.toggle("active", i === current);
       d.classList.toggle("done", i < current);
@@ -211,8 +269,17 @@
     else if (prevPage) window.location.href = prevPage;
   });
   nextBtn.addEventListener("click", function () {
-    if (current < screens.length - 1) go(current + 1);
-    else if (nextPage) window.location.href = nextPage;
+    if (current < screens.length - 1) { go(current + 1); return; }
+    if (isPart1 && storageOk && !allSeen()) {
+      segs.forEach(function (d, i) {
+        d.classList.remove("todo");
+        if (!seen[i]) { void d.offsetWidth; d.classList.add("todo"); }
+      });
+      var note = document.querySelector(".pager-note");
+      if (note) note.classList.add("show-it");
+      return;
+    }
+    if (nextPage) window.location.href = nextPage;
   });
   window.addEventListener("hashchange", function () {
     current = fromHash();

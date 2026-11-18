@@ -20,7 +20,7 @@
       <a href="part1.html">חלק 1</a>
       <a class="current" href="part2.html">חלק 2</a>
     </nav>
-    <button class="theme-btn" type="button"></button>
+    <button class="theme-btn" type="button"><span class="ico" aria-hidden="true"></span><span class="txt">מצב כהה</span></button>
   </div>
   <div class="progress-wrap">
     <div class="progress-label">
@@ -124,6 +124,11 @@
 
 }</code></pre>
     </div>
+
+    <dl class="terms">
+      <div><dt><code>setOnClickListener</code></dt><dd>קובע מה קורה בכל לחיצה על הכפתור.</dd></div>
+      <div><dt><code>v -&gt; ...</code></dt><dd>כתיבה מקוצרת: הקוד שאחרי החץ רץ כשלוחצים.</dd></div>
+    </dl>
   </section>
 
   <!-- 4 -->
@@ -164,6 +169,10 @@
       <div class="code-head"><span>import</span><button class="copy-btn" type="button">העתקה</button></div>
 <pre><code>import androidx.appcompat.app.AlertDialog;</code></pre>
     </div>
+    <dl class="terms">
+      <div><dt><code>Builder(this)</code></dt><dd>בונה את התיבה שלב אחרי שלב. <code>this</code> הוא המסך שמעליו היא תופיע.</dd></div>
+      <div><dt><code>.show()</code></dt><dd>מסיים את הבנייה ומציג את התיבה.</dd></div>
+    </dl>
     <div class="warn-box"><span class="en">Android Studio</span> יציע שני <code>AlertDialog</code>. בחרו בזה של <code>androidx.appcompat.app</code>.</div>
   </section>
 
@@ -208,6 +217,12 @@
             .show();
 }</code></pre>
     </div>
+
+    <dl class="terms">
+      <div><dt><code>setPositiveButton</code></dt><dd>הכפתור המאשר. מקבל טקסט, ומה לעשות כשלוחצים עליו.</dd></div>
+      <div><dt><code>(dialog, which) -&gt; ...</code></dt><dd>הקוד שאחרי החץ רץ רק אם לחצו על הכפתור הזה.</dd></div>
+      <div><dt><code>null</code></dt><dd>אין פעולה מיוחדת. התיבה פשוט נסגרת.</dd></div>
+    </dl>
   </section>
 
   <!-- 6 -->
@@ -291,7 +306,7 @@
         <ul class="check">
           <li>פעולה חדשה בשם <code>showExitDialog</code>.</li>
           <li>תיבה עם כותרת, הודעה ושני כפתורים, בניסוח שלכם.</li>
-          <li>הכפתור החיובי סוגר את המסך עם <code>finish()</code>.</li>
+          <li>הכפתור החיובי קורא ל־<code>finish()</code>, שסוגר את המסך הנוכחי.</li>
           <li>קוראים לפעולה מהתנאי של <code>action_exit</code>.</li>
         </ul>
         <div class="tip send">מעלים את השינויים לאותו <span class="en">repository</span> ב־<span class="en">GitHub</span> ושולחים לי את הקישור.</div>

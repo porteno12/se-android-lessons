@@ -20,7 +20,7 @@
       <a class="current" href="part1.html">חלק 1</a>
       <a href="part2.html">חלק 2</a>
     </nav>
-    <button class="theme-btn" type="button"></button>
+    <button class="theme-btn" type="button"><span class="ico" aria-hidden="true"></span><span class="txt">מצב כהה</span></button>
   </div>
   <div class="progress-wrap">
     <div class="progress-label">
@@ -68,7 +68,7 @@
         <h2>פרויקט חדש ו־<span class="en">ViewBinding</span></h2>
         <ol>
           <li>פתחו <span class="en">New Project → Empty Views Activity</span>. שפה: <span class="en">Java</span>. שם: <code>MenuDialogDemo</code>.</li>
-          <li>בקובץ <code>build.gradle.kts (Module :app)</code> הוסיפו את הבלוק שלמטה.</li>
+          <li>פתחו את <code>build.gradle.kts (Module :app)</code>. בתוך הבלוק <code>android { }</code> שכבר קיים שם, הדביקו את הבלוק שלמטה.</li>
           <li>לחצו <span class="en">Sync Now</span>.</li>
         </ol>
       </div>
@@ -84,14 +84,27 @@
 
     <div class="code">
       <div class="code-head"><span>build.gradle.kts (Module :app)</span><button class="copy-btn" type="button">העתקה</button></div>
-<pre><code>android {
-    // ... everything that is already here stays
-
-    buildFeatures {
-        viewBinding = true
-    }
+<pre><code>buildFeatures {
+    viewBinding = true
 }</code></pre>
     </div>
+
+    <div class="where" aria-label="איפה מדביקים">
+      <div class="where-title">איפה זה נכנס (לא להעתיק מכאן)</div>
+<pre>android {
+    namespace = "..."
+    compileSdk = ...
+    ...
+<span class="slot">    buildFeatures {
+        viewBinding = true
+    }</span>
+}</pre>
+    </div>
+
+    <dl class="terms">
+      <div><dt><code>viewBinding = true</code></dt><dd>מבקש מ־<span class="en">Android Studio</span> ליצור לכל קובץ <span class="en">layout</span> מחלקה, עם שדה לכל <span class="en">id</span>.</dd></div>
+      <div><dt><code>Sync Now</code></dt><dd>מעדכן את הפרויקט לפי הקובץ. בלי זה המחלקה לא נוצרת.</dd></div>
+    </dl>
   </section>
 
   <!-- 3 -->
@@ -114,7 +127,8 @@
     <div class="code">
       <div class="code-head"><span>res/layout/activity_main.xml</span><button class="copy-btn" type="button">העתקה</button></div>
 <pre><code>&lt;?xml version="1.0" encoding="utf-8"?&gt;
-&lt;LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+&lt;LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -136,6 +150,11 @@
 
 &lt;/LinearLayout&gt;</code></pre>
     </div>
+
+    <dl class="terms">
+      <div><dt><code>MaterialToolbar</code></dt><dd>הסרגל העליון של המסך. עליו יופיעו שם האפליקציה ושלוש הנקודות.</dd></div>
+      <div><dt><code>android:id</code></dt><dd>השם שדרכו ניגשים לרכיב בקוד. <code>@+id/toolbar</code> הופך ל־<code>binding.toolbar</code>.</dd></div>
+    </dl>
   </section>
 
   <!-- 4 -->
@@ -196,6 +215,12 @@ public class MainActivity extends AppCompatActivity {
     }
 }</code></pre>
     </div>
+    <dl class="terms">
+      <div><dt><code>inflate</code></dt><dd>הופך את קובץ ה־<span class="en">XML</span> לרכיבים אמיתיים על המסך, ומחזיר את האובייקט <code>binding</code>.</dd></div>
+      <div><dt><code>getRoot()</code></dt><dd>הרכיב החיצוני ביותר במסך. אצלנו זה ה־<code>LinearLayout</code>.</dd></div>
+      <div><dt><code>setSupportActionBar</code></dt><dd>קובע שה־<span class="en">Toolbar</span> שלנו הוא הסרגל העליון. בלי זה אין תפריט.</dd></div>
+      <div><dt><code>EdgeToEdge / ViewCompat</code></dt><dd>מגיעים מהתבנית ודואגים שהמסך לא יוסתר מאחורי שורת המצב. לא נוגעים בהם.</dd></div>
+    </dl>
     <div class="warn-box">ה־<span class="en">import</span> של <code>ActivityMainBinding</code> אדום? מחקו אותו, עמדו על שם המחלקה ולחצו <kbd>Alt+Enter</kbd>.</div>
   </section>
 
@@ -221,7 +246,8 @@ public class MainActivity extends AppCompatActivity {
     <div class="code">
       <div class="code-head"><span>res/menu/main_menu.xml</span><button class="copy-btn" type="button">העתקה</button></div>
 <pre><code>&lt;?xml version="1.0" encoding="utf-8"?&gt;
-&lt;menu xmlns:android="http://schemas.android.com/apk/res/android"&gt;
+&lt;menu
+    xmlns:android="http://schemas.android.com/apk/res/android"&gt;
 
     &lt;item
         android:id="@+id/action_settings"
@@ -237,6 +263,11 @@ public class MainActivity extends AppCompatActivity {
 
 &lt;/menu&gt;</code></pre>
     </div>
+
+    <dl class="terms">
+      <div><dt><code>android:title</code></dt><dd>הטקסט שהמשתמש רואה בתפריט.</dd></div>
+      <div><dt><code>android:id</code></dt><dd>השם שלפיו נזהה בקוד על איזה פריט לחצו.</dd></div>
+    </dl>
   </section>
 
   <!-- 6 -->
@@ -271,6 +302,11 @@ public boolean onCreateOptionsMenu(Menu menu) {
       <div class="code-head"><span>import</span><button class="copy-btn" type="button">העתקה</button></div>
 <pre><code>import android.view.Menu;</code></pre>
     </div>
+
+    <dl class="terms">
+      <div><dt><code>getMenuInflater().inflate</code></dt><dd>אותו רעיון כמו בצעד 3: הופך את <code>main_menu.xml</code> לתפריט אמיתי.</dd></div>
+      <div><dt><code>return true</code></dt><dd>אומר למערכת: יש תפריט, אפשר להציג אותו.</dd></div>
+    </dl>
   </section>
 
   <!-- 7 -->
@@ -318,6 +354,11 @@ public boolean onOptionsItemSelected(@NonNull MenuItem item) {
 <pre><code>import android.view.MenuItem;
 import androidx.annotation.NonNull;</code></pre>
     </div>
+    <dl class="terms">
+      <div><dt><code>item.getItemId()</code></dt><dd>ה־<span class="en">id</span> של הפריט שנלחץ.</dd></div>
+      <div><dt><code>return true</code></dt><dd>טיפלנו בלחיצה, אין צורך להמשיך.</dd></div>
+      <div><dt><code>super.onOptionsItemSelected</code></dt><dd>פריט שלא זיהינו עובר לטיפול הרגיל של המערכת.</dd></div>
+    </dl>
     <div class="tip">לקובץ תפריט לא נוצרת מחלקת <code>binding</code>, ולכן את הפריטים מזהים עם <code>R.id</code>. אל רכיבי המסך ממשיכים לגשת רק דרך <code>binding</code>.</div>
   </section>
 
@@ -471,6 +512,7 @@ import androidx.annotation.NonNull;</code></pre>
     <button class="btn ghost" id="prevBtn" type="button">→ הקודם</button>
     <button class="btn" id="nextBtn" type="button">הבא ←</button>
   </div>
+  <p class="pager-note" role="status">חלק 2 נפתח אחרי שעוברים על כל המסכים. המסכים שנשארו מסומנים למעלה.</p>
 
 </main>
 
