@@ -404,6 +404,8 @@ pre .hl { background: rgba(255, 201, 60, 0.22); box-shadow: -4px 0 0 var(--yello
 }
 .help-link:hover { color: var(--coral); }
 .help-link[hidden] { display: none; }
+.reset-row { margin-top: 26px; }
+.reset-row .help-link { font-size: 0.88rem; font-weight: 600; color: var(--ink-2); padding: 0; }
 
 .big-check {
   width: 120px; height: 120px; border-radius: 50%;

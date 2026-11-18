@@ -28,7 +28,21 @@
   var storageOk = true;
   function getItem(k) { try { return localStorage.getItem(k); } catch (e) { storageOk = false; return null; } }
   function setItem(k, v) { try { localStorage.setItem(k, v); } catch (e) { storageOk = false; } }
+  function clearProgress() {
+    ["md-done-p1", "md-done-p2", "md-seen-p1"].forEach(function (k) {
+      try { localStorage.removeItem(k); } catch (e) { storageOk = false; }
+    });
+  }
+  if (/[?&]reset\b/.test(window.location.search)) clearProgress();
   if (/[?&]unlock\b/.test(window.location.search)) setItem("md-done-p1", "1");
+  var resetBtn = document.querySelector("#resetBtn");
+  if (resetBtn) {
+    resetBtn.hidden = !(getItem("md-seen-p1") || getItem("md-done-p1") || getItem("md-done-p2"));
+    resetBtn.addEventListener("click", function () {
+      clearProgress();
+      window.location.href = "index.html";
+    });
+  }
   function part1Done() { var v = getItem("md-done-p1"); return !storageOk || v === "1"; }
   var isPart1 = document.body.classList.contains("p1");
   var isPart2 = document.body.classList.contains("p2");
