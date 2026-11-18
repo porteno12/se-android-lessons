@@ -164,7 +164,7 @@
         <span class="kicker"><b>3</b>צעד 3 מתוך 6</span>
         <h2>מחברים את המסך לקוד</h2>
         <p class="lead">שלוש שורות מסומנות, שלושה שלבים. עקבו אחריהן באיור.</p>
-        <p>החליפו את התוכן של <code>MainActivity.java</code>, ואת שורת ה־<code>package</code> שלכם השאירו במקום.</p>
+        <p>החליפו את התוכן של <code>MainActivity.java</code>, ואת שורת ה־<code>package</code> שלכם השאירו במקום. הבלוק של <code>ViewCompat</code> שנוצר אוטומטית נמחק.</p>
       </div>
       <div class="show">
         <div class="pipe" aria-hidden="true">
@@ -187,9 +187,6 @@
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.graphics.Insets;
-import androidx.core.view.ViewCompat;
-import androidx.core.view.WindowInsetsCompat;
 
 import com.example.menudialogdemo.databinding.ActivityMainBinding;
 
@@ -204,13 +201,6 @@ public class MainActivity extends AppCompatActivity {
 
 <span class="hl">        binding = ActivityMainBinding.inflate(getLayoutInflater());   // 1</span>
 <span class="hl">        setContentView(binding.getRoot());                            // 2</span>
-
-        ViewCompat.setOnApplyWindowInsetsListener(binding.getRoot(), (v, insets) -&gt; {
-            Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
-            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
-            return insets;
-        });
-
 <span class="hl">        setSupportActionBar(binding.toolbar);                         // 3</span>
     }
 }</code></pre>
@@ -219,7 +209,6 @@ public class MainActivity extends AppCompatActivity {
       <div><dt><code>inflate</code></dt><dd>הופך את קובץ ה־<span class="en">XML</span> לרכיבים אמיתיים על המסך, ומחזיר את האובייקט <code>binding</code>.</dd></div>
       <div><dt><code>getRoot()</code></dt><dd>הרכיב החיצוני ביותר במסך. אצלנו זה ה־<code>LinearLayout</code>.</dd></div>
       <div><dt><code>setSupportActionBar</code></dt><dd>קובע שה־<span class="en">Toolbar</span> שלנו הוא הסרגל העליון. בלי זה אין תפריט.</dd></div>
-      <div><dt><code>EdgeToEdge / ViewCompat</code></dt><dd>מגיעים מהתבנית ודואגים שהמסך לא יוסתר מאחורי שורת המצב. לא נוגעים בהם.</dd></div>
     </dl>
     <div class="warn-box">ה־<span class="en">import</span> של <code>ActivityMainBinding</code> אדום? מחקו אותו, עמדו על שם המחלקה ולחצו <kbd>Alt+Enter</kbd>.</div>
   </section>
