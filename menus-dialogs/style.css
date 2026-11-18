@@ -377,7 +377,7 @@ pre .hl { background: rgba(255, 201, 60, 0.22); box-shadow: -4px 0 0 var(--yello
 .js .screen.active > .terms, .js .screen.active > .where { animation: rise 0.45s var(--ease) 0.25s both; }
 
 /* ---------- buttons / pager ---------- */
-.pager { display: flex; justify-content: space-between; gap: 12px; margin-top: 8px; }
+.pager { display: flex; justify-content: space-between; align-items: center; gap: 12px; margin-top: 8px; }
 .btn {
   display: inline-block;
   font-size: 1.02rem;
@@ -395,6 +395,36 @@ pre .hl { background: rgba(255, 201, 60, 0.22); box-shadow: -4px 0 0 var(--yello
 .btn:hover { transform: translate(-2px, -2px); box-shadow: 6px 6px 0 var(--edge); }
 .btn:active { transform: translate(3px, 3px); box-shadow: 1px 1px 0 var(--edge); }
 .btn.ghost { background: var(--surface); color: var(--ink); }
+
+.help-link {
+  background: none; border: 0; cursor: pointer;
+  font-size: 0.95rem; font-weight: 700; color: var(--ink);
+  text-decoration: underline; text-decoration-color: var(--coral); text-decoration-thickness: 3px; text-underline-offset: 4px;
+  align-self: center;
+}
+.help-link:hover { color: var(--coral); }
+.help-link[hidden] { display: none; }
+
+.big-check {
+  width: 120px; height: 120px; border-radius: 50%;
+  background: var(--mint); border: 4px solid var(--i-ink); box-shadow: 6px 6px 0 var(--i-ink);
+  position: relative;
+  animation: check-pop 0.6s var(--ease) 0.2s both;
+}
+.big-check::after {
+  content: ""; position: absolute; left: 41px; top: 22px;
+  width: 30px; height: 56px;
+  border: solid var(--i-ink); border-width: 0 10px 10px 0;
+  transform: rotate(45deg);
+}
+@keyframes check-pop { from { opacity: 0; transform: scale(0.8) rotate(-12deg); } to { opacity: 1; transform: none; } }
+
+.done-tag {
+  display: none;
+  background: var(--mint); border: 2px solid var(--i-ink); border-radius: 8px;
+  font-size: 0.78rem; padding: 0 8px; margin-inline-start: 6px;
+}
+.part.is-done .done-tag { display: inline-block; }
 
 /* ---------- home ---------- */
 .hero { padding: 16px 0 6px; }

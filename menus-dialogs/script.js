@@ -35,6 +35,13 @@
 
   if (isPart2 && !part1Done()) { window.location.replace("index.html"); return; }
 
+  if (getItem("md-done-p1") === "1") {
+    document.querySelectorAll(".part:not(.two)").forEach(function (a) { a.classList.add("is-done"); });
+  }
+  if (getItem("md-done-p2") === "1") {
+    document.querySelectorAll(".part.two").forEach(function (a) { a.classList.add("is-done"); });
+  }
+
   if (!part1Done()) {
     document.querySelectorAll('.tabs a[href="part2.html"]').forEach(function (a) {
       a.classList.add("locked");
@@ -196,6 +203,10 @@
   var prevBtn = document.querySelector("#prevBtn");
   var nextBtn = document.querySelector("#nextBtn");
   var current = 0;
+  var helpBtn = document.querySelector("#helpBtn");
+  var helpIndex = -1;
+  screens.forEach(function (s, i) { if (s.classList.contains("mistakes")) helpIndex = i; });
+  if (helpBtn) helpBtn.addEventListener("click", function () { if (helpIndex >= 0) go(helpIndex); });
 
   screens.forEach(function (s, i) {
     var b = document.createElement("button");
@@ -251,6 +262,12 @@
     label.textContent = (current + 1) + " / " + screens.length;
     titleEl.textContent = screens[current].getAttribute("data-title") || "";
     nextBtn.textContent = current === screens.length - 1 ? nextLabel : "הבא ←";
+    if (helpBtn) helpBtn.hidden = helpIndex < 0 || current >= helpIndex;
+    if (isPart2 && current === screens.length - 1 && getItem("md-done-p2") !== "1") {
+      setItem("md-done-p2", "1");
+      var mark = screens[current].querySelector(".big-check");
+      if (mark) setTimeout(function () { confetti(mark); }, 500);
+    }
   }
 
   function go(i) {

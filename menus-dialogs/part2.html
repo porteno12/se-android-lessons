@@ -10,7 +10,7 @@
   <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@500;700&family=Rubik:wght@400;500;600;700;800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="style.css">
 </head>
-<body class="p2" data-prev="part1.html#last" data-next="index.html" data-next-label="סיימתי, חזרה לפתיחה">
+<body class="p2" data-prev="part1.html#last" data-next="index.html" data-next-label="חזרה לפתיחה">
 
 <header class="site-header">
   <div class="header-inner">
@@ -98,7 +98,7 @@
         <h2>מאזינים ללחיצה</h2>
         <p class="lead">לחיצה על הכפתור מפעילה פעולה שתציג את התיבה.</p>
         <ol>
-          <li>את השורה הראשונה שמים בסוף <code>onCreate</code>.</li>
+          <li>את הבלוק הראשון שמים בסוף <code>onCreate</code>.</li>
           <li>את הפעולה הריקה שמים בתוך המחלקה, מחוץ ל־<code>onCreate</code>.</li>
         </ol>
       </div>
@@ -116,7 +116,12 @@
 
     <div class="code">
       <div class="code-head"><span>MainActivity.java · onCreate</span><button class="copy-btn" type="button">העתקה</button></div>
-<pre><code>binding.btnClear.setOnClickListener(v -&gt; showClearDialog());</code></pre>
+<pre><code>binding.btnClear.setOnClickListener(new View.OnClickListener() {
+    @Override
+    public void onClick(View v) {
+        showClearDialog();
+    }
+});</code></pre>
     </div>
     <div class="code">
       <div class="code-head"><span>MainActivity.java</span><button class="copy-btn" type="button">העתקה</button></div>
@@ -124,10 +129,14 @@
 
 }</code></pre>
     </div>
+    <div class="code">
+      <div class="code-head"><span>import</span><button class="copy-btn" type="button">העתקה</button></div>
+<pre><code>import android.view.View;</code></pre>
+    </div>
 
     <dl class="terms">
       <div><dt><code>setOnClickListener</code></dt><dd>קובע מה קורה בכל לחיצה על הכפתור.</dd></div>
-      <div><dt><code>v -&gt; ...</code></dt><dd>כתיבה מקוצרת: הקוד שאחרי החץ רץ כשלוחצים.</dd></div>
+      <div><dt><code>View.OnClickListener</code></dt><dd>אובייקט עם פעולה אחת, <code>onClick</code>. היא רצה בכל לחיצה על הכפתור.</dd></div>
     </dl>
   </section>
 
@@ -183,7 +192,7 @@
         <span class="kicker"><b>4</b>צעד 4 מתוך 4</span>
         <h2>מוסיפים כפתורי תשובה</h2>
         <p class="lead">לכל כפתור נותנים טקסט ומה לעשות כשלוחצים עליו. את התיבה לא צריך לסגור, היא נסגרת לבד.</p>
-        <p>הוסיפו את שתי השורות המסומנות.</p>
+        <p>הוסיפו את השורות המסומנות.</p>
       </div>
       <div class="show">
         <div class="phone small demo-dialog" aria-hidden="true">
@@ -212,15 +221,25 @@
     new AlertDialog.Builder(this)
             .setTitle("ניקוי הודעה")
             .setMessage("לנקות את ההודעה שעל המסך?")
-<span class="hl">            .setPositiveButton("כן", (dialog, which) -&gt; binding.tvStatus.setText(""))</span>
+<span class="hl">            .setPositiveButton("כן", new DialogInterface.OnClickListener() {</span>
+<span class="hl">                @Override</span>
+<span class="hl">                public void onClick(DialogInterface dialog, int which) {</span>
+<span class="hl">                    binding.tvStatus.setText("");</span>
+<span class="hl">                }</span>
+<span class="hl">            })</span>
 <span class="hl">            .setNegativeButton("לא", null)</span>
             .show();
 }</code></pre>
     </div>
 
+    <div class="code">
+      <div class="code-head"><span>import</span><button class="copy-btn" type="button">העתקה</button></div>
+<pre><code>import android.content.DialogInterface;</code></pre>
+    </div>
+
     <dl class="terms">
       <div><dt><code>setPositiveButton</code></dt><dd>הכפתור המאשר. מקבל טקסט, ומה לעשות כשלוחצים עליו.</dd></div>
-      <div><dt><code>(dialog, which) -&gt; ...</code></dt><dd>הקוד שאחרי החץ רץ רק אם לחצו על הכפתור הזה.</dd></div>
+      <div><dt><code>DialogInterface.OnClickListener</code></dt><dd>כמו בכפתור רגיל: ה־<code>onClick</code> שבתוכו רץ רק אם לחצו על הכפתור הזה.</dd></div>
       <div><dt><code>null</code></dt><dd>אין פעולה מיוחדת. התיבה פשוט נסגרת.</dd></div>
     </dl>
   </section>
@@ -269,7 +288,7 @@
   </section>
 
   <!-- 7 -->
-  <section class="screen" data-title="טעויות נפוצות">
+  <section class="screen mistakes" data-title="טעויות נפוצות">
     <span class="kicker warn"><b>?</b>נתקעתם</span>
     <h2>טעויות נפוצות</h2>
     <p class="lead">לחצו על מה שקורה אצלכם.</p>
@@ -301,8 +320,8 @@
     <div class="split">
       <div class="say">
         <span class="kicker"><b>!</b>משימת הגשה · חלק 2</span>
-        <h2>עכשיו אתם: לשאול לפני שיוצאים</h2>
-        <p>בחלק 1 "יציאה" רק החליפה טקסט. עכשיו היא תשאל, ורק אז תסגור את המסך.</p>
+        <h2>עכשיו אתם: תיבת אישור ליציאה</h2>
+        <p>בחלק 1 הפריט "יציאה" רק החליף טקסט. עכשיו בחירה בו תציג תיבה "לצאת מהאפליקציה?", ורק לחיצה על "כן" תסגור את המסך.</p>
         <ul class="check">
           <li>פעולה חדשה בשם <code>showExitDialog</code>.</li>
           <li>תיבה עם כותרת, הודעה ושני כפתורים, בניסוח שלכם.</li>
@@ -334,7 +353,7 @@
     <div class="say">
       <span class="kicker">להכיר</span>
       <h2>עוד סוגי תיבות דו־שיח</h2>
-      <p class="lead">רק כדי שתדעו שהם קיימים. אין עליהם משימה.</p>
+      <p class="lead">רק כדי שתדעו שהם קיימים.</p>
     </div>
 
     <div class="types">
@@ -384,8 +403,32 @@
     </div>
   </section>
 
+  <!-- 10 -->
+  <section class="screen finish" data-title="סיום">
+    <div class="split">
+      <div class="say">
+        <span class="kicker ok"><b>✓</b>סיום</span>
+        <h2>זהו, סיימתם את המטלה</h2>
+        <p class="lead">לפני שסוגרים, ודאו ששתי המשימות נמצאות ב־<span class="en">repository</span>:</p>
+        <ul class="check">
+          <li>חלק 1: פריט רביעי בתפריט.</li>
+          <li>חלק 2: תיבת אישור ליציאה.</li>
+        </ul>
+        <div class="tip send">קישור אחד ל־<span class="en">repository</span> מספיק לשני החלקים. שלחו לי אותו.</div>
+      </div>
+      <div class="show">
+        <div class="big-check" aria-hidden="true"></div>
+        <div class="results" aria-hidden="true">
+          <span class="chip">Options Menu</span>
+          <span class="chip">AlertDialog</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
   <div class="pager">
     <button class="btn ghost" id="prevBtn" type="button">→ הקודם</button>
+    <button class="help-link" id="helpBtn" type="button">נתקעתם?</button>
     <button class="btn" id="nextBtn" type="button">הבא ←</button>
   </div>
 

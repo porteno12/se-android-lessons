@@ -321,7 +321,7 @@ public boolean onCreateOptionsMenu(Menu menu) {
     <div class="code">
       <div class="code-head"><span>MainActivity.java</span><button class="copy-btn" type="button">העתקה</button></div>
 <pre><code>@Override
-public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+public boolean onOptionsItemSelected(MenuItem item) {
     int id = item.getItemId();
 
     if (id == R.id.action_settings) {
@@ -340,8 +340,7 @@ public boolean onOptionsItemSelected(@NonNull MenuItem item) {
     </div>
     <div class="code">
       <div class="code-head"><span>import</span><button class="copy-btn" type="button">העתקה</button></div>
-<pre><code>import android.view.MenuItem;
-import androidx.annotation.NonNull;</code></pre>
+<pre><code>import android.view.MenuItem;</code></pre>
     </div>
     <dl class="terms">
       <div><dt><code>item.getItemId()</code></dt><dd>ה־<span class="en">id</span> של הפריט שנלחץ.</dd></div>
@@ -389,7 +388,7 @@ import androidx.annotation.NonNull;</code></pre>
   </section>
 
   <!-- 9 -->
-  <section class="screen" data-title="טעויות נפוצות">
+  <section class="screen mistakes" data-title="טעויות נפוצות">
     <span class="kicker warn"><b>?</b>נתקעתם</span>
     <h2>טעויות נפוצות</h2>
     <p class="lead">לחצו על מה שקורה אצלכם.</p>
@@ -457,7 +456,7 @@ import androidx.annotation.NonNull;</code></pre>
     <div class="say">
       <span class="kicker">להכיר</span>
       <h2>עוד סוגי תפריטים</h2>
-      <p class="lead">רק כדי שתדעו שהם קיימים. אין עליהם משימה.</p>
+      <p class="lead">רק כדי שתדעו שהם קיימים.</p>
     </div>
 
     <div class="types">
@@ -499,6 +498,7 @@ import androidx.annotation.NonNull;</code></pre>
 
   <div class="pager">
     <button class="btn ghost" id="prevBtn" type="button">→ הקודם</button>
+    <button class="help-link" id="helpBtn" type="button">נתקעתם?</button>
     <button class="btn" id="nextBtn" type="button">הבא ←</button>
   </div>
   <p class="pager-note" role="status">חלק 2 נפתח אחרי שעוברים על כל המסכים. המסכים שנשארו מסומנים למעלה.</p>
