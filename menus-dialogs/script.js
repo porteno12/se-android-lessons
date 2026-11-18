@@ -124,6 +124,21 @@
     el.classList.add("flash");
   }
 
+  function trace(phone, key, values) {
+    var screen = phone.closest ? phone.closest(".screen") : null;
+    var box = screen && screen.querySelector(".trace");
+    if (!box) return;
+    box.querySelectorAll(".trace-row").forEach(function (row) {
+      row.classList.toggle("on", row.getAttribute("data-k") === key);
+    });
+    if (values) {
+      box.querySelectorAll(".dyn").forEach(function (el) {
+        var v = values[el.getAttribute("data-d")];
+        if (v) el.textContent = v;
+      });
+    }
+  }
+
   document.querySelectorAll('.phone.live[data-live="menu"]').forEach(function (phone) {
     var dots = phone.querySelector(".p-dots");
     var status = phone.querySelector(".p-status");
@@ -131,6 +146,7 @@
       e.stopPropagation();
       phone.classList.toggle("open");
       phone.classList.add("used");
+      if (phone.classList.contains("open")) trace(phone, "open");
     });
     phone.querySelectorAll(".p-menu button").forEach(function (item) {
       item.addEventListener("click", function (e) {
@@ -138,6 +154,7 @@
         status.textContent = "בחרת: " + item.textContent;
         phone.classList.remove("open");
         flash(status);
+        trace(phone, "pick", { id: item.getAttribute("data-id"), text: '"' + status.textContent + '"' });
       });
     });
     phone.addEventListener("click", function () { phone.classList.remove("open"); });
@@ -150,6 +167,7 @@
     var timer = null;
     btn.addEventListener("click", function () {
       phone.classList.add("open", "used");
+      trace(phone, "tap");
     });
     phone.querySelector(".p-scrim").addEventListener("click", function () {
       phone.classList.remove("open");
@@ -157,6 +175,7 @@
     phone.querySelectorAll(".p-dialog .b button").forEach(function (b) {
       b.addEventListener("click", function () {
         phone.classList.remove("open");
+        trace(phone, b.getAttribute("data-a"));
         if (b.getAttribute("data-a") === "yes") {
           status.textContent = "";
           clearTimeout(timer);

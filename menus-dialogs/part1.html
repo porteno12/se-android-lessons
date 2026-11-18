@@ -368,7 +368,7 @@ public boolean onOptionsItemSelected(MenuItem item) {
         <div class="phone live" data-live="menu">
           <div class="p-toolbar"><span>MenuDialogDemo</span><button class="p-dots" type="button" aria-label="פתיחת התפריט"><i></i><i></i><i></i></button></div>
           <div class="p-body">
-            <div class="p-menu"><button type="button">הגדרות</button><button type="button">אודות</button><button type="button">יציאה</button></div>
+            <div class="p-menu"><button type="button" data-id="R.id.action_settings">הגדרות</button><button type="button" data-id="R.id.action_about">אודות</button><button type="button" data-id="R.id.action_exit">יציאה</button></div>
             <div class="p-status" aria-live="polite">עדיין לא נבחר פריט</div>
           </div>
         </div>
@@ -376,15 +376,12 @@ public boolean onOptionsItemSelected(MenuItem item) {
       </div>
     </div>
 
-    <!--
-      הערה למורה (לא מוצג לתלמידים):
-      מקום לסרטון. מה כדאי שיופיע בו:
-      1. הרצת האפליקציה באמולטור ופתיחת התפריט משלוש הנקודות.
-      2. בחירה בכל אחד משלושת הפריטים והטקסט שמתחלף.
-      3. מעבר קצר על שלושת המקומות בקוד: main_menu.xml, onCreateOptionsMenu, onOptionsItemSelected.
-      כדי להוסיף: להחליף את ה-div הבא בתגית video או ב-iframe.
-    -->
-    <div class="video-slot"><div class="play"></div>כאן אעלה סרטון הדגמה</div>
+    <div class="trace">
+      <div class="trace-title">לחצו בטלפון המצויר וראו איזה קוד רץ</div>
+      <div class="trace-row" data-k="open"><code>onCreateOptionsMenu</code><span>בנתה את התפריט מהקובץ, ועכשיו הוא נפתח.</span></div>
+      <div class="trace-row" data-k="pick"><code>onOptionsItemSelected</code><span>קיבלה את הפריט: <code class="dyn" data-d="id">R.id...</code></span></div>
+      <div class="trace-row" data-k="pick"><code>binding.tvStatus.setText</code><span>הציגה במסך: <code class="dyn" data-d="text">"..."</code></span></div>
+    </div>
   </section>
 
   <!-- 9 -->
@@ -434,7 +431,7 @@ public boolean onOptionsItemSelected(MenuItem item) {
           <li>הודעה משלכם ב־<code>tvStatus</code>, דרך <code>binding</code>.</li>
           <li>אין בקוד אף <code>findViewById</code>.</li>
         </ul>
-        <div class="tip send">מעלים את הפרויקט ל־<span class="en">repository</span> ב־<span class="en">GitHub</span> ושולחים לי את הקישור.</div>
+        <div class="tip send">מעלים את הפרויקט ל־<span class="en">GitHub</span> ושולחים לי קישור. איך עושים את זה? במסך הבא.</div>
       </div>
       <div class="show">
         <div class="phone demo-add" aria-hidden="true">
@@ -452,6 +449,37 @@ public boolean onOptionsItemSelected(MenuItem item) {
   </section>
 
   <!-- 11 -->
+  <section class="screen" data-title="איך מגישים">
+    <div class="split">
+      <div class="say">
+        <span class="kicker"><b>!</b>איך מגישים</span>
+        <h2>מעלים את הפרויקט ל־<span class="en">GitHub</span></h2>
+        <ol>
+          <li>אין לכם חשבון? פותחים אחד באתר <span class="en">github.com</span>.</li>
+          <li>ב־<span class="en">Android Studio</span> לוחצים פעמיים על <kbd>Shift</kbd>, מקלידים <code>Share Project on GitHub</code> ובוחרים בו.</li>
+          <li>מתחברים לחשבון, משאירים את <span class="en">Private</span> לא מסומן, ולוחצים <span class="en">Share</span>.</li>
+          <li>בחלון שנפתח לוחצים <span class="en">Add</span>.</li>
+          <li>פותחים את הדף שנוצר ב־<span class="en">GitHub</span>, מעתיקים את הכתובת שלו ושולחים לי.</li>
+        </ol>
+      </div>
+      <div class="show">
+        <div class="bind" aria-hidden="true">
+          <div class="fcard"><div class="fh">Android Studio</div><div class="fl">MenuDialogDemo/</div></div>
+          <div class="v-arrow"><span class="chip">Share Project on GitHub</span></div>
+          <div class="fcard gen"><div class="fh">github.com</div><div class="fl g1">user/MenuDialogDemo</div></div>
+        </div>
+        <div class="cap">את הכתובת של הדף הזה שולחים לי</div>
+      </div>
+    </div>
+
+    <dl class="terms">
+      <div><dt><code>repository</code></dt><dd>התיקייה של הפרויקט שלכם באתר <span class="en">GitHub</span>. דרכה אני רואה את הקוד.</dd></div>
+      <div><dt><code>Private</code></dt><dd>פרויקט מסומן כך גלוי רק לכם, ואני לא אוכל לפתוח אותו.</dd></div>
+    </dl>
+    <div class="warn-box">מופיעה הודעה ש־<span class="en">Git</span> לא מותקן, או שלא מצאתם את הפקודה? קראו לי.</div>
+  </section>
+
+  <!-- 12 -->
   <section class="screen" data-title="סוגים נוספים">
     <div class="say">
       <span class="kicker">להכיר</span>

@@ -276,15 +276,13 @@
       </div>
     </div>
 
-    <!--
-      הערה למורה (לא מוצג לתלמידים):
-      מקום לסרטון. מה כדאי שיופיע בו:
-      1. לחיצה על "נקה הודעה" והופעת התיבה.
-      2. פעם אחת בחירה ב"לא" ופעם אחת ב"כן", כדי לראות את ההבדל.
-      3. מעבר קצר על showClearDialog: איזו שורה אחראית לכל אזור בתיבה.
-      כדי להוסיף: להחליף את ה-div הבא בתגית video או ב-iframe.
-    -->
-    <div class="video-slot"><div class="play"></div>כאן אעלה סרטון הדגמה</div>
+    <div class="trace">
+      <div class="trace-title">לחצו בטלפון המצויר וראו איזה קוד רץ</div>
+      <div class="trace-row" data-k="tap"><code>onClick</code><span>הכפתור נלחץ, והיא קראה ל־<code>showClearDialog()</code>.</span></div>
+      <div class="trace-row" data-k="tap"><code>.show()</code><span>התיבה נבנתה והוצגה.</span></div>
+      <div class="trace-row" data-k="yes"><code>setPositiveButton</code><span>ה־<code>onClick</code> שלו רץ, והטקסט נמחק.</span></div>
+      <div class="trace-row" data-k="no"><code>setNegativeButton</code><span>קיבל <code>null</code>, ולכן התיבה רק נסגרה.</span></div>
+    </div>
   </section>
 
   <!-- 7 -->
@@ -328,7 +326,15 @@
           <li>הכפתור החיובי קורא ל־<code>finish()</code>, שסוגר את המסך הנוכחי.</li>
           <li>קוראים לפעולה מהתנאי של <code>action_exit</code>.</li>
         </ul>
-        <div class="tip send">מעלים את השינויים לאותו <span class="en">repository</span> ב־<span class="en">GitHub</span> ושולחים לי את הקישור.</div>
+        <div class="tip send">מעדכנים את הפרויקט ב־<span class="en">GitHub</span> ושולחים לי את הקישור.</div>
+        <details style="margin-top:16px">
+          <summary>איך מעדכנים?</summary>
+          <ol>
+            <li>ב־<span class="en">Android Studio</span>: תפריט <span class="en">Git → Commit</span>.</li>
+            <li>כותבים תיאור קצר של מה שהוספתם.</li>
+            <li>לוחצים <span class="en">Commit and Push</span>, ואז <span class="en">Push</span>.</li>
+          </ol>
+        </details>
       </div>
       <div class="show">
         <div class="phone demo-exit" aria-hidden="true">
@@ -409,12 +415,12 @@
       <div class="say">
         <span class="kicker ok"><b>✓</b>סיום</span>
         <h2>זהו, סיימתם את המטלה</h2>
-        <p class="lead">לפני שסוגרים, ודאו ששתי המשימות נמצאות ב־<span class="en">repository</span>:</p>
+        <p class="lead">לפני שסוגרים, ודאו ששתי המשימות הועלו ל־<span class="en">GitHub</span>:</p>
         <ul class="check">
           <li>חלק 1: פריט רביעי בתפריט.</li>
           <li>חלק 2: תיבת אישור ליציאה.</li>
         </ul>
-        <div class="tip send">קישור אחד ל־<span class="en">repository</span> מספיק לשני החלקים. שלחו לי אותו.</div>
+        <div class="tip send">קישור אחד לפרויקט ב־<span class="en">GitHub</span> מספיק לשני החלקים. שלחו לי אותו.</div>
       </div>
       <div class="show">
         <div class="big-check" aria-hidden="true"></div>
