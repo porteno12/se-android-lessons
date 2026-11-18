@@ -4,9 +4,10 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>חלק 1 · Options Menu | תפריטים ותיבות דו־שיח</title>
+  <script>try{var t=localStorage.getItem("md-theme");if(t)document.documentElement.setAttribute("data-theme",t);}catch(e){}</script>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans+Hebrew:wght@400;500;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@500;700&family=Rubik:wght@400;500;600;700;800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="style.css">
 </head>
 <body class="p1" data-prev="index.html" data-next="part2.html" data-next-label="לחלק 2 ←">
@@ -19,6 +20,7 @@
       <a class="current" href="part1.html">חלק 1</a>
       <a href="part2.html">חלק 2</a>
     </nav>
+    <button class="theme-btn" type="button"></button>
   </div>
   <div class="progress-wrap">
     <div class="progress-label">
@@ -34,10 +36,11 @@
   <!-- 1 -->
   <section class="screen" data-title="מה בונים">
     <div class="split">
-      <div>
+      <div class="say">
         <span class="kicker">חלק 1</span>
         <h2><span class="en">Options Menu</span></h2>
-        <p class="lead">תפריט עם שלושה פריטים בסרגל העליון. בחירה בפריט מעדכנת את הטקסט במסך.</p>
+        <p class="lead">זה התפריט שנפתח משלוש הנקודות. נבנה אחד עם שלושה פריטים, וכל בחירה תחליף את הטקסט במסך.</p>
+        <p>שלושה דברים שנכתוב בדרך:</p>
         <div class="flow">
           <span class="chip">main_menu.xml</span><span class="arrow">←</span>
           <span class="chip">onCreateOptionsMenu</span><span class="arrow">←</span>
@@ -45,13 +48,14 @@
         </div>
       </div>
       <div class="show">
-        <div class="phone demo-menu" aria-hidden="true">
-          <div class="p-toolbar"><span>MenuDialogDemo</span><span class="p-dots"><i></i><i></i><i></i></span></div>
+        <div class="phone live" data-live="menu">
+          <div class="p-toolbar"><span>MenuDialogDemo</span><button class="p-dots" type="button" aria-label="פתיחת התפריט"><i></i><i></i><i></i></button></div>
           <div class="p-body">
-            <div class="p-menu"><div>הגדרות</div><div class="pick">אודות</div><div>יציאה</div></div>
-            <div class="p-status"><span class="s-before">עדיין לא נבחר פריט</span><span class="s-after">בחרת: אודות</span></div>
+            <div class="p-menu"><button type="button">הגדרות</button><button type="button">אודות</button><button type="button">יציאה</button></div>
+            <div class="p-status" aria-live="polite">עדיין לא נבחר פריט</div>
           </div>
         </div>
+        <div class="cap hint">נסו בעצמכם: לחצו על שלוש הנקודות</div>
       </div>
     </div>
   </section>
@@ -59,12 +63,12 @@
   <!-- 2 -->
   <section class="screen" data-title="צעד 1 · ViewBinding">
     <div class="split">
-      <div>
-        <span class="kicker">צעד 1 מתוך 6</span>
-        <h2>פרויקט חדש + <span class="en">ViewBinding</span></h2>
+      <div class="say">
+        <span class="kicker"><b>1</b>צעד 1 מתוך 6</span>
+        <h2>פרויקט חדש ו־<span class="en">ViewBinding</span></h2>
         <ol>
-          <li><span class="en">New Project → Empty Views Activity</span>, שפה <span class="en">Java</span>, שם <code>MenuDialogDemo</code>.</li>
-          <li>פתחו את <code>build.gradle.kts (Module :app)</code> והוסיפו את הבלוק שלמטה.</li>
+          <li>פתחו <span class="en">New Project → Empty Views Activity</span>. שפה: <span class="en">Java</span>. שם: <code>MenuDialogDemo</code>.</li>
+          <li>בקובץ <code>build.gradle.kts (Module :app)</code> הוסיפו את הבלוק שלמטה.</li>
           <li>לחצו <span class="en">Sync Now</span>.</li>
         </ol>
       </div>
@@ -74,7 +78,7 @@
           <div class="v-arrow"><span class="chip">viewBinding = true</span></div>
           <div class="fcard gen"><div class="fh">ActivityMainBinding</div><div class="fl g1">binding.toolbar</div><div class="fl g2">binding.tvStatus</div></div>
         </div>
-        <div class="cap">כל <span class="en">id</span> במסך הופך לשדה ב־<span class="en">binding</span></div>
+        <div class="cap">כל <span class="en">id</span> במסך הופך לשדה ב־<span class="en">binding</span>. בלי <span class="en">findViewById</span>.</div>
       </div>
     </div>
 
@@ -93,10 +97,10 @@
   <!-- 3 -->
   <section class="screen" data-title="צעד 2 · Toolbar">
     <div class="split">
-      <div>
-        <span class="kicker">צעד 2 מתוך 6</span>
-        <h2><span class="en">Toolbar</span> וטקסט במסך</h2>
-        <p class="lead">התפריט מוצג על הסרגל העליון, ולכן מוסיפים אותו ל־<span class="en">layout</span>.</p>
+      <div class="say">
+        <span class="kicker"><b>2</b>צעד 2 מתוך 6</span>
+        <h2>מוסיפים <span class="en">Toolbar</span> וטקסט</h2>
+        <p class="lead">שלוש הנקודות יושבות על ה־<span class="en">Toolbar</span>, אז מתחילים ממנו.</p>
         <p>החליפו את כל התוכן של <code>activity_main.xml</code>.</p>
       </div>
       <div class="show">
@@ -137,11 +141,11 @@
   <!-- 4 -->
   <section class="screen" data-title="צעד 3 · binding בקוד">
     <div class="split">
-      <div>
-        <span class="kicker">צעד 3 מתוך 6</span>
-        <h2>טוענים את המסך עם <code>binding</code></h2>
-        <p class="lead">שלוש השורות המסומנות בקוד מתאימות לשלושת השלבים באיור.</p>
-        <p>החליפו את התוכן של <code>MainActivity.java</code>. את שורת ה־<code>package</code> שלכם השאירו.</p>
+      <div class="say">
+        <span class="kicker"><b>3</b>צעד 3 מתוך 6</span>
+        <h2>מחברים את המסך לקוד</h2>
+        <p class="lead">שלוש שורות מסומנות, שלושה שלבים. עקבו אחריהן באיור.</p>
+        <p>החליפו את התוכן של <code>MainActivity.java</code>, ואת שורת ה־<code>package</code> שלכם השאירו במקום.</p>
       </div>
       <div class="show">
         <div class="pipe" aria-hidden="true">
@@ -192,27 +196,25 @@ public class MainActivity extends AppCompatActivity {
     }
 }</code></pre>
     </div>
-    <div class="warn-box">ה־<span class="en">import</span> של <code>ActivityMainBinding</code> אדום? מחקו אותו ולחצו <kbd>Alt+Enter</kbd> על שם המחלקה.</div>
+    <div class="warn-box">ה־<span class="en">import</span> של <code>ActivityMainBinding</code> אדום? מחקו אותו, עמדו על שם המחלקה ולחצו <kbd>Alt+Enter</kbd>.</div>
   </section>
 
   <!-- 5 -->
   <section class="screen" data-title="צעד 4 · קובץ התפריט">
     <div class="split">
-      <div>
-        <span class="kicker">צעד 4 מתוך 6</span>
-        <h2>קובץ התפריט</h2>
+      <div class="say">
+        <span class="kicker"><b>4</b>צעד 4 מתוך 6</span>
+        <h2>יוצרים את קובץ התפריט</h2>
         <ol>
-          <li>לחיצה ימנית על <code>res</code> ← <span class="en">New → Android Resource File</span>.</li>
-          <li>ממלאים: <code>File name: main_menu</code> ו־<code>Resource type: Menu</code>.</li>
-          <li>הדביקו בקובץ שנוצר את הקוד שלמטה.</li>
+          <li>לחיצה ימנית על <code>res</code>, ואז <span class="en">New → Android Resource File</span>.</li>
+          <li>ממלאים <code>File name: main_menu</code> ו־<code>Resource type: Menu</code>.</li>
+          <li>מדביקים בקובץ שנוצר את הקוד שלמטה.</li>
         </ol>
       </div>
       <div class="show">
-        <div class="tree" aria-hidden="true">
-<div>res/</div><div>  layout/</div><div>    activity_main.xml</div><div class="n1">  menu/</div><div class="n2">    main_menu.xml</div>
-        </div>
+        <div class="tree" aria-hidden="true"><div>res/</div><div>  layout/</div><div>    activity_main.xml</div><div class="n1">  menu/</div><div class="n2">    main_menu.xml</div></div>
         <div class="mini-menu" aria-hidden="true"><div>הגדרות</div><div>אודות</div><div>יציאה</div></div>
-        <div class="cap">כל <span class="en">item</span> בקובץ = שורה אחת בתפריט</div>
+        <div class="cap">כל <span class="en">item</span> בקובץ הוא שורה אחת בתפריט</div>
       </div>
     </div>
 
@@ -240,10 +242,10 @@ public class MainActivity extends AppCompatActivity {
   <!-- 6 -->
   <section class="screen" data-title="צעד 5 · מציגים">
     <div class="split">
-      <div>
-        <span class="kicker">צעד 5 מתוך 6</span>
+      <div class="say">
+        <span class="kicker"><b>5</b>צעד 5 מתוך 6</span>
         <h2>מציגים את התפריט</h2>
-        <p class="lead">המערכת קוראת ל־<code>onCreateOptionsMenu</code> כשהסרגל נבנה. בתוכה טוענים את קובץ התפריט.</p>
+        <p class="lead">את הפעולה הזו המערכת מפעילה בעצמה כשהיא בונה את הסרגל. אנחנו רק טוענים לתוכה את הקובץ.</p>
         <p>הוסיפו ל־<code>MainActivity</code>, אחרי <code>onCreate</code>.</p>
       </div>
       <div class="show">
@@ -274,17 +276,17 @@ public boolean onCreateOptionsMenu(Menu menu) {
   <!-- 7 -->
   <section class="screen" data-title="צעד 6 · מגיבים">
     <div class="split">
-      <div>
-        <span class="kicker">צעד 6 מתוך 6</span>
+      <div class="say">
+        <span class="kicker"><b>6</b>צעד 6 מתוך 6</span>
         <h2>מגיבים לבחירה</h2>
-        <p class="lead">בודקים איזה פריט נבחר לפי ה־<span class="en">id</span>, ומעדכנים את הטקסט דרך <code>binding</code>.</p>
+        <p class="lead">כל לחיצה על פריט מגיעה לכאן. בודקים לפי ה־<span class="en">id</span> איזה פריט נבחר, ומעדכנים את הטקסט דרך <code>binding</code>.</p>
       </div>
       <div class="show">
         <div class="phone small demo-menu" aria-hidden="true">
           <div class="p-toolbar"><span>MenuDialogDemo</span><span class="p-dots"><i></i><i></i><i></i></span></div>
           <div class="p-body">
             <div class="p-menu"><div>הגדרות</div><div class="pick">אודות</div><div>יציאה</div></div>
-            <div class="p-status"><span class="s-before">…</span><span class="s-after">בחרת: אודות</span></div>
+            <div class="p-status"><span class="s-before">...</span><span class="s-after">בחרת: אודות</span></div>
           </div>
         </div>
         <span class="chip id-chip" aria-hidden="true">R.id.action_about</span>
@@ -316,29 +318,32 @@ public boolean onOptionsItemSelected(@NonNull MenuItem item) {
 <pre><code>import android.view.MenuItem;
 import androidx.annotation.NonNull;</code></pre>
     </div>
-    <div class="tip">לקובץ תפריט לא נוצרת מחלקת <code>binding</code>, ולכן פריטים מזוהים לפי <code>R.id</code>. לרכיבי המסך ניגשים רק דרך <code>binding</code>.</div>
+    <div class="tip">לקובץ תפריט לא נוצרת מחלקת <code>binding</code>, ולכן את הפריטים מזהים עם <code>R.id</code>. אל רכיבי המסך ממשיכים לגשת רק דרך <code>binding</code>.</div>
   </section>
 
   <!-- 8 -->
   <section class="screen" data-title="נקודת בדיקה">
     <div class="split">
-      <div>
-        <span class="kicker">נקודת בדיקה</span>
-        <h2>הרצה ובדיקה</h2>
-        <ul class="check">
-          <li>שלוש נקודות על הסרגל העליון.</li>
-          <li>לחיצה עליהן פותחת שלושה פריטים.</li>
-          <li>בחירה בפריט מחליפה את הטקסט.</li>
+      <div class="say">
+        <span class="kicker ok"><b>✓</b>נקודת בדיקה</span>
+        <h2>עובד אצלכם?</h2>
+        <p class="lead">הריצו את האפליקציה וסמנו כל דבר שקורה:</p>
+        <ul class="check live">
+          <li><button type="button">יש שלוש נקודות על הסרגל העליון.</button></li>
+          <li><button type="button">לחיצה עליהן פותחת שלושה פריטים.</button></li>
+          <li><button type="button">בחירה בפריט מחליפה את הטקסט.</button></li>
         </ul>
+        <span class="all-good" role="status">יפה מאוד, ממשיכים למשימה</span>
       </div>
       <div class="show">
-        <div class="phone demo-menu" aria-hidden="true">
-          <div class="p-toolbar"><span>MenuDialogDemo</span><span class="p-dots"><i></i><i></i><i></i></span></div>
+        <div class="phone live" data-live="menu">
+          <div class="p-toolbar"><span>MenuDialogDemo</span><button class="p-dots" type="button" aria-label="פתיחת התפריט"><i></i><i></i><i></i></button></div>
           <div class="p-body">
-            <div class="p-menu"><div>הגדרות</div><div class="pick">אודות</div><div>יציאה</div></div>
-            <div class="p-status"><span class="s-before">עדיין לא נבחר פריט</span><span class="s-after">בחרת: אודות</span></div>
+            <div class="p-menu"><button type="button">הגדרות</button><button type="button">אודות</button><button type="button">יציאה</button></div>
+            <div class="p-status" aria-live="polite">עדיין לא נבחר פריט</div>
           </div>
         </div>
+        <div class="cap">ככה זה אמור להתנהג</div>
       </div>
     </div>
 
@@ -350,13 +355,14 @@ import androidx.annotation.NonNull;</code></pre>
       3. מעבר קצר על שלושת המקומות בקוד: main_menu.xml, onCreateOptionsMenu, onOptionsItemSelected.
       כדי להוסיף: להחליף את ה-div הבא בתגית video או ב-iframe.
     -->
-    <div class="video-slot">כאן אוסיף סרטון הדגמה</div>
+    <div class="video-slot"><div class="play"></div>כאן אעלה סרטון הדגמה</div>
   </section>
 
   <!-- 9 -->
   <section class="screen" data-title="טעויות נפוצות">
-    <span class="kicker">אם משהו לא עובד</span>
+    <span class="kicker warn"><b>?</b>נתקעתם</span>
     <h2>טעויות נפוצות</h2>
+    <p class="lead">לחצו על מה שקורה אצלכם.</p>
 
     <details>
       <summary>אין שלוש נקודות</summary>
@@ -375,14 +381,14 @@ import androidx.annotation.NonNull;</code></pre>
     </details>
     <details>
       <summary>ניסיתי <code>switch</code> וקיבלתי <span class="en">Constant expression required</span></summary>
-      <p>ערכי <code>R.id</code> אינם קבועים. משתמשים ב־<code>if / else if</code>.</p>
+      <p>ערכי <code>R.id</code> אינם קבועים, ולכן משתמשים ב־<code>if / else if</code>.</p>
     </details>
     <details>
       <summary>קריסה בפתיחה: <span class="en">This Activity already has an action bar</span></summary>
-      <p>ב־<code>res/values/themes.xml</code> (וגם ב־<code>values-night</code>) ה־<code>parent</code> צריך להסתיים ב־<code>NoActionBar</code>.</p>
+      <p>בקובץ <code>res/values/themes.xml</code>, וגם בזה שבתיקייה <code>values-night</code>, ה־<code>parent</code> צריך להסתיים ב־<code>NoActionBar</code>.</p>
     </details>
     <details>
-      <summary>התפריט נפתח אבל לחיצה לא עושה כלום</summary>
+      <summary>התפריט נפתח, אבל לחיצה לא עושה כלום</summary>
       <p>ה־<span class="en">id</span> שבתנאי חייב להיות זהה ל־<span class="en">id</span> שבקובץ התפריט.</p>
     </details>
   </section>
@@ -390,49 +396,51 @@ import androidx.annotation.NonNull;</code></pre>
   <!-- 10 -->
   <section class="screen" data-title="משימת הגשה">
     <div class="split">
-      <div>
-        <span class="kicker">משימת הגשה · חלק 1</span>
-        <h2>פריט רביעי בתפריט</h2>
+      <div class="say">
+        <span class="kicker"><b>!</b>משימת הגשה · חלק 1</span>
+        <h2>עכשיו אתם: פריט רביעי</h2>
         <ul class="check">
-          <li><code>item</code> חדש ב־<code>main_menu.xml</code>.</li>
+          <li><code>item</code> חדש ב־<code>main_menu.xml</code>, בשם שתבחרו.</li>
           <li>תנאי חדש ב־<code>onOptionsItemSelected</code>.</li>
           <li>הודעה משלכם ב־<code>tvStatus</code>, דרך <code>binding</code>.</li>
           <li>אין בקוד אף <code>findViewById</code>.</li>
         </ul>
-        <div class="tip"><strong>הגשה:</strong> מעלים את הפרויקט ל־<span class="en">repository</span> ב־<span class="en">GitHub</span> ומגישים לי את הקישור.</div>
+        <div class="tip send">מעלים את הפרויקט ל־<span class="en">repository</span> ב־<span class="en">GitHub</span> ושולחים לי את הקישור.</div>
       </div>
       <div class="show">
         <div class="phone demo-add" aria-hidden="true">
           <div class="p-toolbar"><span>MenuDialogDemo</span><span class="p-dots"><i></i><i></i><i></i></span></div>
           <div class="p-body">
-            <div class="p-menu"><div>הגדרות</div><div>אודות</div><div>יציאה</div><div class="new">פריט חדש</div></div>
+            <div class="p-menu"><div>הגדרות</div><div>אודות</div><div>יציאה</div><div class="new">הפריט שלכם</div></div>
           </div>
         </div>
       </div>
     </div>
-    <details style="margin-top:14px">
-      <summary>הרחבה (רשות)</summary>
-      <p>הוסיפו לפריט אחד <code>app:showAsAction="ifRoom"</code>, ולתגית <code>menu</code> את <code>xmlns:app="http://schemas.android.com/apk/res-auto"</code>. בדקו היכן הפריט מוצג עכשיו.</p>
+    <details style="margin-top:22px">
+      <summary>רוצים אתגר?</summary>
+      <p>הוסיפו לפריט אחד <code>app:showAsAction="ifRoom"</code>, ולתגית <code>menu</code> את <code>xmlns:app="http://schemas.android.com/apk/res-auto"</code>. איפה הפריט מופיע עכשיו?</p>
     </details>
   </section>
 
   <!-- 11 -->
   <section class="screen" data-title="סוגים נוספים">
-    <span class="kicker">להיכרות בלבד</span>
-    <h2>סוגי תפריטים נוספים</h2>
-    <p>לא חלק מההגשה.</p>
+    <div class="say">
+      <span class="kicker">להכיר</span>
+      <h2>עוד סוגי תפריטים</h2>
+      <p class="lead">רק כדי שתדעו שהם קיימים. אין עליהם משימה.</p>
+    </div>
 
     <div class="types">
       <div class="type">
         <div class="phone small demo-context" aria-hidden="true">
           <div class="p-toolbar"><span>מסך</span></div>
           <div class="p-body" style="padding:0.8em">
-            <div class="press" style="margin-top:1.6em;padding:1.2em 0.4em;border:1px solid #dfe3ee;border-radius:0.7em">טקסט כלשהו</div>
+            <div class="press" style="margin-top:1.6em;padding:1.2em 0.4em;border:2px solid #14213d;border-radius:0.8em">טקסט כלשהו</div>
             <div class="p-menu"><div>עריכה</div><div>מחיקה</div></div>
           </div>
         </div>
         <h3>Context Menu</h3>
-        <p>לחיצה ארוכה על רכיב.</p>
+        <p>נפתח בלחיצה ארוכה על רכיב.</p>
       </div>
       <div class="type">
         <div class="phone small demo-popup" aria-hidden="true">
@@ -443,7 +451,7 @@ import androidx.annotation.NonNull;</code></pre>
           </div>
         </div>
         <h3>Popup Menu</h3>
-        <p>נפתח צמוד לרכיב שנלחץ.</p>
+        <p>נפתח צמוד לרכיב שלחצו עליו.</p>
       </div>
       <div class="type">
         <div class="phone small demo-action" aria-hidden="true">

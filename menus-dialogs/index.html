@@ -4,9 +4,10 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>תפריטים ותיבות דו־שיח | מטלת הגשה</title>
+  <script>try{var t=localStorage.getItem("md-theme");if(t)document.documentElement.setAttribute("data-theme",t);}catch(e){}</script>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans+Hebrew:wght@400;500;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@500;700&family=Rubik:wght@400;500;600;700;800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
@@ -19,56 +20,51 @@
       <a href="part1.html">חלק 1</a>
       <a href="part2.html">חלק 2</a>
     </nav>
+    <button class="theme-btn" type="button"></button>
   </div>
 </header>
 
 <main>
-  <span class="kicker">מטלת הגשה</span>
-  <h1>תפריטים ותיבות דו־שיח</h1>
-  <p class="lead">שני חלקים על אותו פרויקט. <span class="en">Android Studio, Java, ViewBinding</span>.</p>
+  <div class="hero">
+    <span class="kicker">מטלת הגשה · הנדסת תוכנה</span>
+    <h1><span class="mark">תפריטים</span> ותיבות דו־שיח</h1>
+    <p class="lead">שני חלקים על אותו פרויקט. בונים צעד אחר צעד, ובסוף כל חלק יש משימה קצרה שמגישים לי.</p>
+  </div>
 
-  <ol class="toc">
-    <li>
-      <a href="part1.html">
-        <span class="no">01</span>
-        <span>
-          <strong>Options Menu</strong>
-          <span class="sub">תפריט בסרגל העליון עם שלושה פריטים. 6 צעדים ומשימת הגשה.</span>
+  <div class="parts">
+    <a class="part" href="part1.html">
+      <span class="phone small demo-menu" aria-hidden="true" style="display:block">
+        <span class="p-toolbar"><span>App</span><span class="p-dots"><i></i><i></i><i></i></span></span>
+        <span class="p-body" style="display:block">
+          <span class="p-menu" style="display:block"><div>הגדרות</div><div class="pick">אודות</div><div>יציאה</div></span>
+          <span class="p-status" style="display:block"><span class="s-before">...</span><span class="s-after">בחרת: אודות</span></span>
         </span>
-        <span class="fig">
-          <span class="phone small demo-menu" aria-hidden="true" style="display:block">
-            <span class="p-toolbar"><span>App</span><span class="p-dots"><i></i><i></i><i></i></span></span>
-            <span class="p-body" style="display:block">
-              <span class="p-menu" style="display:block"><div>הגדרות</div><div class="pick">אודות</div><div>יציאה</div></span>
-            </span>
-          </span>
+      </span>
+      <span class="n">חלק 1 · 6 צעדים</span>
+      <strong>Options Menu</strong>
+      <span class="sub">התפריט שנפתח משלוש הנקודות</span>
+      <span class="go">מתחילים כאן ←</span>
+    </a>
+    <a class="part two" href="part2.html">
+      <span class="phone small demo-simple" aria-hidden="true" style="display:block">
+        <span class="p-toolbar"><span>App</span><span class="p-dots"><i></i><i></i><i></i></span></span>
+        <span class="p-scrim"></span>
+        <span class="p-dialog" style="display:block">
+          <span class="t" style="display:block">ניקוי הודעה</span>
+          <span class="m" style="display:block">לנקות את ההודעה?</span>
+          <span class="b"><span>לא</span><span>כן</span></span>
         </span>
-      </a>
-    </li>
-    <li>
-      <a href="part2.html">
-        <span class="no">02</span>
-        <span>
-          <strong>AlertDialog</strong>
-          <span class="sub">תיבת אישור לפני פעולה. 4 צעדים ומשימת הגשה.</span>
-        </span>
-        <span class="fig">
-          <span class="phone small demo-simple" aria-hidden="true" style="display:block">
-            <span class="p-toolbar"><span>App</span><span class="p-dots"><i></i><i></i><i></i></span></span>
-            <span class="p-scrim"></span>
-            <span class="p-dialog" style="display:block">
-              <span class="t" style="display:block">ניקוי הודעה</span>
-              <span class="m" style="display:block">לנקות את ההודעה?</span>
-              <span class="b"><span>לא</span><span>כן</span></span>
-            </span>
-          </span>
-        </span>
-      </a>
-    </li>
-  </ol>
+      </span>
+      <span class="n">חלק 2 · 4 צעדים</span>
+      <strong>AlertDialog</strong>
+      <span class="sub">תיבה ששואלת לפני שפועלים</span>
+      <span class="go">ממשיכים כאן ←</span>
+    </a>
+  </div>
 
-  <p><a class="btn" href="part1.html">לחלק 1 ←</a></p>
+  <p>עובדים ב־<span class="en">Android Studio</span>, בשפת <span class="en">Java</span>, ואל רכיבי המסך ניגשים רק דרך <span class="en">ViewBinding</span>.</p>
 </main>
 
+<script src="script.js"></script>
 </body>
 </html>

@@ -4,12 +4,13 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>חלק 2 · AlertDialog | תפריטים ותיבות דו־שיח</title>
+  <script>try{var t=localStorage.getItem("md-theme");if(t)document.documentElement.setAttribute("data-theme",t);}catch(e){}</script>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans+Hebrew:wght@400;500;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@500;700&family=Rubik:wght@400;500;600;700;800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="style.css">
 </head>
-<body class="p2" data-prev="part1.html#last" data-next="index.html" data-next-label="לדף הפתיחה">
+<body class="p2" data-prev="part1.html#last" data-next="index.html" data-next-label="סיימתי, חזרה לפתיחה">
 
 <header class="site-header">
   <div class="header-inner">
@@ -19,6 +20,7 @@
       <a href="part1.html">חלק 1</a>
       <a class="current" href="part2.html">חלק 2</a>
     </nav>
+    <button class="theme-btn" type="button"></button>
   </div>
   <div class="progress-wrap">
     <div class="progress-label">
@@ -34,25 +36,26 @@
   <!-- 1 -->
   <section class="screen" data-title="מה בונים">
     <div class="split">
-      <div>
+      <div class="say">
         <span class="kicker">חלק 2</span>
         <h2><span class="en">AlertDialog</span></h2>
-        <p class="lead">ממשיכים בפרויקט של חלק 1. כפתור חדש, "נקה הודעה", מציג תיבת אישור לפני שהטקסט נמחק.</p>
+        <p class="lead">תיבה קטנה שקופצת ושואלת לפני שעושים משהו. נוסיף לפרויקט מחלק 1 כפתור "נקה הודעה", והתיבה תבקש אישור לפני המחיקה.</p>
       </div>
       <div class="show">
-        <div class="phone demo-dialog" aria-hidden="true">
+        <div class="phone live" data-live="dialog">
           <div class="p-toolbar"><span>MenuDialogDemo</span><span class="p-dots"><i></i><i></i><i></i></span></div>
           <div class="p-body">
-            <div class="p-status" style="margin-top:3em"><span class="s-before">בחרת: אודות</span></div>
-            <div style="margin-top:1.8em"><span class="p-btn">נקה הודעה</span></div>
+            <div class="p-status" style="margin-top:3em" aria-live="polite">בחרת: אודות</div>
+            <div style="margin-top:1.8em"><button class="p-btn" type="button">נקה הודעה</button></div>
           </div>
           <div class="p-scrim"></div>
           <div class="p-dialog">
             <div class="t">ניקוי הודעה</div>
             <div class="m">לנקות את ההודעה שעל המסך?</div>
-            <div class="b"><span>לא</span><span class="yes">כן</span></div>
+            <div class="b"><button type="button" data-a="no">לא</button><button type="button" data-a="yes">כן</button></div>
           </div>
         </div>
+        <div class="cap hint">נסו בעצמכם: לחצו על הכפתור</div>
       </div>
     </div>
   </section>
@@ -60,9 +63,9 @@
   <!-- 2 -->
   <section class="screen" data-title="צעד 1 · כפתור">
     <div class="split">
-      <div>
-        <span class="kicker">צעד 1 מתוך 4</span>
-        <h2>כפתור במסך</h2>
+      <div class="say">
+        <span class="kicker"><b>1</b>צעד 1 מתוך 4</span>
+        <h2>מוסיפים כפתור</h2>
         <p class="lead">הוסיפו ל־<code>activity_main.xml</code>, מתחת ל־<code>TextView</code>.</p>
       </div>
       <div class="show">
@@ -90,13 +93,13 @@
   <!-- 3 -->
   <section class="screen" data-title="צעד 2 · לחיצה">
     <div class="split">
-      <div>
-        <span class="kicker">צעד 2 מתוך 4</span>
+      <div class="say">
+        <span class="kicker"><b>2</b>צעד 2 מתוך 4</span>
         <h2>מאזינים ללחיצה</h2>
-        <p class="lead">לחיצה על הכפתור קוראת לפעולה <code>showClearDialog</code>.</p>
+        <p class="lead">לחיצה על הכפתור מפעילה פעולה שתציג את התיבה.</p>
         <ol>
-          <li>השורה הראשונה: בסוף <code>onCreate</code>.</li>
-          <li>הפעולה הריקה: בתוך המחלקה, מחוץ ל־<code>onCreate</code>.</li>
+          <li>את השורה הראשונה שמים בסוף <code>onCreate</code>.</li>
+          <li>את הפעולה הריקה שמים בתוך המחלקה, מחוץ ל־<code>onCreate</code>.</li>
         </ol>
       </div>
       <div class="show">
@@ -126,11 +129,11 @@
   <!-- 4 -->
   <section class="screen" data-title="צעד 3 · התיבה">
     <div class="split">
-      <div>
-        <span class="kicker">צעד 3 מתוך 4</span>
-        <h2>כותרת והודעה</h2>
-        <p class="lead">בונים את התיבה עם <code>AlertDialog.Builder</code>, ומסיימים ב־<code>show()</code>.</p>
-        <p>מלאו את הפעולה, והוסיפו את ה־<span class="en">import</span>.</p>
+      <div class="say">
+        <span class="kicker"><b>3</b>צעד 3 מתוך 4</span>
+        <h2>בונים את התיבה</h2>
+        <p class="lead">בונים עם <code>AlertDialog.Builder</code>: קודם כותרת, אחר כך הודעה, ובסוף <code>show()</code>.</p>
+        <p>מלאו את הפעולה והוסיפו את ה־<span class="en">import</span>.</p>
       </div>
       <div class="show">
         <div class="phone small demo-simple" aria-hidden="true">
@@ -161,16 +164,16 @@
       <div class="code-head"><span>import</span><button class="copy-btn" type="button">העתקה</button></div>
 <pre><code>import androidx.appcompat.app.AlertDialog;</code></pre>
     </div>
-    <div class="warn-box">יש שני <code>AlertDialog</code>. בחרו בזה של <code>androidx.appcompat.app</code>.</div>
+    <div class="warn-box"><span class="en">Android Studio</span> יציע שני <code>AlertDialog</code>. בחרו בזה של <code>androidx.appcompat.app</code>.</div>
   </section>
 
   <!-- 5 -->
   <section class="screen" data-title="צעד 4 · כפתורים">
     <div class="split">
-      <div>
-        <span class="kicker">צעד 4 מתוך 4</span>
-        <h2>כפתורי תשובה</h2>
-        <p class="lead">לכל כפתור מגדירים טקסט ופעולה. אחרי לחיצה התיבה נסגרת מעצמה.</p>
+      <div class="say">
+        <span class="kicker"><b>4</b>צעד 4 מתוך 4</span>
+        <h2>מוסיפים כפתורי תשובה</h2>
+        <p class="lead">לכל כפתור נותנים טקסט ומה לעשות כשלוחצים עליו. את התיבה לא צריך לסגור, היא נסגרת לבד.</p>
         <p>הוסיפו את שתי השורות המסומנות.</p>
       </div>
       <div class="show">
@@ -189,7 +192,7 @@
         </div>
         <div class="results" aria-hidden="true">
           <span class="pill">כן ← הטקסט נמחק</span>
-          <span class="pill">לא ← אין שינוי</span>
+          <span class="pill">לא ← נשאר כמו שהיה</span>
         </div>
       </div>
     </div>
@@ -210,29 +213,32 @@
   <!-- 6 -->
   <section class="screen" data-title="נקודת בדיקה">
     <div class="split">
-      <div>
-        <span class="kicker">נקודת בדיקה</span>
-        <h2>הרצה ובדיקה</h2>
-        <ul class="check">
-          <li>"נקה הודעה" מקפיץ תיבה, והמסך מאחור מתכהה.</li>
-          <li>"לא": הטקסט נשאר.</li>
-          <li>"כן": הטקסט נמחק.</li>
+      <div class="say">
+        <span class="kicker ok"><b>✓</b>נקודת בדיקה</span>
+        <h2>עובד אצלכם?</h2>
+        <p class="lead">הריצו את האפליקציה וסמנו כל דבר שקורה:</p>
+        <ul class="check live">
+          <li><button type="button">"נקה הודעה" מקפיץ תיבה, והמסך מאחוריה מתכהה.</button></li>
+          <li><button type="button">לחיצה על "לא" משאירה את הטקסט.</button></li>
+          <li><button type="button">לחיצה על "כן" מוחקת את הטקסט.</button></li>
         </ul>
+        <span class="all-good" role="status">יפה מאוד, ממשיכים למשימה</span>
       </div>
       <div class="show">
-        <div class="phone demo-dialog" aria-hidden="true">
+        <div class="phone live" data-live="dialog">
           <div class="p-toolbar"><span>MenuDialogDemo</span><span class="p-dots"><i></i><i></i><i></i></span></div>
           <div class="p-body">
-            <div class="p-status" style="margin-top:3em"><span class="s-before">בחרת: אודות</span></div>
-            <div style="margin-top:1.8em"><span class="p-btn">נקה הודעה</span></div>
+            <div class="p-status" style="margin-top:3em" aria-live="polite">בחרת: אודות</div>
+            <div style="margin-top:1.8em"><button class="p-btn" type="button">נקה הודעה</button></div>
           </div>
           <div class="p-scrim"></div>
           <div class="p-dialog">
             <div class="t">ניקוי הודעה</div>
             <div class="m">לנקות את ההודעה שעל המסך?</div>
-            <div class="b"><span>לא</span><span class="yes">כן</span></div>
+            <div class="b"><button type="button" data-a="no">לא</button><button type="button" data-a="yes">כן</button></div>
           </div>
         </div>
+        <div class="cap">ככה זה אמור להתנהג</div>
       </div>
     </div>
 
@@ -244,13 +250,14 @@
       3. מעבר קצר על showClearDialog: איזו שורה אחראית לכל אזור בתיבה.
       כדי להוסיף: להחליף את ה-div הבא בתגית video או ב-iframe.
     -->
-    <div class="video-slot">כאן אוסיף סרטון הדגמה</div>
+    <div class="video-slot"><div class="play"></div>כאן אעלה סרטון הדגמה</div>
   </section>
 
   <!-- 7 -->
   <section class="screen" data-title="טעויות נפוצות">
-    <span class="kicker">אם משהו לא עובד</span>
+    <span class="kicker warn"><b>?</b>נתקעתם</span>
     <h2>טעויות נפוצות</h2>
+    <p class="lead">לחצו על מה שקורה אצלכם.</p>
 
     <details>
       <summary>לוחצים ושום דבר לא קופץ</summary>
@@ -270,24 +277,24 @@
     </details>
     <details>
       <summary>לחיצה מחוץ לתיבה סוגרת אותה</summary>
-      <p>כך זה עובד. כדי למנוע, הוסיפו <code>.setCancelable(false)</code> לפני <code>.show()</code>.</p>
+      <p>ככה זה אמור לעבוד. אם רוצים למנוע את זה, מוסיפים <code>.setCancelable(false)</code> לפני <code>.show()</code>.</p>
     </details>
   </section>
 
   <!-- 8 -->
   <section class="screen" data-title="משימת הגשה">
     <div class="split">
-      <div>
-        <span class="kicker">משימת הגשה · חלק 2</span>
-        <h2>אישור יציאה</h2>
-        <p>בחירה ב"יציאה" מציגה תיבת אישור, ורק אחריה המסך נסגר.</p>
+      <div class="say">
+        <span class="kicker"><b>!</b>משימת הגשה · חלק 2</span>
+        <h2>עכשיו אתם: לשאול לפני שיוצאים</h2>
+        <p>בחלק 1 "יציאה" רק החליפה טקסט. עכשיו היא תשאל, ורק אז תסגור את המסך.</p>
         <ul class="check">
-          <li>פעולה חדשה: <code>showExitDialog</code>.</li>
+          <li>פעולה חדשה בשם <code>showExitDialog</code>.</li>
           <li>תיבה עם כותרת, הודעה ושני כפתורים, בניסוח שלכם.</li>
           <li>הכפתור החיובי סוגר את המסך עם <code>finish()</code>.</li>
           <li>קוראים לפעולה מהתנאי של <code>action_exit</code>.</li>
         </ul>
-        <div class="tip"><strong>הגשה:</strong> מעלים את השינויים לאותו <span class="en">repository</span> ב־<span class="en">GitHub</span> ומגישים לי את הקישור.</div>
+        <div class="tip send">מעלים את השינויים לאותו <span class="en">repository</span> ב־<span class="en">GitHub</span> ושולחים לי את הקישור.</div>
       </div>
       <div class="show">
         <div class="phone demo-exit" aria-hidden="true">
@@ -309,9 +316,11 @@
 
   <!-- 9 -->
   <section class="screen" data-title="סוגים נוספים">
-    <span class="kicker">להיכרות בלבד</span>
-    <h2>סוגי תיבות דו־שיח נוספים</h2>
-    <p>לא חלק מההגשה.</p>
+    <div class="say">
+      <span class="kicker">להכיר</span>
+      <h2>עוד סוגי תיבות דו־שיח</h2>
+      <p class="lead">רק כדי שתדעו שהם קיימים. אין עליהם משימה.</p>
+    </div>
 
     <div class="types">
       <div class="type">
@@ -320,9 +329,9 @@
           <div class="p-scrim"></div>
           <div class="p-dialog">
             <div class="t">בחרו צבע</div>
-            <div style="padding:0.3em 0.4em">אדום</div>
-            <div class="pick" style="padding:0.3em 0.4em">ירוק</div>
-            <div style="padding:0.3em 0.4em">כחול</div>
+            <div style="padding:0.3em 0.5em">אדום</div>
+            <div class="pick" style="padding:0.3em 0.5em">ירוק</div>
+            <div style="padding:0.3em 0.5em">כחול</div>
           </div>
         </div>
         <h3>List dialog</h3>
