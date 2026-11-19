@@ -8,7 +8,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@500;700&family=Rubik:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="style.css?v=8">
+  <link rel="stylesheet" href="style.css?v=9">
 </head>
 <body class="p1" data-prev="index.html" data-next="part2.html" data-next-label="לחלק 2 ←">
 
@@ -188,8 +188,6 @@
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.example.menudialogdemo.databinding.ActivityMainBinding;
-
 public class MainActivity extends AppCompatActivity {
 
     private ActivityMainBinding binding;
@@ -210,7 +208,7 @@ public class MainActivity extends AppCompatActivity {
       <div><dt><code>getRoot()</code></dt><dd>הרכיב החיצוני ביותר במסך. אצלנו זה ה־<code>LinearLayout</code>.</dd></div>
       <div><dt><code>setSupportActionBar</code></dt><dd>קובע שה־<span class="en">Toolbar</span> שלנו הוא הסרגל העליון. בלי זה אין תפריט.</dd></div>
     </dl>
-    <div class="warn-box">ה־<span class="en">import</span> של <code>ActivityMainBinding</code> אדום? מחקו אותו, עמדו על שם המחלקה ולחצו <kbd>Alt+Enter</kbd>.</div>
+    <div class="warn-box">אחרי ההדבקה <code>ActivityMainBinding</code> יסומן באדום, כי ה־<span class="en">import</span> שלו תלוי בשם הפרויקט שלכם. עמדו על השם, לחצו <kbd>Alt+Enter</kbd> ובחרו <span class="en">Import class</span>.</div>
   </section>
 
   <!-- 5 -->
@@ -218,10 +216,12 @@ public class MainActivity extends AppCompatActivity {
     <div class="split">
       <div class="say">
         <span class="kicker"><b>4</b>צעד 4 מתוך 6</span>
-        <h2>יוצרים את קובץ התפריט</h2>
+        <h2>תיקייה וקובץ לתפריט</h2>
         <ol>
-          <li>לחיצה ימנית על <code>res</code>, ואז <span class="en">New → Android Resource File</span>.</li>
-          <li>ממלאים <code>File name: main_menu</code> ו־<code>Resource type: Menu</code>.</li>
+          <li>קודם יוצרים תיקייה: לחיצה ימנית על <code>res</code>, ואז <span class="en">New → Android Resource Directory</span>.</li>
+          <li>בשדה <span class="en">Resource type</span> בוחרים <code>menu</code> ולוחצים <span class="en">OK</span>. נוצרה התיקייה <code>res/menu</code>.</li>
+          <li>עכשיו הקובץ: לחיצה ימנית על התיקייה <code>menu</code>, ואז <span class="en">New → Menu Resource File</span>.</li>
+          <li>בשדה <span class="en">File name</span> כותבים <code>main_menu</code> ולוחצים <span class="en">OK</span>.</li>
           <li>מדביקים בקובץ שנוצר את הקוד שלמטה.</li>
         </ol>
       </div>
@@ -533,6 +533,6 @@ public boolean onOptionsItemSelected(MenuItem item) {
 
 </main>
 
-<script src="script.js?v=8"></script>
+<script src="script.js?v=9"></script>
 </body>
 </html>
